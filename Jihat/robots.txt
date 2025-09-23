@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://dcteknik.com/sitemap.xml
+
+# Dinamocu Serdar - DC TEKNİK
+# Sultanbeyli'nin güvenilir dinamocu servisi 

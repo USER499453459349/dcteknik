@@ -1,0 +1,50 @@
+<svg width="150" height="50" viewBox="0 0 150 50" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ea580c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ea580c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle for icon -->
+  <circle cx="25" cy="25" r="20" fill="url(#iconGradient)" opacity="0.1"/>
+  
+  <!-- Dynamo/Generator icon -->
+  <g transform="translate(10, 10)">
+    <!-- Outer ring -->
+    <circle cx="15" cy="15" r="10" fill="none" stroke="url(#iconGradient)" stroke-width="2"/>
+    
+    <!-- Inner gear -->
+    <g transform="translate(15, 15)">
+      <!-- Gear teeth -->
+      <rect x="-1" y="-7" width="2" height="3" fill="url(#iconGradient)"/>
+      <rect x="-1" y="4" width="2" height="3" fill="url(#iconGradient)"/>
+      <rect x="-7" y="-1" width="3" height="2" fill="url(#iconGradient)"/>
+      <rect x="4" y="-1" width="3" height="2" fill="url(#iconGradient)"/>
+      
+      <!-- Center circle -->
+      <circle cx="0" cy="0" r="2.5" fill="url(#iconGradient)"/>
+    </g>
+    
+    <!-- Electrical sparks -->
+    <g stroke="url(#iconGradient)" stroke-width="1" fill="none" opacity="0.8">
+      <path d="M22,6 L24,4 M22,24 L24,26 M8,6 L6,4 M8,24 L6,26"/>
+    </g>
+  </g>
+  
+  <!-- Company name -->
+  <text x="55" y="22" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="url(#logoGradient)">
+    DC TEKNİK
+  </text>
+  
+  <!-- Tagline -->
+  <text x="55" y="35" font-family="Arial, sans-serif" font-size="9" font-weight="400" fill="#64748b">
+    Dinamocu Serdar
+  </text>
+</svg>
+
+
