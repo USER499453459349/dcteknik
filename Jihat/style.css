@@ -98,6 +98,26 @@ body {
     display: flex;
     align-items: center;
     background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+    animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(1deg); }
+}
     color: white;
     position: relative;
     overflow: hidden;
@@ -131,6 +151,23 @@ body {
     font-weight: 700;
     margin-bottom: 1.5rem;
     line-height: 1.2;
+    animation: slideInUp 1s ease-out 0.3s both;
+    background: linear-gradient(45deg, #ffffff, #f1f5f9, #e2e8f0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-content p {
@@ -138,12 +175,14 @@ body {
     margin-bottom: 2rem;
     opacity: 0.9;
     line-height: 1.6;
+    animation: slideInUp 1s ease-out 0.6s both;
 }
 
 .hero-stats {
     display: flex;
     gap: 2rem;
     margin-bottom: 2rem;
+    animation: slideInUp 1s ease-out 0.9s both;
 }
 
 .stat {
@@ -165,6 +204,7 @@ body {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    animation: slideInUp 1s ease-out 1.2s both;
 }
 
 .btn {
@@ -172,11 +212,28 @@ body {
     border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: inline-block;
     border: none;
     cursor: pointer;
     font-size: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn-primary {
@@ -185,9 +242,9 @@ body {
 }
 
 .btn-primary:hover {
-    background: #dc2626;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(234, 88, 12, 0.3);
+    background: linear-gradient(45deg, #dc2626, #ea580c);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(234, 88, 12, 0.4);
 }
 
 .btn-secondary {
@@ -199,7 +256,8 @@ body {
 .btn-secondary:hover {
     background: white;
     color: #0f172a;
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(255, 255, 255, 0.3);
 }
 
 .hero-image {
@@ -215,6 +273,24 @@ body {
     border-radius: 20px;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: slideInRight 1s ease-out 0.5s both;
+    transition: all 0.3s ease;
+}
+
+.hero-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .hero-card i {
@@ -254,11 +330,29 @@ body {
     background: white;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.contact-item:hover::before {
+    left: 100%;
 }
 
 .contact-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .contact-item i {
