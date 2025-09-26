@@ -184,9 +184,17 @@ const translations = {
                 },
                 map: {
                     title: "Konumumuz",
+                    description: "Sultanbeyli'de kolay ulaşılabilir konumumuzda hizmet veriyoruz. Detaylı harita ile konumumuzu görüntüleyebilir, yol tarifi alabilirsiniz.",
+                    directions: "Yol Tarifi Al",
+                    openMaps: "Google Maps'te Aç",
+                    addressTitle: "Adres",
                     address: "Atatürk Cad. No:312, Sultanbeyli / İstanbul",
+                    phoneTitle: "Telefon",
                     phone: "+90 535 356 24 69",
-                    hours: "Pazartesi - Cumartesi: 09:00 - 18:00"
+                    hoursTitle: "Çalışma Saatleri",
+                    hours: "Pazartesi - Cumartesi: 09:00 - 18:00",
+                    parkingTitle: "Otopark",
+                    parking: "Ücretsiz Otopark Mevcut"
                 }
         },
         
