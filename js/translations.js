@@ -14,19 +14,26 @@ const translations = {
         
         // Hero Section
         hero: {
-            title: "Dinamocu Serdar - Sultanbeyli",
-            subtitle: "15 yıllık deneyimimizle dinamo, alternatör ve marş motoru tamirinde uzmanız. Sultanbeyli'nin güvenilir dinamocu servisi. Kaliteli hizmet, uygun fiyat.",
+            badge: "15 Yıllık Deneyim",
+            title: "Dinamocu Serdar",
+            subtitle: "Sultanbeyli'nin Güvenilir Dinamo Servisi",
+            description: "Dinamo, alternatör ve marş motoru tamirinde uzman ekibimizle kaliteli hizmet sunuyoruz. Hızlı çözüm, uygun fiyat garantisi.",
+            feature1: "Profesyonel Ekipman",
+            feature2: "Hızlı Servis",
+            feature3: "Garanti",
             stats: {
                 experience: "Yıl Deneyim",
                 customers: "Memnun Müşteri",
-                service: "Hizmet"
+                service: "Destek",
+                rating: "Müşteri Puanı"
             },
             buttons: {
                 call: "Hemen Ara",
                 services: "Hizmetlerimiz"
             },
             card: {
-                title: "Profesyonel Servis"
+                title: "Profesyonel Servis",
+                subtitle: "Tüm marka ve modeller"
             }
         },
         
@@ -56,19 +63,26 @@ const translations = {
         
         // Hero Section
         hero: {
-            title: "Dinamocu Serdar - Sultanbeyli",
-            subtitle: "Bi 15 sal tecrubeya me, em di tamîrkirina dinamo, alternator û motorê destpêkê de pispor in. Xizmeta dinamo ya pêbawer a Sultanbeyli. Xizmeta kalîte, bihayê guncav.",
+            badge: "15 Sal Tecrube",
+            title: "Dinamocu Serdar",
+            subtitle: "Xizmeta Dinamo ya Pêbawer a Sultanbeyli",
+            description: "Bi ekipeke pispor a me, em xizmeta kalîte di tamîrkirina dinamo, alternator û motorê destpêkê de pêşkêş dikin. Çareseriya bilez, garantiya bihayê guncav.",
+            feature1: "Amûrên Profesyonel",
+            feature2: "Xizmeta Bilez",
+            feature3: "Garantî",
             stats: {
                 experience: "Sal Tecrube",
                 customers: "Mişterî Memnûn",
-                service: "Xizmet"
+                service: "Alîkarî",
+                rating: "Pûana Mişterî"
             },
             buttons: {
                 call: "Banga Bikin",
                 services: "Xizmetên Me"
             },
             card: {
-                title: "Xizmeta Profesyonel"
+                title: "Xizmeta Profesyonel",
+                subtitle: "Hemû marka û model"
             }
         },
         
@@ -98,19 +112,26 @@ const translations = {
         
         // Hero Section
         hero: {
-            title: "Dinamocu Serdar - Sultanbeyli",
-            subtitle: "With 15 years of experience, we are experts in dynamo, alternator and starter motor repair. Sultanbeyli's reliable dynamo service. Quality service, affordable price.",
+            badge: "15 Years Experience",
+            title: "Dinamocu Serdar",
+            subtitle: "Sultanbeyli's Reliable Dynamo Service",
+            description: "With our expert team, we provide quality service in dynamo, alternator and starter motor repair. Fast solution, affordable price guarantee.",
+            feature1: "Professional Equipment",
+            feature2: "Fast Service",
+            feature3: "Warranty",
             stats: {
                 experience: "Years Experience",
                 customers: "Satisfied Customers",
-                service: "Service"
+                service: "Support",
+                rating: "Customer Rating"
             },
             buttons: {
                 call: "Call Now",
                 services: "Our Services"
             },
             card: {
-                title: "Professional Service"
+                title: "Professional Service",
+                subtitle: "All brands and models"
             }
         },
         
