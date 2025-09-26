@@ -23,14 +23,23 @@
                     <span>Dinamocu Serdar</span>
                 </div>
                 <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link">Ana Sayfa</a></li>
-                    <li><a href="#products" class="nav-link">Ürünlerimiz</a></li>
-                    <li><a href="#services" class="nav-link">Hizmetlerimiz</a></li>
-                    <li><a href="#gallery" class="nav-link">Galeri</a></li>
-                    <li><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li><a href="#about" class="nav-link">Hakkımızda</a></li>
-                    <li><a href="#contact" class="nav-link">İletişim</a></li>
+                    <li><a href="#home" class="nav-link" data-translate="nav.home">Ana Sayfa</a></li>
+                    <li><a href="#products" class="nav-link" data-translate="nav.products">Ürünlerimiz</a></li>
+                    <li><a href="#services" class="nav-link" data-translate="nav.services">Hizmetlerimiz</a></li>
+                    <li><a href="#gallery" class="nav-link" data-translate="nav.gallery">Galeri</a></li>
+                    <li><a href="blog.html" class="nav-link" data-translate="nav.blog">Blog</a></li>
+                    <li><a href="#about" class="nav-link" data-translate="nav.about">Hakkımızda</a></li>
+                    <li><a href="#contact" class="nav-link" data-translate="nav.contact">İletişim</a></li>
                 </ul>
+                <div class="language-selector">
+                    <select id="languageSelect" class="language-dropdown">
+                        <option value="tr">🇹🇷 Türkçe</option>
+                        <option value="ku">🇰🇷 Kurdî</option>
+                        <option value="en">🇺🇸 English</option>
+                        <option value="ru">🇷🇺 Русский</option>
+                        <option value="ar">🇸🇦 العربية</option>
+                    </select>
+                </div>
                 <div class="nav-toggle">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -44,31 +53,31 @@
     <section id="home" class="hero">
         <div class="hero-container">
             <div class="hero-content">
-                <h1>Dinamocu Serdar - Sultanbeyli</h1>
-                <p>15 yıllık deneyimimizle dinamo, alternatör ve marş motoru tamirinde uzmanız. Sultanbeyli'nin güvenilir dinamocu servisi. Kaliteli hizmet, uygun fiyat.</p>
+                <h1 data-translate="hero.title">Dinamocu Serdar - Sultanbeyli</h1>
+                <p data-translate="hero.subtitle">15 yıllık deneyimimizle dinamo, alternatör ve marş motoru tamirinde uzmanız. Sultanbeyli'nin güvenilir dinamocu servisi. Kaliteli hizmet, uygun fiyat.</p>
                 <div class="hero-stats">
                     <div class="stat">
                         <h3>15+</h3>
-                        <p>Yıl Deneyim</p>
+                        <p data-translate="hero.stats.experience">Yıl Deneyim</p>
                     </div>
                     <div class="stat">
                         <h3>5000+</h3>
-                        <p>Memnun Müşteri</p>
+                        <p data-translate="hero.stats.customers">Memnun Müşteri</p>
                     </div>
                     <div class="stat">
                         <h3>24/7</h3>
-                        <p>Hizmet</p>
+                        <p data-translate="hero.stats.service">Hizmet</p>
                     </div>
                 </div>
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Hemen Ara</a>
-                    <a href="#services" class="btn btn-secondary">Hizmetlerimiz</a>
+                    <a href="#contact" class="btn btn-primary" data-translate="hero.buttons.call">Hemen Ara</a>
+                    <a href="#services" class="btn btn-secondary" data-translate="hero.buttons.services">Hizmetlerimiz</a>
                 </div>
             </div>
             <div class="hero-image">
                 <div class="hero-card">
                     <i class="fas fa-cog"></i>
-                    <h3>Profesyonel Servis</h3>
+                    <h3 data-translate="hero.card.title">Profesyonel Servis</h3>
                 </div>
             </div>
         </div>
@@ -81,29 +90,29 @@
                 <div class="contact-item">
                     <i class="fas fa-phone"></i>
                     <div>
-                        <h4>Telefon</h4>
+                        <h4 data-translate="quickContact.phone">Telefon</h4>
                         <p><a href="tel:+905353562469">0535 356 24 69</a></p>
                     </div>
                 </div>
                 <div class="contact-item">
                     <i class="fab fa-whatsapp"></i>
                     <div>
-                        <h4>WhatsApp</h4>
+                        <h4 data-translate="quickContact.whatsapp">WhatsApp</h4>
                         <p><a href="https://wa.me/905353562469?text=Merhaba, dinamocu servisi hakkında bilgi almak istiyorum." target="_blank">0535 356 24 69</a></p>
                     </div>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-map-marker-alt"></i>
                     <div>
-                        <h4>Adres</h4>
-                        <p>Atatürk Cad. No:312, Sultanbeyli / İstanbul</p>
+                        <h4 data-translate="quickContact.address">Adres</h4>
+                        <p data-translate="quickContact.addressText">Atatürk Cad. No:312, Sultanbeyli / İstanbul</p>
                     </div>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-clock"></i>
                     <div>
-                        <h4>Çalışma Saatleri</h4>
-                        <p>Pazartesi - Cumartesi: 09:00-18:00</p>
+                        <h4 data-translate="quickContact.hours">Çalışma Saatleri</h4>
+                        <p data-translate="quickContact.hoursText">Pazartesi - Cumartesi: 09:00-18:00</p>
                     </div>
                 </div>
             </div>
@@ -524,7 +533,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="js/language-switcher.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html> 
