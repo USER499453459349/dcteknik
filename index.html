@@ -535,5 +535,20 @@
 
     <script src="js/translations.js"></script>
     <script src="js/script.js"></script>
+    <script>
+        // Debug: Check if translations are loaded
+        console.log('Translations loaded:', typeof translations !== 'undefined');
+        console.log('Available languages:', translations ? Object.keys(translations) : 'Not loaded');
+        
+        // Test language change
+        window.testLanguageChange = function(lang) {
+            console.log('Testing language change to:', lang);
+            if (typeof changeLanguage === 'function') {
+                changeLanguage(lang);
+            } else {
+                console.error('changeLanguage function not found');
+            }
+        };
+    </script>
 </body>
 </html> 

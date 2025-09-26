@@ -941,14 +941,6 @@ const translations = {
     }
 };
 
-// Language direction mapping
-const languageDirections = {
-    tr: 'ltr',
-    en: 'ltr',
-    ku: 'ltr', // Kurdish is typically written LTR, but can be RTL for some dialects
-    ru: 'ltr'  // Russian is written LTR
-    },
-
     // Kurdish (Kurmanci) - Kürtçe
     ku: {
         // Navigation
