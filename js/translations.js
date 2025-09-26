@@ -14,26 +14,26 @@ const translations = {
         
         // Hero Section
         hero: {
-            badge: "15 Yıllık Deneyim",
+            badge: "15 Yıllık Otomotiv Deneyimi",
             title: "Dinamocu Serdar",
-            subtitle: "Sultanbeyli'nin Güvenilir Dinamo Servisi",
-            description: "Dinamo, alternatör ve marş motoru tamirinde uzman ekibimizle kaliteli hizmet sunuyoruz. Hızlı çözüm, uygun fiyat garantisi.",
-            feature1: "Profesyonel Ekipman",
-            feature2: "Hızlı Servis",
-            feature3: "Garanti",
+            subtitle: "Sultanbeyli'nin Güvenilir Otomotiv Servisi",
+            description: "Dinamo, alternatör ve marş motoru tamirinde uzman ekibimizle kaliteli hizmet sunuyoruz. Tüm marka araçlar için profesyonel çözümler.",
+            feature1: "Dinamo Tamiri",
+            feature2: "Alternatör Servisi",
+            feature3: "Marş Motoru",
             stats: {
                 experience: "Yıl Deneyim",
-                customers: "Memnun Müşteri",
-                service: "Destek",
-                rating: "Müşteri Puanı"
+                customers: "Tamir Edilen Araç",
+                service: "Acil Servis",
+                rating: "Garanti"
             },
             buttons: {
                 call: "Hemen Ara",
                 services: "Hizmetlerimiz"
             },
             card: {
-                title: "Profesyonel Servis",
-                subtitle: "Tüm marka ve modeller"
+                title: "Otomotiv Uzmanı",
+                subtitle: "Dinamo • Alternatör • Marş Motoru"
             }
         },
         
@@ -63,26 +63,26 @@ const translations = {
         
         // Hero Section
         hero: {
-            badge: "15 Sal Tecrube",
+            badge: "15 Sal Tecrubeya Otomotîv",
             title: "Dinamocu Serdar",
-            subtitle: "Xizmeta Dinamo ya Pêbawer a Sultanbeyli",
-            description: "Bi ekipeke pispor a me, em xizmeta kalîte di tamîrkirina dinamo, alternator û motorê destpêkê de pêşkêş dikin. Çareseriya bilez, garantiya bihayê guncav.",
-            feature1: "Amûrên Profesyonel",
-            feature2: "Xizmeta Bilez",
-            feature3: "Garantî",
+            subtitle: "Xizmeta Otomotîv ya Pêbawer a Sultanbeyli",
+            description: "Bi ekipeke pispor a me, em xizmeta kalîte di tamîrkirina dinamo, alternator û motorê destpêkê de pêşkêş dikin. Ji bo hemû marka erebeyan çareseriyên profesyonel.",
+            feature1: "Tamîrkirina Dinamo",
+            feature2: "Xizmeta Alternator",
+            feature3: "Motora Destpêkê",
             stats: {
                 experience: "Sal Tecrube",
-                customers: "Mişterî Memnûn",
-                service: "Alîkarî",
-                rating: "Pûana Mişterî"
+                customers: "Erebeya Tamîrkirî",
+                service: "Xizmeta Acîl",
+                rating: "Garantî"
             },
             buttons: {
                 call: "Banga Bikin",
                 services: "Xizmetên Me"
             },
             card: {
-                title: "Xizmeta Profesyonel",
-                subtitle: "Hemû marka û model"
+                title: "Pisporê Otomotîv",
+                subtitle: "Dinamo • Alternator • Motora Destpêkê"
             }
         },
         
@@ -112,26 +112,26 @@ const translations = {
         
         // Hero Section
         hero: {
-            badge: "15 Years Experience",
+            badge: "15 Years Automotive Experience",
             title: "Dinamocu Serdar",
-            subtitle: "Sultanbeyli's Reliable Dynamo Service",
-            description: "With our expert team, we provide quality service in dynamo, alternator and starter motor repair. Fast solution, affordable price guarantee.",
-            feature1: "Professional Equipment",
-            feature2: "Fast Service",
-            feature3: "Warranty",
+            subtitle: "Sultanbeyli's Reliable Automotive Service",
+            description: "With our expert team, we provide quality service in dynamo, alternator and starter motor repair. Professional solutions for all vehicle brands.",
+            feature1: "Dynamo Repair",
+            feature2: "Alternator Service",
+            feature3: "Starter Motor",
             stats: {
                 experience: "Years Experience",
-                customers: "Satisfied Customers",
-                service: "Support",
-                rating: "Customer Rating"
+                customers: "Vehicles Repaired",
+                service: "Emergency Service",
+                rating: "Warranty"
             },
             buttons: {
                 call: "Call Now",
                 services: "Our Services"
             },
             card: {
-                title: "Professional Service",
-                subtitle: "All brands and models"
+                title: "Automotive Expert",
+                subtitle: "Dynamo • Alternator • Starter Motor"
             }
         },
         
