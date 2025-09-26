@@ -834,22 +834,36 @@ const translations = {
                 hoursText: "Понедельник - Суббота: 09:00 - 18:00",
                 sunday: "Воскресенье: Закрыто"
             },
-            form: {
-                title: "Отправить Сообщение",
-                name: "Ваше Имя Фамилия",
-                phone: "Ваш Номер Телефона",
-                email: "Ваш Адрес Электронной Почты",
-                message: "Ваше Сообщение",
-                submit: "Отправить Сообщение",
-                service: {
-                    placeholder: "Выберите Услугу",
-                    dinamo: "Ремонт Динамо",
-                    alternator: "Сервис Генератора",
-                    starter: "Стартер",
-                    electrical: "Общая Электрика",
-                    other: "Другое"
+                form: {
+                    title: "Отправить Сообщение",
+                    name: "Ваше Имя Фамилия",
+                    phone: "Ваш Номер Телефона",
+                    email: "Ваш Адрес Электронной Почты",
+                    message: "Ваше Сообщение",
+                    submit: "Отправить Сообщение",
+                    service: {
+                        placeholder: "Выберите Услугу",
+                        dinamo: "Ремонт Динамо",
+                        alternator: "Сервис Генератора",
+                        starter: "Стартер",
+                        electrical: "Общая Электрика",
+                        other: "Другое"
+                    }
+                },
+                map: {
+                    title: "Наше Местоположение",
+                    description: "Мы предоставляем услуги в нашем легко доступном месте в Султанбейли. Вы можете просмотреть наше местоположение с подробной картой и получить маршрут.",
+                    directions: "Получить Маршрут",
+                    openMaps: "Открыть в Google Maps",
+                    addressTitle: "Адрес",
+                    address: "Atatürk Cad. No:312, Sultanbeyli / İstanbul",
+                    phoneTitle: "Телефон",
+                    phone: "+90 535 356 24 69",
+                    hoursTitle: "Часы Работы",
+                    hours: "Понедельник - Суббота: 09:00 - 18:00",
+                    parkingTitle: "Парковка",
+                    parking: "Бесплатная Парковка Доступна"
                 }
-            }
         },
         
         // Footer
@@ -1042,22 +1056,36 @@ const translations = {
                 hoursText: "الاثنين - السبت: 09:00 - 18:00",
                 sunday: "الأحد: مغلق"
             },
-            form: {
-                title: "إرسال رسالة",
-                name: "اسمك الكامل",
-                phone: "رقم هاتفك",
-                email: "عنوان بريدك الإلكتروني",
-                message: "رسالتك",
-                submit: "إرسال رسالة",
-                service: {
-                    placeholder: "اختر الخدمة",
-                    dinamo: "إصلاح الدينامو",
-                    alternator: "خدمة المولد",
-                    starter: "محرك البدء",
-                    electrical: "الكهرباء العامة",
-                    other: "أخرى"
+                form: {
+                    title: "إرسال رسالة",
+                    name: "اسمك الكامل",
+                    phone: "رقم هاتفك",
+                    email: "عنوان بريدك الإلكتروني",
+                    message: "رسالتك",
+                    submit: "إرسال رسالة",
+                    service: {
+                        placeholder: "اختر الخدمة",
+                        dinamo: "إصلاح الدينامو",
+                        alternator: "خدمة المولد",
+                        starter: "محرك البدء",
+                        electrical: "الكهرباء العامة",
+                        other: "أخرى"
+                    }
+                },
+                map: {
+                    title: "موقعنا",
+                    description: "نقدم الخدمة في موقعنا سهل الوصول في سلطان بيلي. يمكنك عرض موقعنا بالخريطة التفصيلية والحصول على الاتجاهات.",
+                    directions: "احصل على الاتجاهات",
+                    openMaps: "افتح في خرائط جوجل",
+                    addressTitle: "العنوان",
+                    address: "Atatürk Cad. No:312, Sultanbeyli / İstanbul",
+                    phoneTitle: "الهاتف",
+                    phone: "+90 535 356 24 69",
+                    hoursTitle: "ساعات العمل",
+                    hours: "الاثنين - السبت: 09:00 - 18:00",
+                    parkingTitle: "الموقف",
+                    parking: "موقف مجاني متاح"
                 }
-            }
         },
         
         // Footer
