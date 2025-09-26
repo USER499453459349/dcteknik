@@ -231,7 +231,7 @@ function handleFormSubmit(e) {
     const whatsappMessage = createWhatsAppMessage(name, phone, email, service, message);
     
     // Open WhatsApp
-    const whatsappUrl = `https://wa.me/905551234567?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappUrl = `https://wa.me/905353562469?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(whatsappUrl, '_blank');
     
     // Show success message

@@ -185,7 +185,7 @@ const translations = {
                 map: {
                     title: "Konumumuz",
                     address: "Atatürk Cad. No:312, Sultanbeyli / İstanbul",
-                    phone: "+90 555 123 45 67",
+                    phone: "+90 535 356 24 69",
                     hours: "Pazartesi - Cumartesi: 09:00 - 18:00"
                 }
         },
