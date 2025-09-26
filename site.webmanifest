@@ -1,0 +1,22 @@
+{
+    "name": "DC TEKNİK - Dinamocu Serdar",
+    "short_name": "DC TEKNİK",
+    "description": "Sultanbeyli'nin güvenilir dinamocu servisi. Dinamo tamiri, alternatör onarımı, marş motoru servisi.",
+    "icons": [
+        {
+            "src": "favicon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "favicon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#1e3a8a",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "start_url": "/",
+    "scope": "/"
+}
