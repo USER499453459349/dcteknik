@@ -152,11 +152,14 @@ body {
     margin-bottom: 1.5rem;
     line-height: 1.2;
     animation: slideInUp 1s ease-out 0.3s both;
+    color: #ffffff;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     background: linear-gradient(45deg, #ffffff, #f1f5f9, #e2e8f0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* Fallback for browsers that don't support background-clip */
+    -webkit-text-fill-color: #ffffff;
 }
 
 @keyframes slideInUp {
@@ -173,9 +176,11 @@ body {
 .hero-content p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
-    opacity: 0.9;
+    color: #ffffff;
+    opacity: 0.95;
     line-height: 1.6;
     animation: slideInUp 1s ease-out 0.6s both;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-stats {
@@ -197,7 +202,9 @@ body {
 
 .stat p {
     font-size: 0.9rem;
-    opacity: 0.8;
+    color: #ffffff;
+    opacity: 0.9;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .hero-buttons {
@@ -302,6 +309,8 @@ body {
 .hero-card h3 {
     font-size: 1.5rem;
     font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Quick Contact */
