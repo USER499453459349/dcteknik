@@ -62,6 +62,17 @@ function changeLanguage(language) {
                    element.placeholder = translation;
                }
            });
+           
+           // Handle select option translations
+           const selectOptions = document.querySelectorAll('option[data-translate]');
+           selectOptions.forEach(option => {
+               const key = option.getAttribute('data-translate');
+               const translation = getTranslation(key, language);
+               
+               if (translation) {
+                   option.textContent = translation;
+               }
+           });
     
     // Update page title
     const titleTranslation = getTranslation('hero.title', language);
