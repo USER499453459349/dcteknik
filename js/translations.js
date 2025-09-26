@@ -389,22 +389,36 @@ const translations = {
                 hoursText: "Duşem - Şemî: 09:00 - 18:00",
                 sunday: "Yekşem: Girtî"
             },
-            form: {
-                title: "Peyam Bişînin",
-                name: "Nav û Paşnavê We",
-                phone: "Hejmara Telefonê We",
-                email: "Navnîşana E-postayê We",
-                message: "Peyama We",
-                submit: "Peyam Bişînin",
-                service: {
-                    placeholder: "Xizmetek Hilbijêrin",
-                    dinamo: "Tamîrkirina Dinamo",
-                    alternator: "Xizmeta Alternator",
-                    starter: "Motora Destpêkê",
-                    electrical: "Elektrikê Giştî",
-                    other: "Yên Din"
+                form: {
+                    title: "Peyam Bişînin",
+                    name: "Nav û Paşnavê We",
+                    phone: "Hejmara Telefonê We",
+                    email: "Navnîşana E-postayê We",
+                    message: "Peyama We",
+                    submit: "Peyam Bişînin",
+                    service: {
+                        placeholder: "Xizmetek Hilbijêrin",
+                        dinamo: "Tamîrkirina Dinamo",
+                        alternator: "Xizmeta Alternator",
+                        starter: "Motora Destpêkê",
+                        electrical: "Elektrikê Giştî",
+                        other: "Yên Din"
+                    }
+                },
+                map: {
+                    title: "Cihê Me",
+                    description: "Li Sultanbeyli'ê li cihê me yê hêsan bigihîjbar xizmet pêşkêş dikin. Bi nexşeya detayî cihê me bibînin, rêbernameya rêyê bistînin.",
+                    directions: "Rêbernameya Rêyê Bistînin",
+                    openMaps: "Di Google Maps'ê de Vekin",
+                    addressTitle: "Navnîşan",
+                    address: "Atatürk Cad. No:312, Sultanbeyli / İstanbul",
+                    phoneTitle: "Telefon",
+                    phone: "+90 535 356 24 69",
+                    hoursTitle: "Saatên Xebatê",
+                    hours: "Duşem - Şemî: 09:00 - 18:00",
+                    parkingTitle: "Parking",
+                    parking: "Parking Belaş Heye"
                 }
-            }
         },
         
         // Footer
@@ -598,22 +612,36 @@ const translations = {
                 hoursText: "Monday - Saturday: 09:00 - 18:00",
                 sunday: "Sunday: Closed"
             },
-            form: {
-                title: "Send Message",
-                name: "Your Name Surname",
-                phone: "Your Phone Number",
-                email: "Your Email Address",
-                message: "Your Message",
-                submit: "Send Message",
-                service: {
-                    placeholder: "Select Service",
-                    dinamo: "Dynamo Repair",
-                    alternator: "Alternator Service",
-                    starter: "Starter Motor",
-                    electrical: "General Electrical",
-                    other: "Other"
+                form: {
+                    title: "Send Message",
+                    name: "Your Name Surname",
+                    phone: "Your Phone Number",
+                    email: "Your Email Address",
+                    message: "Your Message",
+                    submit: "Send Message",
+                    service: {
+                        placeholder: "Select Service",
+                        dinamo: "Dynamo Repair",
+                        alternator: "Alternator Service",
+                        starter: "Starter Motor",
+                        electrical: "General Electrical",
+                        other: "Other"
+                    }
+                },
+                map: {
+                    title: "Our Location",
+                    description: "We provide service at our easily accessible location in Sultanbeyli. You can view our location with detailed map and get directions.",
+                    directions: "Get Directions",
+                    openMaps: "Open in Google Maps",
+                    addressTitle: "Address",
+                    address: "Atatürk Cad. No:312, Sultanbeyli / İstanbul",
+                    phoneTitle: "Phone",
+                    phone: "+90 535 356 24 69",
+                    hoursTitle: "Working Hours",
+                    hours: "Monday - Saturday: 09:00 - 18:00",
+                    parkingTitle: "Parking",
+                    parking: "Free Parking Available"
                 }
-            }
         },
         
         // Footer
