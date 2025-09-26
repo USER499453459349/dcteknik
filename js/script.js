@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Change language function
 function changeLanguage(language) {
+    console.log('Changing language to:', language);
     currentLanguage = language;
     
     // Save language preference
@@ -37,11 +38,17 @@ function changeLanguage(language) {
     
     // Update all translatable elements
     const elements = document.querySelectorAll('[data-translate]');
+    console.log('Found', elements.length, 'translatable elements');
+    
     elements.forEach(element => {
         const key = element.getAttribute('data-translate');
         const translation = getTranslation(key, language);
+        console.log('Key:', key, 'Translation:', translation);
+        
         if (translation) {
             element.textContent = translation;
+        } else {
+            console.warn('No translation found for key:', key, 'in language:', language);
         }
     });
     
@@ -54,26 +61,45 @@ function changeLanguage(language) {
 
 // Get translation for a specific key and language
 function getTranslation(key, language) {
+    console.log('Getting translation for key:', key, 'language:', language);
+    
+    // Check if translations object exists
+    if (!translations) {
+        console.error('Translations object not found');
+        return null;
+    }
+    
+    // Check if language exists
+    if (!translations[language]) {
+        console.warn('Language not found:', language, 'Available languages:', Object.keys(translations));
+        return null;
+    }
+    
     const keys = key.split('.');
     let translation = translations[language];
     
     for (const k of keys) {
-        if (translation && translation[k]) {
+        if (translation && typeof translation === 'object' && translation[k]) {
             translation = translation[k];
         } else {
+            console.warn('Translation key not found:', k, 'in', language);
             // Fallback to Turkish if translation not found
-            translation = translations['tr'];
-            for (const fallbackKey of keys) {
-                if (translation && translation[fallbackKey]) {
-                    translation = translation[fallbackKey];
-                } else {
-                    return null;
+            if (translations['tr']) {
+                translation = translations['tr'];
+                for (const fallbackKey of keys) {
+                    if (translation && typeof translation === 'object' && translation[fallbackKey]) {
+                        translation = translation[fallbackKey];
+                    } else {
+                        console.warn('Fallback translation not found for key:', fallbackKey);
+                        return null;
+                    }
                 }
             }
             break;
         }
     }
     
+    console.log('Final translation:', translation);
     return translation;
 }
 
