@@ -1,35 +1,24 @@
 <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.3"/>
-    </filter>
-  </defs>
-  
   <!-- Background -->
-  <rect width="200" height="200" fill="#0f172a"/>
+  <rect width="200" height="200" fill="#000000"/>
   
   <!-- Background circle -->
   <circle cx="100" cy="100" r="80" fill="none" stroke="white" stroke-width="8"/>
   
   <!-- DC Letters -->
-  <g transform="translate(100, 100)" filter="url(#shadow)">
-    <!-- Letter D -->
+  <g transform="translate(100, 100)">
+    <!-- Letter D with blue accent -->
     <path d="M-25,-35 L-25,35 L-15,35 Q5,35 5,0 Q5,-35 -15,-35 Z" fill="white"/>
+    <!-- Blue accent on D -->
+    <rect x="-25" y="-35" width="8" height="70" fill="#0066FF"/>
     
     <!-- Letter C -->
     <path d="M15,-35 Q35,-35 35,-15 L25,-15 Q25,-25 15,-25 Z M15,35 Q35,35 35,15 L25,15 Q25,25 15,25 Z M15,-25 L15,25 Q25,25 25,15 L25,-15 Q25,-25 15,-25 Z" fill="white"/>
   </g>
   
-  <!-- Blue vertical bar -->
-  <rect x="10" y="60" width="20" height="80" fill="#0066CC"/>
-  
   <!-- Red plus sign -->
   <g transform="translate(170, 100)">
-    <rect x="-10" y="-40" width="20" height="80" fill="#CC0000"/>
-    <rect x="-40" y="-10" width="80" height="20" fill="#CC0000"/>
+    <rect x="-8" y="-30" width="16" height="60" fill="#FF0000"/>
+    <rect x="-30" y="-8" width="60" height="16" fill="#FF0000"/>
   </g>
-  
-  <!-- Horizontal lines -->
-  <line x1="20" y1="100" x2="80" y2="100" stroke="white" stroke-width="4"/>
-  <line x1="120" y1="100" x2="180" y2="100" stroke="white" stroke-width="4"/>
 </svg>
