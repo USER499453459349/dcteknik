@@ -29,7 +29,8 @@ const translations = {
             },
             buttons: {
                 call: "Hemen Ara",
-                services: "Hizmetlerimiz"
+                services: "Hizmetlerimiz",
+                whatsapp: "WhatsApp"
             },
             card: {
                 title: "Otomotiv Uzmanı",
@@ -165,22 +166,28 @@ const translations = {
                 hoursText: "Pazartesi - Cumartesi: 09:00 - 18:00",
                 sunday: "Pazar: Kapalı"
             },
-            form: {
-                title: "Mesaj Gönder",
-                name: "Adınız Soyadınız",
-                phone: "Telefon Numaranız",
-                email: "E-posta Adresiniz",
-                message: "Mesajınız",
-                submit: "Mesaj Gönder",
-                service: {
-                    placeholder: "Hizmet Seçiniz",
-                    dinamo: "Dinamo Tamiri",
-                    alternator: "Alternatör Servisi",
-                    starter: "Marş Motoru",
-                    electrical: "Genel Elektrik",
-                    other: "Diğer"
+                form: {
+                    title: "Mesaj Gönder",
+                    name: "Adınız Soyadınız",
+                    phone: "Telefon Numaranız",
+                    email: "E-posta Adresiniz",
+                    message: "Mesajınız",
+                    submit: "Mesaj Gönder",
+                    service: {
+                        placeholder: "Hizmet Seçiniz",
+                        dinamo: "Dinamo Tamiri",
+                        alternator: "Alternatör Servisi",
+                        starter: "Marş Motoru",
+                        electrical: "Genel Elektrik",
+                        other: "Diğer"
+                    }
+                },
+                map: {
+                    title: "Konumumuz",
+                    address: "Atatürk Cad. No:312, Sultanbeyli / İstanbul",
+                    phone: "+90 555 123 45 67",
+                    hours: "Pazartesi - Cumartesi: 09:00 - 18:00"
                 }
-            }
         },
         
         // Footer
@@ -237,7 +244,8 @@ const translations = {
             },
             buttons: {
                 call: "Hûn Bang Bikin",
-                services: "Xizmetên Me"
+                services: "Xizmetên Me",
+                whatsapp: "WhatsApp"
             },
             card: {
                 title: "Pisporê Otomotîv",
@@ -445,7 +453,8 @@ const translations = {
             },
             buttons: {
                 call: "Call Now",
-                services: "Our Services"
+                services: "Our Services",
+                whatsapp: "WhatsApp"
             },
             card: {
                 title: "Automotive Expert",

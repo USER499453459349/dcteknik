@@ -199,4 +199,108 @@ const observer = new IntersectionObserver(function(entries) {
 document.addEventListener('DOMContentLoaded', function() {
     const animateElements = document.querySelectorAll('.hero-content, .hero-card, .contact-item, .service-card');
     animateElements.forEach(el => observer.observe(el));
+    
+    // Contact form functionality
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', handleFormSubmit);
+    }
 });
+
+// Contact form submission handler
+function handleFormSubmit(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    // Get form values
+    const name = formData.get('name');
+    const phone = formData.get('phone');
+    const email = formData.get('email');
+    const service = formData.get('service');
+    const message = formData.get('message');
+    
+    // Validate form
+    if (!name || !phone || !service) {
+        showNotification('Lütfen zorunlu alanları doldurun!', 'error');
+        return;
+    }
+    
+    // Create WhatsApp message
+    const whatsappMessage = createWhatsAppMessage(name, phone, email, service, message);
+    
+    // Open WhatsApp
+    const whatsappUrl = `https://wa.me/905551234567?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // Show success message
+    showNotification('WhatsApp ile iletişime geçiliyor...', 'success');
+    
+    // Reset form
+    form.reset();
+}
+
+// Create WhatsApp message
+function createWhatsAppMessage(name, phone, email, service, message) {
+    const serviceNames = {
+        'dinamo': 'Dinamo Tamiri',
+        'alternator': 'Alternatör Servisi',
+        'mars': 'Marş Motoru',
+        'elektrik': 'Genel Elektrik',
+        'diger': 'Diğer'
+    };
+    
+    let messageText = `Merhaba! Web sitenizden iletişim formu dolduruldu.\n\n`;
+    messageText += `👤 Ad Soyad: ${name}\n`;
+    messageText += `📞 Telefon: ${phone}\n`;
+    if (email) messageText += `📧 E-posta: ${email}\n`;
+    messageText += `🔧 Hizmet: ${serviceNames[service] || service}\n`;
+    if (message) messageText += `💬 Mesaj: ${message}\n\n`;
+    messageText += `Lütfen en kısa sürede dönüş yapın. Teşekkürler!`;
+    
+    return messageText;
+}
+
+// Show notification
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        font-weight: 500;
+        max-width: 300px;
+        animation: slideInRight 0.3s ease-out;
+    `;
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Remove after 5 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease-in';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 300);
+    }, 5000);
+}
