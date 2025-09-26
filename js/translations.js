@@ -45,6 +45,165 @@ const translations = {
             hours: "Çalışma Saatleri",
             addressText: "Atatürk Cad. No:312, Sultanbeyli / İstanbul",
             hoursText: "Pazartesi - Cumartesi: 09:00-18:00"
+        },
+        
+        // Services Section
+        services: {
+            title: "Hizmetlerimiz",
+            subtitle: "Dinamocu servisi alanında sunduğumuz profesyonel hizmetler",
+            dinamo: {
+                title: "Dinamo Tamiri",
+                description: "Tüm marka ve model dinamo tamiri. Profesyonel ekipman ile kaliteli onarım hizmeti.",
+                item1: "Sargı değişimi",
+                item2: "Kollektör tornalama",
+                item3: "Karbon değişimi",
+                item4: "Rulman değişimi"
+            },
+            alternator: {
+                title: "Alternatör Servisi",
+                description: "Alternatör tamiri ve revizyonu. Garantili çalışma, uzun ömürlü çözümler.",
+                item1: "Alternatör tamiri",
+                item2: "Regülatör değişimi",
+                item3: "Diode köprü tamiri",
+                item4: "Test ve ayar"
+            },
+            starter: {
+                title: "Marş Motoru",
+                description: "Marş motoru tamiri ve bakımı. Hızlı çözüm, uygun fiyat garantisi.",
+                item1: "Marş motoru tamiri",
+                item2: "Selenoid değişimi",
+                item3: "Bendiks tamiri",
+                item4: "Motor revizyonu"
+            },
+            electrical: {
+                title: "Genel Elektrik",
+                description: "Araç elektrik sistemleri tamiri. Kapsamlı elektrik arıza tespiti.",
+                item1: "Elektrik arıza tespiti",
+                item2: "Kablo tamiri",
+                item3: "Sigorta değişimi",
+                item4: "Sistem kontrol"
+            }
+        },
+        
+        // Products Section
+        products: {
+            title: "Ürünlerimiz",
+            subtitle: "Kaliteli yedek parça ve ürün seçeneklerimiz",
+            dinamo: {
+                title: "Dinamo Çeşitleri",
+                description: "Orijinal ve yan sanayi dinamo çeşitleri. Tüm araç markalarına uyumlu.",
+                feature1: "12V - 24V Seçenekleri",
+                feature2: "Garantili Ürünler"
+            },
+            alternator: {
+                title: "Alternatör",
+                description: "Yüksek kaliteli alternatör seçenekleri. Uzun ömürlü ve güvenilir.",
+                feature1: "Yüksek Amper",
+                feature2: "Çevre Dostu"
+            },
+            starter: {
+                title: "Marş Motoru",
+                description: "Güçlü ve dayanıklı marş motoru çeşitleri. Hızlı çalışma garantisi.",
+                feature1: "Yüksek Tork",
+                feature2: "Sessiz Çalışma"
+            },
+            parts: {
+                title: "Yedek Parça",
+                description: "Orijinal yedek parça seçenekleri. Karbon, rulman, kollektör ve daha fazlası.",
+                feature1: "Orijinal Kalite",
+                feature2: "Uygun Fiyat"
+            }
+        },
+        
+        // Gallery Section
+        gallery: {
+            title: "Galeri",
+            subtitle: "Atölyemiz ve yaptığımız işlerden görüntüler",
+            item1: "Modern Atölye",
+            item2: "Profesyonel Ekipman",
+            item3: "Dinamo Tamiri",
+            item4: "Uzman Ekip"
+        },
+        
+        // About Section
+        about: {
+            title: "Dinamocu Serdar Hikayesi",
+            subtitle: "15 yıldır Sultanbeyli'de güvenilir hizmet",
+            description: "2009 yılında Sultanbeyli'de kurulan Dinamocu Serdar, dinamocu servisi alanında bölgenin öncü firmalarından biridir. Uzman kadromuz ve modern ekipmanlarımızla müşterilerimize en kaliteli hizmeti sunuyoruz.",
+            feature1: {
+                title: "Kaliteli Hizmet",
+                description: "Her işimizde mükemmeliyeti hedefliyoruz"
+            },
+            feature2: {
+                title: "Güvenilirlik",
+                description: "Sözümüzün arkasında duruyoruz"
+            },
+            feature3: {
+                title: "Hızlı Çözüm",
+                description: "Acil durumlarınızda yanınızdayız"
+            },
+            stat1: "Yıl Deneyim",
+            stat2: "Memnun Müşteri",
+            stat3: "Uzman Personel",
+            image: {
+                title: "Modern Atölye",
+                subtitle: "Son teknoloji ekipmanlar"
+            }
+        },
+        
+        // Contact Section
+        contact: {
+            title: "İletişim",
+            subtitle: "Bizimle iletişime geçin, size yardımcı olalım",
+            info: {
+                title: "İletişim Bilgileri",
+                phone: "Telefon",
+                whatsapp: "WhatsApp mevcut",
+                email: "E-posta",
+                address: "Adres",
+                hours: "Çalışma Saatleri",
+                hoursText: "Pazartesi - Cumartesi: 09:00 - 18:00",
+                sunday: "Pazar: Kapalı"
+            },
+            form: {
+                title: "Mesaj Gönder",
+                name: "Adınız Soyadınız",
+                phone: "Telefon Numaranız",
+                email: "E-posta Adresiniz",
+                message: "Mesajınız",
+                submit: "Mesaj Gönder",
+                service: {
+                    placeholder: "Hizmet Seçiniz",
+                    dinamo: "Dinamo Tamiri",
+                    alternator: "Alternatör Servisi",
+                    starter: "Marş Motoru",
+                    electrical: "Genel Elektrik",
+                    other: "Diğer"
+                }
+            }
+        },
+        
+        // Footer
+        footer: {
+            description: "Dinamocu Serdar - Sultanbeyli'nin güvenilir dinamocu servisi. Kaliteli hizmet, uygun fiyat.",
+            services: {
+                title: "Hizmetlerimiz",
+                dinamo: "Dinamo Tamiri",
+                alternator: "Alternatör Servisi",
+                starter: "Marş Motoru",
+                electrical: "Genel Elektrik"
+            },
+            corporate: {
+                title: "Kurumsal",
+                about: "Hakkımızda",
+                gallery: "Galeri",
+                blog: "Blog",
+                contact: "İletişim"
+            },
+            contact: {
+                title: "İletişim"
+            },
+            copyright: "© 2024 DC TEKNİK - Dinamocu Serdar. Tüm hakları saklıdır."
         }
     },
 

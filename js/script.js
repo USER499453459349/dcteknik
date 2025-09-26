@@ -40,17 +40,28 @@ function changeLanguage(language) {
     const elements = document.querySelectorAll('[data-translate]');
     console.log('Found', elements.length, 'translatable elements');
     
-    elements.forEach(element => {
-        const key = element.getAttribute('data-translate');
-        const translation = getTranslation(key, language);
-        console.log('Key:', key, 'Translation:', translation);
-        
-        if (translation) {
-            element.textContent = translation;
-        } else {
-            console.warn('No translation found for key:', key, 'in language:', language);
-        }
-    });
+           elements.forEach(element => {
+               const key = element.getAttribute('data-translate');
+               const translation = getTranslation(key, language);
+               console.log('Key:', key, 'Translation:', translation);
+               
+               if (translation) {
+                   element.textContent = translation;
+               } else {
+                   console.warn('No translation found for key:', key, 'in language:', language);
+               }
+           });
+           
+           // Handle placeholder translations
+           const placeholderElements = document.querySelectorAll('[data-translate-placeholder]');
+           placeholderElements.forEach(element => {
+               const key = element.getAttribute('data-translate-placeholder');
+               const translation = getTranslation(key, language);
+               
+               if (translation) {
+                   element.placeholder = translation;
+               }
+           });
     
     // Update page title
     const titleTranslation = getTranslation('hero.title', language);
