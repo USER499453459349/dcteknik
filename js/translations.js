@@ -236,7 +236,7 @@ const translations = {
                 rating: "Garantî"
             },
             buttons: {
-                call: "Banga Bikin",
+                call: "Hûn Bang Bikin",
                 services: "Xizmetên Me"
             },
             card: {
@@ -431,7 +431,7 @@ const translations = {
         // Hero Section
         hero: {
             badge: "15 Years Automotive Experience",
-            title: "Dinamocu Serdar",
+            title: "Dynamo Serdar",
             subtitle: "Sultanbeyli's Reliable Automotive Service",
             description: "With our expert team, we provide quality service in dynamo, alternator and starter motor repair. Professional solutions for all vehicle brands.",
             feature1: "Dynamo Repair",
@@ -638,19 +638,26 @@ const translations = {
         
         // Hero Section
         hero: {
-            title: "Динамщик Сердар - Султанбейли",
-            subtitle: "С 15-летним опытом мы являемся экспертами в ремонте динамо, генераторов и стартеров. Надежный сервис динамо в Султанбейли. Качественный сервис, доступные цены.",
+            badge: "15 Лет Автомобильного Опыта",
+            title: "Динамо Сердар",
+            subtitle: "Надежный Автомобильный Сервис Султанбейли",
+            description: "С нашей экспертной командой мы предоставляем качественные услуги по ремонту динамо, генераторов и стартеров. Профессиональные решения для всех марок автомобилей.",
+            feature1: "Ремонт Динамо",
+            feature2: "Сервис Генератора",
+            feature3: "Стартер",
             stats: {
                 experience: "Лет Опыта",
-                customers: "Довольных Клиентов",
-                service: "Услуг"
+                customers: "Отремонтированных Автомобилей",
+                service: "Экстренная Служба",
+                rating: "Гарантия"
             },
             buttons: {
-                call: "Позвонить",
+                call: "Позвонить Сейчас",
                 services: "Наши Услуги"
             },
             card: {
-                title: "Профессиональный Сервис"
+                title: "Автомобильный Эксперт",
+                subtitle: "Динамо • Генератор • Стартер"
             }
         },
         
@@ -839,19 +846,26 @@ const translations = {
         
         // Hero Section
         hero: {
-            title: "دينامو سردار - سلطان بيلي",
-            subtitle: "بخبرة 15 عاماً، نحن خبراء في إصلاح الدينامو والمولدات ومحركات البدء. خدمة الدينامو الموثوقة في سلطان بيلي. خدمة عالية الجودة، أسعار معقولة.",
+            badge: "15 عاماً من الخبرة في السيارات",
+            title: "دينامو سردار",
+            subtitle: "خدمة السيارات الموثوقة في سلطان بيلي",
+            description: "مع فريقنا المتخصص، نقدم خدمات عالية الجودة في إصلاح الدينامو والمولدات ومحركات البدء. حلول مهنية لجميع ماركات السيارات.",
+            feature1: "إصلاح الدينامو",
+            feature2: "خدمة المولد",
+            feature3: "محرك البدء",
             stats: {
                 experience: "سنوات خبرة",
-                customers: "عميل راضٍ",
-                service: "خدمة"
+                customers: "سيارات تم إصلاحها",
+                service: "خدمة طوارئ",
+                rating: "ضمان"
             },
             buttons: {
                 call: "اتصل الآن",
                 services: "خدماتنا"
             },
             card: {
-                title: "خدمة مهنية"
+                title: "خبير السيارات",
+                subtitle: "دينامو • مولد • محرك بدء"
             }
         },
         
