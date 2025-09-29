@@ -2,6 +2,26 @@
 
 Tüm önemli değişiklikler bu dosyada belgelenecektir.
 
+## [1.1.0] - 2025-01-01
+
+### Güncellemeler
+- ✅ dcteknik.com domain entegrasyonu
+- ✅ 2025 yılına geçiş - tüm tarih güncellemeleri
+- ✅ SEO optimizasyonu - kapsamlı meta taglar
+- ✅ Open Graph ve Twitter Card meta tagları
+- ✅ Canonical URL'ler güncellendi
+- ✅ Schema.org JSON-LD yapılandırması
+- ✅ Sitemap.xml 2025 tarihi ile güncellendi
+- ✅ Favicon ve logo versiyonları güncellendi
+
+### Teknik İyileştirmeler
+- 🔧 Meta tag optimizasyonu
+- 🔧 Social media entegrasyonu
+- 🔧 Search engine optimizasyonu
+- 🔧 Performance cache headers
+
+---
+
 ## [1.0.0] - 2024-12-19
 
 ### Eklenen Özellikler
