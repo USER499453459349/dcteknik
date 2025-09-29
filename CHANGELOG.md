@@ -2,6 +2,40 @@
 
 Tüm önemli değişiklikler bu dosyada belgelenecektir.
 
+## [1.4.0] - 2025-01-01
+
+### 🚀 4 BÜYÜK ÖZELLİK EKLENDİ
+- ✅ **Karanlık Mod**: Toggle butonu, CSS değişkenleri, localStorage desteği
+- ✅ **Gerçek Fotoğraflar**: 6 profesyonel görsel, hover efektleri, lazy loading
+- ✅ **İnteraktif Harita**: Google Maps API, custom marker, arama özelliği
+- ✅ **Google Analytics**: Event tracking, form takibi, kullanıcı analizi
+
+### 🎨 Kullanıcı Deneyimi İyileştirmeleri
+- 🌙 Karanlık/Açık mod geçişi
+- 📸 Profesyonel galeri görselleri
+- 🗺️ Gelişmiş harita entegrasyonu
+- 📊 Detaylı analytics takibi
+- ⚡ Smooth animasyonlar ve geçişler
+
+### 🔧 Teknik İyileştirmeler
+- 📱 Responsive tasarım optimizasyonu
+- 🎯 SEO ve performans iyileştirmeleri
+- 🔄 Cache versiyonları v20250101v5
+- 📈 Event tracking ve kullanıcı davranış analizi
+
+---
+
+## [1.3.0] - 2025-01-01
+
+### 🌙 Karanlık Mod Özelliği
+- ✅ Theme toggle butonu eklendi
+- ✅ CSS değişkenleri sistemi
+- ✅ localStorage ile tercih kaydetme
+- ✅ Sistem teması otomatik algılama
+- ✅ Smooth geçiş animasyonları
+
+---
+
 ## [1.2.1] - 2025-01-01
 
 ### 🔄 Cache Temizleme ve Güncelleme
