@@ -1,3 +1,44 @@
+/* CSS Variables for Light/Dark Mode */
+:root {
+    /* Light Mode Colors */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --border-color: #e2e8f0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --accent-primary: #1e3a8a;
+    --accent-secondary: #ea580c;
+    --accent-danger: #dc2626;
+    --header-bg: rgba(255, 255, 255, 0.95);
+    --card-bg: #ffffff;
+    --input-bg: #ffffff;
+    --button-bg: #1e3a8a;
+    --button-text: #ffffff;
+}
+
+/* Dark Mode Colors */
+[data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --border-color: #475569;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --accent-primary: #3b82f6;
+    --accent-secondary: #f97316;
+    --accent-danger: #ef4444;
+    --header-bg: rgba(15, 23, 42, 0.95);
+    --card-bg: #1e293b;
+    --input-bg: #334155;
+    --button-bg: #3b82f6;
+    --button-text: #ffffff;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,8 +48,10 @@
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    color: #333;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* RTL Support for Arabic */
@@ -39,11 +82,11 @@ body[dir="rtl"] .contact-info {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--header-bg);
     backdrop-filter: blur(10px);
     z-index: 1000;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 20px var(--shadow-color);
 }
 
 .nav-container {
@@ -3742,6 +3785,89 @@ img {
     color: #64748b;
     font-size: 0.9rem;
     margin: 0;
+}
+
+/* Theme Toggle Styles */
+.theme-toggle {
+    margin-left: 1rem;
+}
+
+.theme-toggle-btn {
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--text-muted);
+    transform: scale(1.05);
+}
+
+.theme-toggle-btn:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+}
+
+.theme-toggle-btn i {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle-btn:hover i {
+    transform: rotate(180deg);
+}
+
+/* Dark Mode Specific Styles */
+[data-theme="dark"] .hero {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .service-card,
+[data-theme="dark"] .product-card,
+[data-theme="dark"] .contact-detail,
+[data-theme="dark"] .stat-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+[data-theme="dark"] .btn {
+    background: var(--button-bg);
+    color: var(--button-text);
+}
+
+[data-theme="dark"] .btn:hover {
+    background: var(--accent-primary);
+    transform: translateY(-2px);
+}
+
+[data-theme="dark"] .footer {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .footer h3,
+[data-theme="dark"] .footer h4 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .footer a {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .footer a:hover {
+    color: var(--accent-primary);
 }
 
 /* WhatsApp Button */

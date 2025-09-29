@@ -1015,4 +1015,75 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+});
+
+// Dark Mode Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const body = document.body;
+    
+    // Check for saved theme preference or default to 'light'
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    
+    // Apply the current theme
+    body.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+    
+    // Theme toggle event listener
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            // Update theme
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Update icon
+            updateThemeIcon(newTheme);
+            
+            // Add smooth transition effect
+            body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+            
+            // Analytics tracking (if available)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'theme_change', {
+                    'event_category': 'ui',
+                    'event_label': newTheme
+                });
+            }
+        });
+    }
+    
+    // Function to update theme icon
+    function updateThemeIcon(theme) {
+        if (themeIcon) {
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.title = 'Açık Moda Geç';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.title = 'Karanlık Moda Geç';
+            }
+        }
+    }
+    
+    // Auto-detect system theme preference
+    if (currentTheme === 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // User hasn't set a preference but system is dark
+        // Keep light mode as default, but could auto-switch here if desired
+    }
+    
+    // Listen for system theme changes
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            // Only auto-switch if user hasn't manually set a preference
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                body.setAttribute('data-theme', newTheme);
+                updateThemeIcon(newTheme);
+            }
+        });
+    }
 }); 
