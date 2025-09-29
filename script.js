@@ -1086,4 +1086,307 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+});
+
+// Interactive Google Maps
+let map;
+let marker;
+let infoWindow;
+
+function initMap() {
+    // DC TEKNİK coordinates (Sultanbeyli, İstanbul)
+    const dcteknikLocation = { lat: 40.987654321, lng: 29.234567890 };
+    
+    // Create map
+    map = new google.maps.Map(document.getElementById('interactiveMap'), {
+        zoom: 16,
+        center: dcteknikLocation,
+        mapTypeId: 'roadmap',
+        styles: [
+            {
+                featureType: 'poi',
+                elementType: 'labels',
+                stylers: [{ visibility: 'off' }]
+            }
+        ]
+    });
+    
+    // Create marker
+    marker = new google.maps.Marker({
+        position: dcteknikLocation,
+        map: map,
+        title: 'DC TEKNİK - Dinamocu Serdar',
+        icon: {
+            url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="20" cy="20" r="18" fill="#1e3a8a" stroke="#ffffff" stroke-width="2"/>
+                    <text x="20" y="26" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">DC</text>
+                </svg>
+            `),
+            scaledSize: new google.maps.Size(40, 40),
+            anchor: new google.maps.Point(20, 20)
+        }
+    });
+    
+    // Create info window
+    infoWindow = new google.maps.InfoWindow({
+        content: `
+            <div style="padding: 10px; max-width: 250px;">
+                <h3 style="margin: 0 0 10px 0; color: #1e3a8a; font-size: 16px;">DC TEKNİK</h3>
+                <p style="margin: 0 0 8px 0; color: #333; font-size: 14px;">
+                    <i class="fas fa-map-marker-alt" style="color: #ea580c; margin-right: 5px;"></i>
+                    Atatürk Cad. No:312<br>
+                    Sultanbeyli / İstanbul
+                </p>
+                <p style="margin: 0 0 8px 0; color: #333; font-size: 14px;">
+                    <i class="fas fa-phone" style="color: #ea580c; margin-right: 5px;"></i>
+                    +90 535 356 24 69
+                </p>
+                <p style="margin: 0 0 10px 0; color: #333; font-size: 14px;">
+                    <i class="fas fa-clock" style="color: #ea580c; margin-right: 5px;"></i>
+                    Pazartesi - Cumartesi: 09:00 - 18:00
+                </p>
+                <div style="margin-top: 10px;">
+                    <a href="https://www.google.com/maps/dir//Atatürk+Cad.+No:312,+34900+Sultanbeyli/İstanbul/@40.987654321,29.234567890,15z" 
+                       target="_blank" 
+                       style="background: #1e3a8a; color: white; padding: 8px 12px; text-decoration: none; border-radius: 5px; font-size: 12px; display: inline-block; margin-right: 5px;">
+                        <i class="fas fa-route"></i> Yol Tarifi
+                    </a>
+                    <a href="tel:+905353562469" 
+                       style="background: #ea580c; color: white; padding: 8px 12px; text-decoration: none; border-radius: 5px; font-size: 12px; display: inline-block;">
+                        <i class="fas fa-phone"></i> Ara
+                    </a>
+                </div>
+            </div>
+        `
+    });
+    
+    // Add click event to marker
+    marker.addListener('click', function() {
+        infoWindow.open(map, marker);
+    });
+    
+    // Add click event to map
+    map.addListener('click', function() {
+        infoWindow.close();
+    });
+    
+    // Hide loading indicator
+    const mapLoading = document.getElementById('mapLoading');
+    if (mapLoading) {
+        mapLoading.style.display = 'none';
+    }
+    
+    // Add search box
+    const searchBox = new google.maps.places.SearchBox(document.getElementById('mapSearch'));
+    
+    // Bias the SearchBox results towards current map's viewport
+    map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+    });
+    
+    // Listen for the event fired when the user selects a prediction
+    searchBox.addListener('places_changed', function() {
+        const places = searchBox.getPlaces();
+        
+        if (places.length === 0) return;
+        
+        // Clear out the old markers
+        const markers = [];
+        
+        // For each place, get the icon, name and location
+        const bounds = new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+            if (!place.geometry || !place.geometry.location) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+            
+            // Create a marker for each place
+            const placeMarker = new google.maps.Marker({
+                map: map,
+                title: place.name,
+                position: place.geometry.location
+            });
+            
+            markers.push(placeMarker);
+            
+            if (place.geometry.viewport) {
+                bounds.union(place.geometry.viewport);
+            } else {
+                bounds.extend(place.geometry.location);
+            }
+        });
+        
+        map.fitBounds(bounds);
+    });
+}
+
+// Map search functionality
+function searchLocation() {
+    const searchInput = document.getElementById('mapSearch');
+    if (searchInput && searchInput.value.trim()) {
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ address: searchInput.value }, function(results, status) {
+            if (status === 'OK' && results[0]) {
+                map.setCenter(results[0].geometry.location);
+                map.setZoom(15);
+                
+                // Create temporary marker for search result
+                const searchMarker = new google.maps.Marker({
+                    position: results[0].geometry.location,
+                    map: map,
+                    title: searchInput.value
+                });
+                
+                // Remove marker after 5 seconds
+                setTimeout(function() {
+                    searchMarker.setMap(null);
+                }, 5000);
+            }
+        });
+    }
+}
+
+// Google Analytics Event Tracking
+function trackEvent(eventName, eventCategory, eventLabel, eventValue) {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, {
+            event_category: eventCategory,
+            event_label: eventLabel,
+            value: eventValue
+        });
+    }
+}
+
+// Track form submissions
+function trackFormSubmission(formType, serviceType) {
+    trackEvent('form_submit', 'engagement', formType, 1);
+    if (serviceType) {
+        trackEvent('service_selected', 'engagement', serviceType, 1);
+    }
+}
+
+// Track button clicks
+function trackButtonClick(buttonName, location) {
+    trackEvent('button_click', 'engagement', buttonName, 1);
+    if (location) {
+        trackEvent('button_location', 'engagement', location, 1);
+    }
+}
+
+// Track page views
+function trackPageView(pageName) {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_view', {
+            page_title: pageName,
+            page_location: window.location.href
+        });
+    }
+}
+
+// Track scroll depth
+function trackScrollDepth() {
+    let maxScroll = 0;
+    let scrollMilestones = [25, 50, 75, 90, 100];
+    let trackedMilestones = [];
+    
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+        
+        if (scrollPercent > maxScroll) {
+            maxScroll = scrollPercent;
+            
+            scrollMilestones.forEach(function(milestone) {
+                if (scrollPercent >= milestone && !trackedMilestones.includes(milestone)) {
+                    trackedMilestones.push(milestone);
+                    trackEvent('scroll_depth', 'engagement', milestone + '%', milestone);
+                }
+            });
+        }
+    });
+}
+
+// Track time on page
+function trackTimeOnPage() {
+    const startTime = Date.now();
+    
+    window.addEventListener('beforeunload', function() {
+        const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+        trackEvent('time_on_page', 'engagement', 'seconds', timeOnPage);
+    });
+}
+
+// Initialize analytics tracking
+document.addEventListener('DOMContentLoaded', function() {
+    // Track initial page view
+    trackPageView('DC TEKNİK - Ana Sayfa');
+    
+    // Track scroll depth
+    trackScrollDepth();
+    
+    // Track time on page
+    trackTimeOnPage();
+    
+    // Track contact form submissions
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            const serviceType = this.querySelector('select[name="service"]').value;
+            trackFormSubmission('contact_form', serviceType);
+        });
+    }
+    
+    // Track appointment form submissions
+    const appointmentForm = document.getElementById('appointmentForm');
+    if (appointmentForm) {
+        appointmentForm.addEventListener('submit', function(e) {
+            const serviceType = this.querySelector('select[name="serviceType"]').value;
+            trackFormSubmission('appointment_form', serviceType);
+        });
+    }
+    
+    // Track WhatsApp button clicks
+    const whatsappButtons = document.querySelectorAll('.btn-whatsapp, [href*="wa.me"]');
+    whatsappButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            trackButtonClick('whatsapp_contact', 'header');
+        });
+    });
+    
+    // Track phone number clicks
+    const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+    phoneLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+            trackButtonClick('phone_call', 'contact');
+        });
+    });
+    
+    // Track map interactions
+    const mapActions = document.querySelectorAll('.map-action-btn');
+    mapActions.forEach(function(action) {
+        action.addEventListener('click', function() {
+            const actionType = this.textContent.includes('Yol Tarifi') ? 'directions' : 'open_maps';
+            trackButtonClick('map_action', actionType);
+        });
+    });
+    
+    // Track gallery image clicks
+    const galleryImages = document.querySelectorAll('.gallery-image');
+    galleryImages.forEach(function(image) {
+        image.addEventListener('click', function() {
+            trackEvent('gallery_image_click', 'engagement', 'gallery', 1);
+        });
+    });
+    
+    // Track service card clicks
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(function(card) {
+        card.addEventListener('click', function() {
+            const serviceName = this.querySelector('h3').textContent;
+            trackEvent('service_card_click', 'engagement', serviceName, 1);
+        });
+    });
 }); 

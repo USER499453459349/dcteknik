@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v1.3.0 KARANLIK MOD</title>
+    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v1.4.0 YENİ ÖZELLİKLER</title>
     <meta name="description" content="DC TEKNİK - dcteknik.com Sultanbeyli'nin güvenilir dinamocu servisi. Dinamo tamiri, alternatör onarımı, marş motoru servisi. Atatürk Cad. No:312">
     <meta name="keywords" content="dcteknik, dinamocu, dinamo tamiri, alternatör, marş motoru, sultanbeyli, istanbul, otomotiv servisi, elektrik tamiri">
     <meta name="author" content="DC TEKNİK - Dinamocu Serdar">
@@ -34,9 +34,27 @@
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20250101v3">
     <link rel="manifest" href="site.webmanifest?v=20250101v3">
     
-    <link rel="stylesheet" href="style.css?v=20250101v4">
+    <link rel="stylesheet" href="style.css?v=20250101v5">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Maps API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&libraries=places"></script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            page_title: 'DC TEKNİK - Dinamocu Servisi',
+            page_location: window.location.href,
+            custom_map: {
+                'custom_parameter_1': 'dinamo_servisi',
+                'custom_parameter_2': 'sultanbeyli'
+            }
+        });
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -997,27 +1015,63 @@
             </div>
             <div class="gallery-grid">
                 <div class="gallery-item">
-                    <div class="gallery-placeholder">
-                        <i class="fas fa-industry"></i>
-                        <h4 data-translate="gallery.item1">Modern Atölye</h4>
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=300&fit=crop&crop=center" 
+                         alt="DC TEKNİK Modern Atölye - Dinamo Tamiri" 
+                         loading="lazy"
+                         class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h4>Modern Atölye</h4>
+                        <p>Profesyonel dinamo tamiri ortamı</p>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <div class="gallery-placeholder">
-                        <i class="fas fa-tools"></i>
-                        <h4 data-translate="gallery.item2">Profesyonel Ekipman</h4>
+                    <img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=400&h=300&fit=crop&crop=center" 
+                         alt="DC TEKNİK Profesyonel Ekipman - Dinamo Test Cihazları" 
+                         loading="lazy"
+                         class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h4>Profesyonel Ekipman</h4>
+                        <p>Son teknoloji test ve tamir cihazları</p>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <div class="gallery-placeholder">
-                        <i class="fas fa-cog"></i>
-                        <h4 data-translate="gallery.item3">Dinamo Tamiri</h4>
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&crop=center" 
+                         alt="DC TEKNİK Dinamo Tamiri - Alternatör Onarımı" 
+                         loading="lazy"
+                         class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h4>Dinamo Tamiri</h4>
+                        <p>Uzman ellerde alternatör onarımı</p>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <div class="gallery-placeholder">
-                        <i class="fas fa-users"></i>
-                        <h4 data-translate="gallery.item4">Uzman Ekip</h4>
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=300&fit=crop&crop=center" 
+                         alt="DC TEKNİK Uzman Ekip - Dinamocu Serdar" 
+                         loading="lazy"
+                         class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h4>Uzman Ekip</h4>
+                        <p>15 yıllık deneyimli dinamocu ekibi</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=400&h=300&fit=crop&crop=center" 
+                         alt="DC TEKNİK Marş Motoru Tamiri" 
+                         loading="lazy"
+                         class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h4>Marş Motoru Tamiri</h4>
+                        <p>Profesyonel marş motoru onarımı</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&crop=center" 
+                         alt="DC TEKNİK Elektrik Arıza Tespiti" 
+                         loading="lazy"
+                         class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h4>Elektrik Arıza Tespiti</h4>
+                        <p>Modern cihazlarla arıza tespiti</p>
                     </div>
                 </div>
             </div>
@@ -1418,15 +1472,17 @@
                 <p class="map-description" data-translate="contact.map.description">Sultanbeyli'de kolay ulaşılabilir konumumuzda hizmet veriyoruz. Detaylı harita ile konumumuzu görüntüleyebilir, yol tarifi alabilirsiniz.</p>
                 
                 <div class="map-container">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.123456789!2d29.234567890!3d40.987654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cad1a77ec194b7%3A0x550010ba93b401d8!2sAtat%C3%BCrk%20Cad.%20No%3A312%2C%2034900%20Sultanbeyli%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1234567890123!5m2!1str!2str" 
-                        width="100%" 
-                        height="500" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+                    <div class="map-search-container">
+                        <input type="text" id="mapSearch" placeholder="Konum ara... (örn: Kadıköy, Beşiktaş)" onkeypress="if(event.key==='Enter') searchLocation()">
+                        <button onclick="searchLocation()" title="Ara">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div id="interactiveMap" class="interactive-map"></div>
+                    <div class="map-loading" id="mapLoading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Harita yükleniyor...</p>
+                    </div>
                 </div>
                 
                 <div class="map-actions">
@@ -1695,7 +1751,7 @@
         </button>
     </div>
 
-    <script src="js/translations.js?v=20250101v4"></script>
-    <script src="js/script.js?v=20250101v4"></script>
+    <script src="js/translations.js?v=20250101v5"></script>
+    <script src="js/script.js?v=20250101v5"></script>
 </body>
 </html> 
