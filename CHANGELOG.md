@@ -2,6 +2,16 @@
 
 Tüm önemli değişiklikler bu dosyada belgelenecektir.
 
+## [1.2.1] - 2025-01-01
+
+### 🔄 Cache Temizleme ve Güncelleme
+- ✅ Cache versiyonları v20250101v3 olarak güncellendi
+- ✅ Başlık "CACHE TEMİZLENDİ" olarak güncellendi
+- ✅ Sitemap.xml tarihi güncellendi
+- ✅ Tüm dosyalar yeniden cache'lenmesi için işaretlendi
+
+---
+
 ## [1.2.0] - 2025-01-01
 
 ### 🔧 Hata Düzeltmeleri ve İyileştirmeler
