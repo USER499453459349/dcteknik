@@ -2,6 +2,31 @@
 
 Tüm önemli değişiklikler bu dosyada belgelenecektir.
 
+## [1.2.0] - 2025-01-01
+
+### 🔧 Hata Düzeltmeleri ve İyileştirmeler
+- ✅ Tüm dosyalarda "DC TEKNİK" referansları tutarlı hale getirildi
+- ✅ Meta taglar ve SEO optimizasyonu güncellendi
+- ✅ İletişim formu ve WhatsApp entegrasyonu düzeltildi
+- ✅ Blog sayfası içerik tutarlılığı sağlandı
+- ✅ Footer ve header referansları standardize edildi
+- ✅ JavaScript dosyalarında hata düzeltmeleri yapıldı
+- ✅ Dokümantasyon dosyaları güncellendi
+
+### 📱 Kullanıcı Deneyimi İyileştirmeleri
+- 🔧 Chat widget mesajları düzeltildi
+- 🔧 Randevu sistemi WhatsApp entegrasyonu iyileştirildi
+- 🔧 İletişim formu e-posta konuları güncellendi
+- 🔧 Sosyal medya entegrasyonu optimize edildi
+
+### 🌐 SEO ve Performans
+- 📈 Meta taglar tutarlılığı sağlandı
+- 📈 Open Graph ve Twitter Card güncellemeleri
+- 📈 Schema.org yapılandırması iyileştirildi
+- 📈 Sitemap.xml güncel tutuldu
+
+---
+
 ## [1.1.0] - 2025-01-01
 
 ### Güncellemeler

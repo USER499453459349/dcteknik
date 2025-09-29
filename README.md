@@ -146,6 +146,13 @@ Long-tail Keywords:
 
 ## 📋 Changelog
 
+### 🆕 Son Güncellemeler (v1.2.0)
+- ✅ Tüm dosyalarda "DC TEKNİK" referansları tutarlı hale getirildi
+- ✅ Meta taglar ve SEO optimizasyonu güncellendi
+- ✅ İletişim formu ve WhatsApp entegrasyonu düzeltildi
+- ✅ Cache versiyonları güncellendi (v20250101v2)
+- ✅ Sitemap.xml güncel tutuldu
+
 Detaylı değişiklik geçmişi için [CHANGELOG.md](CHANGELOG.md) dosyasına bakınız.
 
 ## 🤝 Katkıda Bulunma
