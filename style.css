@@ -3185,17 +3185,7 @@ img {
         font-size: 0.7rem;
     }
     
-    .contact-buttons {
-        bottom: 15px;
-        left: 15px;
-        gap: 0.8rem;
-    }
-    
-    .contact-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 1rem;
-    }
+    /* OLD CONTACT BUTTONS - REMOVED */
     
     .message-content {
         max-width: 90%;
