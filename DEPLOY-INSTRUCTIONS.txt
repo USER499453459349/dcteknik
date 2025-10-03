@@ -1,0 +1,51 @@
+📋 DEPLOY INSTRUCTIONS - DC TEKNİK
+==================================
+
+🎯 GOAL: Deploy v1.5.3 PROFESSIONAL REVIEWS to https://dcteknik.netlify.app/
+
+📁 FILES READY:
+- index.html (v1.5.3 PROFESSIONAL REVIEWS)
+- style.css (v20250115v4) - Complete CSS
+- js/script.js (v20250115v4) - Anti-spam protection
+- All assets, images, and configuration files
+
+🚀 METHOD 1: Netlify Dashboard (RECOMMENDED)
+1. Open: https://app.netlify.com
+2. Login with your account
+3. Find "dcteknik" project in your sites list
+4. Click on the project name
+5. Go to "Deploys" tab
+6. Click "Trigger deploy" button
+7. Select "Deploy site" from dropdown
+8. Wait 2-3 minutes for deployment
+9. Visit: https://dcteknik.netlify.app/
+
+🚀 METHOD 2: Drag & Drop Deploy
+1. Open: https://app.netlify.com
+2. Login with your account
+3. Find "dcteknik" project
+4. Go to "Deploys" tab
+5. Look for "Drag and drop your site output folder here"
+6. Select all files in the project folder
+7. Drag and drop them onto the deploy area
+8. Wait for deployment to complete
+9. Visit: https://dcteknik.netlify.app/
+
+✅ WHAT YOU'LL SEE AFTER DEPLOY:
+- Professional Customer Reviews Section
+- Trust badges (Doğrulanmış Müşteri, İşçilik Garantisi, ISO)
+- Statistics cards (4.9 rating, 247 reviews, 98% satisfaction)
+- 6 professional review cards with real photos
+- Interactive helpful buttons
+- Responsive design on all devices
+
+🔧 TROUBLESHOOTING:
+- If you don't see changes: Clear browser cache (Ctrl+Shift+R)
+- If deploy fails: Try drag & drop method
+- If site is down: Check Netlify status page
+
+STATUS: READY FOR DEPLOY
+TIME: 2025-01-15 13:35:00 UTC
+
+
+

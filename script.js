@@ -1319,6 +1319,245 @@ function trackTimeOnPage() {
     });
 }
 
+// FAQ Section Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close all other FAQ items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            
+            // Toggle current item
+            if (isActive) {
+                item.classList.remove('active');
+            } else {
+                item.classList.add('active');
+            }
+        });
+    });
+});
+
+// Newsletter Form Handling
+document.addEventListener('DOMContentLoaded', function() {
+    const newsletterForm = document.getElementById('newsletterForm');
+    
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const newsletterData = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                interest: formData.get('interest')
+            };
+            
+            // Basic validation
+            if (!newsletterData.name || !newsletterData.email) {
+                alert('Lütfen tüm alanları doldurun.');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(newsletterData.email)) {
+                alert('Lütfen geçerli bir e-posta adresi giriniz.');
+                return;
+            }
+            
+            // Create WhatsApp message for newsletter subscription
+            const whatsappMessage = `📧 *DC TEKNİK - Newsletter Aboneliği*
+
+👤 *Ad Soyad:* ${newsletterData.name}
+📧 *E-posta:* ${newsletterData.email}
+🎯 *İlgi Alanı:* ${newsletterData.interest || 'Belirtilmemiş'}
+
+---
+Bu abonelik talebi dcteknik.com web sitesinden gönderilmiştir.
+Tarih: ${new Date().toLocaleString('tr-TR')}`;
+
+            const whatsappUrl = `https://wa.me/905353562469?text=${encodeURIComponent(whatsappMessage)}`;
+            
+            // Open WhatsApp
+            window.open(whatsappUrl, '_blank');
+            
+            // Show success message
+            alert('Newsletter aboneliğiniz WhatsApp üzerinden gönderildi! En kısa sürede e-posta listemize ekleneceksiniz.');
+            
+            // Reset form
+            this.reset();
+            
+            // Track newsletter subscription
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'newsletter_subscribe', {
+                    'event_category': 'engagement',
+                    'event_label': newsletterData.interest || 'all',
+                    'value': 1
+                });
+            }
+        });
+    }
+});
+
+// Social Media Sharing Functions
+function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent('DC TEKNİK - Sultanbeyli Dinamocu Servisi');
+    const description = encodeURIComponent('Dinamo, alternatör ve marş motoru tamirinde uzman ekibimizle kaliteli hizmet sunuyoruz.');
+    
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${title} - ${description}`;
+    window.open(facebookUrl, '_blank', 'width=600,height=400');
+    
+    // Track sharing
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'share', {
+            'event_category': 'social',
+            'event_label': 'facebook',
+            'value': 1
+        });
+    }
+}
+
+function shareOnTwitter() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent('DC TEKNİK - Sultanbeyli\'nin güvenilir dinamocu servisi. Dinamo, alternatör ve marş motoru tamiri.');
+    const hashtags = encodeURIComponent('dinamocu,dinamo,alternator,marşmotoru,sultanbeyli,istanbul');
+    
+    const twitterUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}&hashtags=${hashtags}`;
+    window.open(twitterUrl, '_blank', 'width=600,height=400');
+    
+    // Track sharing
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'share', {
+            'event_category': 'social',
+            'event_label': 'twitter',
+            'value': 1
+        });
+    }
+}
+
+function shareOnWhatsApp() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent('DC TEKNİK - Sultanbeyli\'nin güvenilir dinamocu servisi. Dinamo, alternatör ve marş motoru tamiri. ' + window.location.href);
+    
+    const whatsappUrl = `https://wa.me/?text=${text}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // Track sharing
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'share', {
+            'event_category': 'social',
+            'event_label': 'whatsapp',
+            'value': 1
+        });
+    }
+}
+
+function shareOnLinkedIn() {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent('DC TEKNİK - Sultanbeyli Dinamocu Servisi');
+    const summary = encodeURIComponent('Dinamo, alternatör ve marş motoru tamirinde uzman ekibimizle kaliteli hizmet sunuyoruz.');
+    
+    const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`;
+    window.open(linkedinUrl, '_blank', 'width=600,height=400');
+    
+    // Track sharing
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'share', {
+            'event_category': 'social',
+            'event_label': 'linkedin',
+            'value': 1
+        });
+    }
+}
+
+function copyPageLink() {
+    const url = window.location.href;
+    
+    if (navigator.clipboard && window.isSecureContext) {
+        // Use modern clipboard API
+        navigator.clipboard.writeText(url).then(() => {
+            showCopyNotification('Link kopyalandı!');
+        }).catch(() => {
+            fallbackCopyTextToClipboard(url);
+        });
+    } else {
+        // Fallback for older browsers
+        fallbackCopyTextToClipboard(url);
+    }
+    
+    // Track sharing
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'share', {
+            'event_category': 'social',
+            'event_label': 'copy_link',
+            'value': 1
+        });
+    }
+}
+
+function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+        showCopyNotification('Link kopyalandı!');
+    } catch (err) {
+        showCopyNotification('Link kopyalanamadı. Lütfen manuel olarak kopyalayın.');
+    }
+    
+    document.body.removeChild(textArea);
+}
+
+function showCopyNotification(message) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'copy-notification';
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #10b981;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        z-index: 10000;
+        font-size: 14px;
+        font-weight: 500;
+        animation: slideInRight 0.3s ease;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Remove notification after 3 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+}
+
 // Initialize analytics tracking
 document.addEventListener('DOMContentLoaded', function() {
     // Track initial page view

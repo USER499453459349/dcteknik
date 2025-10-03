@@ -1,0 +1,43 @@
+{
+  "name": "dcteknik-website",
+  "version": "1.5.0",
+  "description": "DC TEKNİK - Sultanbeyli Dinamocu Servisi Profesyonel Web Sitesi",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Static site build complete'",
+    "deploy": "echo 'Deploying to Netlify...'",
+    "dev": "python -m http.server 8000",
+    "start": "python -m http.server 8000"
+  },
+  "keywords": [
+    "dcteknik",
+    "dinamocu",
+    "dinamo-tamiri",
+    "alternator",
+    "marş-motoru",
+    "sultanbeyli",
+    "istanbul",
+    "otomotiv-servisi",
+    "elektrik-tamiri"
+  ],
+  "author": "DC TEKNİK - Dinamocu Serdar",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dcteknik/dcteknik-website"
+  },
+  "homepage": "https://dcteknik.netlify.app/",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {},
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
+
+
+

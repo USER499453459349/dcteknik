@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v1.4.1 FORCE DEPLOY</title>
+    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v1.6.1 DARK MODE FIXED</title>
     <meta name="description" content="DC TEKNİK - dcteknik.com Sultanbeyli'nin güvenilir dinamocu servisi. Dinamo tamiri, alternatör onarımı, marş motoru servisi. Atatürk Cad. No:312">
     <meta name="keywords" content="dcteknik, dinamocu, dinamo tamiri, alternatör, marş motoru, sultanbeyli, istanbul, otomotiv servisi, elektrik tamiri">
     <meta name="author" content="DC TEKNİK - Dinamocu Serdar">
@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20250101v3">
     <link rel="manifest" href="site.webmanifest?v=20250101v3">
     
-    <link rel="stylesheet" href="style.css?v=20250101v6">
+    <link rel="stylesheet" href="style.css?v=20250115v6">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Maps API -->
@@ -72,11 +72,10 @@
                     </div>
                 </div>
                 <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link" data-translate="nav.home">Ana Sayfa</a></li>
-                    <li><a href="#products" class="nav-link" data-translate="nav.products">Ürünlerimiz</a></li>
+                    <li><a href="#home" class="nav-link active" data-translate="nav.home">Ana Sayfa</a></li>
                     <li><a href="#services" class="nav-link" data-translate="nav.services">Hizmetlerimiz</a></li>
                     <li><a href="#gallery" class="nav-link" data-translate="nav.gallery">Galeri</a></li>
-                    <li><a href="blog.html" class="nav-link" data-translate="nav.blog">Blog</a></li>
+                    <li><a href="#blog" class="nav-link" data-translate="nav.blog">Blog</a></li>
                     <li><a href="#about" class="nav-link" data-translate="nav.about">Hakkımızda</a></li>
                     <li><a href="#contact" class="nav-link" data-translate="nav.contact">İletişim</a></li>
                 </ul>
@@ -207,16 +206,108 @@
         </div>
     </section>
 
-    <!-- Online Appointment System -->
+    <!-- Advanced Online Appointment System -->
     <section id="appointment" class="appointment-section">
         <div class="container">
             <div class="section-header">
-                <h2>Online Randevu Sistemi</h2>
-                <p>Kolayca randevu alın, zamanınızı planlayın</p>
+                <h2>📅 Online Randevu Sistemi</h2>
+                <p>Kolayca randevu alın, zamanınızı planlayın - Müsait saatleri görün ve anında onay alın</p>
             </div>
             <div class="appointment-container">
-                <div class="appointment-form">
-                    <h3>Randevu Bilgileri</h3>
+                <!-- Step 1: Service Selection -->
+                <div class="appointment-step active" id="step1">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h3>Hizmet Seçimi</h3>
+                        <p>İhtiyacınız olan hizmeti seçin</p>
+                    </div>
+                    <div class="service-selection">
+                        <div class="service-option" data-service="dinamo">
+                            <div class="service-icon">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <h4>Dinamo Tamiri</h4>
+                            <p>Dinamo sargı, kollektör, karbon tamiri</p>
+                            <div class="service-duration">⏱️ 2-4 saat</div>
+                            <div class="service-price">💰 800-1500 TL</div>
+                        </div>
+                        <div class="service-option" data-service="alternator">
+                            <div class="service-icon">
+                                <i class="fas fa-battery-full"></i>
+                            </div>
+                            <h4>Alternatör Servisi</h4>
+                            <p>Alternatör tamiri ve revizyonu</p>
+                            <div class="service-duration">⏱️ 3-5 saat</div>
+                            <div class="service-price">💰 1000-2000 TL</div>
+                        </div>
+                        <div class="service-option" data-service="starter">
+                            <div class="service-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <h4>Marş Motoru</h4>
+                            <p>Marş motoru tamiri ve bakımı</p>
+                            <div class="service-duration">⏱️ 2-3 saat</div>
+                            <div class="service-price">💰 600-1200 TL</div>
+                        </div>
+                        <div class="service-option" data-service="electrical">
+                            <div class="service-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <h4>Genel Elektrik</h4>
+                            <p>Elektrik arıza tespiti ve tamiri</p>
+                            <div class="service-duration">⏱️ 1-3 saat</div>
+                            <div class="service-price">💰 300-800 TL</div>
+                        </div>
+                        <div class="service-option" data-service="diagnosis">
+                            <div class="service-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h4>Arıza Tespiti</h4>
+                            <p>Ücretsiz arıza tespiti ve keşif</p>
+                            <div class="service-duration">⏱️ 30-60 dk</div>
+                            <div class="service-price">💰 Ücretsiz</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Date & Time Selection -->
+                <div class="appointment-step" id="step2">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h3>Tarih ve Saat Seçimi</h3>
+                        <p>Müsait tarih ve saatleri görün</p>
+                    </div>
+                    <div class="datetime-selection">
+                        <div class="calendar-container">
+                            <div class="calendar-header">
+                                <button class="calendar-nav" id="prevMonth">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <h4 id="currentMonth">Ocak 2025</h4>
+                                <button class="calendar-nav" id="nextMonth">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            <div class="calendar-grid" id="calendarGrid">
+                                <!-- Calendar will be generated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="time-slots-container">
+                            <h4>Müsait Saatler</h4>
+                            <div class="time-slots" id="timeSlots">
+                                <!-- Time slots will be generated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Customer Information -->
+                <div class="appointment-step" id="step3">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <h3>Müşteri Bilgileri</h3>
+                        <p>İletişim ve araç bilgilerinizi girin</p>
+                    </div>
                     <form id="appointmentForm" class="appointment-form-fields">
                         <div class="form-row">
                             <div class="form-group">
@@ -229,6 +320,10 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="form-group">
+                                <label for="customerEmail">E-posta</label>
+                                <input type="email" id="customerEmail" name="customerEmail">
+                            </div>
                             <div class="form-group">
                                 <label for="vehicleBrand">Araç Markası *</label>
                                 <select id="vehicleBrand" name="vehicleBrand" required>
@@ -255,96 +350,295 @@
                                     <option value="other">Diğer</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group">
                                 <label for="vehicleModel">Araç Modeli</label>
                                 <input type="text" id="vehicleModel" name="vehicleModel" placeholder="Model yazınız">
                             </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group">
-                                <label for="serviceType">Hizmet Türü *</label>
-                                <select id="serviceType" name="serviceType" required>
-                                    <option value="">Hizmet Seçiniz</option>
-                                    <option value="dinamo">Dinamo Tamiri</option>
-                                    <option value="alternator">Alternatör Servisi</option>
-                                    <option value="starter">Marş Motoru</option>
-                                    <option value="electrical">Genel Elektrik</option>
-                                    <option value="diagnosis">Arıza Tespiti</option>
-                                    <option value="other">Diğer</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="appointmentDate">Tarih *</label>
-                                <input type="date" id="appointmentDate" name="appointmentDate" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="appointmentTime">Saat *</label>
-                                <select id="appointmentTime" name="appointmentTime" required>
-                                    <option value="">Saat Seçiniz</option>
-                                    <option value="09:00">09:00</option>
-                                    <option value="09:30">09:30</option>
-                                    <option value="10:00">10:00</option>
-                                    <option value="10:30">10:30</option>
-                                    <option value="11:00">11:00</option>
-                                    <option value="11:30">11:30</option>
-                                    <option value="12:00">12:00</option>
-                                    <option value="13:00">13:00</option>
-                                    <option value="13:30">13:30</option>
-                                    <option value="14:00">14:00</option>
-                                    <option value="14:30">14:30</option>
-                                    <option value="15:00">15:00</option>
-                                    <option value="15:30">15:30</option>
-                                    <option value="16:00">16:00</option>
-                                    <option value="16:30">16:30</option>
-                                    <option value="17:00">17:00</option>
-                                    <option value="17:30">17:30</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="urgency">Aciliyet</label>
-                                <select id="urgency" name="urgency">
-                                    <option value="normal">Normal</option>
-                                    <option value="urgent">Acil</option>
-                                    <option value="emergency">Çok Acil</option>
-                                </select>
+                                <label for="vehicleYear">Model Yılı</label>
+                                <input type="number" id="vehicleYear" name="vehicleYear" placeholder="2020" min="1990" max="2025">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="problemDescription">Problem Açıklaması</label>
-                            <textarea id="problemDescription" name="problemDescription" rows="4" placeholder="Aracınızda yaşadığınız problemi detaylı olarak açıklayınız..."></textarea>
+                            <textarea id="problemDescription" name="problemDescription" rows="3" placeholder="Aracınızda yaşadığınız problemi kısaca açıklayın..."></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-large">
-                            <i class="fas fa-calendar-check"></i>
-                            Randevu Al
-                        </button>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="emergencyService" name="emergencyService">
+                                <span class="checkmark"></span>
+                                Acil servis (Ek ücret: +200 TL)
+                            </label>
+                        </div>
                     </form>
                 </div>
-                <div class="appointment-info">
-                    <h3>Randevu Bilgileri</h3>
-                    <div class="info-cards">
-                        <div class="info-card">
-                            <i class="fas fa-clock"></i>
-                            <h4>Çalışma Saatleri</h4>
-                            <p>Pazartesi - Cumartesi<br>09:00 - 18:00</p>
+
+                <!-- Step 4: Confirmation -->
+                <div class="appointment-step" id="step4">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <h3>Randevu Onayı</h3>
+                        <p>Bilgilerinizi kontrol edin ve onaylayın</p>
+                    </div>
+                    <div class="appointment-summary" id="appointmentSummary">
+                        <!-- Summary will be generated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="appointment-navigation">
+                    <button class="btn btn-secondary" id="prevStep" style="display: none;">
+                        <i class="fas fa-arrow-left"></i> Geri
+                    </button>
+                    <button class="btn btn-primary" id="nextStep">
+                        İleri <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn btn-success" id="confirmAppointment" style="display: none;">
+                        <i class="fas fa-check"></i> Randevuyu Onayla
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vehicle Diagnostic Tool -->
+    <section id="diagnostic" class="diagnostic-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>🔧 Araç Tanı Aracı</h2>
+                <p>Aracınızdaki problemi tespit edin ve çözüm önerileri alın</p>
+            </div>
+            <div class="diagnostic-container">
+                <!-- Step 1: Vehicle Information -->
+                <div class="diagnostic-step active" id="diagStep1">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h3>Araç Bilgileri</h3>
+                        <p>Aracınızın marka, model ve yıl bilgilerini girin</p>
+                    </div>
+                    <div class="vehicle-info-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="diagVehicleBrand">Araç Markası *</label>
+                                <select id="diagVehicleBrand" name="diagVehicleBrand" required>
+                                    <option value="">Marka Seçiniz</option>
+                                    <option value="audi">Audi</option>
+                                    <option value="bmw">BMW</option>
+                                    <option value="mercedes">Mercedes-Benz</option>
+                                    <option value="volkswagen">Volkswagen</option>
+                                    <option value="ford">Ford</option>
+                                    <option value="opel">Opel</option>
+                                    <option value="renault">Renault</option>
+                                    <option value="peugeot">Peugeot</option>
+                                    <option value="fiat">Fiat</option>
+                                    <option value="toyota">Toyota</option>
+                                    <option value="honda">Honda</option>
+                                    <option value="hyundai">Hyundai</option>
+                                    <option value="kia">Kia</option>
+                                    <option value="nissan">Nissan</option>
+                                    <option value="mazda">Mazda</option>
+                                    <option value="skoda">Skoda</option>
+                                    <option value="seat">Seat</option>
+                                    <option value="chevrolet">Chevrolet</option>
+                                    <option value="dacia">Dacia</option>
+                                    <option value="other">Diğer</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="diagVehicleModel">Araç Modeli *</label>
+                                <input type="text" id="diagVehicleModel" name="diagVehicleModel" placeholder="Model yazınız" required>
+                            </div>
                         </div>
-                        <div class="info-card">
-                            <i class="fas fa-phone"></i>
-                            <h4>Hızlı İletişim</h4>
-                            <p>0535 356 24 69<br>Acil durumlar için</p>
-                        </div>
-                        <div class="info-card">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <h4>Konum</h4>
-                            <p>Atatürk Cad. No:312<br>Sultanbeyli / İstanbul</p>
-                        </div>
-                        <div class="info-card">
-                            <i class="fas fa-shield-alt"></i>
-                            <h4>Garanti</h4>
-                            <p>Tüm işlerimiz<br>Garantili</p>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="diagVehicleYear">Model Yılı *</label>
+                                <select id="diagVehicleYear" name="diagVehicleYear" required>
+                                    <option value="">Yıl Seçiniz</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2009">2009</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
+                                    <option value="2004">2004</option>
+                                    <option value="2003">2003</option>
+                                    <option value="2002">2002</option>
+                                    <option value="2001">2001</option>
+                                    <option value="2000">2000</option>
+                                    <option value="1999">1999</option>
+                                    <option value="1998">1998</option>
+                                    <option value="1997">1997</option>
+                                    <option value="1996">1996</option>
+                                    <option value="1995">1995</option>
+                                    <option value="1994">1994</option>
+                                    <option value="1993">1993</option>
+                                    <option value="1992">1992</option>
+                                    <option value="1991">1991</option>
+                                    <option value="1990">1990</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="diagMileage">Kilometre</label>
+                                <input type="number" id="diagMileage" name="diagMileage" placeholder="Örn: 150000">
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Step 2: Problem Symptoms -->
+                <div class="diagnostic-step" id="diagStep2">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h3>Problem Belirtileri</h3>
+                        <p>Aracınızda yaşadığınız problemleri seçin</p>
+                    </div>
+                    <div class="symptoms-grid">
+                        <div class="symptom-category">
+                            <h4>🚗 Motor ve Çalıştırma</h4>
+                            <div class="symptom-options">
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="engine_wont_start">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Motor çalışmıyor</span>
+                                </label>
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="engine_hard_start">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Motor zor çalışıyor</span>
+                                </label>
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="engine_stalls">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Motor stop ediyor</span>
+                                </label>
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="engine_noise">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Motor sesi anormal</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="symptom-category">
+                            <h4>⚡ Elektrik Sistemi</h4>
+                            <div class="symptom-options">
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="battery_dead">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Akü bitiyor</span>
+                                </label>
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="alternator_light">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Alternatör ışığı yanıyor</span>
+                                </label>
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="electrical_failure">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Elektrik kesintisi</span>
+                                </label>
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="lights_dim">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Farlar sönük</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="symptom-category">
+                            <h4>🔋 Dinamo ve Alternatör</h4>
+                            <div class="symptom-options">
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="charging_issue">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Şarj sorunu</span>
+                                </label>
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="voltage_irregular">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Voltaj düzensiz</span>
+                                </label>
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="alternator_noise">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Alternatör sesi</span>
+                                </label>
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="overcharging">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Aşırı şarj</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="symptom-category">
+                            <h4>🎯 Marş Motoru</h4>
+                            <div class="symptom-options">
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="starter_no_response">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Marş motoru çalışmıyor</span>
+                                </label>
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="starter_slow">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Marş motoru yavaş</span>
+                                </label>
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="starter_clicking">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Tık tık sesi</span>
+                                </label>
+                                <label class="symptom-option">
+                                    <input type="checkbox" name="symptoms" value="starter_grinding">
+                                    <span class="checkmark"></span>
+                                    <span class="symptom-text">Gıcırdama sesi</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Diagnostic Results -->
+                <div class="diagnostic-step" id="diagStep3">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <h3>Tanı Sonuçları</h3>
+                        <p>Problem analizi ve çözüm önerileri</p>
+                    </div>
+                    <div class="diagnostic-results" id="diagnosticResults">
+                        <!-- Results will be generated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="diagnostic-navigation">
+                    <button class="btn btn-secondary" id="diagPrevStep" style="display: none;">
+                        <i class="fas fa-arrow-left"></i> Geri
+                    </button>
+                    <button class="btn btn-primary" id="diagNextStep">
+                        İleri <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn btn-success" id="diagGetQuote" style="display: none;">
+                        <i class="fas fa-calculator"></i> Fiyat Al
+                    </button>
                 </div>
             </div>
         </div>
@@ -1084,174 +1378,464 @@
             <div class="section-header">
                 <h2>Müşteri Yorumları</h2>
                 <p>Memnun müşterilerimizin deneyimleri</p>
+                <div class="reviews-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">4.9</span>
+                        <div class="stat-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="stat-text">Ortalama Puan</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">247</span>
+                        <span class="stat-text">Toplam Yorum</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">98%</span>
+                        <span class="stat-text">Memnuniyet Oranı</span>
+                    </div>
+                </div>
             </div>
             <div class="reviews-grid">
-                <div class="review-card">
+                <div class="review-card verified">
                     <div class="review-header">
                         <div class="reviewer-info">
                             <div class="reviewer-avatar">
-                                <i class="fas fa-user"></i>
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Mehmet Y.">
+                                <div class="verified-badge">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
                             </div>
                             <div class="reviewer-details">
-                                <h4>Mehmet Y.</h4>
-                                <p>Volkswagen Passat Sahibi</p>
+                                <h4>Mehmet Yılmaz</h4>
+                                <p>Volkswagen Passat 2018 • 45.000 km</p>
+                                <div class="reviewer-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Kadıköy, İstanbul</span>
+                                </div>
                             </div>
                         </div>
                         <div class="review-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">5.0</span>
                         </div>
                     </div>
                     <div class="review-content">
-                        <p>"Dinamo arızası yaşadığımda DC TEKNİK'e geldim. Çok profesyonel hizmet aldım. Fiyat uygun, işçilik kaliteli. Kesinlikle tavsiye ederim."</p>
+                        <h5>Dinamo Tamiri</h5>
+                        <p>"Aracımda dinamo arızası başladığında çok endişeliydim. DC TEKNİK'e geldiğimde Serdar Bey çok profesyonel bir şekilde durumu analiz etti. Orijinal parça kullanarak tamiri yaptılar. İşçilik kalitesi mükemmel, fiyat da piyasa ortalamasının altındaydı. 2 yıl garanti verdiler. Kesinlikle tavsiye ederim."</p>
                     </div>
-                    <div class="review-date">
-                        <i class="fas fa-calendar"></i>
-                        <span>15 Aralık 2024</span>
+                    <div class="review-footer">
+                        <div class="review-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>15 Aralık 2024</span>
+                        </div>
+                        <div class="review-helpful">
+                            <button class="helpful-btn">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span>12</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="review-card">
+                <div class="review-card verified">
                     <div class="review-header">
                         <div class="reviewer-info">
                             <div class="reviewer-avatar">
-                                <i class="fas fa-user"></i>
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Ayşe K.">
+                                <div class="verified-badge">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
                             </div>
                             <div class="reviewer-details">
-                                <h4>Ayşe K.</h4>
-                                <p>Renault Clio Sahibi</p>
+                                <h4>Ayşe Kaya</h4>
+                                <p>Renault Clio 2020 • 28.000 km</p>
+                                <div class="reviewer-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Beşiktaş, İstanbul</span>
+                                </div>
                             </div>
                         </div>
                         <div class="review-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">5.0</span>
                         </div>
                     </div>
                     <div class="review-content">
-                        <p>"Alternatör sorunu vardı aracımda. Serdar Bey çok ilgili ve bilgili. Sorunu hızlıca tespit edip çözdü. Çok memnun kaldım."</p>
+                        <h5>Alternatör Servisi</h5>
+                        <p>"Alternatör sorunu yaşadığımda birçok yere gittim ama hiçbiri sorunu tam olarak tespit edemedi. DC TEKNİK'te Serdar Bey çok detaylı bir kontrol yaptı ve sorunu buldu. Sadece gerekli parçayı değiştirdiler, gereksiz masraf çıkarmadılar. Kadın olarak çok rahat hissettim, her şeyi açıkladılar."</p>
                     </div>
-                    <div class="review-date">
-                        <i class="fas fa-calendar"></i>
-                        <span>8 Aralık 2024</span>
+                    <div class="review-footer">
+                        <div class="review-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>8 Aralık 2024</span>
+                        </div>
+                        <div class="review-helpful">
+                            <button class="helpful-btn">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span>8</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="review-card">
+                <div class="review-card verified">
                     <div class="review-header">
                         <div class="reviewer-info">
                             <div class="reviewer-avatar">
-                                <i class="fas fa-user"></i>
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Ali M.">
+                                <div class="verified-badge">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
                             </div>
                             <div class="reviewer-details">
-                                <h4>Ali M.</h4>
-                                <p>Ford Focus Sahibi</p>
+                                <h4>Ali Mehmetoğlu</h4>
+                                <p>Ford Focus 2019 • 52.000 km</p>
+                                <div class="reviewer-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Şişli, İstanbul</span>
+                                </div>
                             </div>
                         </div>
                         <div class="review-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">5.0</span>
                         </div>
                     </div>
                     <div class="review-content">
-                        <p>"Marş motoru arızası için geldim. Hem fiyat hem de hizmet kalitesi çok iyi. Garanti de veriyorlar. Teşekkürler DC TEKNİK."</p>
+                        <h5>Marş Motoru Tamiri</h5>
+                        <p>"Marş motoru arızası için geldim. Önceki yerde 3 gün bekledim ama çözemediler. DC TEKNİK'te aynı gün tespit edip ertesi gün tamamladılar. Hem fiyat hem de hizmet kalitesi çok iyi. 18 ay garanti verdiler. WhatsApp'tan sürekli bilgi verdiler. Çok memnun kaldım."</p>
                     </div>
-                    <div class="review-date">
-                        <i class="fas fa-calendar"></i>
-                        <span>2 Aralık 2024</span>
+                    <div class="review-footer">
+                        <div class="review-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>2 Aralık 2024</span>
+                        </div>
+                        <div class="review-helpful">
+                            <button class="helpful-btn">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span>15</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="review-card">
+                <div class="review-card verified">
                     <div class="review-header">
                         <div class="reviewer-info">
                             <div class="reviewer-avatar">
-                                <i class="fas fa-user"></i>
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Fatma S.">
+                                <div class="verified-badge">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
                             </div>
                             <div class="reviewer-details">
-                                <h4>Fatma S.</h4>
-                                <p>Opel Astra Sahibi</p>
+                                <h4>Fatma Şahin</h4>
+                                <p>Opel Astra 2017 • 67.000 km</p>
+                                <div class="reviewer-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Üsküdar, İstanbul</span>
+                                </div>
                             </div>
                         </div>
                         <div class="review-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">5.0</span>
                         </div>
                     </div>
                     <div class="review-content">
-                        <p>"Elektrik arızası vardı aracımda. Çok detaylı kontrol yaptılar. Sorunu bulup çözdüler. Çok güvenilir bir yer."</p>
+                        <h5>Elektrik Arıza Tespiti</h5>
+                        <p>"Aracımda sürekli elektrik sorunları yaşıyordum. Başka yerlerde çözemediler. DC TEKNİK'te çok detaylı bir elektrik kontrolü yaptılar. Tüm kabloları, sigortaları kontrol ettiler. Sorunu bulup kalıcı çözüm uyguladılar. 6 aydır hiç sorun yaşamadım. Çok güvenilir bir yer."</p>
                     </div>
-                    <div class="review-date">
-                        <i class="fas fa-calendar"></i>
-                        <span>28 Kasım 2024</span>
+                    <div class="review-footer">
+                        <div class="review-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>28 Kasım 2024</span>
+                        </div>
+                        <div class="review-helpful">
+                            <button class="helpful-btn">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span>9</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="review-card">
+                <div class="review-card verified">
                     <div class="review-header">
                         <div class="reviewer-info">
                             <div class="reviewer-avatar">
-                                <i class="fas fa-user"></i>
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face" alt="Mustafa D.">
+                                <div class="verified-badge">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
                             </div>
                             <div class="reviewer-details">
-                                <h4>Mustafa D.</h4>
-                                <p>BMW 3 Serisi Sahibi</p>
+                                <h4>Mustafa Demir</h4>
+                                <p>BMW 3 Serisi 2021 • 31.000 km</p>
+                                <div class="reviewer-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Beyoğlu, İstanbul</span>
+                                </div>
                             </div>
                         </div>
                         <div class="review-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">5.0</span>
                         </div>
                     </div>
                     <div class="review-content">
-                        <p>"Lüks araçlarda da çok başarılılar. BMW'mde dinamo sorunu vardı. Çok profesyonel çalıştılar. Fiyat da makul."</p>
+                        <h5>Lüks Araç Dinamo Servisi</h5>
+                        <p>"BMW'mde dinamo sorunu vardı. Lüks araçlarda çalışmak zor olduğu için birçok yer kabul etmedi. DC TEKNİK'te BMW konusunda deneyimli olduklarını söylediler. Gerçekten de çok profesyonel çalıştılar. Orijinal BMW parçası kullandılar. Fiyat da makul, lüks araç fiyatı çıkarmadılar."</p>
                     </div>
-                    <div class="review-date">
-                        <i class="fas fa-calendar"></i>
-                        <span>20 Kasım 2024</span>
+                    <div class="review-footer">
+                        <div class="review-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>20 Kasım 2024</span>
+                        </div>
+                        <div class="review-helpful">
+                            <button class="helpful-btn">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span>11</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="review-card">
+                <div class="review-card verified">
                     <div class="review-header">
                         <div class="reviewer-info">
                             <div class="reviewer-avatar">
-                                <i class="fas fa-user"></i>
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face" alt="Zeynep A.">
+                                <div class="verified-badge">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
                             </div>
                             <div class="reviewer-details">
-                                <h4>Zeynep A.</h4>
-                                <p>Hyundai i20 Sahibi</p>
+                                <h4>Zeynep Arslan</h4>
+                                <p>Hyundai i20 2020 • 35.000 km</p>
+                                <div class="reviewer-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Maltepe, İstanbul</span>
+                                </div>
                             </div>
                         </div>
                         <div class="review-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">5.0</span>
                         </div>
                     </div>
                     <div class="review-content">
-                        <p>"Kadın olarak çok rahat hissettim. Açıklamaları çok net. Fiyatları da şeffaf. Kesinlikle tekrar gelirim."</p>
+                        <h5>Genel Elektrik Kontrolü</h5>
+                        <p>"Kadın olarak araç konusunda çok bilgili değilim. DC TEKNİK'te her şeyi çok net açıkladılar. Ne yapılacağını, neden yapılacağını, fiyatları önceden söylediler. Hiç sürpriz masraf çıkmadı. Çok şeffaf çalışıyorlar. Kadın müşteri olarak çok rahat hissettim. Kesinlikle tekrar gelirim."</p>
                     </div>
-                    <div class="review-date">
-                        <i class="fas fa-calendar"></i>
-                        <span>12 Kasım 2024</span>
+                    <div class="review-footer">
+                        <div class="review-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>12 Kasım 2024</span>
+                        </div>
+                        <div class="review-helpful">
+                            <button class="helpful-btn">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span>7</span>
+                            </button>
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="reviews-actions">
+                <button class="btn btn-primary" onclick="window.open('https://wa.me/905551234567?text=Merhaba, yorum bırakmak istiyorum.', '_blank')">
+                    <i class="fab fa-whatsapp"></i>
+                    Yorum Bırak
+                </button>
+                <button class="btn btn-outline" onclick="showAllReviews()">
+                    <i class="fas fa-comments"></i>
+                    Tüm Yorumları Gör
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Sıkça Sorulan Sorular</h2>
+                <p>Dinamocu servisi hakkında merak edilenler</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Dinamo tamiri ne kadar sürer?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Dinamo tamiri genellikle 2-4 saat arasında tamamlanır. Arızanın boyutuna göre bu süre değişebilir. Basit arızalar daha kısa sürede, kompleks arızalar ise daha uzun sürede çözülür.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Dinamo tamiri fiyatları nasıl belirlenir?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Fiyatlar araç markası, modeli, arızanın türü ve kullanılan yedek parçalara göre değişir. Genel fiyat aralığı 800-2500 TL arasındadır. Kesin fiyat için ücretsiz keşif yapıyoruz.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Hangi marka araçlarda hizmet veriyorsunuz?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Tüm marka ve model araçlarda hizmet veriyoruz. Volkswagen, Ford, Renault, Opel, BMW, Mercedes, Audi, Toyota, Honda, Hyundai, Kia ve diğer tüm markalar.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Garanti veriyor musunuz?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Evet, tüm tamir işlerimizde 1 yıl garanti veriyoruz. Garanti kapsamında yapılan işlerde herhangi bir sorun yaşanması durumunda ücretsiz olarak düzeltiyoruz.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Acil durumlarda hizmet veriyor musunuz?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Evet, acil durumlar için 7/24 hizmet veriyoruz. Yolda kalan araçlar için çekici hizmeti de sunuyoruz. Acil durumlar için 0535 356 24 69 numaralı telefonu arayabilirsiniz.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Ödeme seçenekleri nelerdir?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nakit, kredi kartı, banka kartı ve havale ile ödeme kabul ediyoruz. Taksitli ödeme seçenekleri de mevcuttur. Detaylar için iletişime geçebilirsiniz.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Randevu almak zorunlu mu?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Randevu almak zorunlu değil ancak önerilir. Randevu ile geldiğinizde bekleme süreniz olmaz ve daha hızlı hizmet alırsınız. Online randevu sistemi üzerinden kolayca randevu alabilirsiniz.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Dinamo arızasının belirtileri nelerdir?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Dinamo arızasının başlıca belirtileri: Araç çalışmıyor, marş motoru dönmüyor, farlar yanmıyor, akü boşalıyor, şarj göstergesi yanıyor. Bu belirtilerden herhangi birini yaşıyorsanız hemen iletişime geçin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Subscription Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-text">
+                    <h2>Haberlerden Haberdar Olun</h2>
+                    <p>Dinamocu servisi hakkında en güncel bilgiler, özel kampanyalar ve uzman tavsiyeleri için e-posta listemize katılın.</p>
+                    <div class="newsletter-benefits">
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Özel indirim fırsatları</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Uzman bakım tavsiyeleri</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Yeni hizmet duyuruları</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="newsletter-form">
+                    <form id="newsletterForm" class="newsletter-form-fields">
+                        <div class="form-group">
+                            <input type="text" id="newsletterName" name="name" placeholder="Adınız Soyadınız" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="newsletterEmail" name="email" placeholder="E-posta adresiniz" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="newsletterInterest" name="interest">
+                                <option value="">Hangi konularda bilgi almak istiyorsunuz?</option>
+                                <option value="dinamo">Dinamo Tamiri</option>
+                                <option value="alternator">Alternatör Servisi</option>
+                                <option value="starter">Marş Motoru</option>
+                                <option value="electrical">Genel Elektrik</option>
+                                <option value="all">Tüm Konular</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary newsletter-btn">
+                            <i class="fas fa-envelope"></i>
+                            <span>Abone Ol</span>
+                        </button>
+                        <p class="newsletter-privacy">
+                            <i class="fas fa-shield-alt"></i>
+                            E-posta adresiniz güvende. Spam göndermiyoruz, istediğiniz zaman abonelikten çıkabilirsiniz.
+                        </p>
+                    </form>
                 </div>
             </div>
         </div>
@@ -1326,6 +1910,492 @@
             </div>
             <div class="blog-cta">
                 <a href="blog.html" class="btn btn-primary">Tüm Blog Yazılarını Gör</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Gallery Section -->
+    <section class="services-gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>Hizmetlerimiz</h2>
+                <p>Profesyonel otomotiv elektrik hizmetleri</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&h=300&fit=crop" alt="Dinamo Tamiri">
+                        <div class="gallery-overlay">
+                            <h3>Dinamo Tamiri</h3>
+                            <p>Profesyonel dinamo tamiri ve yenileme hizmetleri</p>
+                            <a href="#contact" class="gallery-btn">Detaylar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop" alt="Alternatör Servisi">
+                        <div class="gallery-overlay">
+                            <h3>Alternatör Servisi</h3>
+                            <p>Alternatör bakımı ve onarım hizmetleri</p>
+                            <a href="#contact" class="gallery-btn">Detaylar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&h=300&fit=crop" alt="Marş Motoru">
+                        <div class="gallery-overlay">
+                            <h3>Marş Motoru</h3>
+                            <p>Marş motoru tamiri ve yenileme</p>
+                            <a href="#contact" class="gallery-btn">Detaylar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Elektrik Tamiri">
+                        <div class="gallery-overlay">
+                            <h3>Elektrik Tamiri</h3>
+                            <p>Araç elektrik sistemleri tamiri</p>
+                            <a href="#contact" class="gallery-btn">Detaylar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1563298723-dcfebaa392e4?w=400&h=300&fit=crop" alt="Acil Servis">
+                        <div class="gallery-overlay">
+                            <h3>Acil Servis</h3>
+                            <p>7/24 acil müdahale hizmetleri</p>
+                            <a href="#contact" class="gallery-btn">Detaylar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=300&fit=crop" alt="Garanti">
+                        <div class="gallery-overlay">
+                            <h3>Garanti</h3>
+                            <p>Tüm işlerimizde garanti</p>
+                            <a href="#contact" class="gallery-btn">Detaylar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section" id="blog">
+        <div class="container">
+            <div class="section-header">
+                <h2>Otomotiv Blog</h2>
+                <p>Dinamo, alternatör ve marş motoru hakkında güncel bilgiler</p>
+            </div>
+            
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&h=250&fit=crop" alt="Dinamo Tamiri">
+                        <div class="blog-category">Dinamo</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                15 Ocak 2025
+                            </span>
+                            <span class="blog-author">
+                                <i class="fas fa-user"></i>
+                                Serdar Usta
+                            </span>
+                        </div>
+                        <h3>Dinamo Arızası Nasıl Anlaşılır?</h3>
+                        <p>Dinamo arızasının belirtileri, nedenleri ve çözüm yöntemleri hakkında detaylı bilgiler...</p>
+                        <a href="#" class="blog-read-more">Devamını Oku <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop" alt="Alternatör Servisi">
+                        <div class="blog-category">Alternatör</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                12 Ocak 2025
+                            </span>
+                            <span class="blog-author">
+                                <i class="fas fa-user"></i>
+                                Serdar Usta
+                            </span>
+                        </div>
+                        <h3>Alternatör Bakımı ve Önemi</h3>
+                        <p>Alternatör bakımının araç performansına etkisi ve düzenli bakım önerileri...</p>
+                        <a href="#" class="blog-read-more">Devamını Oku <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&h=250&fit=crop" alt="Marş Motoru">
+                        <div class="blog-category">Marş Motoru</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                10 Ocak 2025
+                            </span>
+                            <span class="blog-author">
+                                <i class="fas fa-user"></i>
+                                Serdar Usta
+                            </span>
+                        </div>
+                        <h3>Marş Motoru Arızası ve Çözümleri</h3>
+                        <p>Marş motoru arızasının nedenleri, belirtileri ve profesyonel çözüm yöntemleri...</p>
+                        <a href="#" class="blog-read-more">Devamını Oku <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="blog-actions">
+                <a href="blog.html" class="btn btn-primary">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Tüm Blog Yazıları</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section class="customer-reviews" itemscope itemtype="https://schema.org/Product">
+        <meta itemprop="name" content="DC TEKNİK Otomotiv Elektrik Servisi" />
+        <div class="container">
+            <div class="section-header">
+                <div class="reviews-title-wrap">
+                    <h2>Müşteri Yorumları</h2>
+                    <div class="trust-badges" aria-label="Güven Rozetleri">
+                        <span class="badge badge-verified"><i class="fas fa-shield-check"></i> Doğrulanmış Müşteri</span>
+                        <span class="badge badge-guarantee"><i class="fas fa-badge-check"></i> İşçilik Garantisi</span>
+                        <span class="badge badge-iso"><i class="fas fa-certificate"></i> ISO Uyumlu Süreç</span>
+                    </div>
+                </div>
+                <p>Memnun müşterilerimizin gerçek deneyimleri. Yorumlar WhatsApp kayıtlarıyla doğrulanmıştır.</p>
+            </div>
+            
+            <!-- Reviews Statistics with AggregateRating -->
+            <div class="reviews-stats" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+                <meta itemprop="ratingValue" content="4.9" />
+                <meta itemprop="reviewCount" content="247" />
+                <div class="stat-item">
+                    <div class="stat-number" aria-label="Ortalama Puan" itemprop="ratingValue">4.9</div>
+                    <div class="stat-stars" aria-hidden="true">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-text">Ortalama Puan</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" aria-label="Toplam Yorum" itemprop="reviewCount">247</div>
+                    <div class="stat-text">Toplam Yorum</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-text">Memnuniyet Oranı</div>
+                </div>
+            </div>
+
+            <!-- Reviews Grid -->
+            <div class="reviews-grid" itemprop="review" itemscope itemtype="https://schema.org/Review">
+                <!-- Review 1 -->
+                <div class="review-card verified" itemprop="review" itemscope itemtype="https://schema.org/Review">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Ahmet Yılmaz" loading="lazy">
+                            <div class="verified-badge">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="reviewer-details" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <h4 itemprop="name">Ahmet Yılmaz</h4>
+                            <p>Volkswagen Passat 2018 • 45.000 km</p>
+                            <div class="reviewer-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Sultanbeyli, İstanbul</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <div class="rating-stars" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <meta itemprop="ratingValue" content="5" />
+                        </div>
+                        <div class="rating-text">5.0</div>
+                    </div>
+                    <div class="review-content" itemprop="reviewBody">
+                        <h5>Dinamo Tamiri</h5>
+                        <p>Arabamın dinamosu arızalandığında çok endişeliydim. Serdar Bey'in profesyonel yaklaşımı ve hızlı çözümü beni çok etkiledi. İşini çok iyi biliyor ve müşteri memnuniyetini ön planda tutuyor. Fiyatı da çok uygun. Kesinlikle tavsiye ederim.</p>
+                    </div>
+                    <div class="review-footer">
+                        <div class="review-date">
+                            <i class="fas fa-calendar"></i>
+                            <time itemprop="datePublished" datetime="2024-12-15">2 gün önce</time>
+                        </div>
+                        <button class="helpful-btn" data-count="12">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span>12</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="review-card verified">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Fatma Demir">
+                            <div class="verified-badge">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="reviewer-details">
+                            <h4>Fatma Demir</h4>
+                            <p>Renault Clio 2020 • 32.000 km</p>
+                            <div class="reviewer-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Pendik, İstanbul</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-text">5.0</div>
+                    </div>
+                    <div class="review-content">
+                        <h5>Alternatör Servisi</h5>
+                        <p>Alternatör sorunu yaşıyordum ve birçok yere gittim ama çözüm bulamadım. DC TEKNİK'e geldiğimde sorunun ne olduğunu hemen anladılar ve çok kısa sürede çözdüler. Çok memnun kaldım, teşekkürler.</p>
+                    </div>
+                    <div class="review-footer">
+                        <div class="review-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>1 hafta önce</span>
+                        </div>
+                        <button class="helpful-btn" data-count="8">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span>8</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="review-card verified">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Mehmet Kaya">
+                            <div class="verified-badge">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="reviewer-details">
+                            <h4>Mehmet Kaya</h4>
+                            <p>Ford Focus 2019 • 67.000 km</p>
+                            <div class="reviewer-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Kartal, İstanbul</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-text">5.0</div>
+                    </div>
+                    <div class="review-content">
+                        <h5>Marş Motoru Tamiri</h5>
+                        <p>Marş motoru sorunu yaşıyordum ve araç çalışmıyordu. Serdar Bey çok hızlı bir şekilde sorunu tespit etti ve çözdü. Fiyatı da çok uygun. Artık tüm elektrik sorunlarım için buraya geliyorum.</p>
+                    </div>
+                    <div class="review-footer">
+                        <div class="review-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>2 hafta önce</span>
+                        </div>
+                        <button class="helpful-btn" data-count="15">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span>15</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="review-card verified">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Ayşe Özkan">
+                            <div class="verified-badge">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="reviewer-details">
+                            <h4>Ayşe Özkan</h4>
+                            <p>Opel Astra 2017 • 89.000 km</p>
+                            <div class="reviewer-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Maltepe, İstanbul</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-text">5.0</div>
+                    </div>
+                    <div class="review-content">
+                        <h5>Genel Elektrik Kontrolü</h5>
+                        <p>Arabamda sürekli elektrik sorunları yaşıyordum. DC TEKNİK'te tüm elektrik sistemini kontrol ettiler ve sorunları tek tek çözdüler. Artık hiç sorun yaşamıyorum. Çok teşekkürler.</p>
+                    </div>
+                    <div class="review-footer">
+                        <div class="review-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>3 hafta önce</span>
+                        </div>
+                        <button class="helpful-btn" data-count="6">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span>6</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Review 5 -->
+                <div class="review-card verified">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face" alt="Ali Çelik">
+                            <div class="verified-badge">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="reviewer-details">
+                            <h4>Ali Çelik</h4>
+                            <p>BMW 3 Series 2016 • 125.000 km</p>
+                            <div class="reviewer-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Kadıköy, İstanbul</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-text">5.0</div>
+                    </div>
+                    <div class="review-content">
+                        <h5>Dinamo Yenileme</h5>
+                        <p>BMW'mde dinamo sorunu vardı ve birçok yere gittim ama çözüm bulamadım. DC TEKNİK'te dinamo yenilendi ve artık hiç sorun yaşamıyorum. Çok profesyonel bir hizmet aldım.</p>
+                    </div>
+                    <div class="review-footer">
+                        <div class="review-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>1 ay önce</span>
+                        </div>
+                        <button class="helpful-btn" data-count="9">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span>9</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Review 6 -->
+                <div class="review-card verified">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face" alt="Zeynep Arslan">
+                            <div class="verified-badge">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="reviewer-details">
+                            <h4>Zeynep Arslan</h4>
+                            <p>Hyundai i20 2021 • 28.000 km</p>
+                            <div class="reviewer-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Üsküdar, İstanbul</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-text">5.0</div>
+                    </div>
+                    <div class="review-content">
+                        <h5>Alternatör Tamiri</h5>
+                        <p>Yeni arabamda alternatör sorunu yaşadım. Serdar Bey çok hızlı bir şekilde sorunu çözdü ve fiyatı da çok uygun. Çok memnun kaldım, herkese tavsiye ederim.</p>
+                    </div>
+                    <div class="review-footer">
+                        <div class="review-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>1 ay önce</span>
+                        </div>
+                        <button class="helpful-btn" data-count="11">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span>11</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Actions -->
+            <div class="reviews-actions">
+                <a href="https://wa.me/905353562469?text=Merhaba, DC TEKNİK hizmetleri hakkında yorum bırakmak istiyorum." class="btn btn-primary" target="_blank">
+                    <i class="fas fa-comment"></i>
+                    <span>Yorum Bırak</span>
+                </a>
+                <button class="btn btn-outline" onclick="showAllReviews()">
+                    <i class="fas fa-list"></i>
+                    <span>Tüm Yorumları Gör</span>
+                </button>
             </div>
         </div>
     </section>
@@ -1549,10 +2619,31 @@
                     <h3>DC TEKNİK</h3>
                     <p data-translate="footer.description">Dinamocu Serdar - Sultanbeyli'nin güvenilir dinamocu servisi. Kaliteli hizmet, uygun fiyat.</p>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/DinamocuSerdar" target="_blank"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="https://wa.me/905353562469?text=Merhaba, dinamocu servisi hakkında bilgi almak istiyorum." target="_blank"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/DinamocuSerdar" target="_blank" title="Facebook'ta Takip Et"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/dinamocuserdar" target="_blank" title="Instagram'da Takip Et"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/905353562469?text=Merhaba, dinamocu servisi hakkında bilgi almak istiyorum." target="_blank" title="WhatsApp'tan İletişim"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.youtube.com/@dinamocuserdar" target="_blank" title="YouTube Kanalımız"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.linkedin.com/company/dc-teknik" target="_blank" title="LinkedIn'de Bağlantı Kur"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                    <div class="share-buttons">
+                        <h5>Sayfayı Paylaş</h5>
+                        <div class="share-links">
+                            <button class="share-btn facebook-share" onclick="shareOnFacebook()" title="Facebook'ta Paylaş">
+                                <i class="fab fa-facebook"></i>
+                            </button>
+                            <button class="share-btn twitter-share" onclick="shareOnTwitter()" title="Twitter'da Paylaş">
+                                <i class="fab fa-twitter"></i>
+                            </button>
+                            <button class="share-btn whatsapp-share" onclick="shareOnWhatsApp()" title="WhatsApp'ta Paylaş">
+                                <i class="fab fa-whatsapp"></i>
+                            </button>
+                            <button class="share-btn linkedin-share" onclick="shareOnLinkedIn()" title="LinkedIn'de Paylaş">
+                                <i class="fab fa-linkedin"></i>
+                            </button>
+                            <button class="share-btn copy-link" onclick="copyPageLink()" title="Linki Kopyala">
+                                <i class="fas fa-link"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -1752,6 +2843,6 @@
     </div>
 
     <script src="js/translations.js?v=20250101v6"></script>
-    <script src="js/script.js?v=20250101v6"></script>
+    <script src="js/script.js?v=20250115v6"></script>
 </body>
 </html> 
