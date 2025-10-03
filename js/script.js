@@ -67,10 +67,107 @@ function applyTheme() {
     }
 }
 
+// Chat system functionality
+function initializeChat() {
+    const chatToggle = document.getElementById('chatToggle');
+    if (chatToggle) {
+        chatToggle.addEventListener('click', function() {
+            // Open WhatsApp chat
+            const whatsappUrl = 'https://wa.me/905353562469?text=Merhaba! DC TEKNİK hizmetleri hakkında bilgi almak istiyorum.';
+            window.open(whatsappUrl, '_blank');
+            
+            // Hide notification after click
+            const notification = document.querySelector('.chat-notification');
+            if (notification) {
+                notification.style.display = 'none';
+            }
+            
+            // Show notification
+            showNotification('WhatsApp üzerinden iletişime geçiliyor...', 'success');
+            
+            // Track Google Analytics event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'chat_clicked', {
+                    'event_category': 'engagement',
+                    'event_label': 'chat_button'
+                });
+            }
+        });
+    }
+}
+
+// Contact buttons functionality
+function initializeContactButtons() {
+    // Phone button
+    const phoneBtn = document.querySelector('.phone-btn');
+    if (phoneBtn) {
+        phoneBtn.addEventListener('click', function() {
+            // Track Google Analytics event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'phone_clicked', {
+                    'event_category': 'engagement',
+                    'event_label': 'contact_phone'
+                });
+            }
+        });
+    }
+    
+    // WhatsApp button
+    const whatsappBtn = document.querySelector('.whatsapp-btn');
+    if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', function() {
+            // Track Google Analytics event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'whatsapp_clicked', {
+                    'event_category': 'engagement',
+                    'event_label': 'contact_whatsapp'
+                });
+            }
+        });
+    }
+    
+    // Appointment button
+    const appointmentBtn = document.querySelector('.appointment-btn');
+    if (appointmentBtn) {
+        appointmentBtn.addEventListener('click', function() {
+            // Track Google Analytics event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'appointment_clicked', {
+                    'event_category': 'engagement',
+                    'event_label': 'contact_appointment'
+                });
+            }
+        });
+    }
+    
+    // Tracking button
+    const trackingBtn = document.getElementById('trackingBtn');
+    if (trackingBtn) {
+        trackingBtn.addEventListener('click', function() {
+            // Show notification
+            showNotification('Servis takip sistemi yakında aktif olacak!', 'info');
+            
+            // Track Google Analytics event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'tracking_clicked', {
+                    'event_category': 'engagement',
+                    'event_label': 'contact_tracking'
+                });
+            }
+        });
+    }
+}
+
 // Initialize language system
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize theme system
     initializeTheme();
+    
+    // Initialize chat system
+    initializeChat();
+    
+    // Initialize contact buttons
+    initializeContactButtons();
     
     // Load saved language or default to Turkish
     const savedLanguage = localStorage.getItem('selectedLanguage') || 'tr';
