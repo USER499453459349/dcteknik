@@ -69,7 +69,7 @@ function applyTheme() {
 
 // Chat system functionality
 function initializeChat() {
-    const chatToggle = document.getElementById('chatToggle');
+    const chatToggle = document.getElementById('newChatToggle');
     if (chatToggle) {
         chatToggle.addEventListener('click', function() {
             // Open WhatsApp chat

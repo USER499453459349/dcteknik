@@ -2900,16 +2900,7 @@ img {
     font-size: 0.75rem;
 }
 
-/* Contact Buttons */
-.contact-buttons {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    z-index: 999;
-}
+/* Contact Buttons - OLD (REMOVED) */
 
 .contact-btn {
     width: 50px;
