@@ -1896,8 +1896,68 @@ function initializeMapFallback() {
     }
 }
 
+// Performance Optimization Functions
+function initializeLazyLoading() {
+    // Lazy loading for images
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src || img.src;
+                img.classList.remove('lazy');
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    images.forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+function optimizeImages() {
+    // Add WebP support detection
+    const supportsWebP = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1;
+        canvas.height = 1;
+        return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+    };
+
+    if (supportsWebP()) {
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            const src = img.src;
+            if (src.includes('unsplash.com')) {
+                img.src = src + '&fm=webp&q=80';
+            }
+        });
+    }
+}
+
+function preloadCriticalResources() {
+    // Preload critical images
+    const criticalImages = [
+        'https://images.unsplash.com/photo-1486754735734-325b5831c3ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+    ];
+
+    criticalImages.forEach(src => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+    });
+}
+
 // Initialize map when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize performance optimizations
+    initializeLazyLoading();
+    optimizeImages();
+    preloadCriticalResources();
+    
     // Show Professional Maps immediately
     setTimeout(initializeProfessionalMaps, 500);
     
