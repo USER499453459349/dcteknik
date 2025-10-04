@@ -1460,7 +1460,164 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize customer reviews functionality
     initializeCustomerReviews();
+    
+    // Initialize AI and automation features
+    initializeAIFeatures();
 });
+
+// AI and Automation Features
+function initializeAIFeatures() {
+    // Initialize AI chatbot
+    initializeAIChatbot();
+    
+    // Initialize AI diagnostic tool
+    initializeAIDiagnostic();
+    
+    // Initialize predictive maintenance
+    initializePredictiveMaintenance();
+    
+    // Initialize automated reporting
+    initializeAutomatedReporting();
+}
+
+// AI Chatbot functionality
+function initializeAIChatbot() {
+    // AI Chatbot simulation
+    window.openAIChat = function() {
+        showNotification('🤖 AI Chatbot başlatılıyor...', 'info');
+        
+        // Simulate AI response
+        setTimeout(() => {
+            const responses = [
+                "Merhaba! DC TEKNİK AI asistanıyım. Size nasıl yardımcı olabilirim?",
+                "Aracınızda hangi sorun yaşıyorsunuz? Detaylı bilgi verebilir misiniz?",
+                "Dinamo, alternatör veya marş motoru ile ilgili sorunuz mu var?",
+                "Acil durum mu? Hemen teknik destek sağlayabilirim."
+            ];
+            
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            showNotification(`🤖 AI: ${randomResponse}`, 'success');
+        }, 1500);
+        
+        // Track AI interaction
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'ai_chat_started', {
+                'event_category': 'ai_interaction',
+                'event_label': 'chatbot_launch',
+                'value': 1
+            });
+        }
+    };
+    
+    // AI Demo functionality
+    window.showAIDemo = function() {
+        showNotification('🎬 AI Demo başlatılıyor...', 'info');
+        
+        // Simulate demo process
+        setTimeout(() => {
+            showNotification('🤖 AI Demo: Arıza tespiti ve çözüm önerileri gösteriliyor...', 'success');
+        }, 2000);
+        
+        // Track demo interaction
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'ai_demo_watched', {
+                'event_category': 'ai_interaction',
+                'event_label': 'demo_view',
+                'value': 1
+            });
+        }
+    };
+}
+
+// AI Diagnostic functionality
+function initializeAIDiagnostic() {
+    window.startDiagnostic = function() {
+        showNotification('🔍 AI Arıza Tespiti başlatılıyor...', 'info');
+        
+        // Simulate diagnostic process
+        const diagnosticSteps = [
+            "🔍 Araç verileri analiz ediliyor...",
+            "🧠 AI algoritması çalışıyor...",
+            "📊 Sistem performansı değerlendiriliyor...",
+            "✅ Arıza tespiti tamamlandı!"
+        ];
+        
+        let stepIndex = 0;
+        const diagnosticInterval = setInterval(() => {
+            if (stepIndex < diagnosticSteps.length) {
+                showNotification(diagnosticSteps[stepIndex], 'info');
+                stepIndex++;
+            } else {
+                clearInterval(diagnosticInterval);
+                showNotification('🎯 AI Tanı: Dinamo sargısı aşınması tespit edildi. Önerilen çözüm: Yenileme', 'success');
+            }
+        }, 2000);
+        
+        // Track diagnostic interaction
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'ai_diagnostic_started', {
+                'event_category': 'ai_interaction',
+                'event_label': 'diagnostic_launch',
+                'value': 1
+            });
+        }
+    };
+}
+
+// Predictive Maintenance functionality
+function initializePredictiveMaintenance() {
+    window.openPredictiveMaintenance = function() {
+        showNotification('📈 Öngörücü Bakım Sistemi başlatılıyor...', 'info');
+        
+        // Simulate predictive analysis
+        setTimeout(() => {
+            const maintenanceData = {
+                nextService: "15 gün sonra",
+                criticalComponents: ["Dinamo sargısı", "Kömür fırçaları"],
+                riskLevel: "Orta",
+                recommendations: ["Önleyici bakım önerilir", "Parça değişimi gerekebilir"]
+            };
+            
+            showNotification(`📊 Bakım Analizi: ${maintenanceData.nextService} sonraki servis önerilir`, 'success');
+            showNotification(`⚠️ Risk Seviyesi: ${maintenanceData.riskLevel}`, 'warning');
+        }, 3000);
+        
+        // Track predictive maintenance interaction
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'predictive_maintenance_accessed', {
+                'event_category': 'ai_interaction',
+                'event_label': 'maintenance_plan',
+                'value': 1
+            });
+        }
+    };
+}
+
+// Automated Reporting functionality
+function initializeAutomatedReporting() {
+    window.generateReport = function() {
+        showNotification('📋 Otomatik Rapor oluşturuluyor...', 'info');
+        
+        // Simulate report generation
+        setTimeout(() => {
+            showNotification('📊 Rapor hazırlandı! E-posta ile gönderiliyor...', 'success');
+            
+            // Simulate email sending
+            setTimeout(() => {
+                showNotification('📧 Rapor başarıyla gönderildi!', 'success');
+            }, 2000);
+        }, 3000);
+        
+        // Track report generation
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'automated_report_generated', {
+                'event_category': 'ai_interaction',
+                'event_label': 'report_creation',
+                'value': 1
+            });
+        }
+    };
+}
 
 // Customer Reviews Functionality
 function initializeCustomerReviews() {

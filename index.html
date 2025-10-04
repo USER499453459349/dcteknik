@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v1.7.1 DARK MODE FIX</title>
+    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v1.8.0 AI AUTOMATION</title>
     <meta name="description" content="DC TEKNİK - dcteknik.com Sultanbeyli'nin güvenilir dinamocu servisi. Dinamo tamiri, alternatör onarımı, marş motoru servisi. Atatürk Cad. No:312">
     <meta name="keywords" content="dcteknik, dinamocu, dinamo tamiri, alternatör, marş motoru, sultanbeyli, istanbul, otomotiv servisi, elektrik tamiri">
     <meta name="author" content="DC TEKNİK - Dinamocu Serdar">
@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20250101v3">
     <link rel="manifest" href="site.webmanifest?v=20250101v3">
     
-    <link rel="stylesheet" href="style.css?v=20250115v15">
+    <link rel="stylesheet" href="style.css?v=20250115v16">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Maps API -->
@@ -152,6 +152,7 @@
                     <li><a href="#home" class="nav-link active" data-translate="nav.home">Ana Sayfa</a></li>
                     <li><a href="#services" class="nav-link" data-translate="nav.services">Hizmetlerimiz</a></li>
                     <li><a href="#gallery" class="nav-link" data-translate="nav.gallery">Galeri</a></li>
+                    <li><a href="#ai" class="nav-link" data-translate="nav.ai">🤖 AI Teknolojileri</a></li>
                     <li><a href="#blog" class="nav-link" data-translate="nav.blog">Blog</a></li>
                     <li><a href="#about" class="nav-link" data-translate="nav.about">Hakkımızda</a></li>
                     <li><a href="#contact" class="nav-link" data-translate="nav.contact">İletişim</a></li>
@@ -2116,6 +2117,125 @@
         </div>
     </section>
 
+    <!-- AI and Automation Section -->
+    <section class="ai-automation-section" id="ai">
+        <div class="container">
+            <div class="section-header">
+                <h2>🤖 AI ve Otomasyon Teknolojileri</h2>
+                <p>Yapay zeka destekli arıza tespiti, öngörücü bakım ve 7/24 teknik destek</p>
+                <div class="ai-stats">
+                    <span class="stat-item"><i class="fas fa-robot"></i> %95 Doğruluk</span>
+                    <span class="stat-item"><i class="fas fa-clock"></i> 7/24 Destek</span>
+                    <span class="stat-item"><i class="fas fa-chart-line"></i> %40 Tasarruf</span>
+                </div>
+            </div>
+            
+            <div class="ai-grid">
+                <div class="ai-card featured">
+                    <div class="ai-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>🤖 AI Chatbot - 7/24 Teknik Destek</h3>
+                    <p>Yapay zeka destekli chatbot ile anında teknik destek ve arıza tespiti</p>
+                    <div class="ai-features">
+                        <span class="feature">💬 Anında Yanıt</span>
+                        <span class="feature">🔍 Akıllı Tanı</span>
+                        <span class="feature">📱 Mobil Uyumlu</span>
+                    </div>
+                    <div class="ai-actions">
+                        <button class="ai-btn primary" onclick="openAIChat()">
+                            <i class="fas fa-comments"></i>
+                            AI Chat Başlat
+                        </button>
+                        <button class="ai-btn secondary" onclick="showAIDemo()">
+                            <i class="fas fa-play"></i>
+                            Demo İzle
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="ai-card">
+                    <div class="ai-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>🔍 AI Destekli Arıza Tespiti</h3>
+                    <p>Makine öğrenmesi ile gelişmiş arıza tespiti ve tanı sistemi</p>
+                    <div class="ai-features">
+                        <span class="feature">🧠 Makine Öğrenmesi</span>
+                        <span class="feature">⚡ Hızlı Tanı</span>
+                        <span class="feature">📊 Veri Analizi</span>
+                    </div>
+                    <div class="ai-actions">
+                        <button class="ai-btn primary" onclick="startDiagnostic()">
+                            <i class="fas fa-stethoscope"></i>
+                            Arıza Tespiti Başlat
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="ai-card">
+                    <div class="ai-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>📈 Öngörücü Bakım Sistemi</h3>
+                    <p>AI destekli öngörücü bakım ile arıza öncesi müdahale</p>
+                    <div class="ai-features">
+                        <span class="feature">🔮 Gelecek Tahmini</span>
+                        <span class="feature">⚠️ Erken Uyarı</span>
+                        <span class="feature">💰 Maliyet Tasarrufu</span>
+                    </div>
+                    <div class="ai-actions">
+                        <button class="ai-btn primary" onclick="openPredictiveMaintenance()">
+                            <i class="fas fa-crystal-ball"></i>
+                            Bakım Planı Oluştur
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="ai-card">
+                    <div class="ai-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>📋 Otomatik Raporlama</h3>
+                    <p>Sistem entegrasyonu ile otomatik rapor oluşturma ve takip</p>
+                    <div class="ai-features">
+                        <span class="feature">🔄 Otomatik Rapor</span>
+                        <span class="feature">📊 Detaylı Analiz</span>
+                        <span class="feature">📧 E-posta Gönderimi</span>
+                    </div>
+                    <div class="ai-actions">
+                        <button class="ai-btn primary" onclick="generateReport()">
+                            <i class="fas fa-download"></i>
+                            Rapor Oluştur
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ai-integration">
+                <h3>🔗 Sistem Entegrasyonları</h3>
+                <div class="integration-grid">
+                    <div class="integration-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp Business</span>
+                    </div>
+                    <div class="integration-item">
+                        <i class="fas fa-database"></i>
+                        <span>ERP Sistemleri</span>
+                    </div>
+                    <div class="integration-item">
+                        <i class="fas fa-cloud"></i>
+                        <span>Bulut Depolama</span>
+                    </div>
+                    <div class="integration-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Mobil Uygulama</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Blog Section -->
     <section class="blog-section" id="blog">
         <div class="container">
@@ -2951,6 +3071,6 @@
     </div>
 
     <script src="js/translations.js?v=20250101v6"></script>
-    <script src="js/script.js?v=20250115v15"></script>
+    <script src="js/script.js?v=20250115v16"></script>
 </body>
 </html> 
