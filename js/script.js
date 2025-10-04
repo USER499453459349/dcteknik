@@ -2067,28 +2067,6 @@ function initializeStaticMap() {
     showNotification('🗺️ DC TEKNİK konumu yüklendi!', 'success');
 }
 
-// Fallback map initialization
-function initializeMapFallback() {
-    // Check if Google Maps is loaded
-    if (typeof google === 'undefined' || !google.maps) {
-        console.log('Google Maps not loaded, retrying...');
-        setTimeout(initializeMapFallback, 1000);
-        return;
-    }
-    
-    // Check if map container exists
-    const mapContainer = document.getElementById('interactiveMap');
-    if (!mapContainer) {
-        console.log('Map container not found, retrying...');
-        setTimeout(initializeMapFallback, 1000);
-        return;
-    }
-    
-    // Initialize map if not already initialized
-    if (!map) {
-        initMap();
-    }
-}
 
 // Performance Optimization Functions
 function initializeLazyLoading() {
@@ -3208,9 +3186,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize Location Section immediately
     setTimeout(initializeLocationSection, 500);
-    
-    // Try to initialize interactive map after a short delay
-    setTimeout(initializeMapFallback, 2000);
 });
 
 // Customer Reviews Functionality

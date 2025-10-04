@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v1.9.7 DEFINITIVE FIX</title>
+    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v1.9.8 ULTRA CLEAN</title>
     <meta name="description" content="DC TEKNİK - dcteknik.com Sultanbeyli'nin güvenilir dinamocu servisi. Dinamo tamiri, alternatör onarımı, marş motoru servisi. Atatürk Cad. No:312">
     <meta name="keywords" content="dcteknik, dinamocu, dinamo tamiri, alternatör, marş motoru, sultanbeyli, istanbul, otomotiv servisi, elektrik tamiri">
     <meta name="author" content="DC TEKNİK - Dinamocu Serdar">
@@ -52,7 +52,7 @@
         .nav-link:hover { color: #3b82f6; }
     </style>
     
-    <link rel="stylesheet" href="style.css?v=20250115v34">
+    <link rel="stylesheet" href="style.css?v=20250115v35">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -2891,9 +2891,9 @@
                                                 <span>Pazartesi - Cumartesi: 09:00 - 18:00</span>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                
+                    </div>
+                </div>
+                
                                 <div class="location-actions">
                                     <a href="https://www.google.com/maps/search/Atatürk+Cad.+No:312+Sultanbeyli+İstanbul" 
                                        target="_blank" 
@@ -2904,7 +2904,7 @@
                                     <a href="https://www.google.com/maps/dir//Atatürk+Cad.+No:312+Sultanbeyli+İstanbul" 
                                        target="_blank" 
                                        class="location-btn secondary">
-                                        <i class="fas fa-route"></i>
+                        <i class="fas fa-route"></i>
                                         Yol Tarifi Al
                                     </a>
                                     <a href="tel:+905353562469" 
@@ -2912,65 +2912,6 @@
                                         <i class="fas fa-phone"></i>
                                         Hemen Ara
                                     </a>
-                                </div>
-                            </div>
-                            
-                            <div class="maps-sidebar">
-                                <div class="contact-card">
-                                    <div class="contact-header">
-                                        <div class="contact-icon">
-                                            <i class="fas fa-building"></i>
-                                        </div>
-                                        <div class="contact-title">
-                                            <h4>DC TEKNİK</h4>
-                                            <span>Dinamocu Serdar</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="contact-info">
-                                        <div class="info-row">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            <div class="info-content">
-                                                <strong>Adres</strong>
-                                                <p>Atatürk Cad. No:312<br>Sultanbeyli / İstanbul</p>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="info-row">
-                                            <i class="fas fa-phone"></i>
-                                            <div class="info-content">
-                                                <strong>Telefon</strong>
-                                                <p>+90 535 356 24 69</p>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="info-row">
-                                            <i class="fas fa-clock"></i>
-                                            <div class="info-content">
-                                                <strong>Çalışma Saatleri</strong>
-                                                <p>Pazartesi - Cumartesi<br>09:00 - 18:00</p>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="info-row">
-                                            <i class="fas fa-car"></i>
-                                            <div class="info-content">
-                                                <strong>Otopark</strong>
-                                                <p>Ücretsiz Otopark<br>Güvenli Alan</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="contact-actions">
-                                        <a href="tel:+905353562469" class="action-btn primary">
-                                            <i class="fas fa-phone"></i>
-                                            Hemen Ara
-                                        </a>
-                                        <a href="https://wa.me/905353562469" class="action-btn whatsapp" target="_blank">
-                                            <i class="fab fa-whatsapp"></i>
-                                            WhatsApp
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -3001,87 +2942,6 @@
                         </div>
                     </div>
                     
-                    <!-- Interactive Map (Hidden by default) -->
-                    <div id="interactiveMap" class="interactive-map" style="display: none;"></div>
-                    
-                    <!-- Loading Spinner -->
-                    <div class="map-loading" id="mapLoading">
-                        <i class="fas fa-spinner fa-spin"></i>
-                        <p>Harita yükleniyor...</p>
-                    </div>
-                    
-                    <!-- Map Error Message -->
-                    <div class="map-error" id="mapError" style="display: none;">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h3>Hata! Bir sorun oluştu.</h3>
-                        <p>Bu sayfa Google Haritaları düzgün şekilde yükleyemedi. Teknik ayrıntılar için JavaScript konsoluna bakın.</p>
-                        <button onclick="retryMapLoad()" class="retry-btn">
-                            <i class="fas fa-redo"></i>
-                            Tekrar Dene
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="map-actions">
-                    <a href="https://www.google.com/maps/dir//Atatürk+Cad.+No:312,+34900+Sultanbeyli/İstanbul/@40.987654321,29.234567890,15z" target="_blank" class="map-action-btn primary">
-                        <i class="fas fa-route"></i>
-                        <span data-translate="contact.map.directions">🗺️ Yol Tarifi Al</span>
-                    </a>
-                    <a href="https://www.google.com/maps/place/Atatürk+Cad.+No:312,+34900+Sultanbeyli/İstanbul/@40.987654321,29.234567890,15z" target="_blank" class="map-action-btn secondary">
-                        <i class="fas fa-external-link-alt"></i>
-                        <span data-translate="contact.map.openMaps">📍 Google Maps'te Aç</span>
-                    </a>
-                    <a href="tel:+905353562469" class="map-action-btn phone">
-                        <i class="fas fa-phone"></i>
-                        <span>📞 Hemen Ara</span>
-                    </a>
-                </div>
-                
-                <div class="map-info-grid">
-                    <div class="map-info-card featured">
-                        <div class="map-info-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="map-info-content">
-                            <h4 data-translate="contact.map.addressTitle">📍 Adres</h4>
-                            <p data-translate="contact.map.address">Atatürk Cad. No:312, Sultanbeyli / İstanbul</p>
-                            <span class="info-badge">Merkezi Konum</span>
-                        </div>
-                    </div>
-                    
-                    <div class="map-info-card">
-                        <div class="map-info-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="map-info-content">
-                            <h4 data-translate="contact.map.phoneTitle">📞 Telefon</h4>
-                            <p data-translate="contact.map.phone">+90 535 356 24 69</p>
-                            <span class="info-badge">7/24 Ulaşılabilir</span>
-                        </div>
-                    </div>
-                    
-                    <div class="map-info-card">
-                        <div class="map-info-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="map-info-content">
-                            <h4 data-translate="contact.map.hoursTitle">🕒 Çalışma Saatleri</h4>
-                            <p data-translate="contact.map.hours">Pazartesi - Cumartesi: 09:00 - 18:00</p>
-                            <span class="info-badge">Pazar: Kapalı</span>
-                        </div>
-                    </div>
-                    
-                    <div class="map-info-card">
-                        <div class="map-info-icon">
-                            <i class="fas fa-car"></i>
-                        </div>
-                        <div class="map-info-content">
-                            <h4 data-translate="contact.map.parkingTitle">🚗 Otopark</h4>
-                            <p data-translate="contact.map.parking">Ücretsiz Otopark Mevcut</p>
-                            <span class="info-badge">Güvenli</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -3252,7 +3112,7 @@
     </div>
 
     <script src="js/translations.js?v=20250101v6"></script>
-    <script src="js/script.js?v=20250115v34"></script>
+    <script src="js/script.js?v=20250115v35"></script>
     
     <!-- Cookie Consent Banner -->
     <div id="cookieConsent" class="cookie-consent" style="display: none;">
