@@ -72,19 +72,22 @@ function initializeChat() {
     const chatToggle = document.getElementById('newChatToggle');
     if (chatToggle) {
         chatToggle.addEventListener('click', function() {
+            // Track conversion event
+            trackConversionEvent('whatsapp_contact', 50);
+            
             // Open WhatsApp chat
             const whatsappUrl = 'https://wa.me/905353562469?text=Merhaba! DC TEKNİK hizmetleri hakkında bilgi almak istiyorum.';
             window.open(whatsappUrl, '_blank');
-            
+
             // Hide notification after click
             const notification = document.querySelector('.chat-notification');
             if (notification) {
                 notification.style.display = 'none';
             }
-            
+
             // Show notification
             showNotification('WhatsApp üzerinden iletişime geçiliyor...', 'success');
-            
+
             // Track Google Analytics event
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'chat_clicked', {
@@ -158,8 +161,66 @@ function initializeContactButtons() {
     }
 }
 
+// Enhanced Analytics Integration
+function initializeAnalytics() {
+    // Track page load
+    if (typeof trackPageView === 'function') {
+        trackPageView('DC TEKNİK - Ana Sayfa', 'homepage');
+    }
+    
+    // Track scroll depth
+    let maxScroll = 0;
+    window.addEventListener('scroll', function() {
+        const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        if (scrollPercent > maxScroll && scrollPercent % 25 === 0) {
+            maxScroll = scrollPercent;
+            if (typeof trackEvent === 'function') {
+                trackEvent('scroll_depth', {
+                    category: 'engagement',
+                    label: `${scrollPercent}%`,
+                    value: scrollPercent
+                });
+            }
+        }
+    });
+    
+    // Track time on page
+    let startTime = Date.now();
+    window.addEventListener('beforeunload', function() {
+        const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+        if (typeof trackEvent === 'function') {
+            trackEvent('time_on_page', {
+                category: 'engagement',
+                label: `${timeOnPage}s`,
+                value: timeOnPage
+            });
+        }
+    });
+}
+
+// Enhanced conversion tracking
+function trackConversionEvent(eventType, value = 0) {
+    // Google Analytics
+    if (typeof trackConversion === 'function') {
+        trackConversion(eventType, value);
+    }
+    
+    // Facebook Pixel
+    if (typeof trackFacebookConversion === 'function') {
+        trackFacebookConversion(eventType, value);
+    }
+    
+    // Hotjar
+    if (typeof hj === 'function') {
+        hj('event', eventType);
+    }
+}
+
 // Initialize language system
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize analytics first
+    initializeAnalytics();
+    
     // Initialize theme system
     initializeTheme();
     
@@ -856,6 +917,9 @@ class AppointmentSystem {
         
         // Show success message
         this.showSuccessMessage();
+        
+        // Track conversion event
+        trackConversionEvent('appointment_booking', 100);
         
         // Track event
         if (typeof gtag !== 'undefined') {
