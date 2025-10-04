@@ -2864,8 +2864,137 @@ function initializePerformanceMonitoring() {
     measureRealUserMetrics();
 }
 
+// Advanced UI/UX Features
+function initializeAdvancedUI() {
+    // Initialize smooth scrolling
+    initializeSmoothScrolling();
+    
+    // Initialize parallax effects
+    initializeParallaxEffects();
+    
+    // Initialize particle background
+    initializeParticleBackground();
+    
+    // Initialize loading animations
+    initializeLoadingAnimations();
+    
+    // Initialize interactive cards
+    initializeInteractiveCards();
+}
+
+// Smooth Scrolling Implementation
+function initializeSmoothScrolling() {
+    // Add smooth scrolling to all anchor links
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
+// Parallax Effects Implementation
+function initializeParallaxEffects() {
+    const parallaxElements = document.querySelectorAll('.parallax-bg');
+    
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        
+        parallaxElements.forEach(element => {
+            element.style.transform = `translateY(${rate}px)`;
+        });
+    });
+}
+
+// Particle Background Implementation
+function initializeParticleBackground() {
+    const particleContainer = document.createElement('div');
+    particleContainer.className = 'particle-container';
+    document.body.appendChild(particleContainer);
+    
+    // Create particles
+    for (let i = 0; i < 10; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particleContainer.appendChild(particle);
+    }
+}
+
+// Loading Animations Implementation
+function initializeLoadingAnimations() {
+    // Create loading screen
+    const loadingContainer = document.createElement('div');
+    loadingContainer.className = 'loading-container';
+    loadingContainer.id = 'loadingScreen';
+    
+    loadingContainer.innerHTML = `
+        <div class="loading-spinner"></div>
+        <div class="loading-text">DC TEKNİK Yükleniyor...</div>
+        <div class="loading-dots">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+    `;
+    
+    document.body.appendChild(loadingContainer);
+    
+    // Hide loading screen after page load
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen) {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.remove();
+                }, 500);
+            }
+        }, 1000);
+    });
+}
+
+// Interactive Cards Implementation
+function initializeInteractiveCards() {
+    const cards = document.querySelectorAll('.service-card, .review-card, .blog-card');
+    
+    cards.forEach(card => {
+        // Add interactive card class
+        card.classList.add('interactive-card');
+        
+        // Add hover effects
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+        
+        // Add click effects
+        card.addEventListener('click', function() {
+            this.style.transform = 'translateY(-5px) scale(1.01)';
+            setTimeout(() => {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            }, 150);
+        });
+    });
+}
+
 // Initialize map when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize advanced UI/UX features
+    initializeAdvancedUI();
+    
     // Initialize advanced performance optimizations
     initializeAdvancedPerformance();
     
