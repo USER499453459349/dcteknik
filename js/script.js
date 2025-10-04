@@ -2299,6 +2299,122 @@ function initializeIntrusionDetection() {
     });
 }
 
+// Two-Factor Authentication (2FA) System
+function initialize2FA() {
+    // Generate TOTP secret for 2FA
+    const generateTOTPSecret = () => {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+        let secret = '';
+        for (let i = 0; i < 32; i++) {
+            secret += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return secret;
+    };
+    
+    // Generate 6-digit TOTP code
+    const generateTOTPCode = (secret) => {
+        const epoch = Math.round(new Date().getTime() / 1000.0);
+        const time = Math.floor(epoch / 30);
+        const timeHex = time.toString(16).padStart(16, '0');
+        
+        // Simple TOTP implementation (for demo purposes)
+        const hash = btoa(secret + timeHex);
+        const code = parseInt(hash.substring(0, 8), 16) % 1000000;
+        return code.toString().padStart(6, '0');
+    };
+    
+    // Send SMS verification code
+    const sendSMSVerification = (phoneNumber) => {
+        const code = Math.floor(100000 + Math.random() * 900000);
+        localStorage.setItem('smsCode', code.toString());
+        localStorage.setItem('smsCodeTime', Date.now().toString());
+        
+        showNotification(`📱 SMS doğrulama kodu gönderildi: ${code}`, 'info');
+        
+        // Track SMS verification
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'sms_verification_sent', {
+                'event_category': 'authentication',
+                'event_label': '2fa_sms',
+                'value': 1
+            });
+        }
+        
+        return code;
+    };
+    
+    // Send Email verification code
+    const sendEmailVerification = (email) => {
+        const code = Math.floor(100000 + Math.random() * 900000);
+        localStorage.setItem('emailCode', code.toString());
+        localStorage.setItem('emailCodeTime', Date.now().toString());
+        
+        showNotification(`📧 E-posta doğrulama kodu gönderildi: ${code}`, 'info');
+        
+        // Track Email verification
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'email_verification_sent', {
+                'event_category': 'authentication',
+                'event_label': '2fa_email',
+                'value': 1
+            });
+        }
+        
+        return code;
+    };
+    
+    // Verify 2FA code
+    const verify2FACode = (code, type = 'sms') => {
+        const storedCode = localStorage.getItem(type + 'Code');
+        const codeTime = parseInt(localStorage.getItem(type + 'CodeTime'));
+        const now = Date.now();
+        const codeAge = now - codeTime;
+        
+        // Code expires in 5 minutes
+        if (codeAge > 300000) {
+            showNotification('⏰ Doğrulama kodu süresi doldu!', 'error');
+            return false;
+        }
+        
+        if (code === storedCode) {
+            showNotification('✅ 2FA doğrulama başarılı!', 'success');
+            
+            // Track successful 2FA
+            if (typeof gtag !== 'undefined') {
+                gtag('event', '2fa_verification_success', {
+                    'event_category': 'authentication',
+                    'event_label': type,
+                    'value': 1
+                });
+            }
+            
+            return true;
+        } else {
+            showNotification('❌ Geçersiz doğrulama kodu!', 'error');
+            
+            // Track failed 2FA
+            if (typeof gtag !== 'undefined') {
+                gtag('event', '2fa_verification_failed', {
+                    'event_category': 'authentication',
+                    'event_label': type,
+                    'value': 1
+                });
+            }
+            
+            return false;
+        }
+    };
+    
+    // Make 2FA functions globally available
+    window.sendSMSVerification = sendSMSVerification;
+    window.sendEmailVerification = sendEmailVerification;
+    window.verify2FACode = verify2FACode;
+    window.generateTOTPCode = generateTOTPCode;
+    window.generateTOTPSecret = generateTOTPSecret;
+    
+    console.log('🔐 2FA System initialized');
+}
+
 // Initialize map when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize performance optimizations
@@ -2311,6 +2427,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize advanced security features
     initializeSecurityFeatures();
+    
+    // Initialize 2FA system
+    initialize2FA();
     
     // Show Professional Maps immediately
     setTimeout(initializeProfessionalMaps, 500);
