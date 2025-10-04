@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v1.9.3 ADVANCED UI/UX</title>
+    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v1.9.4 MAP FIXED</title>
     <meta name="description" content="DC TEKNİK - dcteknik.com Sultanbeyli'nin güvenilir dinamocu servisi. Dinamo tamiri, alternatör onarımı, marş motoru servisi. Atatürk Cad. No:312">
     <meta name="keywords" content="dcteknik, dinamocu, dinamo tamiri, alternatör, marş motoru, sultanbeyli, istanbul, otomotiv servisi, elektrik tamiri">
     <meta name="author" content="DC TEKNİK - Dinamocu Serdar">
@@ -52,7 +52,7 @@
         .nav-link:hover { color: #3b82f6; }
     </style>
     
-    <link rel="stylesheet" href="style.css?v=20250115v30">
+    <link rel="stylesheet" href="style.css?v=20250115v31">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -2890,12 +2890,19 @@
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.123456789!2d29.234567890!3d40.987654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDU5JzE1LjYiTiAyOcKwMTQnMDQuNCJF!5e0!3m2!1str!2str!4v1640000000000!5m2!1str!2str"
                                     width="100%" 
                                     height="400" 
-                            style="border:0; border-radius: 20px;" 
-                            allowfullscreen="" 
-loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade"
-                            title="DC TEKNİK Konumu - Sultanbeyli">
-                        </iframe>
+                                    style="border:0; border-radius: 20px;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    title="DC TEKNİK Konumu - Sultanbeyli">
+                                </iframe>
+                                
+                                <!-- Fallback Map Image -->
+                                <div class="map-fallback" style="display: none;">
+                                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=40.987654321,29.234567890&zoom=15&size=800x400&markers=color:blue%7Clabel:DC%7C40.987654321,29.234567890&key=YOUR_API_KEY" 
+                                         alt="DC TEKNİK Konumu - Sultanbeyli" 
+                                         style="width: 100%; height: 400px; border-radius: 20px; object-fit: cover;">
+                                </div>
                             </div>
                             
                             <div class="maps-sidebar">
@@ -3235,7 +3242,7 @@ loading="lazy"
     </div>
 
     <script src="js/translations.js?v=20250101v6"></script>
-    <script src="js/script.js?v=20250115v30"></script>
+    <script src="js/script.js?v=20250115v31"></script>
     
     <!-- Cookie Consent Banner -->
     <div id="cookieConsent" class="cookie-consent" style="display: none;">

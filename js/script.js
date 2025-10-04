@@ -1829,6 +1829,8 @@ function retryMapLoad() {
 function initializeProfessionalMaps() {
     const mapLoading = document.getElementById('mapLoading');
     const professionalMapsContainer = document.getElementById('professionalMapsContainer');
+    const mapIframe = document.querySelector('#professionalMapsContainer iframe');
+    const mapFallback = document.querySelector('.map-fallback');
     
     if (mapLoading) {
         mapLoading.style.display = 'none';
@@ -1838,7 +1840,34 @@ function initializeProfessionalMaps() {
         professionalMapsContainer.style.display = 'block';
     }
     
-    showNotification('🗺️ Profesyonel harita yüklendi!', 'success');
+    // Check if iframe loads successfully
+    if (mapIframe) {
+        mapIframe.addEventListener('load', function() {
+            console.log('🗺️ Google Maps iframe loaded successfully');
+            showNotification('🗺️ Profesyonel harita yüklendi!', 'success');
+        });
+        
+        mapIframe.addEventListener('error', function() {
+            console.warn('⚠️ Google Maps iframe failed to load, showing fallback');
+            if (mapFallback) {
+                mapFallback.style.display = 'block';
+                mapIframe.style.display = 'none';
+            }
+            showNotification('⚠️ Harita yüklenemedi, statik görsel gösteriliyor', 'warning');
+        });
+        
+        // Timeout fallback after 10 seconds
+        setTimeout(() => {
+            if (mapIframe.offsetHeight === 0) {
+                console.warn('⚠️ Google Maps iframe timeout, showing fallback');
+                if (mapFallback) {
+                    mapFallback.style.display = 'block';
+                    mapIframe.style.display = 'none';
+                }
+                showNotification('⚠️ Harita yükleme zaman aşımı', 'warning');
+            }
+        }, 10000);
+    }
 }
 
 // Initialize Google Maps iframe
