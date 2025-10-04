@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v1.8.8 PERFORMANCE OPTIMIZED</title>
+    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v1.8.9 SECURITY ENHANCED</title>
     <meta name="description" content="DC TEKNİK - dcteknik.com Sultanbeyli'nin güvenilir dinamocu servisi. Dinamo tamiri, alternatör onarımı, marş motoru servisi. Atatürk Cad. No:312">
     <meta name="keywords" content="dcteknik, dinamocu, dinamo tamiri, alternatör, marş motoru, sultanbeyli, istanbul, otomotiv servisi, elektrik tamiri">
     <meta name="author" content="DC TEKNİK - Dinamocu Serdar">
@@ -52,7 +52,7 @@
         .nav-link:hover { color: #3b82f6; }
     </style>
     
-    <link rel="stylesheet" href="style.css?v=20250115v25">
+    <link rel="stylesheet" href="style.css?v=20250115v26">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -3234,8 +3234,85 @@ loading="lazy"
     </div>
 
     <script src="js/translations.js?v=20250101v6"></script>
-    <script src="js/script.js?v=20250115v25"></script>
+    <script src="js/script.js?v=20250115v26"></script>
     
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsent" class="cookie-consent" style="display: none;">
+        <div class="cookie-content">
+            <div class="cookie-icon">
+                <i class="fas fa-cookie-bite"></i>
+            </div>
+            <div class="cookie-text">
+                <h4>🍪 Çerez Kullanımı</h4>
+                <p>Web sitesi deneyiminizi iyileştirmek için çerezler kullanıyoruz. Detaylar için <a href="/privacy-policy.html" target="_blank">Gizlilik Politikası</a>'nı inceleyebilirsiniz.</p>
+            </div>
+            <div class="cookie-actions">
+                <button id="acceptCookies" class="cookie-btn accept">Kabul Et</button>
+                <button id="rejectCookies" class="cookie-btn reject">Reddet</button>
+                <button id="customizeCookies" class="cookie-btn customize">Özelleştir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Modal -->
+    <div id="cookieSettings" class="cookie-modal" style="display: none;">
+        <div class="cookie-modal-content">
+            <div class="cookie-modal-header">
+                <h3>🍪 Çerez Ayarları</h3>
+                <button id="closeCookieSettings" class="close-btn">&times;</button>
+            </div>
+            <div class="cookie-modal-body">
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>⚙️ Teknik Çerezler (Zorunlu)</h4>
+                        <label class="cookie-switch">
+                            <input type="checkbox" checked disabled>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p>Web sitesinin çalışması için gerekli çerezler</p>
+                </div>
+                
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>📊 Analitik Çerezler</h4>
+                        <label class="cookie-switch">
+                            <input type="checkbox" id="analyticsCookies">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p>Google Analytics ile site kullanım istatistikleri</p>
+                </div>
+                
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>🎯 Pazarlama Çerezleri</h4>
+                        <label class="cookie-switch">
+                            <input type="checkbox" id="marketingCookies">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p>Facebook Pixel ile reklam optimizasyonu</p>
+                </div>
+                
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h4>🔍 Kullanıcı Davranış Çerezleri</h4>
+                        <label class="cookie-switch">
+                            <input type="checkbox" id="behaviorCookies">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p>Hotjar ile kullanıcı deneyimi analizi</p>
+                </div>
+            </div>
+            <div class="cookie-modal-footer">
+                <button id="saveCookieSettings" class="cookie-btn accept">Ayarları Kaydet</button>
+                <button id="acceptAllCookies" class="cookie-btn accept">Tümünü Kabul Et</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {

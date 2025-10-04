@@ -1951,12 +1951,171 @@ function preloadCriticalResources() {
     });
 }
 
+// Cookie Consent Management
+function initializeCookieConsent() {
+    const cookieConsent = document.getElementById('cookieConsent');
+    const cookieSettings = document.getElementById('cookieSettings');
+    
+    // Check if user has already made a choice
+    const cookieChoice = localStorage.getItem('cookieConsent');
+    
+    if (!cookieChoice) {
+        // Show cookie banner after 2 seconds
+        setTimeout(() => {
+            cookieConsent.style.display = 'block';
+        }, 2000);
+    } else {
+        // Apply saved cookie preferences
+        applyCookiePreferences(JSON.parse(cookieChoice));
+    }
+    
+    // Cookie banner event listeners
+    document.getElementById('acceptCookies').addEventListener('click', function() {
+        acceptAllCookies();
+        hideCookieBanner();
+    });
+    
+    document.getElementById('rejectCookies').addEventListener('click', function() {
+        rejectAllCookies();
+        hideCookieBanner();
+    });
+    
+    document.getElementById('customizeCookies').addEventListener('click', function() {
+        showCookieSettings();
+    });
+    
+    // Cookie settings modal event listeners
+    document.getElementById('closeCookieSettings').addEventListener('click', function() {
+        hideCookieSettings();
+    });
+    
+    document.getElementById('saveCookieSettings').addEventListener('click', function() {
+        saveCustomCookieSettings();
+        hideCookieSettings();
+        hideCookieBanner();
+    });
+    
+    document.getElementById('acceptAllCookies').addEventListener('click', function() {
+        acceptAllCookies();
+        hideCookieSettings();
+        hideCookieBanner();
+    });
+}
+
+function acceptAllCookies() {
+    const preferences = {
+        technical: true,
+        analytics: true,
+        marketing: true,
+        behavior: true,
+        timestamp: new Date().toISOString()
+    };
+    
+    localStorage.setItem('cookieConsent', JSON.stringify(preferences));
+    applyCookiePreferences(preferences);
+    
+    showNotification('🍪 Tüm çerezler kabul edildi!', 'success');
+}
+
+function rejectAllCookies() {
+    const preferences = {
+        technical: true, // Technical cookies are always required
+        analytics: false,
+        marketing: false,
+        behavior: false,
+        timestamp: new Date().toISOString()
+    };
+    
+    localStorage.setItem('cookieConsent', JSON.stringify(preferences));
+    applyCookiePreferences(preferences);
+    
+    showNotification('🍪 Sadece teknik çerezler kabul edildi!', 'info');
+}
+
+function saveCustomCookieSettings() {
+    const preferences = {
+        technical: true, // Always true
+        analytics: document.getElementById('analyticsCookies').checked,
+        marketing: document.getElementById('marketingCookies').checked,
+        behavior: document.getElementById('behaviorCookies').checked,
+        timestamp: new Date().toISOString()
+    };
+    
+    localStorage.setItem('cookieConsent', JSON.stringify(preferences));
+    applyCookiePreferences(preferences);
+    
+    showNotification('🍪 Çerez ayarları kaydedildi!', 'success');
+}
+
+function applyCookiePreferences(preferences) {
+    // Apply analytics cookies
+    if (preferences.analytics) {
+        // Enable Google Analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('consent', 'update', {
+                'analytics_storage': 'granted'
+            });
+        }
+    } else {
+        // Disable Google Analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('consent', 'update', {
+                'analytics_storage': 'denied'
+            });
+        }
+    }
+    
+    // Apply marketing cookies
+    if (preferences.marketing) {
+        // Enable Facebook Pixel
+        if (typeof fbq !== 'undefined') {
+            fbq('consent', 'grant');
+        }
+    } else {
+        // Disable Facebook Pixel
+        if (typeof fbq !== 'undefined') {
+            fbq('consent', 'revoke');
+        }
+    }
+    
+    // Apply behavior cookies
+    if (preferences.behavior) {
+        // Enable Hotjar
+        if (typeof hj !== 'undefined') {
+            hj('consent', 'grant');
+        }
+    } else {
+        // Disable Hotjar
+        if (typeof hj !== 'undefined') {
+            hj('consent', 'revoke');
+        }
+    }
+}
+
+function hideCookieBanner() {
+    const cookieConsent = document.getElementById('cookieConsent');
+    cookieConsent.style.display = 'none';
+}
+
+function showCookieSettings() {
+    const cookieSettings = document.getElementById('cookieSettings');
+    cookieSettings.style.display = 'flex';
+}
+
+function hideCookieSettings() {
+    const cookieSettings = document.getElementById('cookieSettings');
+    cookieSettings.style.display = 'none';
+}
+
 // Initialize map when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize performance optimizations
     initializeLazyLoading();
     optimizeImages();
     preloadCriticalResources();
+    
+    // Initialize cookie consent
+    initializeCookieConsent();
     
     // Show Professional Maps immediately
     setTimeout(initializeProfessionalMaps, 500);
