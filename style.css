@@ -845,6 +845,20 @@ body[dir="rtl"] .contact-info {
     text-decoration: underline;
 }
 
+.contact-badge {
+    display: inline-block;
+    background: #ff0000;
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    animation: pulse 2s infinite;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 /* Section Header */
 .section-header {
     text-align: center;
