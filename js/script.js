@@ -1484,7 +1484,7 @@ function initializeAIFeatures() {
 function initializeAIChatbot() {
     // AI Chatbot simulation
     window.openAIChat = function() {
-        showNotification('🤖 AI Chatbot başlatılıyor...', 'info');
+        showNotification('🤖 DC TEKNİK AI Chatbot başlatılıyor...', 'info');
         
         // Simulate AI response
         setTimeout(() => {
@@ -1496,7 +1496,7 @@ function initializeAIChatbot() {
             ];
             
             const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-            showNotification(`🤖 AI: ${randomResponse}`, 'success');
+            showNotification(`🤖 DC TEKNİK AI: ${randomResponse}`, 'success');
         }, 1500);
         
         // Track AI interaction
@@ -1511,11 +1511,11 @@ function initializeAIChatbot() {
     
     // AI Demo functionality
     window.showAIDemo = function() {
-        showNotification('🎬 AI Demo başlatılıyor...', 'info');
+        showNotification('🎬 DC TEKNİK AI Demo başlatılıyor...', 'info');
         
         // Simulate demo process
         setTimeout(() => {
-            showNotification('🤖 AI Demo: Arıza tespiti ve çözüm önerileri gösteriliyor...', 'success');
+            showNotification('🤖 DC TEKNİK AI Demo: Arıza tespiti ve çözüm önerileri gösteriliyor...', 'success');
         }, 2000);
         
         // Track demo interaction
