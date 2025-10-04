@@ -4686,23 +4686,6 @@ img {
     z-index: 1;
 }
 
-.map-header {
-    margin-bottom: 2rem;
-    position: relative;
-    z-index: 2;
-}
-
-.map-header h3 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #1e293b;
-    margin-bottom: 0.5rem;
-}
-
-.map-header p {
-    font-size: 1.1rem;
-    color: #64748b;
-}
 
 .map-visual {
     display: flex;
@@ -5733,45 +5716,6 @@ input:disabled + .slider {
     transition: all 0.3s ease;
 }
 
-.map-search-container input:focus {
-    outline: none;
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
-}
-
-.map-search-container button {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--accent-primary);
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.map-search-container button:hover {
-    background: var(--accent-secondary);
-    transform: translateY(-50%) scale(1.05);
-}
-
-/* Dark Mode Map Styles */
-[data-theme="dark"] .interactive-map {
-    box-shadow: 0 8px 25px var(--shadow-color);
-}
-
-[data-theme="dark"] .map-loading {
-    background: var(--bg-primary);
-}
-
-[data-theme="dark"] .map-search-container input {
-    background: var(--input-bg);
-    color: var(--text-primary);
-    border-color: var(--border-color);
-}
 
 /* FAQ Section Styles */
 .faq-section {
