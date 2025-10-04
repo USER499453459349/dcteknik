@@ -1792,6 +1792,7 @@ window.searchLocation = searchLocation;
 window.showMapError = showMapError;
 window.retryMapLoad = retryMapLoad;
 window.initializeStaticMap = initializeStaticMap;
+window.initializeGoogleMaps = initializeGoogleMaps;
 
 // Map error handling
 function showMapError() {
@@ -1821,6 +1822,22 @@ function retryMapLoad() {
     setTimeout(() => {
         window.location.reload();
     }, 2000);
+}
+
+// Initialize Google Maps iframe
+function initializeGoogleMaps() {
+    const mapLoading = document.getElementById('mapLoading');
+    const googleMapsContainer = document.getElementById('googleMapsContainer');
+    
+    if (mapLoading) {
+        mapLoading.style.display = 'none';
+    }
+    
+    if (googleMapsContainer) {
+        googleMapsContainer.style.display = 'block';
+    }
+    
+    showNotification('🗺️ Google Maps yüklendi!', 'success');
 }
 
 // Initialize static map as fallback
@@ -1864,8 +1881,8 @@ function initializeMapFallback() {
 
 // Initialize map when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-    // Show static map immediately as fallback
-    setTimeout(initializeStaticMap, 500);
+    // Show Google Maps iframe immediately
+    setTimeout(initializeGoogleMaps, 500);
     
     // Try to initialize interactive map after a short delay
     setTimeout(initializeMapFallback, 2000);
