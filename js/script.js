@@ -1833,10 +1833,10 @@ function initializeStaticMap() {
     }
     
     if (staticMapContainer) {
-        staticMapContainer.style.display = 'block';
+        staticMapContainer.style.display = 'flex';
     }
     
-    showNotification('🗺️ Statik harita yüklendi!', 'success');
+    showNotification('🗺️ DC TEKNİK konumu yüklendi!', 'success');
 }
 
 // Fallback map initialization
@@ -1865,10 +1865,10 @@ function initializeMapFallback() {
 // Initialize map when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     // Show static map immediately as fallback
-    setTimeout(initializeStaticMap, 1000);
+    setTimeout(initializeStaticMap, 500);
     
     // Try to initialize interactive map after a short delay
-    setTimeout(initializeMapFallback, 3000);
+    setTimeout(initializeMapFallback, 2000);
 });
 
 // Customer Reviews Functionality
