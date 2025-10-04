@@ -1789,6 +1789,55 @@ function searchLocation() {
 // Make functions globally available
 window.initMap = initMap;
 window.searchLocation = searchLocation;
+window.showMapError = showMapError;
+window.retryMapLoad = retryMapLoad;
+window.initializeStaticMap = initializeStaticMap;
+
+// Map error handling
+function showMapError() {
+    const staticMapContainer = document.getElementById('staticMapContainer');
+    const mapError = document.getElementById('mapError');
+    const mapLoading = document.getElementById('mapLoading');
+    
+    if (staticMapContainer) staticMapContainer.style.display = 'none';
+    if (mapLoading) mapLoading.style.display = 'none';
+    if (mapError) mapError.style.display = 'flex';
+    
+    showNotification('⚠️ Harita yüklenemedi! Statik harita gösteriliyor.', 'warning');
+}
+
+// Retry map loading
+function retryMapLoad() {
+    const staticMapContainer = document.getElementById('staticMapContainer');
+    const mapError = document.getElementById('mapError');
+    const mapLoading = document.getElementById('mapLoading');
+    
+    if (mapError) mapError.style.display = 'none';
+    if (mapLoading) mapLoading.style.display = 'flex';
+    
+    showNotification('🔄 Harita yeniden yükleniyor...', 'info');
+    
+    // Try to reload the page after 2 seconds
+    setTimeout(() => {
+        window.location.reload();
+    }, 2000);
+}
+
+// Initialize static map as fallback
+function initializeStaticMap() {
+    const mapLoading = document.getElementById('mapLoading');
+    const staticMapContainer = document.getElementById('staticMapContainer');
+    
+    if (mapLoading) {
+        mapLoading.style.display = 'none';
+    }
+    
+    if (staticMapContainer) {
+        staticMapContainer.style.display = 'block';
+    }
+    
+    showNotification('🗺️ Statik harita yüklendi!', 'success');
+}
 
 // Fallback map initialization
 function initializeMapFallback() {
@@ -1815,8 +1864,11 @@ function initializeMapFallback() {
 
 // Initialize map when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-    // Try to initialize map after a short delay
-    setTimeout(initializeMapFallback, 2000);
+    // Show static map immediately as fallback
+    setTimeout(initializeStaticMap, 1000);
+    
+    // Try to initialize interactive map after a short delay
+    setTimeout(initializeMapFallback, 3000);
 });
 
 // Customer Reviews Functionality

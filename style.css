@@ -4449,6 +4449,54 @@ img {
     box-shadow: 0 20px 40px var(--shadow-color);
 }
 
+/* Static Map Styles */
+.static-map-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px var(--shadow-color);
+    background: var(--bg-secondary);
+}
+
+.static-map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+.map-marker {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.map-marker i {
+    font-size: 1.2rem;
+}
+
 /* Interactive Map Styles */
 .interactive-map {
     width: 100%;
@@ -4457,6 +4505,64 @@ img {
     overflow: hidden;
     box-shadow: 0 8px 25px var(--shadow-color);
     position: relative;
+}
+
+/* Map Error Styles */
+.map-error {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 15px;
+    z-index: 1000;
+}
+
+.map-error i {
+    font-size: 3rem;
+    color: #ef4444;
+    margin-bottom: 1rem;
+}
+
+.map-error h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.map-error p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.retry-btn {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.retry-btn:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
 }
 
 .map-loading {
