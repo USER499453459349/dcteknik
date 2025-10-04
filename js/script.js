@@ -2697,7 +2697,6 @@ function initializePreloadingStrategy() {
         const domains = [
             'https://www.google-analytics.com',
             'https://www.googletagmanager.com',
-            'https://maps.googleapis.com',
             'https://cdnjs.cloudflare.com'
         ];
         
