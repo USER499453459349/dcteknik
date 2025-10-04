@@ -1619,6 +1619,206 @@ function initializeAutomatedReporting() {
     };
 }
 
+// Google Maps Integration
+let map;
+let marker;
+let service;
+
+// Initialize Google Maps
+function initMap() {
+    // Check if map container exists
+    const mapContainer = document.getElementById('interactiveMap');
+    if (!mapContainer) {
+        console.error('Map container not found!');
+        return;
+    }
+    
+    // DC TEKNİK coordinates (Sultanbeyli, İstanbul)
+    const dcteknikLocation = { lat: 40.987654321, lng: 29.234567890 };
+    
+    // Create map with error handling
+    try {
+        map = new google.maps.Map(mapContainer, {
+            zoom: 15,
+            center: dcteknikLocation,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            styles: [
+                {
+                    featureType: 'poi',
+                    elementType: 'labels',
+                    stylers: [{ visibility: 'off' }]
+                }
+            ],
+            gestureHandling: 'greedy',
+            zoomControl: true,
+            mapTypeControl: true,
+            scaleControl: true,
+            streetViewControl: true,
+            rotateControl: true,
+            fullscreenControl: true
+        });
+    } catch (error) {
+        console.error('Error creating map:', error);
+        showNotification('❌ Harita yüklenirken hata oluştu!', 'error');
+        return;
+    }
+    
+    // Create marker
+    marker = new google.maps.Marker({
+        position: dcteknikLocation,
+        map: map,
+        title: 'DC TEKNİK - Dinamocu Serdar',
+        icon: {
+            url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="20" cy="20" r="18" fill="#3b82f6" stroke="#ffffff" stroke-width="3"/>
+                    <text x="20" y="26" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">DC</text>
+                </svg>
+            `),
+            scaledSize: new google.maps.Size(40, 40),
+            anchor: new google.maps.Point(20, 20)
+        }
+    });
+    
+    // Create info window
+    const infoWindow = new google.maps.InfoWindow({
+        content: `
+            <div style="padding: 10px; max-width: 250px;">
+                <h3 style="margin: 0 0 10px 0; color: #1e293b; font-size: 16px;">🤖 DC TEKNİK</h3>
+                <p style="margin: 0 0 8px 0; color: #64748b; font-size: 14px;">📍 Atatürk Cad. No:312, Sultanbeyli / İstanbul</p>
+                <p style="margin: 0 0 8px 0; color: #64748b; font-size: 14px;">📞 +90 535 356 24 69</p>
+                <p style="margin: 0; color: #10b981; font-size: 12px; font-weight: 600;">🕒 7/24 Acil Servis</p>
+            </div>
+        `
+    });
+    
+    // Add click listener to marker
+    marker.addListener('click', function() {
+        infoWindow.open(map, marker);
+    });
+    
+    // Initialize Places service
+    service = new google.maps.places.PlacesService(map);
+    
+    // Hide loading spinner with delay
+    setTimeout(() => {
+        const mapLoading = document.getElementById('mapLoading');
+        if (mapLoading) {
+            mapLoading.style.display = 'none';
+        }
+        
+        // Show success notification
+        showNotification('🗺️ DC TEKNİK haritası başarıyla yüklendi!', 'success');
+    }, 1000);
+}
+
+// Search location function
+function searchLocation() {
+    const searchInput = document.getElementById('mapSearch');
+    const query = searchInput.value.trim();
+    
+    if (!query) {
+        showNotification('⚠️ Lütfen arama terimi girin!', 'warning');
+        return;
+    }
+    
+    if (!service) {
+        showNotification('⚠️ Harita henüz yüklenmedi!', 'warning');
+        return;
+    }
+    
+    showNotification('🔍 Konum aranıyor...', 'info');
+    
+    // Create request
+    const request = {
+        query: query,
+        fields: ['name', 'geometry', 'formatted_address'],
+        locationBias: { lat: 40.987654321, lng: 29.234567890, radius: 50000 }
+    };
+    
+    // Search for places
+    service.textSearch(request, function(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK && results[0]) {
+            const place = results[0];
+            
+            // Center map on found location
+            map.setCenter(place.geometry.location);
+            map.setZoom(15);
+            
+            // Create temporary marker
+            const tempMarker = new google.maps.Marker({
+                position: place.geometry.location,
+                map: map,
+                title: place.name,
+                icon: {
+                    url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="15" cy="15" r="12" fill="#ef4444" stroke="#ffffff" stroke-width="2"/>
+                            <text x="15" y="19" text-anchor="middle" fill="white" font-family="Arial" font-size="10" font-weight="bold">?</text>
+                        </svg>
+                    `),
+                    scaledSize: new google.maps.Size(30, 30),
+                    anchor: new google.maps.Point(15, 15)
+                }
+            });
+            
+            // Create info window for search result
+            const searchInfoWindow = new google.maps.InfoWindow({
+                content: `
+                    <div style="padding: 10px; max-width: 250px;">
+                        <h3 style="margin: 0 0 8px 0; color: #1e293b; font-size: 14px;">🔍 ${place.name}</h3>
+                        <p style="margin: 0; color: #64748b; font-size: 12px;">${place.formatted_address}</p>
+                    </div>
+                `
+            });
+            
+            searchInfoWindow.open(map, tempMarker);
+            
+            // Remove temporary marker after 10 seconds
+            setTimeout(() => {
+                tempMarker.setMap(null);
+            }, 10000);
+            
+            showNotification(`✅ "${place.name}" bulundu!`, 'success');
+        } else {
+            showNotification('❌ Konum bulunamadı!', 'error');
+        }
+    });
+}
+
+// Make functions globally available
+window.initMap = initMap;
+window.searchLocation = searchLocation;
+
+// Fallback map initialization
+function initializeMapFallback() {
+    // Check if Google Maps is loaded
+    if (typeof google === 'undefined' || !google.maps) {
+        console.log('Google Maps not loaded, retrying...');
+        setTimeout(initializeMapFallback, 1000);
+        return;
+    }
+    
+    // Check if map container exists
+    const mapContainer = document.getElementById('interactiveMap');
+    if (!mapContainer) {
+        console.log('Map container not found, retrying...');
+        setTimeout(initializeMapFallback, 1000);
+        return;
+    }
+    
+    // Initialize map if not already initialized
+    if (!map) {
+        initMap();
+    }
+}
+
+// Initialize map when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Try to initialize map after a short delay
+    setTimeout(initializeMapFallback, 2000);
+});
+
 // Customer Reviews Functionality
 function initializeCustomerReviews() {
     // Add event listeners for helpful buttons
