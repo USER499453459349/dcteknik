@@ -1795,35 +1795,6 @@ window.initializeStaticMap = initializeStaticMap;
 window.initializeGoogleMaps = initializeGoogleMaps;
 window.initializeProfessionalMaps = initializeProfessionalMaps;
 
-// Map error handling
-function showMapError() {
-    const staticMapContainer = document.getElementById('staticMapContainer');
-    const mapError = document.getElementById('mapError');
-    const mapLoading = document.getElementById('mapLoading');
-    
-    if (staticMapContainer) staticMapContainer.style.display = 'none';
-    if (mapLoading) mapLoading.style.display = 'none';
-    if (mapError) mapError.style.display = 'flex';
-    
-    showNotification('⚠️ Harita yüklenemedi! Statik harita gösteriliyor.', 'warning');
-}
-
-// Retry map loading
-function retryMapLoad() {
-    const staticMapContainer = document.getElementById('staticMapContainer');
-    const mapError = document.getElementById('mapError');
-    const mapLoading = document.getElementById('mapLoading');
-    
-    if (mapError) mapError.style.display = 'none';
-    if (mapLoading) mapLoading.style.display = 'flex';
-    
-    showNotification('🔄 Harita yeniden yükleniyor...', 'info');
-    
-    // Try to reload the page after 2 seconds
-    setTimeout(() => {
-        window.location.reload();
-    }, 2000);
-}
 
 // Initialize Location Section - KESIN ÇÖZÜM
 function initializeLocationSection() {
