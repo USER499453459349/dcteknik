@@ -1825,11 +1825,10 @@ function retryMapLoad() {
     }, 2000);
 }
 
-// Initialize Professional Google Maps
+// Initialize Professional Google Maps - FINAL SOLUTION
 function initializeProfessionalMaps() {
     const mapLoading = document.getElementById('mapLoading');
     const professionalMapsContainer = document.getElementById('professionalMapsContainer');
-    const mapContainer = document.getElementById('mapContainer');
     
     if (mapLoading) {
         mapLoading.style.display = 'none';
@@ -1839,8 +1838,39 @@ function initializeProfessionalMaps() {
         professionalMapsContainer.style.display = 'block';
     }
     
-    // Initialize smart map system
-    initializeSmartMapSystem();
+    // Initialize final map solution
+    initializeFinalMapSolution();
+}
+
+// FINAL MAP SOLUTION - NO IFRAME, NO ERRORS
+function initializeFinalMapSolution() {
+    const finalMapContainer = document.querySelector('.final-map-container');
+    
+    if (!finalMapContainer) return;
+    
+    // Add click tracking for all action buttons
+    const actionBtns = document.querySelectorAll('.action-btn');
+    actionBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const action = this.textContent.trim();
+            
+            // Track map interaction
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'map_action', {
+                    'event_category': 'Location',
+                    'event_label': action,
+                    'value': 1
+                });
+            }
+            
+            console.log('🗺️ Map action clicked:', action);
+        });
+    });
+    
+    // Add success notification
+    showNotification('🗺️ Konum bilgileri yüklendi!', 'success');
+    
+    console.log('✅ Final map solution initialized - NO IFRAME, NO ERRORS');
 }
 
 // Smart Map System
