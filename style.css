@@ -4245,13 +4245,6 @@ img {
     line-height: 1.5;
     margin-bottom: 0.5rem;
 }
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    transition: all 0.3s ease;
-    border: 1px solid #e2e8f0;
-}
 
 .map-info-card:hover {
     transform: translateY(-5px);
