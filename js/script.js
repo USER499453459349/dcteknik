@@ -1829,8 +1829,7 @@ function retryMapLoad() {
 function initializeProfessionalMaps() {
     const mapLoading = document.getElementById('mapLoading');
     const professionalMapsContainer = document.getElementById('professionalMapsContainer');
-    const mapIframe = document.querySelector('#professionalMapsContainer iframe');
-    const mapFallback = document.querySelector('.map-fallback');
+    const mapContainer = document.getElementById('mapContainer');
     
     if (mapLoading) {
         mapLoading.style.display = 'none';
@@ -1840,34 +1839,156 @@ function initializeProfessionalMaps() {
         professionalMapsContainer.style.display = 'block';
     }
     
-    // Check if iframe loads successfully
-    if (mapIframe) {
-        mapIframe.addEventListener('load', function() {
-            console.log('🗺️ Google Maps iframe loaded successfully');
-            showNotification('🗺️ Profesyonel harita yüklendi!', 'success');
-        });
-        
-        mapIframe.addEventListener('error', function() {
-            console.warn('⚠️ Google Maps iframe failed to load, showing fallback');
-            if (mapFallback) {
-                mapFallback.style.display = 'block';
-                mapIframe.style.display = 'none';
+    // Initialize smart map system
+    initializeSmartMapSystem();
+}
+
+// Smart Map System
+function initializeSmartMapSystem() {
+    const mapContainer = document.getElementById('mapContainer');
+    const mapAlternatives = document.querySelector('.map-alternatives');
+    const mapStatic = document.querySelector('.map-static');
+    
+    if (!mapContainer) return;
+    
+    // Show primary map solution immediately
+    mapContainer.style.display = 'block';
+    
+    // Try to load alternative maps after a delay
+    setTimeout(() => {
+        tryLoadAlternativeMaps();
+    }, 2000);
+    
+    // Add click handlers for map actions
+    const mapBtns = document.querySelectorAll('.map-btn');
+    mapBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            // Track map interaction
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'map_interaction', {
+                    'event_category': 'Location',
+                    'event_label': this.textContent.trim(),
+                    'value': 1
+                });
             }
-            showNotification('⚠️ Harita yüklenemedi, statik görsel gösteriliyor', 'warning');
         });
-        
-        // Timeout fallback after 10 seconds
-        setTimeout(() => {
-            if (mapIframe.offsetHeight === 0) {
-                console.warn('⚠️ Google Maps iframe timeout, showing fallback');
-                if (mapFallback) {
-                    mapFallback.style.display = 'block';
-                    mapIframe.style.display = 'none';
+    });
+}
+
+// Try to load alternative maps
+function tryLoadAlternativeMaps() {
+    const mapAlternatives = document.querySelector('.map-alternatives');
+    const mapStatic = document.querySelector('.map-static');
+    
+    // Try OpenStreetMap first
+    if (mapAlternatives) {
+        const iframe = mapAlternatives.querySelector('iframe');
+        if (iframe) {
+            iframe.addEventListener('load', function() {
+                console.log('🗺️ OpenStreetMap loaded successfully');
+                showNotification('🗺️ Alternatif harita yüklendi!', 'success');
+            });
+            
+            iframe.addEventListener('error', function() {
+                console.warn('⚠️ OpenStreetMap failed, trying static map');
+                tryLoadStaticMap();
+            });
+            
+            // Show alternatives after 3 seconds
+            setTimeout(() => {
+                if (mapAlternatives) {
+                    mapAlternatives.style.display = 'block';
                 }
-                showNotification('⚠️ Harita yükleme zaman aşımı', 'warning');
-            }
-        }, 10000);
+            }, 3000);
+        }
     }
+}
+
+// Try to load static map
+function tryLoadStaticMap() {
+    const mapStatic = document.querySelector('.map-static');
+    
+    if (mapStatic) {
+        const img = mapStatic.querySelector('img');
+        if (img) {
+            img.addEventListener('load', function() {
+                console.log('🗺️ Static map loaded successfully');
+                showNotification('🗺️ Statik harita yüklendi!', 'info');
+            });
+            
+            img.addEventListener('error', function() {
+                console.warn('⚠️ Static map failed, using placeholder');
+                showNotification('⚠️ Harita yüklenemedi, lütfen butonları kullanın', 'warning');
+            });
+            
+            // Show static map after 5 seconds
+            setTimeout(() => {
+                if (mapStatic) {
+                    mapStatic.style.display = 'block';
+                }
+            }, 5000);
+        }
+    }
+}
+
+// Enhanced map functionality
+function enhanceMapFunctionality() {
+    // Add geolocation support
+    if (navigator.geolocation) {
+        const locationBtn = document.createElement('button');
+        locationBtn.className = 'map-btn secondary';
+        locationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Konumumu Bul';
+        locationBtn.addEventListener('click', getCurrentLocation);
+        
+        const mapActions = document.querySelector('.map-actions');
+        if (mapActions) {
+            mapActions.appendChild(locationBtn);
+        }
+    }
+}
+
+// Get current location
+function getCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                
+                // Calculate distance to DC TEKNİK
+                const dcLat = 40.987654321;
+                const dcLng = 29.234567890;
+                const distance = calculateDistance(lat, lng, dcLat, dcLng);
+                
+                showNotification(`📍 Konumunuz bulundu! DC TEKNİK'e ${distance.toFixed(1)} km uzaklıktasınız.`, 'success');
+                
+                // Track location success
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'location_found', {
+                        'event_category': 'Location',
+                        'event_label': 'Geolocation',
+                        'value': Math.round(distance)
+                    });
+                }
+            },
+            function(error) {
+                console.warn('Geolocation error:', error);
+                showNotification('⚠️ Konum bulunamadı, lütfen manuel olarak arayın', 'warning');
+            }
+        );
+    }
+}
+
+// Calculate distance between two points
+function calculateDistance(lat1, lng1, lat2, lng2) {
+    const R = 6371; // Earth's radius in kilometers
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLng = (lng2 - lng1) * Math.PI / 180;
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLng/2) * Math.sin(dLng/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
 }
 
 // Initialize Google Maps iframe
