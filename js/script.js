@@ -1619,103 +1619,9 @@ function initializeAutomatedReporting() {
     };
 }
 
-// Google Maps Integration
-let map;
-let marker;
-let service;
-
-// Initialize Google Maps
-function initMap() {
-    // Check if map container exists
-    const mapContainer = document.getElementById('interactiveMap');
-    if (!mapContainer) {
-        console.error('Map container not found!');
-        return;
-    }
-    
-    // DC TEKNİK coordinates (Sultanbeyli, İstanbul)
-    const dcteknikLocation = { lat: 40.987654321, lng: 29.234567890 };
-    
-    // Create map with error handling
-    try {
-        map = new google.maps.Map(mapContainer, {
-            zoom: 15,
-            center: dcteknikLocation,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            styles: [
-                {
-                    featureType: 'poi',
-                    elementType: 'labels',
-                    stylers: [{ visibility: 'off' }]
-                }
-            ],
-            gestureHandling: 'greedy',
-            zoomControl: true,
-            mapTypeControl: true,
-            scaleControl: true,
-            streetViewControl: true,
-            rotateControl: true,
-            fullscreenControl: true
-        });
-    } catch (error) {
-        console.error('Error creating map:', error);
-        showNotification('❌ Harita yüklenirken hata oluştu!', 'error');
-        return;
-    }
-    
-    // Create marker
-    marker = new google.maps.Marker({
-        position: dcteknikLocation,
-        map: map,
-        title: 'DC TEKNİK - Dinamocu Serdar',
-        icon: {
-            url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-                <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="20" r="18" fill="#3b82f6" stroke="#ffffff" stroke-width="3"/>
-                    <text x="20" y="26" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">DC</text>
-                </svg>
-            `),
-            scaledSize: new google.maps.Size(40, 40),
-            anchor: new google.maps.Point(20, 20)
-        }
-    });
-    
-    // Create info window
-    const infoWindow = new google.maps.InfoWindow({
-        content: `
-            <div style="padding: 10px; max-width: 250px;">
-                <h3 style="margin: 0 0 10px 0; color: #1e293b; font-size: 16px;">🤖 DC TEKNİK</h3>
-                <p style="margin: 0 0 8px 0; color: #64748b; font-size: 14px;">📍 Atatürk Cad. No:312, Sultanbeyli / İstanbul</p>
-                <p style="margin: 0 0 8px 0; color: #64748b; font-size: 14px;">📞 +90 535 356 24 69</p>
-                <p style="margin: 0; color: #10b981; font-size: 12px; font-weight: 600;">🕒 7/24 Acil Servis</p>
-            </div>
-        `
-    });
-    
-    // Add click listener to marker
-    marker.addListener('click', function() {
-        infoWindow.open(map, marker);
-    });
-    
-    // Initialize Places service
-    service = new google.maps.places.PlacesService(map);
-    
-    // Hide loading spinner with delay
-    setTimeout(() => {
-        const mapLoading = document.getElementById('mapLoading');
-        if (mapLoading) {
-            mapLoading.style.display = 'none';
-        }
-        
-        // Show success notification
-        showNotification('🗺️ DC TEKNİK haritası başarıyla yüklendi!', 'success');
-    }, 1000);
-}
 
 
-window.initializeStaticMap = initializeStaticMap;
-window.initializeGoogleMaps = initializeGoogleMaps;
-window.initializeProfessionalMaps = initializeProfessionalMaps;
+
 
 
 // Initialize Location Section - KESIN ÇÖZÜM
@@ -1928,36 +1834,6 @@ function calculateDistance(lat1, lng1, lat2, lng2) {
     return R * c;
 }
 
-// Initialize Google Maps iframe
-function initializeGoogleMaps() {
-    const mapLoading = document.getElementById('mapLoading');
-    const googleMapsContainer = document.getElementById('googleMapsContainer');
-    
-    if (mapLoading) {
-        mapLoading.style.display = 'none';
-    }
-    
-    if (googleMapsContainer) {
-        googleMapsContainer.style.display = 'block';
-    }
-    
-    showNotification('🗺️ Google Maps yüklendi!', 'success');
-}
-
-// Initialize static map as fallback
-function initializeStaticMap() {
-    const mapLoading = document.getElementById('mapLoading');
-    const staticMapContainer = document.getElementById('staticMapContainer');
-    
-    if (mapLoading) {
-        mapLoading.style.display = 'none';
-    }
-    
-    if (staticMapContainer) {
-        staticMapContainer.style.display = 'flex';
-    }
-    
-    showNotification('🗺️ DC TEKNİK konumu yüklendi!', 'success');
 }
 
 
