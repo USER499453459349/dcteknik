@@ -2107,6 +2107,198 @@ function hideCookieSettings() {
     cookieSettings.style.display = 'none';
 }
 
+// Advanced Security Functions
+function initializeSecurityFeatures() {
+    // CSRF Token Generation
+    generateCSRFToken();
+    
+    // Rate Limiting
+    initializeRateLimiting();
+    
+    // Input Sanitization
+    initializeInputSanitization();
+    
+    // Security Monitoring
+    initializeSecurityMonitoring();
+    
+    // Intrusion Detection
+    initializeIntrusionDetection();
+}
+
+function generateCSRFToken() {
+    // Generate CSRF token for forms
+    const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    localStorage.setItem('csrfToken', token);
+    
+    // Add token to all forms
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        const tokenInput = document.createElement('input');
+        tokenInput.type = 'hidden';
+        tokenInput.name = 'csrf_token';
+        tokenInput.value = token;
+        form.appendChild(tokenInput);
+    });
+}
+
+function initializeRateLimiting() {
+    // Rate limiting for API calls
+    const rateLimitMap = new Map();
+    const RATE_LIMIT = 10; // 10 requests per minute
+    const WINDOW_SIZE = 60000; // 1 minute
+    
+    window.makeSecureRequest = function(url, options = {}) {
+        const now = Date.now();
+        const key = url + '_' + (options.userId || 'anonymous');
+        
+        if (!rateLimitMap.has(key)) {
+            rateLimitMap.set(key, []);
+        }
+        
+        const requests = rateLimitMap.get(key);
+        const recentRequests = requests.filter(time => now - time < WINDOW_SIZE);
+        
+        if (recentRequests.length >= RATE_LIMIT) {
+            showNotification('⚠️ Çok fazla istek! Lütfen bekleyin.', 'warning');
+            return Promise.reject(new Error('Rate limit exceeded'));
+        }
+        
+        recentRequests.push(now);
+        rateLimitMap.set(key, recentRequests);
+        
+        return fetch(url, options);
+    };
+}
+
+function initializeInputSanitization() {
+    // Sanitize all user inputs
+    const inputs = document.querySelectorAll('input, textarea, select');
+    inputs.forEach(input => {
+        input.addEventListener('input', function() {
+            // Remove potentially dangerous characters
+            this.value = this.value.replace(/[<>'"&]/g, '');
+        });
+        
+        input.addEventListener('blur', function() {
+            // Additional validation
+            if (this.type === 'email') {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(this.value)) {
+                    this.style.borderColor = '#ef4444';
+                    showNotification('⚠️ Geçerli bir e-posta adresi girin!', 'warning');
+                } else {
+                    this.style.borderColor = '#10b981';
+                }
+            }
+        });
+    });
+}
+
+function initializeSecurityMonitoring() {
+    // Monitor for suspicious activities
+    let suspiciousActivity = 0;
+    const SUSPICIOUS_THRESHOLD = 5;
+    
+    // Monitor rapid clicks
+    let clickCount = 0;
+    let lastClickTime = 0;
+    
+    document.addEventListener('click', function(e) {
+        const now = Date.now();
+        if (now - lastClickTime < 100) { // Less than 100ms between clicks
+            clickCount++;
+            if (clickCount > 10) {
+                suspiciousActivity++;
+                showNotification('⚠️ Şüpheli aktivite tespit edildi!', 'warning');
+            }
+        } else {
+            clickCount = 0;
+        }
+        lastClickTime = now;
+    });
+    
+    // Monitor rapid form submissions
+    let formSubmissionCount = 0;
+    let lastFormSubmission = 0;
+    
+    document.addEventListener('submit', function(e) {
+        const now = Date.now();
+        if (now - lastFormSubmission < 1000) { // Less than 1 second between submissions
+            formSubmissionCount++;
+            if (formSubmissionCount > 3) {
+                suspiciousActivity++;
+                showNotification('⚠️ Çok hızlı form gönderimi!', 'warning');
+                e.preventDefault();
+            }
+        } else {
+            formSubmissionCount = 0;
+        }
+        lastFormSubmission = now;
+    });
+    
+    // Monitor for XSS attempts
+    document.addEventListener('DOMContentLoaded', function() {
+        const scripts = document.querySelectorAll('script');
+        scripts.forEach(script => {
+            if (script.src && !script.src.startsWith(window.location.origin) && 
+                !script.src.includes('googletagmanager.com') && 
+                !script.src.includes('google-analytics.com') &&
+                !script.src.includes('cdnjs.cloudflare.com')) {
+                suspiciousActivity++;
+                console.warn('Suspicious script detected:', script.src);
+            }
+        });
+    });
+}
+
+function initializeIntrusionDetection() {
+    // Detect common attack patterns
+    const attackPatterns = [
+        /script\s*>/i,
+        /<script/i,
+        /javascript:/i,
+        /on\w+\s*=/i,
+        /eval\s*\(/i,
+        /document\.cookie/i,
+        /document\.write/i,
+        /window\.location/i
+    ];
+    
+    // Monitor URL for attack patterns
+    const currentUrl = window.location.href;
+    attackPatterns.forEach(pattern => {
+        if (pattern.test(currentUrl)) {
+            showNotification('🚨 Güvenlik tehdidi tespit edildi!', 'error');
+            console.warn('Potential attack detected in URL:', currentUrl);
+        }
+    });
+    
+    // Monitor for SQL injection patterns
+    const sqlPatterns = [
+        /union\s+select/i,
+        /drop\s+table/i,
+        /delete\s+from/i,
+        /insert\s+into/i,
+        /update\s+set/i,
+        /or\s+1\s*=\s*1/i,
+        /and\s+1\s*=\s*1/i
+    ];
+    
+    // Check form inputs for SQL injection
+    const inputs = document.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('input', function() {
+            sqlPatterns.forEach(pattern => {
+                if (pattern.test(this.value)) {
+                    showNotification('🚨 SQL injection tespit edildi!', 'error');
+                    this.style.borderColor = '#ef4444';
+                    this.value = this.value.replace(pattern, '');
+                }
+            });
+        });
+    });
+}
+
 // Initialize map when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize performance optimizations
@@ -2116,6 +2308,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize cookie consent
     initializeCookieConsent();
+    
+    // Initialize advanced security features
+    initializeSecurityFeatures();
     
     // Show Professional Maps immediately
     setTimeout(initializeProfessionalMaps, 500);
