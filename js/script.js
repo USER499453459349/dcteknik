@@ -1825,21 +1825,35 @@ function retryMapLoad() {
     }, 2000);
 }
 
-// Initialize Professional Google Maps - FINAL SOLUTION
-function initializeProfessionalMaps() {
-    const mapLoading = document.getElementById('mapLoading');
-    const professionalMapsContainer = document.getElementById('professionalMapsContainer');
+// Initialize Location Section - KESIN ÇÖZÜM
+function initializeLocationSection() {
+    const locationSection = document.querySelector('.location-section');
     
-    if (mapLoading) {
-        mapLoading.style.display = 'none';
-    }
+    if (!locationSection) return;
     
-    if (professionalMapsContainer) {
-        professionalMapsContainer.style.display = 'block';
-    }
+    // Add click tracking for all location buttons
+    const locationBtns = document.querySelectorAll('.location-btn');
+    locationBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const action = this.textContent.trim();
+            
+            // Track location interaction
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'location_action', {
+                    'event_category': 'Location',
+                    'event_label': action,
+                    'value': 1
+                });
+            }
+            
+            console.log('📍 Location action clicked:', action);
+        });
+    });
     
-    // Initialize final map solution
-    initializeFinalMapSolution();
+    // Add success notification
+    showNotification('📍 Konum bilgileri yüklendi!', 'success');
+    
+    console.log('✅ Location section initialized - NO IFRAME, NO ERRORS');
 }
 
 // FINAL MAP SOLUTION - NO IFRAME, NO ERRORS
@@ -3192,8 +3206,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize 2FA system
     initialize2FA();
     
-    // Show Professional Maps immediately
-    setTimeout(initializeProfessionalMaps, 500);
+    // Initialize Location Section immediately
+    setTimeout(initializeLocationSection, 500);
     
     // Try to initialize interactive map after a short delay
     setTimeout(initializeMapFallback, 2000);
