@@ -2415,9 +2415,461 @@ function initialize2FA() {
     console.log('🔐 2FA System initialized');
 }
 
+// Advanced Performance Optimization
+function initializeAdvancedPerformance() {
+    // Code Splitting - Dynamic imports
+    initializeCodeSplitting();
+    
+    // Tree Shaking - Remove unused code
+    initializeTreeShaking();
+    
+    // Critical CSS Optimization
+    optimizeCriticalCSS();
+    
+    // Advanced Image Optimization
+    initializeAdvancedImageOptimization();
+    
+    // Bundle Optimization
+    initializeBundleOptimization();
+    
+    // Advanced Caching
+    initializeAdvancedCaching();
+    
+    // Preloading Strategy
+    initializePreloadingStrategy();
+    
+    // Performance Monitoring
+    initializePerformanceMonitoring();
+}
+
+// Code Splitting Implementation
+function initializeCodeSplitting() {
+    // Lazy load non-critical modules
+    const loadModule = async (moduleName) => {
+        try {
+            const module = await import(`./modules/${moduleName}.js`);
+            return module;
+        } catch (error) {
+            console.warn(`Module ${moduleName} not found, using fallback`);
+            return null;
+        }
+    };
+    
+    // Load modules on demand
+    window.loadModule = loadModule;
+    
+    // Load AI features on demand
+    const loadAIFeatures = async () => {
+        if (document.querySelector('.ai-automation-section')) {
+            const aiModule = await loadModule('ai-features');
+            if (aiModule) {
+                aiModule.initializeAIFeatures();
+            }
+        }
+    };
+    
+    // Load analytics on demand
+    const loadAnalytics = async () => {
+        if (typeof gtag !== 'undefined') {
+            const analyticsModule = await loadModule('analytics');
+            if (analyticsModule) {
+                analyticsModule.initializeAdvancedAnalytics();
+            }
+        }
+    };
+    
+    // Load modules when needed
+    setTimeout(loadAIFeatures, 1000);
+    setTimeout(loadAnalytics, 2000);
+}
+
+// Tree Shaking Implementation
+function initializeTreeShaking() {
+    // Remove unused CSS
+    const removeUnusedCSS = () => {
+        const usedClasses = new Set();
+        const elements = document.querySelectorAll('*');
+        
+        elements.forEach(el => {
+            if (el.className) {
+                el.className.split(' ').forEach(cls => {
+                    if (cls.trim()) usedClasses.add(cls.trim());
+                });
+            }
+        });
+        
+        // Remove unused CSS rules (simplified implementation)
+        const styleSheets = document.styleSheets;
+        for (let i = 0; i < styleSheets.length; i++) {
+            try {
+                const rules = styleSheets[i].cssRules;
+                for (let j = rules.length - 1; j >= 0; j--) {
+                    const rule = rules[j];
+                    if (rule.selectorText) {
+                        const selectors = rule.selectorText.split(',');
+                        let hasUsedSelector = false;
+                        
+                        selectors.forEach(selector => {
+                            const cleanSelector = selector.trim().replace(/[.#]/g, '');
+                            if (usedClasses.has(cleanSelector) || cleanSelector.includes(':')) {
+                                hasUsedSelector = true;
+                            }
+                        });
+                        
+                        if (!hasUsedSelector && !rule.selectorText.includes('@')) {
+                            styleSheets[i].deleteRule(j);
+                        }
+                    }
+                }
+            } catch (e) {
+                // Cross-origin stylesheets
+            }
+        }
+    };
+    
+    // Run tree shaking after page load
+    setTimeout(removeUnusedCSS, 3000);
+}
+
+// Critical CSS Optimization
+function optimizeCriticalCSS() {
+    // Inline critical CSS for above-the-fold content
+    const criticalCSS = `
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.6; color: #1e293b; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .hero { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 4rem 0; text-align: center; }
+        .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+        .hero p { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9; }
+        .btn { display: inline-block; padding: 1rem 2rem; background: #3b82f6; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; }
+        .btn:hover { background: #1d4ed8; transform: translateY(-2px); }
+        .header { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
+        .nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: #1e293b; }
+        .nav-menu { display: flex; list-style: none; gap: 2rem; }
+        .nav-link { color: #64748b; text-decoration: none; font-weight: 500; transition: color 0.3s ease; }
+        .nav-link:hover { color: #3b82f6; }
+    `;
+    
+    // Add critical CSS to head
+    const style = document.createElement('style');
+    style.textContent = criticalCSS;
+    style.setAttribute('data-critical', 'true');
+    document.head.insertBefore(style, document.head.firstChild);
+    
+    // Load non-critical CSS asynchronously
+    const loadNonCriticalCSS = () => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'style.css?v=20250115v28';
+        link.media = 'print';
+        link.onload = function() {
+            this.media = 'all';
+        };
+        document.head.appendChild(link);
+    };
+    
+    // Load non-critical CSS after page load
+    setTimeout(loadNonCriticalCSS, 100);
+}
+
+// Advanced Image Optimization
+function initializeAdvancedImageOptimization() {
+    // WebP support detection
+    const supportsWebP = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1;
+        canvas.height = 1;
+        return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+    };
+    
+    // AVIF support detection
+    const supportsAVIF = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1;
+        canvas.height = 1;
+        return canvas.toDataURL('image/avif').indexOf('data:image/avif') === 0;
+    };
+    
+    // Optimize images based on browser support
+    const optimizeImages = () => {
+        const images = document.querySelectorAll('img[src*="unsplash.com"]');
+        images.forEach(img => {
+            let optimizedSrc = img.src;
+            
+            if (supportsAVIF()) {
+                optimizedSrc = img.src + '&fm=avif&q=80';
+            } else if (supportsWebP()) {
+                optimizedSrc = img.src + '&fm=webp&q=80';
+            } else {
+                optimizedSrc = img.src + '&q=80';
+            }
+            
+            img.src = optimizedSrc;
+        });
+    };
+    
+    // Responsive images
+    const createResponsiveImages = () => {
+        const images = document.querySelectorAll('img[data-src]');
+        images.forEach(img => {
+            const srcset = img.dataset.srcset;
+            if (srcset) {
+                img.srcset = srcset;
+                img.sizes = img.dataset.sizes || '100vw';
+            }
+        });
+    };
+    
+    // Run optimizations
+    optimizeImages();
+    createResponsiveImages();
+}
+
+// Bundle Optimization
+function initializeBundleOptimization() {
+    // Minify inline JavaScript
+    const minifyInlineJS = () => {
+        const scripts = document.querySelectorAll('script:not([src])');
+        scripts.forEach(script => {
+            if (script.textContent) {
+                const minified = script.textContent
+                    .replace(/\/\*[\s\S]*?\*\//g, '') // Remove comments
+                    .replace(/\/\/.*$/gm, '') // Remove line comments
+                    .replace(/\s+/g, ' ') // Remove extra whitespace
+                    .trim();
+                script.textContent = minified;
+            }
+        });
+    };
+    
+    // Compress inline CSS
+    const compressInlineCSS = () => {
+        const styles = document.querySelectorAll('style');
+        styles.forEach(style => {
+            if (style.textContent) {
+                const compressed = style.textContent
+                    .replace(/\/\*[\s\S]*?\*\//g, '') // Remove comments
+                    .replace(/\s+/g, ' ') // Remove extra whitespace
+                    .replace(/;\s*}/g, '}') // Remove semicolons before closing braces
+                    .trim();
+                style.textContent = compressed;
+            }
+        });
+    };
+    
+    // Run optimizations
+    minifyInlineJS();
+    compressInlineCSS();
+}
+
+// Advanced Caching
+function initializeAdvancedCaching() {
+    // Enhanced Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then(registration => {
+            console.log('Service Worker registered:', registration);
+            
+            // Update service worker
+            registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        // New content available
+                        showNotification('🔄 Yeni güncelleme mevcut! Sayfayı yenileyin.', 'info');
+                    }
+                });
+            });
+        });
+    }
+    
+    // Cache API for dynamic content
+    const cacheDynamicContent = async () => {
+        if ('caches' in window) {
+            const cache = await caches.open('dynamic-content-v1');
+            
+            // Cache API responses
+            const apiUrls = [
+                '/api/services',
+                '/api/reviews',
+                '/api/contact'
+            ];
+            
+            apiUrls.forEach(async url => {
+                try {
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        await cache.put(url, response);
+                    }
+                } catch (error) {
+                    console.warn(`Failed to cache ${url}:`, error);
+                }
+            });
+        }
+    };
+    
+    // Run caching
+    setTimeout(cacheDynamicContent, 2000);
+}
+
+// Preloading Strategy
+function initializePreloadingStrategy() {
+    // Preload critical resources
+    const preloadCriticalResources = () => {
+        const criticalResources = [
+            { href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap', as: 'style' },
+            { href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', as: 'style' },
+            { href: 'https://images.unsplash.com/photo-1486754735734-325b5831c3ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80', as: 'image' }
+        ];
+        
+        criticalResources.forEach(resource => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.href = resource.href;
+            link.as = resource.as;
+            if (resource.as === 'style') {
+                link.onload = function() {
+                    this.rel = 'stylesheet';
+                };
+            }
+            document.head.appendChild(link);
+        });
+    };
+    
+    // Prefetch next page resources
+    const prefetchNextPageResources = () => {
+        const nextPageResources = [
+            '/privacy-policy.html',
+            '/security-report.html'
+        ];
+        
+        nextPageResources.forEach(url => {
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = url;
+            document.head.appendChild(link);
+        });
+    };
+    
+    // DNS prefetch for external domains
+    const prefetchDNS = () => {
+        const domains = [
+            'https://www.google-analytics.com',
+            'https://www.googletagmanager.com',
+            'https://maps.googleapis.com',
+            'https://cdnjs.cloudflare.com'
+        ];
+        
+        domains.forEach(domain => {
+            const link = document.createElement('link');
+            link.rel = 'dns-prefetch';
+            link.href = domain;
+            document.head.appendChild(link);
+        });
+    };
+    
+    // Run preloading strategies
+    preloadCriticalResources();
+    setTimeout(prefetchNextPageResources, 3000);
+    prefetchDNS();
+}
+
+// Performance Monitoring
+function initializePerformanceMonitoring() {
+    // Core Web Vitals
+    const measureCoreWebVitals = () => {
+        // Largest Contentful Paint (LCP)
+        new PerformanceObserver((entryList) => {
+            const entries = entryList.getEntries();
+            const lastEntry = entries[entries.length - 1];
+            console.log('LCP:', lastEntry.startTime);
+            
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'web_vitals', {
+                    'event_category': 'Performance',
+                    'event_label': 'LCP',
+                    'value': Math.round(lastEntry.startTime)
+                });
+            }
+        }).observe({ entryTypes: ['largest-contentful-paint'] });
+        
+        // First Input Delay (FID)
+        new PerformanceObserver((entryList) => {
+            const entries = entryList.getEntries();
+            entries.forEach(entry => {
+                console.log('FID:', entry.processingStart - entry.startTime);
+                
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'web_vitals', {
+                        'event_category': 'Performance',
+                        'event_label': 'FID',
+                        'value': Math.round(entry.processingStart - entry.startTime)
+                    });
+                }
+            });
+        }).observe({ entryTypes: ['first-input'] });
+        
+        // Cumulative Layout Shift (CLS)
+        let clsValue = 0;
+        new PerformanceObserver((entryList) => {
+            const entries = entryList.getEntries();
+            entries.forEach(entry => {
+                if (!entry.hadRecentInput) {
+                    clsValue += entry.value;
+                }
+            });
+            console.log('CLS:', clsValue);
+            
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'web_vitals', {
+                    'event_category': 'Performance',
+                    'event_label': 'CLS',
+                    'value': Math.round(clsValue * 1000)
+                });
+            }
+        }).observe({ entryTypes: ['layout-shift'] });
+    };
+    
+    // Real User Monitoring
+    const measureRealUserMetrics = () => {
+        // Page Load Time
+        window.addEventListener('load', () => {
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            console.log('Page Load Time:', loadTime);
+            
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'page_load_time', {
+                    'event_category': 'Performance',
+                    'event_label': 'Load Time',
+                    'value': Math.round(loadTime)
+                });
+            }
+        });
+        
+        // Time to First Byte (TTFB)
+        const ttfb = performance.timing.responseStart - performance.timing.navigationStart;
+        console.log('TTFB:', ttfb);
+        
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_load_time', {
+                'event_category': 'Performance',
+                'event_label': 'TTFB',
+                'value': Math.round(ttfb)
+            });
+        }
+    };
+    
+    // Run monitoring
+    measureCoreWebVitals();
+    measureRealUserMetrics();
+}
+
 // Initialize map when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize performance optimizations
+    // Initialize advanced performance optimizations
+    initializeAdvancedPerformance();
+    
+    // Initialize basic performance optimizations
     initializeLazyLoading();
     optimizeImages();
     preloadCriticalResources();
