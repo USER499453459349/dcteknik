@@ -4822,6 +4822,86 @@ img {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
+/* Harita Container */
+.map-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.map-placeholder {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 15px;
+    border: 2px dashed #cbd5e1;
+}
+
+.map-icon {
+    font-size: 4rem;
+    color: #3b82f6;
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite;
+}
+
+.map-placeholder h3 {
+    color: #1e293b;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.map-placeholder p {
+    color: #64748b;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.map-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.map-btn.primary {
+    background: #3b82f6;
+    color: white;
+}
+
+.map-btn.primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+}
+
+.map-btn.secondary {
+    background: #10b981;
+    color: white;
+}
+
+.map-btn.secondary:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+}
+
 .location-header {
     text-align: center;
     margin-bottom: 2rem;
@@ -4982,6 +5062,17 @@ img {
     .location-card {
         flex-direction: column;
         text-align: center;
+    }
+    
+    .map-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .map-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
     }
     
     .location-actions {
