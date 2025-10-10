@@ -1,0 +1,103 @@
+/* Update Cards Styling */
+.update-card {
+    position: relative;
+    border: 2px solid var(--accent-secondary);
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(234, 88, 12, 0.05) 100%);
+    animation: updatePulse 2s ease-in-out infinite;
+}
+
+@keyframes updatePulse {
+    0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.4);
+    }
+    50% { 
+        box-shadow: 0 0 0 10px rgba(234, 88, 12, 0);
+    }
+}
+
+.update-badge {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: badgeGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes badgeGlow {
+    from { 
+        box-shadow: 0 0 5px rgba(234, 88, 12, 0.5);
+    }
+    to { 
+        box-shadow: 0 0 15px rgba(234, 88, 12, 0.8);
+    }
+}
+
+.update-card .blog-card-image .blog-placeholder {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    animation: iconBounce 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
+.update-card .read-more {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: var(--transition-spring);
+}
+
+.update-card .read-more:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(234, 88, 12, 0.4);
+}
+
+/* Blog CTA Buttons */
+.blog-cta {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.blog-cta .btn {
+    min-width: 200px;
+    padding: 15px 30px;
+    font-weight: 600;
+    border-radius: 25px;
+    transition: var(--transition-spring);
+}
+
+.blog-cta .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Responsive for Update Cards */
+@media (max-width: 768px) {
+    .update-card {
+        border-width: 1px;
+    }
+    
+    .update-badge {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+    
+    .blog-cta {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .blog-cta .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}

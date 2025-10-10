@@ -22,9 +22,10 @@
     <meta name="twitter:title" content="Blog - DC TEKNİK dcteknik.com Dinamocu Servisi">
     <meta name="twitter:description" content="DC TEKNİK dcteknik.com - Dinamo, alternatör ve marş motoru hakkında uzman tavsiyeleri">
     
-    <link rel="preload" href="/style.css?v=20250101v6" as="style">
+    <link rel="preload" href="style.css?v=20250101v6" as="style">
     <link rel="stylesheet" href="style.css?v=20250101v6">
-    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="stylesheet" href="blog-styles.css?v=20250101v1">
+    <link rel="manifest" href="manifest.webmanifest">
     <meta name="theme-color" content="#0b5cff">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -97,13 +98,13 @@
                     </ol>
                 </nav>
             </div>
-            </div>
-
+            
             <nav class="pagination" aria-label="Sayfalama">
                 <button class="page-btn" id="prevPage" disabled>Önceki</button>
                 <span class="page-status" id="pageStatus">Sayfa 1</span>
                 <button class="page-btn" id="nextPage">Sonraki</button>
             </nav>
+        </div>
     </section>
 
     <!-- Blog Content -->
@@ -786,8 +787,9 @@
     </footer>
 
     <script src="script.js" defer></script>
+    <script src="js/blog-animations.js" defer></script>
     <script>
-    (function(){
+    document.addEventListener('DOMContentLoaded', function(){
         const postsPerPage = 3;
         const grid = document.getElementById('blogGrid');
         if(!grid) return;
@@ -805,16 +807,29 @@
             posts.forEach((post, idx) => {
                 post.style.display = (idx >= start && idx < end) ? '' : 'none';
             });
-            prevBtn.disabled = page === 1;
-            nextBtn.disabled = page === totalPages;
-            status.textContent = `Sayfa ${page} / ${totalPages}`;
+            if(prevBtn) prevBtn.disabled = page === 1;
+            if(nextBtn) nextBtn.disabled = page === totalPages;
+            if(status) status.textContent = `Sayfa ${page} / ${totalPages}`;
         }
 
-        prevBtn && prevBtn.addEventListener('click', () => { if(currentPage>1){ currentPage--; renderPage(currentPage); window.scrollTo({top:0, behavior:'smooth'}); } });
-        nextBtn && nextBtn.addEventListener('click', () => { if(currentPage<totalPages){ currentPage++; renderPage(currentPage); window.scrollTo({top:0, behavior:'smooth'}); } });
+        if(prevBtn) prevBtn.addEventListener('click', () => { 
+            if(currentPage>1){ 
+                currentPage--; 
+                renderPage(currentPage); 
+                window.scrollTo({top:0, behavior:'smooth'}); 
+            } 
+        });
+        
+        if(nextBtn) nextBtn.addEventListener('click', () => { 
+            if(currentPage<totalPages){ 
+                currentPage++; 
+                renderPage(currentPage); 
+                window.scrollTo({top:0, behavior:'smooth'}); 
+            } 
+        });
 
         renderPage(currentPage);
-    })();
+    });
     </script>
     <script src="js/language-switcher.js"></script>
 </body>

@@ -55,6 +55,7 @@
     
     <link rel="preload" href="/style.css?v=20250115v40" as="style">
     <link rel="stylesheet" href="style.css?v=20250115v40">
+    <link rel="stylesheet" href="update-styles.css?v=20250115v1">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -66,6 +67,7 @@
     <link rel="preload" href="/logo-new.svg" as="image" imagesrcset="/logo-new.svg" imagesizes="(max-width: 768px) 120px, 160px">
     
     <!-- Google Analytics -->
+    <!-- Google Analytics - Placeholder ID, replace with real GA4 ID -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -204,7 +206,7 @@
                     <li><a href="#home" class="nav-link active" data-translate="nav.home">Ana Sayfa</a></li>
                     <li><a href="#services" class="nav-link" data-translate="nav.services">Hizmetlerimiz</a></li>
                     <li><a href="#gallery" class="nav-link" data-translate="nav.gallery">Galeri</a></li>
-                    <li><a href="#blog" class="nav-link" data-translate="nav.blog">Blog</a></li>
+                    <li><a href="blog.html" class="nav-link" data-translate="nav.blog">Blog</a></li>
                     <li><a href="#about" class="nav-link" data-translate="nav.about">Hakkımızda</a></li>
                     <li><a href="#contact" class="nav-link" data-translate="nav.contact">İletişim</a></li>
                 </ul>
@@ -1839,8 +1841,8 @@
     <section class="latest-blog">
         <div class="container">
             <div class="section-header">
-                <h2>Son Blog Yazılarımız</h2>
-                <p>Dinamocu servisi hakkında en güncel yazılarımız</p>
+                <h2>📰 Son Güncellemeler & Blog Yazılarımız</h2>
+                <p>Dinamocu servisi hakkında en güncel yazılarımız ve hizmet güncellemelerimiz</p>
             </div>
             <div class="blog-grid-home">
                 
@@ -1901,9 +1903,67 @@
                     </div>
                 </article>
 
+                <!-- Service Update 1 -->
+                <article class="blog-card update-card">
+                    <div class="blog-card-image">
+                        <div class="blog-placeholder">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="blog-category update-badge">YENİ HİZMET</div>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3><a href="#appointment">🚀 Online Randevu Sistemi Aktif!</a></h3>
+                        <div class="blog-meta">
+                            <span><i class="fas fa-calendar"></i> 15 Ocak 2025</span>
+                            <span><i class="fas fa-clock"></i> Hemen Kullan</span>
+                        </div>
+                        <p>Artık web sitemizden kolayca randevu alabilirsiniz! Müsait saatleri görün, anında onay alın. Daha hızlı ve pratik hizmet için...</p>
+                        <a href="#appointment" class="read-more">Randevu Al <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Service Update 2 -->
+                <article class="blog-card update-card">
+                    <div class="blog-card-image">
+                        <div class="blog-placeholder">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="blog-category update-badge">GÜNCELLEME</div>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3><a href="blog.html">📱 Blog Bölümü Aktifleştirildi!</a></h3>
+                        <div class="blog-meta">
+                            <span><i class="fas fa-calendar"></i> 15 Ocak 2025</span>
+                            <span><i class="fas fa-clock"></i> 5 yazı</span>
+                        </div>
+                        <p>Dinamo, alternatör ve marş motoru hakkında uzman yazılarımız artık erişilebilir! Teknik bilgiler, bakım tavsiyeleri ve çözüm önerileri...</p>
+                        <a href="blog.html" class="read-more">Blog'u İncele <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Service Update 3 -->
+                <article class="blog-card update-card">
+                    <div class="blog-card-image">
+                        <div class="blog-placeholder">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="blog-category update-badge">HİZMET</div>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3><a href="#services">⚡ 7/24 Acil Servis Hizmeti</a></h3>
+                        <div class="blog-meta">
+                            <span><i class="fas fa-calendar"></i> 10 Ocak 2025</span>
+                            <span><i class="fas fa-clock"></i> 24/7</span>
+                        </div>
+                        <p>Acil durumlarınız için 7/24 hizmet veriyoruz! Dinamo, alternatör ve marş motoru arızalarında hemen müdahale. Hızlı çözüm garantisi...</p>
+                        <a href="tel:+905353562469" class="read-more">Acil Ara <i class="fas fa-phone"></i></a>
+                    </div>
+                </article>
+
             </div>
             <div class="blog-cta">
                 <a href="blog.html" class="btn btn-primary">Tüm Blog Yazılarını Gör</a>
+                <a href="#contact" class="btn btn-secondary">Güncellemeleri Takip Et</a>
             </div>
         </div>
     </section>
