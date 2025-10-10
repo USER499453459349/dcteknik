@@ -63,6 +63,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="preload" href="/logo-new.svg" as="image" imagesrcset="/logo-new.svg" imagesizes="(max-width: 768px) 120px, 160px">
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -193,7 +194,7 @@
         <nav class="navbar">
             <div class="nav-container">
                 <div class="nav-logo">
-                    <img src="logo-new.svg?v=20250101v3" alt="DC TEKNİK Logo" class="logo-image">
+                    <img src="logo-new.svg?v=20250101v3" alt="DC TEKNİK Logo" class="logo-image" width="160" height="48" decoding="async" fetchpriority="high">
                     <div class="logo-text">
                         <h2>DC TEKNİK</h2>
                         <span>Dinamocu Serdar</span>

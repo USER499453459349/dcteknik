@@ -1103,7 +1103,17 @@ function initMap() {
     const dcteknikLocation = { lat: 40.987654321, lng: 29.234567890 };
     
     // Create map
-    map = new google.maps.Map(document.getElementById('interactiveMap'), {
+    const mapContainer = document.getElementById('interactiveMap');
+    if (!mapContainer || typeof google === 'undefined' || !google.maps) {
+        // Fallback: Embed static map link and message
+        const fallback = document.getElementById('mapFallback');
+        if (fallback) {
+            fallback.style.display = 'block';
+        }
+        return;
+    }
+
+    map = new google.maps.Map(mapContainer, {
         zoom: 16,
         center: dcteknikLocation,
         mapTypeId: 'roadmap',
