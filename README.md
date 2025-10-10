@@ -179,3 +179,9 @@ Sultanbeyli'nin en güvenilir dinamocu servisi
 [🌐 dcteknik.com](https://dcteknik.com) | [📞 0535 356 24 69](tel:+905353562469) | [💬 WhatsApp](https://wa.me/905353562469)
 
 </div> 
+
+## 🔗 Yönetim Linkleri
+
+- Netlify Proje Yapılandırması: [app.netlify.com/projects/dcteknik/configuration/general](https://app.netlify.com/projects/dcteknik/configuration/general)
+- GitHub Repository: [github.com/USER499453459349/dcteknik](https://github.com/USER499453459349/dcteknik)
+- Hostinger Domain Paneli: [hpanel.hostinger.com/domain/dcteknik.com/domain-overview/16A125Uz3YsO62sQE](https://hpanel.hostinger.com/domain/dcteknik.com/domain-overview/16A125Uz3YsO62sQE)
