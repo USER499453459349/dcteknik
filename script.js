@@ -403,11 +403,16 @@ function preloadCriticalResources() {
     });
 }
 
-// Service Worker registration for PWA capabilities (future enhancement)
+// Service Worker registration for PWA
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        // Service worker will be added in future updates
-        console.log('Service Worker support detected - ready for PWA features');
+        navigator.serviceWorker.register('/sw.js')
+            .then(reg => {
+                console.log('Service Worker registered:', reg.scope);
+            })
+            .catch(err => {
+                console.warn('Service Worker registration failed:', err);
+            });
     });
 }
 

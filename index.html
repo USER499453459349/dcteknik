@@ -32,7 +32,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=20250101v3">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20250101v3">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20250101v3">
-    <link rel="manifest" href="site.webmanifest?v=20250101v3">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#0b5cff">
     
     <!-- Critical CSS for above-the-fold content -->
     <style>
@@ -52,6 +53,7 @@
         .nav-link:hover { color: #3b82f6; }
     </style>
     
+    <link rel="preload" href="/style.css?v=20250115v40" as="style">
     <link rel="stylesheet" href="style.css?v=20250115v40">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -157,6 +159,33 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "DC TEKNİK",
+        "url": "https://dcteknik.com",
+        "logo": "https://dcteknik.com/logo-new.svg",
+        "sameAs": [
+            "https://www.facebook.com/DinamocuSerdar"
+        ],
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Atatürk Cad. No:312",
+            "addressLocality": "Sultanbeyli",
+            "addressRegion": "İstanbul",
+            "addressCountry": "TR"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+90 535 356 24 69",
+            "contactType": "customer service",
+            "areaServed": "TR",
+            "availableLanguage": ["tr", "en"]
+        }
+    }
+    </script>
 </head>
 <body>
     <!-- Header -->
