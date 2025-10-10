@@ -431,6 +431,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Global image optimizations: apply lazy-loading and async decoding to non-critical images
+document.addEventListener('DOMContentLoaded', () => {
+    const images = Array.from(document.querySelectorAll('img'));
+    images.forEach((img) => {
+        // Skip likely above-the-fold/critical images (e.g., logo)
+        if (img.classList.contains('logo-image')) {
+            img.decoding = 'async';
+            img.fetchPriority = 'high';
+            return;
+        }
+
+        if (!img.hasAttribute('loading')) {
+            img.setAttribute('loading', 'lazy');
+        }
+        img.decoding = 'async';
+        // Hint lower priority for below-the-fold images
+        try {
+            const rect = img.getBoundingClientRect();
+            const viewportH = window.innerHeight || document.documentElement.clientHeight;
+            if (rect.top > viewportH * 1.25) {
+                img.fetchPriority = 'low';
+            }
+        } catch (e) {
+            // no-op
+        }
+    });
+});
+
 // Appointment Form Handling
 const appointmentForm = document.getElementById('appointmentForm');
 if (appointmentForm) {
