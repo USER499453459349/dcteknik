@@ -1,0 +1,300 @@
+/* Theme Switcher Styles for DC TEKNİK */
+
+/* ===== THEME SWITCHER CONTAINER ===== */
+.theme-switcher {
+    position: relative;
+    z-index: 1000;
+}
+
+.theme-switcher-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* ===== THEME TOGGLE BUTTON ===== */
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-secondary, #f8fafc);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 12px;
+    color: var(--text-primary, #1e293b);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.theme-toggle-btn:hover {
+    background: var(--bg-tertiary, #f1f5f9);
+    border-color: var(--accent-primary, #3b82f6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle-btn:active {
+    transform: translateY(0);
+}
+
+.theme-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle-btn:hover .theme-icon {
+    transform: scale(1.1);
+}
+
+.theme-label {
+    white-space: nowrap;
+}
+
+/* ===== THEME DROPDOWN ===== */
+.theme-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(20px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1001;
+    min-width: 180px;
+}
+
+.theme-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.theme-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid var(--border-color, #e2e8f0);
+}
+
+.theme-dropdown::after {
+    content: '';
+    position: absolute;
+    top: -7px;
+    right: 21px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid var(--bg-primary, #ffffff);
+}
+
+/* ===== THEME OPTIONS ===== */
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    color: var(--text-primary, #1e293b);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    border-radius: 0;
+}
+
+.theme-option:first-child {
+    border-radius: 12px 12px 0 0;
+}
+
+.theme-option:last-child {
+    border-radius: 0 0 12px 12px;
+}
+
+.theme-option:hover {
+    background: var(--bg-secondary, #f8fafc);
+    color: var(--accent-primary, #3b82f6);
+}
+
+.theme-option.active {
+    background: var(--accent-primary, #3b82f6);
+    color: white;
+}
+
+.theme-option.active:hover {
+    background: var(--accent-primary, #3b82f6);
+    color: white;
+}
+
+.theme-option .theme-icon {
+    font-size: 1.1rem;
+    transition: transform 0.2s ease;
+}
+
+.theme-option:hover .theme-icon {
+    transform: scale(1.1);
+}
+
+/* ===== FLOATING THEME SWITCHER ===== */
+.floating-theme-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.floating-theme-switcher .theme-toggle-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .floating-theme-switcher .theme-toggle-btn {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* ===== DARK THEME OVERRIDES ===== */
+[data-theme="dark"] .theme-toggle-btn {
+    background: var(--bg-secondary, #1e293b);
+    border-color: var(--border-color, #475569);
+    color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme="dark"] .theme-toggle-btn:hover {
+    background: var(--bg-tertiary, #334155);
+    border-color: var(--accent-primary, #3b82f6);
+}
+
+[data-theme="dark"] .theme-dropdown {
+    background: var(--bg-primary, #0f172a);
+    border-color: var(--border-color, #475569);
+}
+
+[data-theme="dark"] .theme-dropdown::after {
+    border-bottom-color: var(--bg-primary, #0f172a);
+}
+
+[data-theme="dark"] .theme-option {
+    color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme="dark"] .theme-option:hover {
+    background: var(--bg-secondary, #1e293b);
+    color: var(--accent-primary, #3b82f6);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes themeSwitch {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.theme-switching {
+    animation: themeSwitch 0.3s ease-in-out;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .theme-toggle-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+    }
+    
+    .theme-label {
+        display: none;
+    }
+    
+    .theme-dropdown {
+        min-width: 140px;
+    }
+    
+    .theme-option {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+    }
+    
+    .floating-theme-switcher {
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .theme-toggle-btn {
+        padding: 0.4rem 0.6rem;
+    }
+    
+    .theme-icon {
+        font-size: 1rem;
+    }
+    
+    .theme-dropdown {
+        right: -10px;
+        min-width: 120px;
+    }
+}
+
+/* ===== ACCESSIBILITY ===== */
+.theme-toggle-btn:focus,
+.theme-option:focus {
+    outline: 2px solid var(--accent-primary, #3b82f6);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .theme-toggle-btn,
+    .theme-dropdown,
+    .theme-option,
+    .theme-icon {
+        transition: none;
+    }
+    
+    .theme-switching {
+        animation: none;
+    }
+}
+
+/* ===== HIGH CONTRAST MODE ===== */
+@media (prefers-contrast: high) {
+    .theme-toggle-btn {
+        border-width: 2px;
+    }
+    
+    .theme-dropdown {
+        border-width: 2px;
+    }
+    
+    .theme-option.active {
+        border: 2px solid currentColor;
+    }
+}
