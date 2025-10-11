@@ -89,13 +89,14 @@
 .hero-container {
     position: relative;
     z-index: 2;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 2rem;
+    text-align: center;
 }
 
 /* ===== HERO CONTENT ===== */
@@ -264,10 +265,11 @@
 /* ===== HERO TRUST INDICATORS ===== */
 .hero-trust-indicators {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 2rem;
+    max-width: 800px;
 }
 
 .trust-item {
@@ -372,20 +374,23 @@
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+    margin-top: 3rem;
+    width: 100%;
 }
 
 .hero-stats-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
     width: 100%;
+    max-width: 800px;
 }
 
 .stat-card {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 2rem;
+    border-radius: 15px;
+    padding: 1.5rem;
     text-align: center;
     backdrop-filter: blur(15px);
     transition: var(--transition-ultra-smooth);
@@ -409,23 +414,23 @@
 }
 
 .stat-icon {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background: linear-gradient(135deg, #3b82f6, #ea580c);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1rem;
+    margin: 0 auto 0.75rem;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .stat-content h3 {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
     font-weight: 900;
     color: white;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     background: linear-gradient(135deg, #ffffff, #3b82f6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -494,17 +499,16 @@
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 1024px) {
     .hero-container {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-        text-align: center;
+        padding: 1.5rem;
     }
     
     .hero h1 {
         font-size: 3.5rem;
     }
     
-    .hero-visual {
-        order: -1;
+    .hero-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
     }
 }
 
@@ -545,6 +549,15 @@
     .hero-stats-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
+    }
+    
+    .hero-trust-indicators {
+        gap: 0.75rem;
+    }
+    
+    .trust-item {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
     }
     
     .stat-card {
