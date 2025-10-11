@@ -43,12 +43,33 @@ class NightModeFix {
     }
 
     init() {
+        // Wait for DOM to be fully loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                this.initializeThemeSwitcher();
+            });
+        } else {
+            this.initializeThemeSwitcher();
+        }
+    }
+    
+    initializeThemeSwitcher() {
         this.createThemeButton();
         this.loadSavedTheme();
         this.applyTheme();
         this.startAutoCheck();
         this.setupEventListeners();
         this.addThemeStyles();
+        
+        // Force button visibility
+        setTimeout(() => {
+            if (this.themeButton) {
+                this.themeButton.style.display = 'flex';
+                this.themeButton.style.visibility = 'visible';
+                this.themeButton.style.opacity = '1';
+                this.themeButton.style.pointerEvents = 'auto';
+            }
+        }, 100);
         
         console.log('🌙 Night Mode Fix initialized');
     }
@@ -73,7 +94,7 @@ class NightModeFix {
             top: 20px;
             right: 20px;
             z-index: 9999;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 191, 255, 0.2);
             border: 2px solid #00BFFF;
             border-radius: 50px;
             padding: 12px 20px;
@@ -86,9 +107,13 @@ class NightModeFix {
             gap: 8px;
             font-size: 14px;
             font-weight: 600;
-            box-shadow: 0 4px 20px rgba(0, 191, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 191, 255, 0.5);
             text-transform: uppercase;
             letter-spacing: 1px;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         `;
 
         document.body.appendChild(this.themeButton);
@@ -224,6 +249,15 @@ class NightModeFix {
         if (label) {
             label.textContent = this.getCurrentThemeLabel();
         }
+        
+        // Make button more visible
+        this.themeButton.style.display = 'flex';
+        this.themeButton.style.visibility = 'visible';
+        this.themeButton.style.opacity = '1';
+        this.themeButton.style.pointerEvents = 'auto';
+        
+        // Add pulse animation for active state
+        this.themeButton.style.animation = 'themeButtonPulse 2s ease-in-out infinite';
     }
 
     startAutoCheck() {
@@ -243,20 +277,43 @@ class NightModeFix {
     setupEventListeners() {
         if (!this.themeButton) return;
         
+        // Multiple event listeners for better compatibility
         this.themeButton.addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
+            console.log('🌙 Theme button clicked!');
+            this.cycleTheme();
+        });
+        
+        this.themeButton.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('🌙 Theme button touched!');
             this.cycleTheme();
         });
         
         // Add hover effects
         this.themeButton.addEventListener('mouseenter', () => {
             this.themeButton.style.transform = 'scale(1.05)';
-            this.themeButton.style.boxShadow = '0 6px 25px rgba(0, 191, 255, 0.5)';
+            this.themeButton.style.boxShadow = '0 6px 25px rgba(0, 191, 255, 0.7)';
+            this.themeButton.style.background = 'rgba(0, 191, 255, 0.3)';
         });
         
         this.themeButton.addEventListener('mouseleave', () => {
             this.themeButton.style.transform = 'scale(1)';
-            this.themeButton.style.boxShadow = '0 4px 20px rgba(0, 191, 255, 0.3)';
+            this.themeButton.style.boxShadow = '0 4px 20px rgba(0, 191, 255, 0.5)';
+            this.themeButton.style.background = 'rgba(0, 191, 255, 0.2)';
+        });
+        
+        // Add active state
+        this.themeButton.addEventListener('mousedown', () => {
+            this.themeButton.style.transform = 'scale(0.95)';
+            this.themeButton.style.background = 'rgba(0, 191, 255, 0.4)';
+        });
+        
+        this.themeButton.addEventListener('mouseup', () => {
+            this.themeButton.style.transform = 'scale(1.05)';
+            this.themeButton.style.background = 'rgba(0, 191, 255, 0.3)';
         });
     }
 
@@ -336,6 +393,35 @@ class NightModeFix {
                     transform: translateX(100%);
                     opacity: 0;
                 }
+            }
+            
+            @keyframes themeButtonPulse {
+                0%, 100% {
+                    box-shadow: 0 4px 20px rgba(0, 191, 255, 0.5);
+                }
+                50% {
+                    box-shadow: 0 4px 20px rgba(0, 191, 255, 0.8);
+                }
+            }
+            
+            .night-mode-btn {
+                position: fixed !important;
+                top: 20px !important;
+                right: 20px !important;
+                z-index: 9999 !important;
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+            
+            .night-mode-btn:hover {
+                transform: scale(1.05) !important;
+                box-shadow: 0 6px 25px rgba(0, 191, 255, 0.7) !important;
+            }
+            
+            .night-mode-btn:active {
+                transform: scale(0.95) !important;
             }
             
             /* Dark theme styles */
