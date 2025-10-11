@@ -73,3 +73,11 @@
   from = "/*"
   to = "/index.html"
   status = 404
+
+# SSL Certificate Force Renewal
+[[headers]]
+  for = "/ssl-renewal-trigger.txt"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"
+    Expires = "0"
