@@ -1,8 +1,8 @@
 // Advanced Service Worker for DC TEKNİK
-const CACHE_NAME = 'dcteknik-v1.10.0-advanced';
-const STATIC_CACHE = 'dcteknik-static-v1.10.0';
-const DYNAMIC_CACHE = 'dcteknik-dynamic-v1.10.0';
-const IMAGE_CACHE = 'dcteknik-images-v1.10.0';
+const CACHE_NAME = 'dcteknik-v1.11.0-luxury';
+const STATIC_CACHE = 'dcteknik-static-v1.11.0';
+const DYNAMIC_CACHE = 'dcteknik-dynamic-v1.11.0';
+const IMAGE_CACHE = 'dcteknik-images-v1.11.0';
 
 const urlsToCache = [
     '/',
@@ -15,6 +15,7 @@ const urlsToCache = [
     '/theme-switcher.css',
     '/automotive-seo-styles.css',
     '/hero-enhancement.css',
+    '/luxury-premium-styles.css',
     '/js/script.js',
     '/js/blog-animations.js',
     '/js/translations.js',

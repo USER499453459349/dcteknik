@@ -114,6 +114,16 @@ class AdvancedThemeSwitcher {
         }
         return 'light';
     }
+    
+    // Force theme application
+    forceTheme(theme) {
+        const html = document.documentElement;
+        html.classList.remove('light-theme', 'dark-theme');
+        html.classList.add(`${theme}-theme`);
+        html.setAttribute('data-theme', theme);
+        this.applyThemeStyles(theme);
+        console.log(`🌙 Force theme applied: ${theme}`);
+    }
 
     loadSavedTheme() {
         const savedTheme = localStorage.getItem('dcteknik-theme');
