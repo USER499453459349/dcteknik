@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DC TEKNİK - Live Development Monitor</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white; 
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 3rem; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .header p { opacity: 0.8; font-size: 1.1rem; }
+        .monitor-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 2rem; 
+            margin-bottom: 3rem;
+        }
+        .monitor-card { 
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: 15px; 
+            padding: 2rem; 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .monitor-card h3 { 
+            font-size: 1.5rem; 
+            margin-bottom: 1rem; 
+            color: #3b82f6;
+        }
+        .status { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            margin-bottom: 1rem;
+        }
+        .status-dot { 
+            width: 12px; 
+            height: 12px; 
+            border-radius: 50%; 
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+        .status-dot.error { background: #ef4444; }
+        .status-dot.warning { background: #f59e0b; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .btn { 
+            background: #3b82f6; 
+            color: white; 
+            border: none; 
+            padding: 0.75rem 1.5rem; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn:hover { background: #1d4ed8; transform: translateY(-2px); }
+        .btn.danger { background: #ef4444; }
+        .btn.danger:hover { background: #dc2626; }
+        .log { 
+            background: rgba(0, 0, 0, 0.3); 
+            border-radius: 8px; 
+            padding: 1rem; 
+            font-family: 'Courier New', monospace; 
+            font-size: 0.9rem;
+            max-height: 300px; 
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .log-entry { 
+            margin-bottom: 0.5rem; 
+            padding: 0.25rem 0;
+        }
+        .log-entry.success { color: #10b981; }
+        .log-entry.error { color: #ef4444; }
+        .log-entry.warning { color: #f59e0b; }
+        .log-entry.info { color: #3b82f6; }
+        .controls { 
+            display: flex; 
+            gap: 1rem; 
+            justify-content: center; 
+            margin-bottom: 2rem;
+        }
+        .site-link { 
+            display: inline-block; 
+            background: #10b981; 
+            color: white; 
+            text-decoration: none; 
+            padding: 1rem 2rem; 
+            border-radius: 8px; 
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .site-link:hover { 
+            background: #059669; 
+            transform: translateY(-2px); 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 DC TEKNİK Live Monitor</h1>
+            <p>Geliştirme sürecinde anlık site durumu ve güncellemeleri</p>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="startMonitoring()">▶️ Monitoring Başlat</button>
+            <button class="btn danger" onclick="stopMonitoring()">⏹️ Monitoring Durdur</button>
+            <button class="btn" onclick="clearLog()">🗑️ Log Temizle</button>
+            <a href="https://dcteknik.com" target="_blank" class="site-link">🌐 Canlı Siteyi Aç</a>
+        </div>
+
+        <div class="monitor-grid">
+            <div class="monitor-card">
+                <h3>📊 Site Durumu</h3>
+                <div class="status">
+                    <div class="status-dot" id="siteStatus"></div>
+                    <span id="siteStatusText">Kontrol ediliyor...</span>
+                </div>
+                <p><strong>URL:</strong> <span id="siteUrl">https://dcteknik.com</span></p>
+                <p><strong>Son Kontrol:</strong> <span id="lastCheck">-</span></p>
+                <p><strong>Durum Kodu:</strong> <span id="statusCode">-</span></p>
+            </div>
+
+            <div class="monitor-card">
+                <h3>📰 Güncellemeler Bölümü</h3>
+                <div class="status">
+                    <div class="status-dot" id="updatesStatus"></div>
+                    <span id="updatesStatusText">Kontrol ediliyor...</span>
+                </div>
+                <p><strong>Bölüm Durumu:</strong> <span id="updatesFound">-</span></p>
+                <p><strong>Son Güncelleme:</strong> <span id="lastUpdate">-</span></p>
+            </div>
+
+            <div class="monitor-card">
+                <h3>⚡ Monitoring Kontrolü</h3>
+                <div class="status">
+                    <div class="status-dot" id="monitorStatus"></div>
+                    <span id="monitorStatusText">Başlatılıyor...</span>
+                </div>
+                <p><strong>Kontrol Aralığı:</strong> <span id="checkInterval">30 saniye</span></p>
+                <p><strong>Toplam Değişiklik:</strong> <span id="totalChanges">0</span></p>
+            </div>
+        </div>
+
+        <div class="monitor-card">
+            <h3>📋 Canlı Log</h3>
+            <div class="log" id="logContainer">
+                <div class="log-entry info">🚀 Live Development Monitor başlatılıyor...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="live-monitoring.js"></script>
+    <script>
+        let logContainer = document.getElementById('logContainer');
+        let isMonitoring = false;
+
+        function addLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${type}`;
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        function updateStatus() {
+            if (window.liveMonitor) {
+                const status = window.liveMonitor.getStatus();
+                
+                document.getElementById('monitorStatusText').textContent = 
+                    status.isMonitoring ? 'Aktif' : 'Durduruldu';
+                document.getElementById('monitorStatus').className = 
+                    `status-dot ${status.isMonitoring ? '' : 'error'}`;
+                document.getElementById('totalChanges').textContent = status.changesCount;
+                document.getElementById('lastCheck').textContent = status.lastCheck;
+            }
+        }
+
+        function startMonitoring() {
+            if (window.liveMonitor) {
+                window.liveMonitor.start();
+                isMonitoring = true;
+                addLog('✅ Monitoring başlatıldı', 'success');
+                updateStatus();
+                
+                // Start periodic status updates
+                setInterval(updateStatus, 5000);
+            }
+        }
+
+        function stopMonitoring() {
+            if (window.liveMonitor) {
+                window.liveMonitor.stop();
+                isMonitoring = false;
+                addLog('⏹️ Monitoring durduruldu', 'warning');
+                updateStatus();
+            }
+        }
+
+        function clearLog() {
+            logContainer.innerHTML = '<div class="log-entry info">🗑️ Log temizlendi</div>';
+        }
+
+        // Auto-start monitoring
+        setTimeout(() => {
+            startMonitoring();
+        }, 1000);
+
+        // Override console.log to show in our log
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const message = args.join(' ');
+            if (message.includes('✅')) {
+                addLog(message, 'success');
+            } else if (message.includes('❌')) {
+                addLog(message, 'error');
+            } else if (message.includes('🔄')) {
+                addLog(message, 'warning');
+            } else {
+                addLog(message, 'info');
+            }
+        };
+    </script>
+</body>
+</html>
