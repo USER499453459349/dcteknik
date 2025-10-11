@@ -40,7 +40,7 @@ class LanguageSwitcher {
         const navContainer = document.querySelector('.nav-container');
         if (!navContainer) return;
 
-0,        const languageSwitcher = document.createElement('div');
+        const languageSwitcher = document.createElement('div');
         languageSwitcher.className = 'language-switcher';
         languageSwitcher.innerHTML = `
             <div class="language-dropdown">

@@ -1,0 +1,256 @@
+/* Language Switcher Styles for DC TEKNİK */
+
+.language-switcher {
+    position: relative;
+    display: inline-block;
+    z-index: 1000;
+}
+
+.language-dropdown {
+    position: relative;
+}
+
+.language-btn {
+    background: rgba(0, 191, 255, 0.1);
+    border: 2px solid #00BFFF;
+    border-radius: 25px;
+    padding: 8px 16px;
+    color: #00BFFF;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    min-width: 80px;
+    justify-content: center;
+}
+
+.language-btn:hover {
+    background: rgba(0, 191, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 191, 255, 0.3);
+}
+
+.language-btn i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.language-btn.active i {
+    transform: rotate(180deg);
+}
+
+.language-flag {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.language-text {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.language-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: rgba(10, 10, 10, 0.95);
+    border: 2px solid #00BFFF;
+    border-radius: 15px;
+    padding: 10px 0;
+    min-width: 150px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.language-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #E0E0E0;
+    border-radius: 8px;
+    margin: 0 8px;
+}
+
+.language-option:hover {
+    background: rgba(0, 191, 255, 0.1);
+    color: #00BFFF;
+    transform: translateX(5px);
+}
+
+.language-option.active {
+    background: rgba(0, 191, 255, 0.2);
+    color: #00BFFF;
+}
+
+.language-option .language-flag {
+    font-size: 18px;
+}
+
+.language-option .language-text {
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+/* Dark Theme Support */
+[data-theme="dark"] .language-btn {
+    background: rgba(0, 191, 255, 0.1);
+    border-color: #00BFFF;
+    color: #00BFFF;
+}
+
+[data-theme="dark"] .language-menu {
+    background: rgba(10, 10, 10, 0.95);
+    border-color: #00BFFF;
+}
+
+[data-theme="dark"] .language-option {
+    color: #E0E0E0;
+}
+
+[data-theme="dark"] .language-option:hover {
+    background: rgba(0, 191, 255, 0.1);
+    color: #00BFFF;
+}
+
+/* Light Theme Support */
+[data-theme="light"] .language-btn {
+    background: rgba(0, 191, 255, 0.1);
+    border-color: #00BFFF;
+    color: #00BFFF;
+}
+
+[data-theme="light"] .language-menu {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: #00BFFF;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .language-option {
+    color: #333333;
+}
+
+[data-theme="light"] .language-option:hover {
+    background: rgba(0, 191, 255, 0.1);
+    color: #00BFFF;
+}
+
+/* RTL Support */
+[dir="rtl"] .language-menu {
+    right: auto;
+    left: 0;
+}
+
+[dir="rtl"] .language-option:hover {
+    transform: translateX(-5px);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .language-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        min-width: 70px;
+    }
+    
+    .language-menu {
+        min-width: 130px;
+        right: -10px;
+    }
+    
+    .language-option {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+    
+    .language-option .language-flag {
+        font-size: 16px;
+    }
+    
+    .language-option .language-text {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .language-btn {
+        padding: 5px 10px;
+        font-size: 11px;
+        min-width: 60px;
+    }
+    
+    .language-menu {
+        min-width: 120px;
+        right: -15px;
+    }
+    
+    .language-option {
+        padding: 8px 10px;
+        gap: 8px;
+    }
+}
+
+/* Animation for language change */
+.language-change-animation {
+    animation: languageChange 0.5s ease-in-out;
+}
+
+@keyframes languageChange {
+    0% {
+        opacity: 0.7;
+        transform: scale(0.95);
+    }
+    50% {
+        opacity: 0.9;
+        transform: scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Loading state */
+.language-switcher.loading .language-btn {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.language-switcher.loading .language-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid #00BFFF;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
