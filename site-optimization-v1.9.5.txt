@@ -7,3 +7,4 @@ Changes:
 - Fixed cache issues for updates section
 - SSL certificate now working properly
 Status: Ready for deployment
+

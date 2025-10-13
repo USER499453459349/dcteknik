@@ -275,3 +275,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Export for use
 window.AutomotiveContentStrategy = AutomotiveContentStrategy;
+

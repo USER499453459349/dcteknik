@@ -240,3 +240,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Export for use
 window.AdvancedSEO = AdvancedSEO;
+

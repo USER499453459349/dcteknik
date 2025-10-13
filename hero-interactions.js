@@ -409,3 +409,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Export for use
 window.HeroInteractions = HeroInteractions;
+
