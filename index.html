@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v2.1.0 CLEAN DESIGN</title>
+    <title>DC TEKNİK - dcteknik.com | Sultanbeyli Dinamocu Servisi | Profesyonel Dinamo Tamiri | v2.2.0 ADVANCED FEATURES</title>
     <meta name="description" content="DC TEKNİK - dcteknik.com Sultanbeyli'nin güvenilir dinamocu servisi. Dinamo tamiri, alternatör onarımı, marş motoru servisi. Atatürk Cad. No:312">
     <meta name="keywords" content="dcteknik, dinamocu, dinamo tamiri, alternatör, marş motoru, sultanbeyli, istanbul, otomotiv servisi, elektrik tamiri">
     <meta name="author" content="DC TEKNİK - Dinamocu Serdar">
@@ -24,6 +24,7 @@
     
     <!-- CSS -->
     <link rel="stylesheet" href="clean-homepage.css?v=20250115v1">
+    <link rel="stylesheet" href="advanced-features.css?v=20250115v1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
@@ -451,6 +452,7 @@
     </footer>
 
     <!-- JavaScript -->
+    <script src="advanced-features.js?v=20250115v1"></script>
     <script>
         // Simple theme toggle
         document.getElementById('themeToggle').addEventListener('click', function() {
@@ -477,6 +479,29 @@
         // Mobile menu toggle
         document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
             document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Enhanced scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.clean-stat-card, .clean-service-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
         });
     </script>
 </body>
