@@ -122,14 +122,15 @@ async function staleWhileRevalidate(request, cacheName) {
 // Install event
 self.addEventListener('install', function(event) {
     event.waitUntil(
-        Promise.all([
-            caches.open(STATIC_CACHE).then(cache => cache.addAll(urlsToCache)),
-            caches.open(DYNAMIC_CACHE),
-            caches.open(IMAGE_CACHE)
-        ]).then(() => {
+        (async () => {
+            // Offline first cache refresh
+            const cache = await caches.open(STATIC_CACHE);
+            await cache.addAll(urlsToCache.map(u => u + (u.includes('?') ? '&' : '?') + 'v=' + Date.now()));
+            await caches.open(DYNAMIC_CACHE);
+            await caches.open(IMAGE_CACHE);
             console.log('Advanced Service Worker installed');
             return self.skipWaiting();
-        })
+        })()
     );
 });
 
