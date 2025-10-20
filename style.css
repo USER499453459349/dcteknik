@@ -248,7 +248,7 @@ body[dir="rtl"] .contact-info {
     gap: 1.75rem;
     order: 1;
 }
-.nav-actions { display: flex; align-items: center; gap: .75rem; }
+.nav-actions { display: flex; align-items: center; gap: .75rem; position: relative; z-index: 1101; }
 
 /* Professional nav links */
 .nav-menu li { position: relative; }
@@ -4154,6 +4154,7 @@ img {
 /* Theme Toggle Styles */
 .theme-toggle {
     margin-left: 1rem;
+    pointer-events: auto;
 }
 
 .theme-toggle-btn {
@@ -4169,7 +4170,8 @@ img {
     justify-content: center;
     width: 40px;
     height: 40px;
-    z-index: 20;
+    z-index: 1200;
+    pointer-events: auto;
 }
 
 .theme-toggle-btn:hover {

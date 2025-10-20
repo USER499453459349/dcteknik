@@ -16,13 +16,22 @@ function initializeTheme() {
     // Set up theme toggle event listener
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
-        themeToggle.addEventListener('click', toggleTheme);
+        const handleToggle = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleTheme();
+            themeToggle.setAttribute('aria-pressed', isDarkMode ? 'true' : 'false');
+        };
+        themeToggle.addEventListener('click', handleToggle);
+        themeToggle.addEventListener('pointerdown', handleToggle);
+        themeToggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') handleToggle(e);
+        });
         
         // Update initial icon
         const themeIcon = document.getElementById('themeIcon');
-        if (themeIcon) {
-            themeIcon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
-        }
+        if (themeIcon) { themeIcon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon'; }
+        themeToggle.setAttribute('aria-pressed', isDarkMode ? 'true' : 'false');
     }
 }
 
