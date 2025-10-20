@@ -248,8 +248,7 @@ body[dir="rtl"] .contact-info {
     gap: 1.75rem;
     order: 1;
 }
-.nav-menu .nav-lang { margin-right: .5rem; }
-.nav-menu .nav-lang .language-dropdown { font-size: .9rem; padding: .4rem .8rem; }
+.nav-actions { display: flex; align-items: center; gap: .75rem; }
 
 /* Professional nav links */
 .nav-menu li { position: relative; }
