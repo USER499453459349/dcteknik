@@ -6293,6 +6293,8 @@ input:disabled + .slider {
     padding: 5rem 0;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
+.appointment-section .section-header h2 { font-size: 2.4rem; text-align: center; }
+.appointment-section .section-header p { text-align: center; color: var(--text-secondary); max-width: 720px; margin: .5rem auto 0; }
 
 .appointment-container {
     max-width: 1000px;
@@ -6704,12 +6706,15 @@ input:disabled + .slider {
 
 /* Navigation Styles */
 .appointment-navigation {
+    position: sticky;
+    bottom: 0;
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem 3rem;
-    background: #f8fafc;
-    border-top: 1px solid #e2e8f0;
+    justify-content: center;
+    gap: 1rem;
+    padding: .75rem;
+    z-index: 10;
 }
 
 .appointment-navigation .btn {
