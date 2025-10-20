@@ -1395,6 +1395,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Update icon
             updateThemeIcon(newTheme);
+            themeToggle.setAttribute('aria-pressed', newTheme === 'dark');
             
             // Add smooth transition effect
             body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
