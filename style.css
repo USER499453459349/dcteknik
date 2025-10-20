@@ -1,3 +1,7 @@
+.hero--clean { position: relative; overflow: hidden; }
+.hero--clean .hero-bg-image { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&auto=format&fit=crop') center/cover no-repeat; filter: brightness(0.55) saturate(1.1); }
+.hero--clean .hero-content { position: relative; z-index: 1; padding: 6rem 0 3rem; }
+.hero-visual--hidden { display: none; }
 /* CSS Variables for Light/Dark Mode */
 :root {
     /* Light Mode Colors */
@@ -158,7 +162,7 @@ body[dir="rtl"] .contact-info {
 }
 
 .logo-image:hover {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.03);
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
@@ -638,14 +642,16 @@ body[dir="rtl"] .contact-info {
 }
 
 .hero-floating-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 20px;
-    padding: 2rem;
+    padding: 1.25rem 1.5rem;
     text-align: center;
     position: relative;
-    animation: float 6s ease-in-out infinite;
+    max-width: 360px;
+    margin-left: auto;
+    animation: none;
 }
 
 .floating-icon {
@@ -659,7 +665,7 @@ body[dir="rtl"] .contact-info {
     margin: 0 auto 1rem;
     color: white;
     font-size: 2rem;
-    animation: carFloat 3s ease-in-out infinite;
+    animation: none;
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
 }
 
