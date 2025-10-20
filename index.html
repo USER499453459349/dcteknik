@@ -53,9 +53,10 @@
         .nav-link:hover { color: #3b82f6; }
     </style>
     
-    <link rel="preload" href="/style.css?v=20250120v2" as="style">
-    <link rel="stylesheet" href="style.css?v=20250120v2">
+    <link rel="preload" href="/style.css?v=20250120v3" as="style">
+    <link rel="stylesheet" href="style.css?v=20250120v3">
     <link rel="alternate" type="application/rss+xml" title="DC TEKNİK Blog" href="/feed.xml">
+    <link rel="preload" as="video" href="https://cdn.coverr.co/videos/coverr-mechanic-works-in-a-garage-1080p?token=123" type="video/mp4">
     <link rel="stylesheet" href="update-styles.css?v=20250115v3">
     <link rel="stylesheet" href="modern-animations.css?v=20250115v1">
     <link rel="stylesheet" href="theme-switcher.css?v=20250115v1">
@@ -360,8 +361,13 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="hero hero--clean">
-        <div class="hero-bg-image" role="img" aria-label="DC TEKNİK otomotiv elektrik servisi"></div>
+    <section id="home" class="hero hero--video">
+        <div class="hero-video-wrap">
+            <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&auto=format&fit=crop">
+                <source src="https://cdn.coverr.co/videos/coverr-mechanic-works-in-a-garage-1080p?token=123" type="video/mp4">
+            </video>
+            <div class="hero-video-overlay"></div>
+        </div>
         
         <!-- Enhanced Urgency Banner -->
         <div class="enhanced-urgency-banner">
@@ -3429,16 +3435,16 @@
         </button>
     </div>
 
-    <script src="js/translations.js?v=20250101v6"></script>
-    <script src="js/language-switcher.js?v=20250115v1"></script>
-    <script src="js/script.js?v=20250115v42"></script>
-    <script src="night-mode-fix.js?v=20250115v1"></script>
-    <script src="advanced-seo.js?v=20250115v1"></script>
-    <script src="automotive-content-strategy.js?v=20250115v1"></script>
-    <script src="hero-interactions.js?v=20250115v1"></script>
-    <script src="modern-effects.js?v=20250115v1"></script>
-    <script src="interactive-gallery.js?v=20250115v1"></script>
-    <script src="social-integration.js?v=20250115v1"></script>
+    <script src="js/translations.js?v=20250101v6" defer></script>
+    <script src="js/language-switcher.js?v=20250115v1" defer></script>
+    <script src="js/script.js?v=20250115v42" defer></script>
+    <script src="night-mode-fix.js?v=20250115v1" defer></script>
+    <script src="advanced-seo.js?v=20250115v1" defer></script>
+    <script src="automotive-content-strategy.js?v=20250115v1" defer></script>
+    <script src="hero-interactions.js?v=20250115v1" defer></script>
+    <script src="modern-effects.js?v=20250115v1" defer></script>
+    <script src="interactive-gallery.js?v=20250115v1" defer></script>
+    <script src="social-integration.js?v=20250115v1" defer></script>
     
     <!-- Cookie Consent Banner -->
     <div id="cookieConsent" class="cookie-consent" style="display: none;">
