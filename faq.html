@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSS - DC TEKNİK | Sıkça Sorulan Sorular</title>
+    <meta name="description" content="Dinamo, alternatör ve marş motoru hizmetleriyle ilgili sıkça sorulan sorular ve yanıtları.">
+    <link rel="icon" href="/favicon-new.svg" type="image/svg+xml">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="preload" as="image" href="/logo-new.svg">
+    <link rel="stylesheet" href="/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Hangi araç marka ve modellerine hizmet veriyorsunuz?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Binek ve ticari pek çok markaya hizmet veriyoruz. Detay için randevu veya WhatsApp üzerinden yazabilirsiniz."}
+        },
+        {
+          "@type": "Question",
+          "name": "Acil durumlarda hizmet veriyor musunuz?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Evet, acil durumlarda 7/24 bize ulaşabilirsiniz: 0535 356 24 69."}
+        }
+      ]
+    }
+    </script>
+</head>
+<body class="faq-page">
+    <header class="header">
+        <div class="container nav-container">
+            <a href="/" class="logo" aria-label="DC TEKNİK Ana Sayfa">
+                <img class="logo-image" src="/logo-new.svg" alt="DC TEKNİK" width="120" height="32" fetchpriority="high" decoding="async">
+            </a>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="navMenu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav id="navMenu" class="nav-menu" aria-label="Ana menü">
+                <a class="nav-link" href="/">Ana Sayfa</a>
+                <a class="nav-link" href="/faq.html" aria-current="page">SSS</a>
+                <a class="nav-link" href="#contact" onclick="openWhatsApp(); return false;">İletişim</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 120px; padding-bottom: 80px;">
+        <section class="faq" aria-labelledby="faqHeading">
+            <h1 id="faqHeading" class="section-title">Sıkça Sorulan Sorular</h1>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Hangi araç marka ve modellerine hizmet veriyorsunuz?</button>
+                    <div class="faq-answer" hidden>
+                        <p>Binek ve ticari çoğu markaya hizmet veriyoruz. Parça tedarikine göre net fiyat ve süre değişebilir.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Acil durumlarda hizmet veriyor musunuz?</button>
+                    <div class="faq-answer" hidden>
+                        <p>Evet. 7/24 <a href="tel:+905353562469">0535 356 24 69</a> numarasından ulaşabilirsiniz.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Garanti veriyor musunuz?</button>
+                    <div class="faq-answer" hidden>
+                        <p>Parça ve işçilik için değişen sürelerde garanti sağlıyoruz. Fatura ile birlikte garanti koşulları verilir.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© <span id="year"></span> DC TEKNİK</p>
+        </div>
+    </footer>
+
+    <script src="/script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            var y = document.getElementById('year');
+            if (y) y.textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
+
+

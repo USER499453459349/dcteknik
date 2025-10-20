@@ -743,6 +743,22 @@ if (navigator.serviceWorker) {
         }
     });
 }
+
+// FAQ toggle behavior (scoped)
+document.addEventListener('DOMContentLoaded', () => {
+    const faqButtons = document.querySelectorAll('.faq-page .faq-question');
+    faqButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', String(!expanded));
+            const answer = btn.nextElementSibling;
+            if (answer) {
+                if (expanded) answer.setAttribute('hidden', '');
+                else answer.removeAttribute('hidden');
+            }
+        });
+    });
+});
 // FAQ accordion behavior
 document.addEventListener('DOMContentLoaded', () => {
     const faqButtons = document.querySelectorAll('.faq-question');
