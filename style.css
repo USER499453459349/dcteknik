@@ -155,7 +155,7 @@ body[dir="rtl"] .contact-info {
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -165,12 +165,14 @@ body[dir="rtl"] .contact-info {
 .nav-logo {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
+    margin-right: 24px;
+    order: 0;
 }
 
 .logo-image {
-    width: 50px;
-    height: 50px;
+    width: 44px;
+    height: 44px;
     transition: all 0.3s ease;
 }
 
@@ -242,8 +244,20 @@ body[dir="rtl"] .contact-info {
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 1.75rem;
+    order: 1;
 }
+
+.nav-menu li a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 700;
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    letter-spacing: .2px;
+    transition: color 0.2s ease;
+}
+
+.nav-menu li a:hover { color: var(--accent-primary); }
 
 .language-selector {
     margin-left: 2rem;
