@@ -2,11 +2,11 @@
 
 <div align="center">
 
-![DC TEKNİK Logo](logo.svg)
+![DC TEKNİK Logo](logo-new.svg)
 
 **Sultanbeyli'nin Güvenilir Dinamocu Servisi**
 
-[![Website](https://img.shields.io/badge/Website-dcteknik.com-blue)](https://dcteknik.com)
+[![Website](https://img.shields.io/badge/Website-dctenık.com-blue)](https://dctenık.com)
 [![Phone](https://img.shields.io/badge/Telefon-0535%20356%2024%2069-green)](tel:+905353562469)
 [![Facebook](https://img.shields.io/badge/Facebook-DinamocuSerdar-blue)](https://www.facebook.com/DinamocuSerdar)
 
@@ -90,8 +90,7 @@ Renk Paleti:
 
 ### 🏗️ Local Geliştirme
 ```bash
-# Python ile local server
-cd Jihat
+# Python ile local server (proje kök dizininde)
 python -m http.server 8000
 
 # Tarayıcıda aç
@@ -115,7 +114,7 @@ http://localhost:8000
 
 ### 🌐 Sosyal Medya
 - **Facebook:** [@DinamocuSerdar](https://www.facebook.com/DinamocuSerdar)
-- **Website:** [dcteknik.com](https://dcteknik.com)
+- **Website:** [dctenık.com](https://dctenık.com)
 
 ## 📈 SEO ve Dijital Pazarlama
 
@@ -176,12 +175,12 @@ Bu proje DC TEKNİK - Dinamocu Serdar'ın fikri mülkiyetidir.
 
 Sultanbeyli'nin en güvenilir dinamocu servisi
 
-[🌐 dcteknik.com](https://dcteknik.com) | [📞 0535 356 24 69](tel:+905353562469) | [💬 WhatsApp](https://wa.me/905353562469)
+[🌐 dctenık.com](https://dctenık.com) | [📞 0535 356 24 69](tel:+905353562469) | [💬 WhatsApp](https://wa.me/905353562469)
 
 </div> 
 
 ## 🔗 Yönetim Linkleri
 
-- Netlify Proje Yapılandırması: [app.netlify.com/projects/dcteknik/configuration/general](https://app.netlify.com/projects/dcteknik/configuration/general)
-- GitHub Repository: [github.com/USER499453459349/dcteknik](https://github.com/USER499453459349/dcteknik)
-- Hostinger Domain Paneli: [hpanel.hostinger.com/domain/dcteknik.com/domain-overview/16A125Uz3YsO62sQE](https://hpanel.hostinger.com/domain/dcteknik.com/domain-overview/16A125Uz3YsO62sQE)
+- Netlify Proje Yapılandırması: [app.netlify.com/projects/dctenık/configuration/general](https://app.netlify.com/projects/dcten%C4%B1k/configuration/general)
+- GitHub Repository: [github.com/USER499453459349/dctenık](https://github.com/USER499453459349/dcten%C4%B1k)
+- Hostinger Domain Paneli: [hpanel.hostinger.com/domain/dctenık.com/domain-overview/16A125Uz3YsO62sQE](https://hpanel.hostinger.com/domain/dcten%C4%B1k.com/domain-overview/16A125Uz3YsO62sQE)

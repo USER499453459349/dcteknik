@@ -58,7 +58,7 @@ Long-tail Keywords:
    - Kategori: Otomotiv Servisi, Elektrik Tamircisi
    - Tam adres: Atatürk Cad. No:312, Sultanbeyli/İstanbul
    - Telefon: 0535 356 24 69
-   - Website: https://dcteknik.com
+   - Website: https://dctenık.com
    - Çalışma saatleri detaylı
 
 2. **Fotoğraf ve Video:**

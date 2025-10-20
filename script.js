@@ -545,7 +545,7 @@ function initLeadMagnetForm() {
 • Detaylı rapor ve öneriler
 
 ---
-Bu talep dcteknik.com web sitesinden gönderilmiştir.
+Bu talep dctenık.com web sitesinden gönderilmiştir.
 Tarih: ${new Date().toLocaleString('tr-TR')}`;
 
         const whatsappUrl = `https://wa.me/905353562469?text=${encodeURIComponent(whatsappMessage)}`;
@@ -797,7 +797,7 @@ if (appointmentForm) {
 ${appointmentData.problemDescription}
 
 ---
-Bu randevu talebi dcteknik.com web sitesinden gönderilmiştir.`;
+Bu randevu talebi dctenık.com web sitesinden gönderilmiştir.`;
 
         const whatsappUrl = `https://wa.me/905353562469?text=${encodeURIComponent(whatsappMessage)}`;
         
@@ -1729,7 +1729,7 @@ document.addEventListener('DOMContentLoaded', function() {
 🎯 *İlgi Alanı:* ${newsletterData.interest || 'Belirtilmemiş'}
 
 ---
-Bu abonelik talebi dcteknik.com web sitesinden gönderilmiştir.
+Bu abonelik talebi dctenık.com web sitesinden gönderilmiştir.
 Tarih: ${new Date().toLocaleString('tr-TR')}`;
 
             const whatsappUrl = `https://wa.me/905353562469?text=${encodeURIComponent(whatsappMessage)}`;

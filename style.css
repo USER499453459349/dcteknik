@@ -538,6 +538,9 @@ body[dir="rtl"] .contact-info {
     animation: slideInUp 1s ease-out 0.8s both;
 }
 
+/* Emphasize single primary CTA */
+.hero-buttons .btn.btn-primary { padding: 1rem 1.75rem; font-size: 1.05rem; }
+
 .hero-buttons .btn {
     display: flex;
     align-items: center;

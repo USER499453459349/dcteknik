@@ -5,34 +5,38 @@ Bu belgede DC TEKNİK web sitesinin canlı sunucuya yüklenmesi için gerekli ad
 ## 📋 Ön Gereksinimler
 
 ### 🌐 Domain ve Hosting
-- ✅ Domain: `dcteknik.com` (alındı)
+- ✅ Domain: `dctenık.com` (alındı)
 - ✅ Hosting paketi aktif
 - ✅ FTP/SFTP erişim bilgileri
 - ✅ cPanel/DirectAdmin panel erişimi
 
 ### 📁 Yüklenecek Dosyalar
 ```
-Jihat/
+Proje kök dizini:
 ├── index.html          # Ana sayfa
 ├── blog.html           # Blog sayfası  
-├── style.css           # Stil dosyası
-├── script.js           # JavaScript
+├── cinar.html          # Servis sayfası
+├── vw-48v-sarj-dinamosu.html  # Ürün sayfası
+├── style.css           # Genel stil dosyası
+├── cinar.css           # Servis sayfası stilleri
+├── js/                 # Tüm JS dosyaları
+├── logo-new.svg        # Güncel logo (kullanılmalı)
+├── favicon-new.svg     # Güncel favicon (kullanılmalı)
+├── manifest.webmanifest
+├── sw.js               # Service Worker
 ├── sitemap.xml         # Site haritası
-├── robots.txt          # Robot dosyası
-├── logo.svg            # Ana logo
-├── logo-footer.svg     # Footer logo
-└── favicon.ico         # Site ikonu
+└── robots.txt          # Robot dosyası
 ```
 
 ## 🔧 Deployment Adımları
 
 ### 1. Dosya Hazırlama
 ```bash
-# Dosyaları kontrol et
-ls -la Jihat/
+# Dosyaları kontrol et (proje kök dizininde)
+ls -la
 
 # Dosya boyutlarını kontrol et
-du -h Jihat/*
+du -h *
 ```
 
 ### 2. Hosting'e Yükleme
@@ -40,7 +44,7 @@ du -h Jihat/*
 #### FTP ile Yükleme
 ```bash
 # FTP bilgileri
-Host: ftp.dcteknik.com
+Host: ftp.dctenık.com
 Port: 21
 Username: [hosting_username]
 Password: [hosting_password]
@@ -55,7 +59,7 @@ Password: [hosting_password]
 ### 3. Domain DNS Ayarları
 ```
 A Record: @ → [server_ip]
-CNAME: www → dcteknik.com
+CNAME: www → dctenık.com
 ```
 
 ### 4. SSL Sertifikası
@@ -66,10 +70,10 @@ CNAME: www → dcteknik.com
 ## 🔍 Test ve Doğrulama
 
 ### Sayfa Testleri
-- ✅ Ana sayfa: `https://dcteknik.com`
-- ✅ Blog sayfası: `https://dcteknik.com/blog.html`
-- ✅ Sitemap: `https://dcteknik.com/sitemap.xml`
-- ✅ Robots: `https://dcteknik.com/robots.txt`
+- ✅ Ana sayfa: `https://dctenık.com`
+- ✅ Blog sayfası: `https://dctenık.com/blog.html`
+- ✅ Sitemap: `https://dctenık.com/sitemap.xml`
+- ✅ Robots: `https://dctenık.com/robots.txt`
 
 ### İşlevsellik Testleri
 - 📱 **Responsive test:** Mobile, tablet, desktop
@@ -93,7 +97,7 @@ CNAME: www → dcteknik.com
 
 2. **Sitemap gönderimi:**
    ```
-   https://dcteknik.com/sitemap.xml
+   https://dctenık.com/sitemap.xml
    ```
 
 3. **URL denetimi:**
@@ -121,7 +125,7 @@ CNAME: www → dcteknik.com
    - **Kategori:** Otomotiv Servisi
    - **Adres:** Atatürk Cad. No:312, Sultanbeyli
    - **Telefon:** 0535 356 24 69
-   - **Website:** https://dcteknik.com
+- **Website:** https://dctenık.com
    - **Çalışma saatleri:** Pazartesi-Cumartesi 08:00-18:00
 
 3. **Doğrulama:** SMS veya posta kodu ile
@@ -130,7 +134,7 @@ CNAME: www → dcteknik.com
 
 ### DNS Yayılımı
 - **Süre:** 24-48 saat
-- **Kontrol:** `nslookup dcteknik.com`
+- **Kontrol:** `nslookup dctenık.com`
 - **Çözüm:** Bekleme, ISS DNS cache temizleme
 
 ### SSL Sertifikası Hatası
