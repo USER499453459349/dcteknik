@@ -350,9 +350,277 @@ function hideTooltip() {
     }
 }
 
+// Marketing Enhancement Functions
+
+// Urgency Timer
+function initUrgencyTimer() {
+    const timerElement = document.getElementById('urgencyTimer');
+    if (!timerElement) return;
+    
+    // Set end time (24 hours from now)
+    const endTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+    
+    function updateTimer() {
+        const now = new Date().getTime();
+        const distance = endTime - now;
+        
+        if (distance < 0) {
+            timerElement.textContent = "00:00:00";
+            return;
+        }
+        
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        timerElement.textContent = 
+            String(hours).padStart(2, '0') + ":" +
+            String(minutes).padStart(2, '0') + ":" +
+            String(seconds).padStart(2, '0');
+    }
+    
+    updateTimer();
+    setInterval(updateTimer, 1000);
+}
+
+// Service Selector Functionality (Removed)
+function initServiceSelector() {
+    // Service selector has been removed
+    return;
+}
+
+// Update CTA buttons based on selected service (Simplified)
+function updateCTAButtons(serviceType) {
+    // Service selector has been removed, keeping function for compatibility
+    return;
+}
+
+// Enhanced CTA Button Tracking
+function initCTATracking() {
+    const ctaButtons = document.querySelectorAll('.cta-primary, .cta-secondary, .cta-whatsapp');
+    
+    ctaButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const buttonType = this.classList.contains('cta-primary') ? 'primary' : 
+                             this.classList.contains('cta-secondary') ? 'secondary' : 'whatsapp';
+            
+            // Track CTA click
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'cta_click', {
+                    'event_category': 'conversion',
+                    'event_label': buttonType,
+                    'value': 1
+                });
+            }
+            
+            // Track Facebook conversion
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', {
+                    content_name: buttonType + '_cta',
+                    content_category: 'automotive_service'
+                });
+            }
+        });
+    });
+}
+
+// Testimonial Carousel (if needed)
+function initTestimonialCarousel() {
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    let currentIndex = 0;
+    
+    if (testimonialCards.length <= 3) return; // No need for carousel if 3 or fewer cards
+    
+    // Add carousel functionality here if needed
+    // For now, just add hover effects
+    testimonialCards.forEach((card, index) => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+}
+
+// Social Proof Counter Animation
+function initSocialProofCounters() {
+    const counters = document.querySelectorAll('.proof-item .number');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const finalNumber = counter.textContent.replace(/\D/g, '');
+                const suffix = counter.textContent.replace(/[0-9]/g, '');
+                
+                animateCounter(counter, 0, parseInt(finalNumber), 2000, suffix);
+                observer.unobserve(counter);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(counter => observer.observe(counter));
+}
+
+function animateCounter(element, start, end, duration, suffix = '') {
+    const startTime = performance.now();
+    
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const current = Math.floor(start + (end - start) * easeOutQuart);
+        
+        element.textContent = current + suffix;
+        
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+    
+    requestAnimationFrame(update);
+}
+
+// Trust Badge Hover Effects
+function initTrustBadgeEffects() {
+    const trustBadges = document.querySelectorAll('.trust-badge');
+    
+    trustBadges.forEach(badge => {
+        badge.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px) scale(1.05)';
+            this.style.boxShadow = '0 15px 35px rgba(0,0,0,0.2)';
+        });
+        
+        badge.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+        });
+    });
+}
+
+// Lead Magnet Form Handling
+function initLeadMagnetForm() {
+    const leadForm = document.getElementById('leadMagnetForm');
+    if (!leadForm) return;
+    
+    leadForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const leadData = {
+            name: formData.get('name'),
+            phone: formData.get('phone'),
+            vehicle: formData.get('vehicle'),
+            urgency: formData.get('urgency')
+        };
+        
+        // Basic validation
+        if (!leadData.name || !leadData.phone || !leadData.vehicle || !leadData.urgency) {
+            alert('Lütfen tüm alanları doldurun.');
+            return;
+        }
+        
+        // Phone validation
+        const phoneRegex = /^(\+90|0)?[5][0-9]{9}$/;
+        if (!phoneRegex.test(leadData.phone.replace(/\s/g, ''))) {
+            alert('Lütfen geçerli bir telefon numarası giriniz.');
+            return;
+        }
+        
+        // Create WhatsApp message for lead magnet
+        const whatsappMessage = `🎁 *DC TEKNİK - ÜCRETSİZ Elektrik Kontrolü Talebi*
+
+👤 *Ad Soyad:* ${leadData.name}
+📞 *Telefon:* ${leadData.phone}
+🚗 *Araç Markası:* ${leadData.vehicle}
+⚡ *Aciliyet:* ${leadData.urgency}
+
+🎯 *Talep Edilen Hizmet:*
+• Dinamo ve alternatör durumu kontrolü
+• Marş motoru performans testi
+• Akü ve şarj sistemi analizi
+• Detaylı rapor ve öneriler
+
+---
+Bu talep dcteknik.com web sitesinden gönderilmiştir.
+Tarih: ${new Date().toLocaleString('tr-TR')}`;
+
+        const whatsappUrl = `https://wa.me/905353562469?text=${encodeURIComponent(whatsappMessage)}`;
+        
+        // Open WhatsApp
+        window.open(whatsappUrl, '_blank');
+        
+        // Show success message
+        alert('ÜCRETSİZ kontrol talebiniz WhatsApp üzerinden gönderildi! En kısa sürede size dönüş yapacağız.');
+        
+        // Reset form
+        this.reset();
+        
+        // Track lead magnet conversion
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'lead_magnet_submit', {
+                'event_category': 'conversion',
+                'event_label': 'free_checkup',
+                'value': 200 // Value of the free service
+            });
+        }
+        
+        // Track Facebook conversion
+        if (typeof fbq !== 'undefined') {
+            fbq('track', 'Lead', {
+                content_name: 'free_electrical_checkup',
+                content_category: 'automotive_service',
+                value: 200,
+                currency: 'TRY'
+            });
+        }
+    });
+}
+
+// Enhanced Form Tracking
+function initEnhancedFormTracking() {
+    const forms = document.querySelectorAll('form');
+    
+    forms.forEach(form => {
+        form.addEventListener('submit', function() {
+            const formType = this.id || 'unknown_form';
+            
+            // Track form submission
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'form_submit', {
+                    'event_category': 'conversion',
+                    'event_label': formType,
+                    'value': 1
+                });
+            }
+            
+            // Track Facebook conversion
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', {
+                    content_name: formType,
+                    content_category: 'automotive_service'
+                });
+            }
+        });
+    });
+}
+
 // Initialize all functions when page loads
 document.addEventListener('DOMContentLoaded', () => {
     initTooltips();
+    
+    // Initialize marketing enhancements
+    initUrgencyTimer();
+    initServiceSelector();
+    initCTATracking();
+    initTestimonialCarousel();
+    initSocialProofCounters();
+    initTrustBadgeEffects();
+    initLeadMagnetForm();
+    initEnhancedFormTracking();
     
     // Add entrance animations
     setTimeout(() => {
@@ -456,6 +724,26 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {
             // no-op
         }
+    });
+});
+
+// FAQ accordion behavior
+document.addEventListener('DOMContentLoaded', () => {
+    const faqButtons = document.querySelectorAll('.faq-question');
+    faqButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', String(!expanded));
+            const answer = btn.nextElementSibling;
+            if (answer) {
+                const isHidden = answer.hasAttribute('hidden');
+                if (isHidden) {
+                    answer.removeAttribute('hidden');
+                } else {
+                    answer.setAttribute('hidden', '');
+                }
+            }
+        });
     });
 });
 

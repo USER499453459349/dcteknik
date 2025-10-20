@@ -1,0 +1,13 @@
+.cinar-landing .hero-slim{padding:80px 0;background:linear-gradient(135deg,var(--bg-primary),var(--bg-secondary))}
+.hero-slim h1{font-size:2rem;margin-bottom:10px}
+.hero-slim p{color:var(--text-secondary);margin-bottom:16px}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap}
+.services-list{padding:60px 0;background:var(--bg-secondary)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.service-item{background:var(--bg-primary);border:1px solid var(--border-color);border-radius:12px;padding:16px}
+.service-item.highlight{border-color:var(--accent-primary)}
+.service-item .link{color:var(--accent-primary);font-weight:600;text-decoration:none}
+.about-slim,.contact-slim{padding:60px 0}
+.contact-mini{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.contact-mini a{text-decoration:none;color:var(--text-primary)}
+

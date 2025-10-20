@@ -12,8 +12,8 @@
     --text-muted: #94a3b8;
     --border-color: #e2e8f0;
     --shadow-color: rgba(0, 0, 0, 0.1);
-    --accent-primary: #1e3a8a;
-    --accent-secondary: #ea580c;
+    --accent-primary: #0b5cff; /* Yeni birincil mavi */
+    --accent-secondary: #ff7a00; /* Turuncu vurgu */
     --accent-danger: #dc2626;
     --header-bg: rgba(255, 255, 255, 0.95);
     --card-bg: #ffffff;
@@ -43,8 +43,8 @@
     --text-muted: #94a3b8;
     --border-color: #475569;
     --shadow-color: rgba(0, 0, 0, 0.3);
-    --accent-primary: #3b82f6;
-    --accent-secondary: #f97316;
+    --accent-primary: #66a3ff; /* Koyu temada parlak mavi */
+    --accent-secondary: #ff9a3d; /* Koyu temada turuncu */
     --accent-danger: #ef4444;
     --header-bg: rgba(15, 23, 42, 0.95);
     --card-bg: #1e293b;
@@ -69,7 +69,9 @@ body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
     color: var(--text-primary);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: radial-gradient(1200px 500px at 20% 20%, rgba(11,92,255,0.18), transparent 60%),
+                radial-gradient(1000px 400px at 80% 0%, rgba(255,122,0,0.14), transparent 60%),
+                linear-gradient(135deg, #f8fbff 0%, #eef3ff 100%);
     background-attachment: fixed;
     overflow-x: hidden;
     transition: var(--transition-smooth);
@@ -765,16 +767,9 @@ body[dir="rtl"] .contact-info {
     left: 100%;
 }
 
-.btn-primary {
-    background: #ea580c;
-    color: white;
-}
+.btn-primary { background: var(--accent-primary); color: #fff; border: 2px solid var(--accent-primary); }
 
-.btn-primary:hover {
-    background: linear-gradient(45deg, #dc2626, #ea580c);
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 15px 35px rgba(234, 88, 12, 0.4);
-}
+.btn-primary:hover { background: #0846b8; border-color: #0846b8; transform: translateY(-3px) scale(1.03); box-shadow: 0 15px 35px rgba(11, 92, 255, 0.25); }
 
 .btn-secondary {
     background: transparent;
@@ -2442,15 +2437,9 @@ img {
     cursor: pointer;
 }
 
-.reviews-actions .btn-primary {
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-}
+.reviews-actions .btn-primary { background: var(--accent-primary); color: #fff; border: 2px solid var(--accent-primary); }
 
-.reviews-actions .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
-}
+.reviews-actions .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(11,92,255,.25); }
 
 .reviews-actions .btn-outline {
     background: transparent;
@@ -7983,6 +7972,22 @@ input:disabled + .slider {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
 }
+
+/* FAQ */
+.faq { padding: 60px 0; background: var(--bg-secondary); }
+.faq .section-header { text-align: center; margin-bottom: 30px; }
+.faq-accordion { max-width: 900px; margin: 0 auto; display: grid; gap: 12px; }
+.faq-item { background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; }
+.faq-question { width: 100%; text-align: left; padding: 16px 20px; background: transparent; border: 0; font-weight: 600; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: var(--text-primary); }
+.faq-icon { margin-left: 12px; color: var(--text-secondary); }
+.faq-answer { padding: 0 20px 16px; color: var(--text-secondary); }
+
+/* Floating CTA */
+.floating-cta { position: fixed; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 10px; z-index: 999; }
+.floating-cta a { display: inline-flex; align-items: center; gap: 8px; padding: 12px 14px; border-radius: 999px; color: #fff; box-shadow: 0 12px 24px rgba(0,0,0,.15); font-weight: 600; }
+.floating-cta .call { background: #2563eb; }
+.floating-cta .wa { background: #16a34a; }
+@media (min-width: 992px) { .floating-cta { display: none; } }
 
 /* Responsive Design */
 @media (max-width: 768px) {
