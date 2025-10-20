@@ -673,14 +673,22 @@ function preloadCriticalResources() {
 
 // Service Worker registration for PWA
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(reg => {
-                console.log('Service Worker registered:', reg.scope);
-            })
-            .catch(err => {
-                console.warn('Service Worker registration failed:', err);
-            });
+    window.addEventListener('load', async () => {
+        try {
+            // Proaktif eski sw temizliği
+            const regs = await navigator.serviceWorker.getRegistrations();
+            for (const r of regs) {
+                if (r && r.active && !r.active.scriptURL.includes('sw.js')) continue;
+            }
+            await navigator.serviceWorker.register('/sw.js', { scope: '/' });
+            // Yeni versiyonu hemen etkinleştir
+            const reg = await navigator.serviceWorker.ready;
+            if (reg && reg.waiting) {
+                reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+            }
+        } catch (err) {
+            console.warn('Service Worker registration failed:', err);
+        }
     });
 }
 
@@ -727,6 +735,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Listen SW messages to auto-refresh after updates
+if (navigator.serviceWorker) {
+    navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'RELOAD_PAGE') {
+            window.location.reload();
+        }
+    });
+}
 // FAQ accordion behavior
 document.addEventListener('DOMContentLoaded', () => {
     const faqButtons = document.querySelectorAll('.faq-question');

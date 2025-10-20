@@ -176,8 +176,10 @@ self.addEventListener('activate', function(event) {
                     }
                 })
             );
-        }).then(() => {
+        }).then(async () => {
             console.log('Advanced Service Worker activated');
+            const clientsArr = await self.clients.matchAll({ includeUncontrolled: true });
+            clientsArr.forEach(client => client.postMessage({ type: 'RELOAD_PAGE' }));
             return self.clients.claim();
         })
     );
