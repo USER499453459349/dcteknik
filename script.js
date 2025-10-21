@@ -2018,12 +2018,15 @@ document.addEventListener('DOMContentLoaded', function() {
 (function(){
     const KEY = 'cookieConsent';
     function loadGA(){
-        if (window.__gaLoaded) return; window.__gaLoaded = true;
+        if (window.__gaLoaded) return; 
+        const gaId = (document.querySelector('meta[name="ga-measurement-id"]')?.content || window.GA_MEASUREMENT_ID || '').trim();
+        if (!gaId) return;
+        window.__gaLoaded = true;
         const s = document.createElement('script'); s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(gaId);
         document.head.appendChild(s);
         window.dataLayer = window.dataLayer || []; function gtag(){ dataLayer.push(arguments); }
-        window.gtag = gtag; gtag('js', new Date()); gtag('config', 'G-XXXXXXXXXX');
+        window.gtag = gtag; gtag('js', new Date()); gtag('config', gaId);
     }
     function loadFB(){
         if (window.__fbLoaded) return; window.__fbLoaded = true;
