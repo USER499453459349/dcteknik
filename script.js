@@ -290,7 +290,16 @@ document.addEventListener('click', (e) => {
 function openWhatsApp() {
     const phoneNumber = '905353562469'; // Dinamocu Serdar WhatsApp number
     const message = 'Merhaba Dinamocu Serdar! Web sitenizden geliyorum. Bilgi almak istiyorum.';
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    let url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    // append UTM params if present
+    try {
+        const utm = JSON.parse(sessionStorage.getItem('utm_params')||'{}');
+        const qp = [];
+        if (utm.utm_source) qp.push(`utm_source=${encodeURIComponent(utm.utm_source)}`);
+        if (utm.utm_medium) qp.push(`utm_medium=${encodeURIComponent(utm.utm_medium)}`);
+        if (utm.utm_campaign) qp.push(`utm_campaign=${encodeURIComponent(utm.utm_campaign)}`);
+        if (qp.length) url += `&${qp.join('&')}`;
+    } catch(e) {}
     window.open(url, '_blank');
 }
 
@@ -731,6 +740,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Capture and propagate UTM parameters
+(function(){
+  try {
+    const params = new URLSearchParams(location.search);
+    const utm = {
+      utm_source: params.get('utm_source') || undefined,
+      utm_medium: params.get('utm_medium') || undefined,
+      utm_campaign: params.get('utm_campaign') || undefined
+    };
+    if (utm.utm_source || utm.utm_medium || utm.utm_campaign) {
+      sessionStorage.setItem('utm_params', JSON.stringify(utm));
+    }
+    // Append to WhatsApp links
+    const stored = JSON.parse(sessionStorage.getItem('utm_params')||'{}');
+    if (stored && (stored.utm_source || stored.utm_medium || stored.utm_campaign)){
+      const links = document.querySelectorAll('a[href*="wa.me/"]');
+      links.forEach(a=>{
+        const u = new URL(a.href);
+        if (stored.utm_source) u.searchParams.set('utm_source', stored.utm_source);
+        if (stored.utm_medium) u.searchParams.set('utm_medium', stored.utm_medium);
+        if (stored.utm_campaign) u.searchParams.set('utm_campaign', stored.utm_campaign);
+        a.href = u.toString();
+      });
+    }
+  } catch(e) {}
+})();
 
 // Global image optimizations: apply lazy-loading and async decoding to non-critical images
 document.addEventListener('DOMContentLoaded', () => {
