@@ -1395,44 +1395,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Dark Mode Functionality (robust, keyboard-friendly)
-document.addEventListener('DOMContentLoaded', function() {
-    const toggle = document.getElementById('themeToggle');
-    const icon = document.getElementById('themeIcon');
-    const body = document.body;
-
-    // Determine initial theme: saved > system > light
-    const saved = localStorage.getItem('theme');
-    const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initial = saved || (systemDark ? 'dark' : 'light');
-    applyTheme(initial);
-
-    function applyTheme(theme){
-        body.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        updateIcon(theme);
-        if (toggle) toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
-    }
-
-    function updateIcon(theme){
-        if (!icon || !toggle) return;
-        if (theme === 'dark') { icon.className = 'fas fa-sun'; toggle.title = 'Açık Moda Geç'; }
-        else { icon.className = 'fas fa-moon'; toggle.title = 'Karanlık Moda Geç'; }
-    }
-
-    function flip(){ applyTheme(body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
-    if (toggle){
-        toggle.addEventListener('click', flip);
-        toggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); flip(); }});
-    }
-
-    // reflect system changes if user didn't override
-    if (window.matchMedia){
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)=>{
-            if (!localStorage.getItem('theme')) applyTheme(e.matches ? 'dark' : 'light');
-        });
-    }
-});
+// NOTE: Dark mode handled by initializeTheme() above. Duplicate handlers removed to avoid conflicts.
 
 // Interactive Google Maps
 let map;
