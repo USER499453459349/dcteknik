@@ -103,6 +103,21 @@ http://localhost:8000
 3. Google Search Console'a site ekle
 4. Sitemap gönder
 
+### 🪟 Windows Yol (Path) Sorunu ve Kalıcı Çözüm
+Windows komut satırında Türkçe `ı` karakteri içeren klasör adları bazı araçlarda sorun çıkarabilir. Kalıcı çözüm:
+
+```powershell
+# PowerShell (Yönetici olarak)
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned -Force
+./setup-windows-symlink.ps1 -TargetPath "C:\Users\mypc\Desktop\dctenık.com" -LinkPath "C:\sites\dctenik.com"
+
+# Bundan sonra komutları ASCII link üzerinden çalıştırın
+cd C:\sites\dctenik.com
+git status
+```
+
+Git ve deploy işlemlerinde bu ASCII yol kullanılmalıdır.
+
 ## 📞 İletişim Bilgileri
 
 ### 🏢 İşletme Detayları
@@ -182,5 +197,5 @@ Sultanbeyli'nin en güvenilir dinamocu servisi
 ## 🔗 Yönetim Linkleri
 
 - Netlify Proje Yapılandırması: [app.netlify.com/projects/dctenık/configuration/general](https://app.netlify.com/projects/dcten%C4%B1k/configuration/general)
-- GitHub Repository: [github.com/USER499453459349/dctenık](https://github.com/USER499453459349/dcten%C4%B1k)
+- GitHub Repository: [github.com/dcteknik/dcteknik-website](https://github.com/dcteknik/dcteknik-website)
 - Hostinger Domain Paneli: [hpanel.hostinger.com/domain/dctenık.com/domain-overview/16A125Uz3YsO62sQE](https://hpanel.hostinger.com/domain/dcten%C4%B1k.com/domain-overview/16A125Uz3YsO62sQE)

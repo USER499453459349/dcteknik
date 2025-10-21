@@ -8,31 +8,22 @@ const urlsToCache = [
     '/',
     '/index.html',
     '/blog.html',
-    '/style.css?v=20250120v1',
-    '/cinar.css?v=20250120v1',
-    '/blog-styles.css',
-    '/update-styles.css',
-    '/modern-animations.css',
-    '/theme-switcher.css',
-    '/automotive-seo-styles.css',
-    '/hero-enhancement.css',
-    '/luxury-premium-styles.css',
-    '/js/script.js',
-    '/js/blog-animations.js',
-    '/js/translations.js',
-    '/js/language-switcher.js',
-    '/language-switcher-styles.css',
-    '/night-mode-fix.js',
-    '/advanced-seo.js',
-    '/automotive-content-strategy.js',
-    '/hero-interactions.js',
-    '/privacy-policy.html',
     '/cinar.html',
     '/vw-48v-sarj-dinamosu.html',
-    '/security-report.html',
-    '/dev-monitor.html',
-    '/live-monitoring.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+    '/style.css',
+    '/cinar.css',
+    '/blog-styles.css',
+    '/script.js',
+    // Keep core JS minimal in precache; other JS via runtime cache
+    '/js/translations.js',
+    '/js/language-switcher.js',
+    '/manifest.webmanifest',
+    '/logo-new.svg',
+    '/favicon-new.svg',
+    '/sitemap.xml',
+    '/robots.txt',
+    '/feed.xml',
+    '/offline.html'
 ];
 
 const CACHE_STRATEGIES = {
@@ -100,7 +91,12 @@ async function networkFirst(request, cacheName) {
         return networkResponse;
     } catch (error) {
         const cachedResponse = await cache.match(request);
-        return cachedResponse || new Response('Offline', { status: 503 });
+        if (cachedResponse) return cachedResponse;
+        if (request.mode === 'navigate') {
+            const offline = await caches.match('/offline.html');
+            if (offline) return offline;
+        }
+        return new Response('Offline', { status: 503 });
     }
 }
 
@@ -199,20 +195,20 @@ self.addEventListener('push', function(event) {
         const data = event.data.json();
         const options = {
             body: data.body,
-            icon: '/favicon-192x192.png',
-            badge: '/favicon-32x32.png',
+            icon: '/favicon-new.svg',
+            badge: '/favicon-new.svg',
             vibrate: [100, 50, 100],
             data: data.data,
             actions: [
                 {
                     action: 'explore',
                     title: 'Keşfet',
-                    icon: '/favicon-32x32.png'
+                    icon: '/favicon-new.svg'
                 },
                 {
                     action: 'close',
                     title: 'Kapat',
-                    icon: '/favicon-32x32.png'
+                    icon: '/favicon-new.svg'
                 }
             ]
         };

@@ -1,0 +1,12 @@
+/* Minimal blog styles placeholder to avoid 404s */
+.blog-hero { padding: 48px 0; background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%); }
+.blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+.blog-post { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(2,6,23,0.05); }
+.blog-post .blog-post-content { padding: 16px 20px; }
+.blog-post h2 { font-size: 1.125rem; line-height: 1.4; margin: 0 0 8px; color: #0f172a; }
+.blog-category { position: absolute; top: 12px; left: 12px; background: #1e3a8a; color: #fff; font-size: 12px; padding: 6px 10px; border-radius: 9999px; }
+.pagination { display: flex; gap: 12px; align-items: center; justify-content: center; margin-top: 16px; }
+.pagination .page-btn { background: #0b5cff; color: #fff; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+.pagination .page-btn[disabled] { background: #cbd5e1; cursor: not-allowed; }
+
+

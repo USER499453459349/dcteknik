@@ -1,0 +1,4 @@
+/* Placeholder effects */
+.glass{backdrop-filter:saturate(140%) blur(12px);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04))}
+
+

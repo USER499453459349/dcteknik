@@ -57,18 +57,6 @@
     <link rel="stylesheet" href="style.css?v=20250120v5">
     <link rel="alternate" type="application/rss+xml" title="DC TEKNİK Blog" href="/feed.xml">
     <link rel="preload" as="video" href="https://cdn.coverr.co/videos/coverr-mechanic-works-in-a-garage-1080p?token=public" type="video/mp4">
-    <link rel="stylesheet" href="update-styles.css?v=20250115v3">
-    <link rel="stylesheet" href="modern-animations.css?v=20250115v1">
-    <link rel="stylesheet" href="theme-switcher.css?v=20250115v1">
-    <link rel="stylesheet" href="automotive-seo-styles.css?v=20250115v1">
-    <link rel="stylesheet" href="hero-enhancement.css?v=20250115v3">
-    <link rel="stylesheet" href="luxury-premium-styles.css?v=20250115v1">
-    <link rel="stylesheet" href="language-switcher-styles.css?v=20250115v1">
-    <link rel="stylesheet" href="modern-effects.css?v=20250115v1">
-    <link rel="stylesheet" href="video-hero.css?v=20250115v1">
-    <link rel="stylesheet" href="interactive-gallery.css?v=20250115v1">
-    <link rel="stylesheet" href="social-integration.css?v=20250115v1">
-    <link rel="stylesheet" href="marketing-enhancements.css?v=20250115v1">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -76,95 +64,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://wa.me">
+    <link rel="preconnect" href="https://www.google.com">
     <link rel="dns-prefetch" href="//www.google-analytics.com">
     <link rel="preload" href="/logo-new.svg" as="image" imagesrcset="/logo-new.svg" imagesizes="(max-width: 768px) 120px, 160px">
     
-    <!-- Google Analytics -->
-    <!-- Google Analytics - Real GA4 ID -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX', {
-            page_title: 'DC TEKNİK - Dinamocu Servisi',
-            page_location: window.location.href,
-            custom_map: {
-                'custom_parameter_1': 'dinamo_servisi',
-                'custom_parameter_2': 'sultanbeyli'
-            }
-        });
-
-        // Enhanced Analytics Events
-        function trackEvent(eventName, parameters = {}) {
-            gtag('event', eventName, {
-                event_category: parameters.category || 'engagement',
-                event_label: parameters.label || '',
-                value: parameters.value || 0,
-                ...parameters
-            });
-        }
-
-        // Track page views with enhanced data
-        function trackPageView(pageName, pageCategory = 'main') {
-            gtag('event', 'page_view', {
-                page_title: pageName,
-                page_location: window.location.href,
-                page_category: pageCategory,
-                custom_parameter_1: 'automotive_service',
-                custom_parameter_2: 'sultanbeyli'
-            });
-        }
-
-        // Track conversions
-        function trackConversion(conversionType, value = 0) {
-            gtag('event', 'conversion', {
-                send_to: 'G-XXXXXXXXXX',
-                value: value,
-                currency: 'TRY',
-                event_category: 'conversion',
-                event_label: conversionType
-            });
-        }
-    </script>
+    <!-- Analytics/Pixel will be loaded conditionally based on cookie consent via script.js -->
     
-    <!-- Facebook Pixel Code -->
+    <!-- Hotjar Tracking Code (disabled until ID is configured) -->
     <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', 'YOUR_PIXEL_ID');
-        fbq('track', 'PageView');
-        
-        // Enhanced Facebook Pixel Events
-        function trackFacebookEvent(eventName, parameters = {}) {
-            fbq('track', eventName, parameters);
-        }
-        
-        // Track conversions for Facebook Ads
-        function trackFacebookConversion(eventName, value = 0, currency = 'TRY') {
-            fbq('track', eventName, {
-                value: value,
-                currency: currency,
-                content_type: 'automotive_service',
-                content_category: 'dinamo_tamiri'
-            });
-        }
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
-    /></noscript>
-    
-    <!-- Hotjar Tracking Code -->
-    <script>
+        // Hotjar is disabled because no valid ID is configured.
+        // To enable, set const HJID = <your-id>; and remove the early return.
         (function(h,o,t,j,a,r){
+            const HJID = 0; // placeholder
+            if (!HJID) return;
             h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:YOUR_HOTJAR_ID,hjsv:6};
+            h._hjSettings={hjid:HJID,hjsv:6};
             a=o.getElementsByTagName('head')[0];
             r=o.createElement('script');r.async=1;
             r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
@@ -175,8 +90,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
+    <script defer src="/js/floating-contact.js"></script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -213,6 +129,11 @@
         "image": "https://dctenık.com/logo-new.svg",
         "telephone": "+90 535 356 24 69",
         "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "247"
+        },
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "Atatürk Cad. No:312",
@@ -364,8 +285,8 @@
     <!-- Hero Section -->
     <section id="home" class="hero hero--video">
         <div class="hero-video-wrap">
-            <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&auto=format&fit=crop">
-                <source src="https://cdn.coverr.co/videos/coverr-mechanic-works-in-a-garage-1080p?token=123" type="video/mp4">
+            <video class="hero-video" autoplay muted loop playsinline preload="none" poster="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&auto=format&fit=crop">
+                <source data-src="https://cdn.coverr.co/videos/coverr-mechanic-works-in-a-garage-1080p?token=123" type="video/mp4">
             </video>
             <div class="hero-video-overlay"></div>
         </div>
@@ -3379,6 +3300,15 @@
             </div>
         </div>
     </footer>
+
+    <!-- Google Reviews (manual embed placeholder) -->
+    <section class="reviews" aria-labelledby="reviewsTitle" id="reviews">
+        <div class="container">
+            <h2 id="reviewsTitle">Müşteri Yorumları</h2>
+            <div class="reviews-grid" id="googleReviews"></div>
+            <p style="margin-top:12px"><a class="btn" href="https://www.google.com/search?q=DC+TEKN%C4%B0K+Dinamocu+Serdar+yorumlar" target="_blank" rel="noopener">Google Yorumları</a></p>
+        </div>
+    </section>
     
     <!-- Floating CTA (Mobile) -->
     <div class="floating-cta">
@@ -3513,6 +3443,20 @@
             </div>
         </div>
     </div>
+
+    <!-- Sticky CTA bar -->
+    <div class="sticky-cta" aria-label="Hızlı Erişim">
+        <a class="btn btn-primary" href="tel:+905353562469" aria-label="Telefon ile ara"><span>📞 Ara</span></a>
+        <a class="btn btn-wa" href="https://wa.me/905353562469?text=Merhaba%2C%20hizmet%20i%C3%A7in%20randevu%20almak%20istiyorum.&utm_source=site&utm_medium=sticky_cta&utm_campaign=whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp ile yaz"><span>💬 WhatsApp</span></a>
+        <a class="btn btn-route" href="https://www.google.com/maps/dir//Atat%C3%BCrk+Cad.+No:312,+34900+Sultanbeyli/İstanbul/" target="_blank" rel="noopener" aria-label="Yol tarifi al"><span>🗺️ Yol Tarifi</span></a>
+        <a class="btn btn-primary" href="#" data-open-appt aria-label="Randevu al"><span>🗓️ Randevu</span></a>
+    </div>
+
+    <script defer src="/js/lightbox.js"></script>
+    <script defer src="/js/responsive-images.js"></script>
+    <script>window.DC_GOOGLE_PLACES = { apiKey: '', placeId: '' };</script>
+    <script defer src="/js/google-reviews.js"></script>
+    <script defer src="/js/appointment-modal.js"></script>
 
     <!-- Cookie Settings Modal -->
     <div id="cookieSettings" class="cookie-modal" style="display: none;">

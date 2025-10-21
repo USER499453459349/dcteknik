@@ -1,0 +1,5 @@
+/* Placeholder theme helpers */
+[data-theme="dark"]{background:#0b1220;color:#e2e8f0}
+[data-theme="dark"] .header{background:rgba(15,23,42,.95)}
+
+

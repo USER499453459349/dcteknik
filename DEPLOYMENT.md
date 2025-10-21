@@ -150,6 +150,17 @@ chmod 755 klasor_adi/
 ```
 
 ### Cache Sorunu
+### IDN (Türkçe Karakterli Alan Adı) ve Punycode
+- `dctenık.com` bir IDN alan adıdır. DNS ve SSL yapılandırmalarında punycode karşılığı kullanılmalıdır.
+- Punycode: `xn--dctenk-t9a.com`
+- DNS Ayarları:
+  - A kaydı: `@` → sunucu IP
+  - CNAME: `www` → `xn--dctenk-t9a.com`
+- SSL: Hostinger/Let's Encrypt kurulumunda domainin punycode sürümü seçilmelidir.
+- Doğrulama:
+  - `https://xn--dctenk-t9a.com/` üstünden erişim testi
+  - Redirect: `www` → kök domain
+
 - **Tarayıcı cache:** Ctrl+F5 (hard refresh)
 - **CDN cache:** Hosting panelinden temizle
 - **DNS cache:** `ipconfig /flushdns` (Windows)

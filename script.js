@@ -295,12 +295,14 @@ function openWhatsApp() {
 }
 
 // Add WhatsApp click handlers
-document.querySelectorAll('.contact-item').forEach(item => {
-    const whatsappIcon = item.querySelector('.fa-whatsapp');
-    if (whatsappIcon) {
-        item.style.cursor = 'pointer';
-        item.addEventListener('click', openWhatsApp);
-    }
+document.querySelectorAll('.contact-item, .btn-wa, a[href*="wa.me"]').forEach(item => {
+    const whatsappIcon = item.querySelector ? item.querySelector('.fa-whatsapp') : null;
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', function(e){
+        // If element has href to wa.me let default open; otherwise use openWhatsApp
+        if (item.tagName === 'A' && item.href && item.href.includes('wa.me')) return;
+        openWhatsApp();
+    });
 });
 
 // Phone call integration
@@ -653,6 +655,29 @@ const throttledScrollHandler = throttle(() => {
 }, 16);
 
 window.addEventListener('scroll', throttledScrollHandler);
+
+// Lazy-init hero video to reduce initial bandwidth
+document.addEventListener('DOMContentLoaded', () => {
+    const hv = document.querySelector('.hero-video');
+    if (hv) {
+        const srcEl = hv.querySelector('source[data-src]');
+        const loadVideo = () => {
+            if (!srcEl) return;
+            if (!srcEl.getAttribute('src')) {
+                srcEl.setAttribute('src', srcEl.getAttribute('data-src'));
+                hv.load();
+            }
+        };
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((e) => { if (e.isIntersecting) { loadVideo(); io.disconnect(); } });
+            }, { rootMargin: '200px 0px' });
+            io.observe(hv);
+        } else {
+            setTimeout(loadVideo, 1200);
+        }
+    }
+});
 
 // Performance optimizations
 // Preload critical resources
@@ -1370,74 +1395,41 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Dark Mode Functionality
+// Dark Mode Functionality (robust, keyboard-friendly)
 document.addEventListener('DOMContentLoaded', function() {
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
+    const toggle = document.getElementById('themeToggle');
+    const icon = document.getElementById('themeIcon');
     const body = document.body;
-    
-    // Check for saved theme preference or default to 'light'
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    
-    // Apply the current theme
-    body.setAttribute('data-theme', currentTheme);
-    updateThemeIcon(currentTheme);
-    
-    // Theme toggle event listener
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            // Update theme
-            body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            
-            // Update icon
-            updateThemeIcon(newTheme);
-            themeToggle.setAttribute('aria-pressed', newTheme === 'dark');
-            
-            // Add smooth transition effect
-            body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-            
-            // Analytics tracking (if available)
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'theme_change', {
-                    'event_category': 'ui',
-                    'event_label': newTheme
-                });
-            }
-        });
+
+    // Determine initial theme: saved > system > light
+    const saved = localStorage.getItem('theme');
+    const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    applyTheme(initial);
+
+    function applyTheme(theme){
+        body.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        updateIcon(theme);
+        if (toggle) toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
     }
-    
-    // Function to update theme icon
-    function updateThemeIcon(theme) {
-        if (themeIcon) {
-            if (theme === 'dark') {
-                themeIcon.className = 'fas fa-sun';
-                themeToggle.title = 'Açık Moda Geç';
-            } else {
-                themeIcon.className = 'fas fa-moon';
-                themeToggle.title = 'Karanlık Moda Geç';
-            }
-        }
+
+    function updateIcon(theme){
+        if (!icon || !toggle) return;
+        if (theme === 'dark') { icon.className = 'fas fa-sun'; toggle.title = 'Açık Moda Geç'; }
+        else { icon.className = 'fas fa-moon'; toggle.title = 'Karanlık Moda Geç'; }
     }
-    
-    // Auto-detect system theme preference
-    if (currentTheme === 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        // User hasn't set a preference but system is dark
-        // Keep light mode as default, but could auto-switch here if desired
+
+    function flip(){ applyTheme(body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
+    if (toggle){
+        toggle.addEventListener('click', flip);
+        toggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); flip(); }});
     }
-    
-    // Listen for system theme changes
-    if (window.matchMedia) {
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-            // Only auto-switch if user hasn't manually set a preference
-            if (!localStorage.getItem('theme')) {
-                const newTheme = e.matches ? 'dark' : 'light';
-                body.setAttribute('data-theme', newTheme);
-                updateThemeIcon(newTheme);
-            }
+
+    // reflect system changes if user didn't override
+    if (window.matchMedia){
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)=>{
+            if (!localStorage.getItem('theme')) applyTheme(e.matches ? 'dark' : 'light');
         });
     }
 });
@@ -1992,4 +1984,58 @@ document.addEventListener('DOMContentLoaded', function() {
             trackEvent('service_card_click', 'engagement', serviceName, 1);
         });
     });
+
+    // Hook cookie settings buttons and dispatch cookie-prefs-saved
+    const acceptAll = document.getElementById('acceptAllCookies');
+    const savePrefs = document.getElementById('saveCookieSettings');
+    function getPrefs(){
+        return {
+            technical: true,
+            analytics: !!document.getElementById('analyticsCookies')?.checked,
+            marketing: !!document.getElementById('marketingCookies')?.checked,
+            behavior: !!document.getElementById('behaviorCookies')?.checked,
+            timestamp: new Date().toISOString()
+        };
+    }
+    if (acceptAll){ acceptAll.addEventListener('click', ()=>{
+        const p = { technical:true, analytics:true, marketing:true, behavior:true, timestamp:new Date().toISOString() };
+        localStorage.setItem('cookieConsent', JSON.stringify(p));
+        window.dispatchEvent(new CustomEvent('cookie-prefs-saved', { detail: p }));
+    }); }
+    if (savePrefs){ savePrefs.addEventListener('click', ()=>{
+        const p = getPrefs();
+        localStorage.setItem('cookieConsent', JSON.stringify(p));
+        window.dispatchEvent(new CustomEvent('cookie-prefs-saved', { detail: p }));
+    }); }
 }); 
+
+// Cookie Consent + Conditional Analytics
+(function(){
+    const KEY = 'cookieConsent';
+    function loadGA(){
+        if (window.__gaLoaded) return; window.__gaLoaded = true;
+        const s = document.createElement('script'); s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || []; function gtag(){ dataLayer.push(arguments); }
+        window.gtag = gtag; gtag('js', new Date()); gtag('config', 'G-XXXXXXXXXX');
+    }
+    function loadFB(){
+        if (window.__fbLoaded) return; window.__fbLoaded = true;
+        !(function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)})(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init','YOUR_PIXEL_ID'); fbq('track','PageView');
+    }
+    function applyPrefs(p){
+        if (!p) return;
+        if (p.analytics) loadGA();
+        if (p.marketing) loadFB();
+    }
+    document.addEventListener('DOMContentLoaded', function(){
+        try {
+            const raw = localStorage.getItem(KEY);
+            if (raw) applyPrefs(JSON.parse(raw));
+        } catch(e) {}
+        // Banner controls are in index; listen to a custom event from that UI
+        window.addEventListener('cookie-prefs-saved', function(e){ applyPrefs(e.detail || {}); });
+    });
+})();
