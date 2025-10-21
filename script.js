@@ -1891,7 +1891,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Track contact form submissions
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
+        const tsInput = contactForm.querySelector('input[name="form_ts"]');
+        if (tsInput) tsInput.value = String(Date.now());
         contactForm.addEventListener('submit', function(e) {
+            const honeypot = this.querySelector('input[name="company"]').value;
+            const ts = parseInt(this.querySelector('input[name="form_ts"]').value || '0', 10);
+            if (honeypot) { e.preventDefault(); showNotification('İşlem reddedildi.', 'warning'); return; }
+            if (Date.now() - ts < 1500) { e.preventDefault(); showNotification('Lütfen formu kontrol edip tekrar deneyin.', 'warning'); return; }
             const serviceType = this.querySelector('select[name="service"]').value;
             trackFormSubmission('contact_form', serviceType);
         });
