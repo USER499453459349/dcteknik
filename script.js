@@ -2002,3 +2002,36 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('cookie-prefs-saved', function(e){ applyPrefs(e.detail || {}); });
     });
 })();
+
+// Accessible toast notifications
+function showNotification(message, type='info'){
+  let live = document.getElementById('ariaLive');
+  if (!live){
+    live = document.createElement('div');
+    live.id = 'ariaLive';
+    live.setAttribute('role','status');
+    live.setAttribute('aria-live','polite');
+    live.style.position='fixed'; live.style.left='50%'; live.style.top='20px'; live.style.transform='translateX(-50%)';
+    live.style.zIndex='99999'; live.style.maxWidth='90vw';
+    document.body.appendChild(live);
+  }
+  const box = document.createElement('div');
+  box.textContent = message;
+  box.style.cssText = 'background:#111827;color:#e5e7eb;padding:10px 14px;border-radius:10px;box-shadow:0 10px 30px rgba(2,6,23,.35);margin:6px auto;font-weight:600';
+  if (type==='success') box.style.background = '#16a34a';
+  if (type==='danger') box.style.background = '#dc2626';
+  if (type==='warning') box.style.background = '#f59e0b'; box.style.color='#0b1220';
+  live.appendChild(box);
+  setTimeout(()=>{ box.remove(); }, 2500);
+}
+
+// Guard CTA buttons to prevent double-submit
+(function(){
+  document.addEventListener('click', function(e){
+    const t = e.target.closest('.btn, .btn-primary, .btn-wa');
+    if (!t) return;
+    if (t.dataset.locked === '1') { e.preventDefault(); return; }
+    t.dataset.locked = '1';
+    setTimeout(()=>{ t.dataset.locked = '0'; }, 1500);
+  }, { capture:true });
+})();
