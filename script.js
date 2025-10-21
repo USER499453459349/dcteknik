@@ -654,7 +654,7 @@ const throttledScrollHandler = throttle(() => {
     }
 }, 16);
 
-window.addEventListener('scroll', throttledScrollHandler);
+window.addEventListener('scroll', throttledScrollHandler, { passive: true });
 
 // Lazy-init hero video to reduce initial bandwidth
 document.addEventListener('DOMContentLoaded', () => {
