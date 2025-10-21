@@ -85,6 +85,16 @@
             <div class="blog-hero-content">
                 <h1>Dinamocu Serdar Blog</h1>
                 <p>Sultanbeyli'de dinamocu servisi alanında 15 yıllık deneyimimizle size en güncel bilgileri sunuyoruz. Arıza çözümleri, bakım tavsiyeleri ve teknik bilgiler burada.</p>
+                <div class="blog-tools">
+                    <input id="blogSearch" type="search" placeholder="Yazılarda ara..." aria-label="Yazılarda ara">
+                    <div class="blog-chips">
+                        <button type="button" data-blog-filter="Dinamo">Dinamo</button>
+                        <button type="button" data-blog-filter="Alternatör">Alternatör</button>
+                        <button type="button" data-blog-filter="Marş">Marş</button>
+                        <button type="button" data-blog-filter="Elektrik">Elektrik</button>
+                        <button type="button" data-blog-filter="Bakım">Bakım</button>
+                    </div>
+                </div>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li><a href="index.html">Ana Sayfa</a></li>
@@ -922,6 +932,7 @@
     });
     </script>
     <script src="js/language-switcher.js"></script>
+    <script defer src="/js/blog-filters.js"></script>
     <script defer src="/js/floating-contact.js"></script>
 </body>
 </html> 

@@ -45,7 +45,7 @@ function getCacheStrategy(request) {
     
     // Images - Cache First with fallback
     if (url.pathname.match(/\.(jpg|jpeg|png|gif|webp|avif|svg)$/)) {
-        return CACHE_STRATEGIES.CACHE_FIRST;
+        return CACHE_STRATEGIES.STALE_WHILE_REVALIDATE;
     }
     
     // HTML pages - Network First
@@ -103,15 +103,13 @@ async function networkFirst(request, cacheName) {
 // Stale While Revalidate Strategy
 async function staleWhileRevalidate(request, cacheName) {
     const cache = await caches.open(cacheName);
-    const cachedResponse = await cache.match(request);
-    
+    const cachedResponse = await cache.match(request, { ignoreSearch: true });
     const fetchPromise = fetch(request).then(networkResponse => {
-        if (networkResponse.ok) {
+        if (networkResponse && networkResponse.ok) {
             cache.put(request, networkResponse.clone());
         }
         return networkResponse;
-    });
-    
+    }).catch(()=>cachedResponse);
     return cachedResponse || fetchPromise;
 }
 
