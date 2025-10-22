@@ -51,30 +51,7 @@
 }
 
 /* Dark Mode Colors */
-[data-theme="dark"] {
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
-    --bg-tertiary: #334155;
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
-    --border-color: #475569;
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --accent-primary: #66a3ff; /* Koyu temada parlak mavi */
-    --accent-secondary: #ff9a3d; /* Koyu temada turuncu */
-    --accent-danger: #ef4444;
-    --header-bg: rgba(15, 23, 42, 0.95);
-    --card-bg: #1e293b;
-    --input-bg: #334155;
-    --button-bg: #3b82f6;
-    --button-text: #ffffff;
-    
-    /* Dark Mode Glassmorphism */
-    --glass-bg: rgba(30, 41, 59, 0.3);
-    --glass-border: rgba(148, 163, 184, 0.2);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    --glass-backdrop: blur(15px);
-}
+/* Dark theme variables removed per request */
 
 * {
     margin: 0;
