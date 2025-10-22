@@ -11,4 +11,20 @@
 .contact-mini{list-style:none;padding:0;margin:0;display:grid;gap:8px}
 .contact-mini a{text-decoration:none;color:var(--text-primary)}
 
+/* Trust section */
+.trust-slim{padding:50px 0;background:var(--bg-primary)}
+.trust-slim .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.trust-slim .feature{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:12px;padding:16px;box-shadow:0 10px 30px rgba(2,6,23,.05)}
 
+/* Pricing cards */
+.pricing-slim{padding:50px 0;background:var(--bg-secondary)}
+.pricing-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:12px}
+.pricing-cards .card{background:#fff;border:1px solid var(--border-color);border-radius:12px;padding:16px;box-shadow:0 10px 30px rgba(2,6,23,.05)}
+.pricing-cards .card h3{margin:0 0 6px}
+.pricing-cards .card p{font-weight:800;font-size:1.1rem;margin:0 0 4px}
+
+/* FAQ */
+.faq-slim{padding:50px 0;background:var(--bg-primary)}
+.faq .faq-item{border:1px solid var(--border-color);border-radius:12px;background:var(--bg-secondary);margin-bottom:10px}
+.faq .faq-question{width:100%;text-align:left;border:none;background:transparent;padding:12px 14px;font-weight:700;cursor:pointer}
+.faq .faq-answer{padding:0 14px 14px 14px;color:var(--text-secondary)}
