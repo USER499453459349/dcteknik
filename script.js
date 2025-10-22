@@ -637,6 +637,10 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         document.body.classList.add('loaded');
     }, 100);
+    // Initialize Lucide icons if available
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        try { window.lucide.createIcons(); } catch(e) {}
+    }
 });
 
 // Performance optimization: Throttle scroll events
