@@ -43,6 +43,30 @@
 
 ---
 
+## [v1.6.0] - 2025-10-21 - AI/SEO & Local SEO Upgrade
+
+### 🤖 AI & SEO
+- robots.txt: GPTBot, Google-Extended, Applebot-Extended, ClaudeBot, PerplexityBot, CCBot açık izin
+- .well-known/ai.txt: AI policy, sitemap ve iletişim bilgisi eklendi
+- index.html: LocalBusiness JSON-LD’ye geo, serviceArea, areaServed eklendi; WebSite SearchAction eklendi; hreflang ve geo meta eklendi
+- FAQ/Product/ItemList JSON-LD gözden geçirildi
+
+### 📍 Local SEO
+- Yeni landing pages: `sultanbeyli.html`, `anadolu-yakasi.html` (NAP tutarlı)
+- `sitemap.xml` güncellendi (yeni sayfalar, lastmod)
+
+### 📊 Analytics
+- GA4 event’leri: `whatsapp_contact`, `phone_call` → hero_variant ve geo param’ları ile gönderim
+- ANALYTICS.md güncellendi (Measurement ID, custom dimensions, DebugView)
+
+### 🚀 Performans
+- Service Worker versiyon artırıldı ve yeni sayfalar precache’e alındı
+- Lazy-load ve fetchpriority iyileştirmeleri mevcut kurulumla uyumlu
+
+### 🧪 QA
+- Konsol hataları kontrol edildi; yapılandırılmış veri uyarıları temizlendi
+
+
 ## [v1.4.1] - 2025-01-01 - Previous Version
 - Temel site yapısı
 - Dinamocu servisi içeriği

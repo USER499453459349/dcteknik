@@ -16,11 +16,18 @@ Bu doküman GA4 event/param yapılandırması ve Looker Studio rapor adımların
 
 Not: UTM (utm_source/utm_medium/utm_campaign) oturum bazında tutulur ve WhatsApp linklerine eklenir.
 
-### 1.1 Custom Definitions
-GA4 → Admin → Custom definitions → Create custom dimension:
-- Name: hero_variant | Scope: Event | Event parameter: event_label
+### 1.1 GA4 Measurement ID
+- GA4 Measurement ID’yi `index.html` içinde `<meta name="ga-measurement-id">` alanına veya `window.GA_MEASUREMENT_ID` olarak ekleyin.
+- Çerez izni sonrasında yükleme yapılır (script.js → Cookie Consent bölümü).
 
-### 1.2 Conversions
+### 1.2 Custom Definitions
+GA4 → Admin → Custom definitions → Create custom dimensions:
+- Name: hero_variant | Scope: Event | Event parameter: hero_variant
+- Name: geo_region | Scope: Event | Event parameter: geo_region (TR-34)
+- Name: geo_area | Scope: Event | Event parameter: geo_area (Anadolu)
+- Name: geo_district | Scope: Event | Event parameter: geo_district (Sultanbeyli)
+
+### 1.3 Conversions
 GA4 → Admin → Conversions → New conversion event:
 - whatsapp_contact, phone_call, (opsiyonel) form_submit
 
@@ -40,6 +47,9 @@ GA4 → Admin → Conversions → New conversion event:
 ## 3) Test
 - URL: https://dcteknik.netlify.app/?utm_source=test&utm_medium=cpc&utm_campaign=deneme
 - Tıklayın: Hero CTA → hero_cta_click | WhatsApp → whatsapp_contact | Telefon → phone_call
+
+### 3.1 DebugView
+- GA4 → Admin → DebugView → Realtime’da `whatsapp_contact` ve `phone_call` etkinliklerini ve `hero_variant`, `geo_*` paramlarını doğrulayın.
 
 ## 4) İsteğe Bağlı
 - Event param: component (hero/sticky/nav) → Custom dimension

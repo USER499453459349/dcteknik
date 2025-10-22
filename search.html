@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site İçi Arama | DC TEKNİK</title>
+    <meta name="description" content="DC TEKNİK site içi arama. Dinamo, alternatör ve marş motoru ile ilgili içerik bulun.">
+    <link rel="canonical" href="https://dctenık.com/search.html">
+    <link rel="icon" href="/favicon-new.svg" type="image/svg+xml">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="stylesheet" href="/style.css?v=20251021">
+    <script defer src="/script.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SearchResultsPage",
+      "name": "DC TEKNİK Arama Sonuçları"
+    }
+    </script>
+</head>
+<body>
+    <header class="header">
+        <div class="container nav-container">
+            <a href="/" class="logo" aria-label="DC TEKNİK Ana Sayfa">
+                <img class="logo-image" src="/logo-new.svg" alt="DC TEKNİK" width="120" height="32" decoding="async" fetchpriority="high">
+            </a>
+        </div>
+    </header>
+    <main class="container" style="padding-top: 120px; padding-bottom: 80px;">
+        <h1>Arama</h1>
+        <form id="siteSearchForm" action="/search.html" method="get" class="contact-form" role="search">
+            <input name="q" id="q" type="search" placeholder="Dinamo, alternatör, marş..." aria-label="Site içi arama">
+            <button type="submit" class="btn btn-primary">Ara</button>
+        </form>
+        <div id="results" style="margin-top:24px"></div>
+    </main>
+    <footer class="footer"><div class="container"><p>© <span id="year"></span> DC TEKNİK</p></div></footer>
+    <script>
+    (function(){
+      const q = new URLSearchParams(location.search).get('q');
+      document.getElementById('year').textContent = new Date().getFullYear();
+      const input = document.getElementById('q'); if (q) input.value = q;
+      const R = document.getElementById('results');
+      if (!q) { R.innerHTML = '<p>Bir anahtar kelime girerek arayın.</p>'; return; }
+      const pages = [
+        { url: '/', title: 'Ana Sayfa', keywords: ['dinamo','alternatör','marş','randevu','sultanbeyli'] },
+        { url: '/blog.html', title: 'Blog', keywords: ['dinamo','alternatör','bakım','arızalar'] },
+        { url: '/cinar.html', title: 'Dinamo Servisi', keywords: ['dinamo','servis'] },
+        { url: '/sultanbeyli.html', title: 'Sultanbeyli Dinamocu', keywords: ['sultanbeyli','dinamo','marş'] },
+        { url: '/anadolu-yakasi.html', title: 'Anadolu Yakası Dinamocu', keywords: ['anadolu','pendik','kartal','üMRANİYE','ataşehir'] }
+      ];
+      const term = q.toLowerCase();
+      const matches = pages.filter(p => p.title.toLowerCase().includes(term) || (p.keywords||[]).join(' ').toLowerCase().includes(term));
+      if (!matches.length) {
+        R.innerHTML = '<p>Sonuç bulunamadı. Anahtar kelimeleri değiştirin.</p>' +
+        `<p>Dış arama: <a target="_blank" href="https://www.google.com/search?q=site:dctenık.com+${encodeURIComponent(q)}">Google</a></p>`;
+        return;
+      }
+      R.innerHTML = '<ul>' + matches.map(m => `<li><a href="${m.url}">${m.title}</a></li>`).join('') + '</ul>';
+    })();
+    </script>
+</body>
+</html>
+
+

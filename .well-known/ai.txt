@@ -1,0 +1,19 @@
+# AI Crawler Policy for DC TEKNİK (dctenık.com)
+# Purpose: Allow indexing/summarization for AI assistants and search systems
+
+User-agent: *
+Allow: /
+Crawl-Delay: 1
+
+Sitemap: https://dctenık.com/sitemap.xml
+Contact: mailto:serdaraltan890@gmail.com
+Owner: DC TEKNİK - Dinamocu Serdar
+Location: Atatürk Cad. No:312, Sultanbeyli / İstanbul, TR
+
+# Policy notes
+# - Indexing, summarization, and use in AI assistants are permitted.
+# - Do not store or use personal data beyond what is publicly published.
+# - Respect page-level robots and any future noai/noimageai directives.
+
+
+

@@ -1,11 +1,11 @@
 // Language switching functionality
 let currentLanguage = 'tr'; // Default language
 
-// Theme/Dark mode functionality
+// Theme/Dark mode functionality (legacy disabled)
 let isDarkMode = false;
 
 // Initialize theme system
-function initializeTheme() {
+function legacyInitializeTheme() {
     // Load saved theme or default to light mode
     const savedTheme = localStorage.getItem('theme') || 'light';
     isDarkMode = savedTheme === 'dark';
@@ -36,9 +36,9 @@ function initializeTheme() {
 }
 
 // Toggle between light and dark mode
-function toggleTheme() {
+function legacyToggleTheme() {
     isDarkMode = !isDarkMode;
-    applyTheme();
+    legacyApplyTheme();
     
     // Save theme preference
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
@@ -57,7 +57,7 @@ function toggleTheme() {
 }
 
 // Apply theme to the page
-function applyTheme() {
+function legacyApplyTheme() {
     const body = document.body;
     const root = document.documentElement;
     

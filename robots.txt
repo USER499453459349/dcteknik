@@ -6,3 +6,25 @@ Sitemap: https://dctenık.com/sitemap.xml
 
 # Dinamocu Serdar - DC TEKNİK
 # Sultanbeyli'nin güvenilir dinamocu servisi 
+
+# Explicit allowance for AI crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Optional: disallow sensitive areas if added later
+# Disallow: /private

@@ -30,6 +30,8 @@
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://dctenık.com">
+    <link rel="alternate" hreflang="tr-TR" href="https://dctenık.com/">
+    <link rel="alternate" hreflang="x-default" href="https://dctenık.com/">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon-new.svg?v=20250101v3">
@@ -38,6 +40,11 @@
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20250101v3">
     <link rel="manifest" href="/manifest.webmanifest">
     <meta name="theme-color" content="#0b5cff">
+    <meta name="geo.region" content="TR-34">
+    <meta name="geo.placename" content="Sultanbeyli, İstanbul">
+    <meta name="geo.position" content="40.987654321;29.23456789">
+    <meta name="ICBM" content="40.987654321, 29.23456789">
+    <meta name="hero-variant" content="video_v1">
     
     <!-- Critical CSS for above-the-fold content -->
     <style>
@@ -134,6 +141,11 @@
         "image": "https://dctenık.com/logo-new.svg",
         "telephone": "+90 535 356 24 69",
         "priceRange": "$$",
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 40.987654321,
+            "longitude": 29.23456789
+        },
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "4.9",
@@ -147,9 +159,26 @@
             "postalCode": "",
             "addressCountry": "TR"
         },
-        "areaServed": {
-            "@type": "City",
-            "name": "İstanbul"
+        "areaServed": [
+            { "@type": "City", "name": "İstanbul" },
+            { "@type": "AdministrativeArea", "name": "Anadolu Yakası" },
+            { "@type": "Place", "name": "Sultanbeyli" },
+            { "@type": "Place", "name": "Sancaktepe" },
+            { "@type": "Place", "name": "Pendik" },
+            { "@type": "Place", "name": "Kartal" },
+            { "@type": "Place", "name": "Maltepe" },
+            { "@type": "Place", "name": "Ataşehir" },
+            { "@type": "Place", "name": "Ümraniye" },
+            { "@type": "Place", "name": "Tuzla" }
+        ],
+        "serviceArea": {
+            "@type": "GeoCircle",
+            "geoMidpoint": {
+                "@type": "GeoCoordinates",
+                "latitude": 40.987654321,
+                "longitude": 29.23456789
+            },
+            "geoRadius": 15000
         },
         "openingHoursSpecification": [
             {
@@ -169,6 +198,21 @@
         "sameAs": [
             "https://www.facebook.com/DinamocuSerdar"
         ]
+    }
+    </script>
+    <!-- WebSite SearchAction & multilingual hints -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://dctenık.com/",
+      "name": "DC TEKNİK",
+      "inLanguage": ["tr-TR", "en-US"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://dctenık.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
     }
     </script>
     <script type="application/ld+json">

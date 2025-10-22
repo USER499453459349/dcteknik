@@ -1604,6 +1604,34 @@ function searchLocation() {
 }
 
 // Google Analytics Event Tracking
+// Helper: derive hero variant and geo targeting for GA4 params
+function getHeroVariant() {
+    try {
+        const meta = document.querySelector('meta[name="hero-variant"]');
+        return (meta && meta.content) ? meta.content : 'default';
+    } catch (e) { return 'default'; }
+}
+
+function getStoredUtm() {
+    try {
+        return JSON.parse(sessionStorage.getItem('utm_params') || '{}');
+    } catch (e) { return {}; }
+}
+
+function buildGaParams(extra) {
+    const utm = getStoredUtm();
+    const base = {
+        hero_variant: getHeroVariant(),
+        geo_region: 'TR-34',
+        geo_area: 'Anadolu',
+        geo_district: 'Sultanbeyli'
+    };
+    if (utm.utm_source) base.utm_source = utm.utm_source;
+    if (utm.utm_medium) base.utm_medium = utm.utm_medium;
+    if (utm.utm_campaign) base.utm_campaign = utm.utm_campaign;
+    return Object.assign(base, extra || {});
+}
+
 function trackEvent(eventName, eventCategory, eventLabel, eventValue) {
     if (typeof gtag !== 'undefined') {
         gtag('event', eventName, {
@@ -1948,19 +1976,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Track WhatsApp button clicks
-    const whatsappButtons = document.querySelectorAll('.btn-whatsapp, [href*="wa.me"]');
+    // Track WhatsApp button clicks (GA4 conversion event + context params)
+    const whatsappButtons = document.querySelectorAll('.btn-whatsapp, [href*="wa.me"], .fab-whatsapp');
     whatsappButtons.forEach(function(button) {
         button.addEventListener('click', function() {
             trackButtonClick('whatsapp_contact', 'header');
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'whatsapp_contact', buildGaParams({ value: 1 }));
+            }
         });
     });
     
-    // Track phone number clicks
+    // Track phone number clicks (GA4 conversion event + context params)
     const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
     phoneLinks.forEach(function(link) {
         link.addEventListener('click', function() {
             trackButtonClick('phone_call', 'contact');
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'phone_call', buildGaParams({ value: 1 }));
+            }
         });
     });
     
