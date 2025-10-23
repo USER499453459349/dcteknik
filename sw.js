@@ -9,7 +9,7 @@ const urlsToCache = [
     '/index.html',
     '/blog.html',
     '/bobin.html',
-    '/vw-48v-sarj-dinamosu.html',
+    
     '/anadolu-yakasi.html',
     '/sultanbeyli.html',
     '/search.html',

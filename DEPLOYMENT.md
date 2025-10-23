@@ -16,7 +16,7 @@ Proje kök dizini:
 ├── index.html          # Ana sayfa
 ├── blog.html           # Blog sayfası  
 ├── cinar.html          # Servis sayfası
-├── vw-48v-sarj-dinamosu.html  # Ürün sayfası
+├── (kaldırıldı) vw-48v-sarj-dinamosu.html
 ├── style.css           # Genel stil dosyası
 ├── cinar.css           # Servis sayfası stilleri
 ├── js/                 # Tüm JS dosyaları
