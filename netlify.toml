@@ -18,7 +18,7 @@
     
     # Advanced Security
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://maps.googleapis.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; connect-src 'self' https://www.google-analytics.com https://maps.googleapis.com; media-src 'self' https://cdn.coverr.co; frame-src 'self' https://www.google.com https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self';"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://maps.googleapis.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://www.google-analytics.com https://maps.googleapis.com; media-src 'self' https://cdn.coverr.co; frame-src 'self' https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';"
     
     # Malware Protection
     X-Download-Options = "noopen"
@@ -77,4 +77,8 @@
   from = "/sw.js"
   to = "/sw.js"
   status = 200
-  headers = { Cache-Control = "public, max-age=0, must-revalidate" }
+  headers = { Cache-Control = "public, max-age=0, must-revalidate" }[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
