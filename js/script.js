@@ -78,34 +78,7 @@ function legacyApplyTheme() {
 
 // Chat system functionality
 function initializeChat() {
-    const chatToggle = document.getElementById('newChatToggle');
-    if (chatToggle) {
-        chatToggle.addEventListener('click', function() {
-            // Track conversion event
-            trackConversionEvent('whatsapp_contact', 50);
-            
-            // Open WhatsApp chat
-            const whatsappUrl = 'https://wa.me/905353562469?text=Merhaba! DC TEKNİK hizmetleri hakkında bilgi almak istiyorum.';
-            window.open(whatsappUrl, '_blank');
-
-            // Hide notification after click
-            const notification = document.querySelector('.chat-notification');
-            if (notification) {
-                notification.style.display = 'none';
-            }
-
-            // Show notification
-            showNotification('WhatsApp üzerinden iletişime geçiliyor...', 'success');
-
-            // Track Google Analytics event
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'chat_clicked', {
-                    'event_category': 'engagement',
-                    'event_label': 'chat_button'
-                });
-            }
-        });
-    }
+    // Chat button kaldırıldı; işlev boş.
 }
 
 // Contact buttons functionality
