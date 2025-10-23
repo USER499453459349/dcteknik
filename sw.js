@@ -1,18 +1,22 @@
 // Advanced Service Worker for DC TEKNİK
-const CACHE_NAME = 'dcteknik-v1.12.6-hard-refresh';
-const STATIC_CACHE = 'dcteknik-static-v1.12.6';
-const DYNAMIC_CACHE = 'dcteknik-dynamic-v1.12.6';
-const IMAGE_CACHE = 'dcteknik-images-v1.12.6';
+const CACHE_NAME = 'dcteknik-v1.13.0-pwa-enhanced';
+const STATIC_CACHE = 'dcteknik-static-v1.13.0';
+const DYNAMIC_CACHE = 'dcteknik-dynamic-v1.13.0';
+const IMAGE_CACHE = 'dcteknik-images-v1.13.0';
+const API_CACHE = 'dcteknik-api-v1.13.0';
 
 const urlsToCache = [
     '/',
     '/index.html',
     '/blog.html',
     '/bobin.html',
+    '/validation.html',
     
     '/anadolu-yakasi.html',
     '/sultanbeyli.html',
     '/search.html',
+    '/faq.html',
+    '/privacy-policy.html',
     '/style.css',
     '/cinar.css',
     '/blog-styles.css',
@@ -20,9 +24,18 @@ const urlsToCache = [
     // Keep core JS minimal in precache; other JS via runtime cache
     '/js/translations.js',
     '/js/language-switcher.js',
+    '/js/lightbox.js',
+    '/js/appointment-modal.js',
+    '/js/responsive-images.js',
+    '/js/blog-filters.js',
+    '/js/hero-ab-test.js',
+    '/js/google-reviews.js',
     '/manifest.webmanifest',
     '/logo-new.svg',
     '/favicon-new.svg',
+    '/favicon-192x192.png',
+    '/favicon-512x512.png',
+    '/apple-touch-icon.png',
     '/sitemap.xml',
     '/robots.txt',
     '/feed.xml',

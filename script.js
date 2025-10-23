@@ -1682,6 +1682,353 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(validateSchemaMarkup, 1000);
 });
 
+// PWA Install Prompt
+let deferredPrompt;
+let installPromptShown = false;
+
+// Listen for the beforeinstallprompt event
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later
+    deferredPrompt = e;
+    
+    // Show install button if not already shown
+    if (!installPromptShown) {
+        showInstallPrompt();
+    }
+});
+
+// Show install prompt UI
+function showInstallPrompt() {
+    if (installPromptShown) return;
+    
+    // Create install prompt
+    const installPrompt = document.createElement('div');
+    installPrompt.className = 'install-prompt';
+    installPrompt.innerHTML = `
+        <div class="install-prompt-content">
+            <div class="install-prompt-icon">📱</div>
+            <div class="install-prompt-text">
+                <h4>DC TEKNİK'i Ana Ekrana Ekle</h4>
+                <p>Hızlı erişim için uygulamayı ana ekranınıza ekleyin</p>
+            </div>
+            <div class="install-prompt-actions">
+                <button class="install-btn" onclick="installPWA()">Ekle</button>
+                <button class="install-dismiss" onclick="dismissInstallPrompt()">×</button>
+            </div>
+        </div>
+    `;
+    
+    // Add styles
+    const style = document.createElement('style');
+    style.textContent = `
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #0b5cff, #3b82f6);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(11, 92, 255, 0.3);
+            z-index: 10000;
+            animation: slideUp 0.3s ease-out;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .install-prompt-content {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            gap: 12px;
+        }
+        
+        .install-prompt-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .install-prompt-text {
+            flex: 1;
+        }
+        
+        .install-prompt-text h4 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .install-prompt-text p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .install-prompt-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .install-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .install-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .install-dismiss {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+        
+        .install-dismiss:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .install-prompt {
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+            }
+            
+            .install-prompt-content {
+                padding: 12px;
+            }
+            
+            .install-prompt-text h4 {
+                font-size: 14px;
+            }
+            
+            .install-prompt-text p {
+                font-size: 12px;
+            }
+        }
+    `;
+    
+    document.head.appendChild(style);
+    document.body.appendChild(installPrompt);
+    
+    // Auto-hide after 10 seconds
+    setTimeout(() => {
+        if (document.body.contains(installPrompt)) {
+            dismissInstallPrompt();
+        }
+    }, 10000);
+}
+
+// Install PWA
+function installPWA() {
+    if (!deferredPrompt) {
+        // Fallback for browsers that don't support the prompt
+        alert('Tarayıcınızın menüsünden "Ana ekrana ekle" seçeneğini kullanabilirsiniz.');
+        dismissInstallPrompt();
+        return;
+    }
+    
+    // Show the install prompt
+    deferredPrompt.prompt();
+    
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+            console.log('✅ PWA installed successfully');
+            
+            // Track installation
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'pwa_install', {
+                    event_category: 'engagement',
+                    event_label: 'user_accepted',
+                    value: 1
+                });
+            }
+        } else {
+            console.log('❌ PWA installation dismissed');
+        }
+        
+        // Clear the deferredPrompt
+        deferredPrompt = null;
+        dismissInstallPrompt();
+    });
+}
+
+// Dismiss install prompt
+function dismissInstallPrompt() {
+    const prompt = document.querySelector('.install-prompt');
+    if (prompt) {
+        prompt.style.animation = 'slideDown 0.3s ease-out';
+        setTimeout(() => {
+            if (document.body.contains(prompt)) {
+                document.body.removeChild(prompt);
+            }
+        }, 300);
+    }
+    installPromptShown = true;
+    
+    // Don't show again for this session
+    sessionStorage.setItem('installPromptDismissed', 'true');
+}
+
+// Check if user has already dismissed the prompt
+if (sessionStorage.getItem('installPromptDismissed') === 'true') {
+    installPromptShown = true;
+}
+
+// Listen for successful installation
+window.addEventListener('appinstalled', (evt) => {
+    console.log('✅ PWA was installed');
+    
+    // Track successful installation
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'pwa_installed', {
+            event_category: 'engagement',
+            event_label: 'installation_complete',
+            value: 1
+        });
+    }
+    
+    // Hide any remaining install prompts
+    dismissInstallPrompt();
+});
+
+// Back to Top Button
+function createBackToTopButton() {
+    const backToTopBtn = document.createElement('button');
+    backToTopBtn.id = 'backToTop';
+    backToTopBtn.innerHTML = '↑';
+    backToTopBtn.setAttribute('aria-label', 'Sayfanın başına dön');
+    backToTopBtn.title = 'Sayfanın başına dön';
+    
+    // Add styles
+    const style = document.createElement('style');
+    style.textContent = `
+        #backToTop {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #0b5cff, #3b82f6);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 16px rgba(11, 92, 255, 0.3);
+        }
+        
+        #backToTop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        #backToTop:hover {
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(11, 92, 255, 0.4);
+        }
+        
+        #backToTop:active {
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 768px) {
+            #backToTop {
+                bottom: 100px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+    `;
+    
+    document.head.appendChild(style);
+    document.body.appendChild(backToTopBtn);
+    
+    // Show/hide button based on scroll position
+    function toggleBackToTop() {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    }
+    
+    // Scroll to top function
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // Track scroll to top
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'back_to_top', {
+                event_category: 'engagement',
+                event_label: 'scroll_to_top',
+                value: 1
+            });
+        }
+    }
+    
+    // Event listeners
+    window.addEventListener('scroll', toggleBackToTop);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    // Keyboard support
+    backToTopBtn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            scrollToTop();
+        }
+    });
+}
+
+// Initialize back to top button
+document.addEventListener('DOMContentLoaded', function() {
+    createBackToTopButton();
+});
+
 function getStoredUtm() {
     try {
         return JSON.parse(sessionStorage.getItem('utm_params') || '{}');

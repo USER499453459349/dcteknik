@@ -1,16 +1,84 @@
 {
   "name": "DC TEKNİK - Dinamocu Serdar",
   "short_name": "DC TEKNİK",
-  "start_url": "/index.html",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#0b5cff",
   "description": "Sultanbeyli'nin güvenilir dinamocu servisi. Dinamo, alternatör ve marş motoru tamiri.",
   "lang": "tr",
+  "categories": ["automotive", "business", "utilities"],
   "icons": [
-    { "src": "/favicon-new.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable any" },
-    { "src": "/logo-new.svg", "sizes": "any", "type": "image/svg+xml" }
+    {
+      "src": "/favicon-new.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/logo-new.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "WhatsApp İletişim",
+      "short_name": "WhatsApp",
+      "description": "WhatsApp ile hızlı iletişim",
+      "url": "/?action=whatsapp",
+      "icons": [
+        {
+          "src": "/favicon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Telefon Ara",
+      "short_name": "Ara",
+      "description": "Telefon ile arama yap",
+      "url": "/?action=call",
+      "icons": [
+        {
+          "src": "/favicon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Blog",
+      "short_name": "Blog",
+      "description": "Otomotiv blog yazıları",
+      "url": "/blog.html",
+      "icons": [
+        {
+          "src": "/favicon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }
 
