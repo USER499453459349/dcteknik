@@ -94,6 +94,21 @@ body {
 /* Improve icon style */
 .theme-toggle-btn i{font-size:18px}
 
+/* Floating actions */
+.floating-actions{position:fixed;right:16px;bottom:90px;display:flex;flex-direction:column;gap:10px;z-index:1400}
+.floating-actions a{width:48px;height:48px;border-radius:9999px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 10px 25px rgba(2,6,23,.25);text-decoration:none}
+.fab-phone{background:#10b981}
+.fab-whatsapp{background:#22c55e}
+.fab-appointment{background:#0b5cff}
+.fab-search{background:#6d28d9}
+.fab-tooltip{display:none;position:absolute;right:56px;background:#0b1220;color:#e5e7eb;padding:6px 10px;border-radius:8px;box-shadow:0 10px 25px rgba(2,6,23,.25);white-space:nowrap}
+.floating-actions a:hover .fab-tooltip{display:block}
+
+/* Floating CTA (mobile) baseline fix */
+.floating-cta{position:fixed;right:16px;bottom:90px;display:none;flex-direction:column;gap:10px;z-index:1400}
+.floating-cta .call,.floating-cta .whatsapp{display:flex;align-items:center;gap:6px;background:#0b5cff;color:#fff;border-radius:9999px;padding:10px 12px;text-decoration:none}
+@media(max-width:767px){.floating-cta{display:flex}}
+
 /* Improve cookie banner visuals */
 .cookie-consent{position:fixed;left:12px;right:12px;bottom:12px;z-index:1500;background:#0b1220;color:#e5e7eb;border:1px solid #1f2937;border-radius:14px;box-shadow:0 30px 80px rgba(2,6,23,.45)}
 .cookie-content{display:flex;gap:12px;align-items:flex-start;padding:14px}
