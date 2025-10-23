@@ -607,3 +607,4 @@
         window.performanceTesting = new PerformanceTesting();
     }
 })();
+

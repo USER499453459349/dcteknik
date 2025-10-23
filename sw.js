@@ -1,10 +1,12 @@
 // Advanced Service Worker for DC TEKNİK
-const CACHE_NAME = 'dcteknik-v1.14.0-performance-optimized';
-const STATIC_CACHE = 'dcteknik-static-v1.14.0';
-const DYNAMIC_CACHE = 'dcteknik-dynamic-v1.14.0';
-const IMAGE_CACHE = 'dcteknik-images-v1.14.0';
-const API_CACHE = 'dcteknik-api-v1.14.0';
-const FONT_CACHE = 'dcteknik-fonts-v1.14.0';
+const CACHE_NAME = 'dcteknik-pwa-v2.0.0';
+const STATIC_CACHE = 'dcteknik-static-pwa-v2.0.0';
+const DYNAMIC_CACHE = 'dcteknik-dynamic-pwa-v2.0.0';
+const IMAGE_CACHE = 'dcteknik-images-pwa-v2.0.0';
+const API_CACHE = 'dcteknik-api-pwa-v2.0.0';
+const FONT_CACHE = 'dcteknik-fonts-pwa-v2.0.0';
+const OFFLINE_FORMS_CACHE = 'dcteknik-offline-forms-v2.0.0';
+const ANALYTICS_CACHE = 'dcteknik-analytics-v2.0.0';
 
 const urlsToCache = [
     '/',
@@ -245,8 +247,143 @@ self.addEventListener('notificationclick', function(event) {
     }
 });
 
+ calculateCLSScore(clsValue) {
+    if (clsValue <= 0.1) return 100;
+    if (clsValue <= 0.25) return 75;
+    return 50;
+}
+
 // Background Sync Implementation
 async function doBackgroundSync() {
-    // Sync offline data when connection is restored
     console.log('Background sync triggered');
+    
+    try {
+        // Sync offline forms
+        await syncOfflineForms();
+        
+        // Sync analytics data
+        await syncAnalyticsData();
+        
+        // Sync any pending requests
+        await syncPendingRequests();
+        
+        console.log('Background sync completed successfully');
+    } catch (error) {
+        console.error('Background sync failed:', error);
+    }
+}
+
+// Sync offline forms
+async function syncOfflineForms() {
+    try {
+        const cache = await caches.open(OFFLINE_FORMS_CACHE);
+        const requests = await cache.keys();
+        
+        for (const request of requests) {
+            try {
+                const response = await fetch(request);
+                if (response.ok) {
+                    await cache.delete(request);
+                    console.log('Offline form synced:', request.url);
+                }
+            } catch (error) {
+                console.log('Failed to sync form:', request.url, error);
+            }
+        }
+    } catch (error) {
+        console.error('Failed to sync offline forms:', error);
+    }
+}
+
+// Sync analytics data
+async function syncAnalyticsData() {
+    try {
+        const cache = await caches.open(ANALYTICS_CACHE);
+        const requests = await cache.keys();
+        
+        for (const request of requests) {
+            try {
+                const response = await fetch(request);
+                if (response.ok) {
+                    await cache.delete(request);
+                    console.log('Analytics data synced:', request.url);
+                }
+            } catch (error) {
+                console.log('Failed to sync analytics:', request.url, error);
+            }
+        }
+    } catch (error) {
+        console.error('Failed to sync analytics data:', error);
+    }
+}
+
+// Sync pending requests
+async function syncPendingRequests() {
+    try {
+        const cache = await caches.open(DYNAMIC_CACHE);
+        const requests = await cache.keys();
+        
+        for (const request of requests) {
+            // Only sync API requests that might have failed
+            if (request.url.includes('/api/')) {
+                try {
+                    const response = await fetch(request);
+                    if (response.ok) {
+                        await cache.put(request, response.clone());
+                        console.log('Pending request synced:', request.url);
+                    }
+                } catch (error) {
+                    console.log('Failed to sync pending request:', request.url, error);
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Failed to sync pending requests:', error);
+    }
+}
+
+// Message handling for communication with main thread
+self.addEventListener('message', event => {
+    console.log('Service Worker received message:', event.data);
+    
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        self.skipWaiting();
+    } else if (event.data && event.data.type === 'GET_VERSION') {
+        event.ports[0].postMessage({ version: CACHE_NAME });
+    } else if (event.data && event.data.type === 'CLEAR_CACHE') {
+        event.waitUntil(
+            caches.keys().then(cacheNames => {
+                return Promise.all(
+                    cacheNames.map(cacheName => caches.delete(cacheName))
+                );
+            }).then(() => {
+                event.ports[0].postMessage({ success: true });
+            })
+        );
+    } else if (event.data && event.data.type === 'CACHE_OFFLINE_DATA') {
+        event.waitUntil(
+            cacheOfflineData(event.data.data)
+        );
+    }
+});
+
+// Cache offline data
+async function cacheOfflineData(data) {
+    try {
+        const cache = await caches.open(OFFLINE_FORMS_CACHE);
+        const request = new Request(data.url, {
+            method: data.method || 'POST',
+            headers: data.headers || {},
+            body: data.body
+        });
+        
+        await cache.put(request, new Response(JSON.stringify({ 
+            cached: true, 
+            timestamp: Date.now() 
+        })));
+        
+        console.log('Offline data cached:', data.url);
+    } catch (error) {
+        console.error('Failed to cache offline data:', error);
+    }
 }

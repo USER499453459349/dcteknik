@@ -137,3 +137,4 @@
     // Expose metrics for debugging
     window.performanceMetrics = performanceMetrics;
 })();
+

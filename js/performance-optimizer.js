@@ -459,3 +459,4 @@
         window.performanceOptimizer = new PerformanceOptimizer();
     }
 })();
+

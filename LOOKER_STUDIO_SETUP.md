@@ -231,3 +231,4 @@ Dashboard setup ile ilgili sorularınız için:
 ## 🔄 Updates
 
 Bu doküman düzenli olarak güncellenecektir. Son güncelleme: 2025-01-20
+

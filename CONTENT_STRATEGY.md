@@ -276,3 +276,4 @@
 ---
 
 *Bu content strategy dokümanı düzenli olarak güncellenecek ve performans verilerine göre optimize edilecektir.*
+

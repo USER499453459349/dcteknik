@@ -418,3 +418,4 @@
         new FormUXEnhancements();
     }
 })();
+

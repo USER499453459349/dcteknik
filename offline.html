@@ -6,28 +6,90 @@
     <title>Çevrimdışı | DC TEKNİK</title>
     <meta name="robots" content="noindex, follow">
     <link rel="icon" type="image/svg+xml" href="favicon-new.svg">
-    <link rel="preload" href="style.css" as="style">
-    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="/manifest.webmanifest">
     <style>
-        body{display:flex;min-height:100vh;align-items:center;justify-content:center;background:#0f172a;color:#e2e8f0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
-        .card{max-width:720px;margin:24px;padding:28px;border-radius:16px;background:linear-gradient(180deg,#111827 0%,#0b1220 100%);box-shadow:0 30px 80px rgba(2,6,23,.45)}
-        h1{font-size:36px;margin:0 0 8px}
-        p{opacity:.9;margin:0 0 20px}
-        a.btn{display:inline-block;background:#0b5cff;color:#fff;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:700}
-        .row{display:flex;gap:10px;flex-wrap:wrap}
-        .row a{flex:1 1 160px;text-align:center}
+        body{display:flex;min-height:100vh;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f172a,#1e293b);color:#e2e8f0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+        .card{max-width:720px;margin:24px;padding:32px;border-radius:20px;background:linear-gradient(180deg,#111827 0%,#0b1220 100%);box-shadow:0 30px 80px rgba(2,6,23,.45);border:1px solid rgba(255,255,255,0.1)}
+        .offline-icon{font-size:4rem;margin-bottom:1rem;opacity:0.8;text-align:center}
+        h1{font-size:36px;margin:0 0 16px;text-align:center;background:linear-gradient(135deg,#0b5cff,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        p{opacity:.9;margin:0 0 24px;text-align:center;line-height:1.6}
+        a.btn{display:inline-block;background:linear-gradient(135deg,#0b5cff,#3b82f6);color:#fff;padding:12px 20px;border-radius:12px;text-decoration:none;font-weight:600;transition:all 0.3s ease;box-shadow:0 4px 12px rgba(11,92,255,0.3)}
+        a.btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(11,92,255,0.4)}
+        .row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+        .row a{flex:1 1 180px;text-align:center}
+        .connection-status{position:fixed;top:20px;right:20px;background:#dc2626;color:white;padding:8px 16px;border-radius:20px;font-size:0.9rem;font-weight:600;z-index:1000;transition:all 0.3s ease}
+        .connection-status.online{background:#059669}
+        .offline-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:24px}
+        .feature-item{background:rgba(255,255,255,0.05);padding:16px;border-radius:12px;border-left:4px solid #0b5cff;text-align:center}
+        .feature-item h3{margin:0 0 8px;color:#e2e8f0;font-size:0.9rem}
+        .feature-item p{margin:0;font-size:0.8rem;color:#94a3b8}
+        @media(max-width:768px){.card{padding:24px;margin:16px}.offline-features{grid-template-columns:1fr}}
     </style>
-    <script defer src="js/floating-contact.js"></script>
 </head>
 <body>
+    <div class="connection-status" id="connection-status">Çevrimdışı</div>
+    
     <main class="card" role="main" aria-labelledby="title">
-        <h1 id="title">Çevrimdışı</h1>
-        <p>İnternet bağlantısı yok gibi görünüyor. Bağlantı geri geldiğinde sayfayı yenileyebilirsiniz.</p>
+        <div class="offline-icon">📡</div>
+        <h1 id="title">Çevrimdışı Mod</h1>
+        <p>İnternet bağlantısı yok gibi görünüyor. DC TEKNİK'in PWA özellikleri sayesinde temel işlevleri kullanmaya devam edebilirsiniz.</p>
+        
         <div class="row">
             <a class="btn" href="index.html">Ana sayfaya dön</a>
-            <a class="btn" href="javascript:location.reload()">Yenile</a>
+            <a class="btn" href="javascript:checkConnection()">Bağlantıyı kontrol et</a>
+        </div>
+        
+        <div class="offline-features">
+            <div class="feature-item">
+                <h3>📱 PWA</h3>
+                <p>Uygulama benzeri deneyim</p>
+            </div>
+            <div class="feature-item">
+                <h3>💾 Cache</h3>
+                <p>Önbelleğe alınmış içerik</p>
+            </div>
+            <div class="feature-item">
+                <h3>🔄 Sync</h3>
+                <p>Otomatik senkronizasyon</p>
+            </div>
+            <div class="feature-item">
+                <h3>📋 Forms</h3>
+                <p>Çevrimdışı form kaydetme</p>
+            </div>
         </div>
     </main>
+
+    <script>
+        function checkConnection() {
+            if (navigator.onLine) {
+                window.location.reload();
+            } else {
+                alert('Hala çevrimdışısınız. Lütfen internet bağlantınızı kontrol edin.');
+            }
+        }
+        
+        function updateConnectionStatus() {
+            const status = document.getElementById('connection-status');
+            if (navigator.onLine) {
+                status.textContent = 'Çevrimiçi';
+                status.className = 'connection-status online';
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            } else {
+                status.textContent = 'Çevrimdışı';
+                status.className = 'connection-status';
+            }
+        }
+        
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+        updateConnectionStatus();
+        
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
 </body>
 </html>
 

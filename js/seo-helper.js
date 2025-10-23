@@ -270,3 +270,4 @@
     // Expose metrics for debugging
     window.seoMetrics = seoMetrics;
 })();
+

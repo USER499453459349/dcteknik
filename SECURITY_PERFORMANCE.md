@@ -337,3 +337,4 @@ function logSecurityEvent(eventType, data) {
 ---
 
 *Bu Security & Performance dokümanı düzenli olarak güncellenecek ve performans verilerine göre optimize edilecektir.*
+
