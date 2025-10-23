@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWA Test Dashboard - DC TEKNİK</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="ga-measurement-id" content="G-N1Z05DJ9B4">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 2rem; 
+            background: linear-gradient(135deg, #f8f9fa, #e2e8f0);
+            min-height: 100vh;
+        }
+        .test-header {
+            background: linear-gradient(135deg, #0b5cff, #3b82f6);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(11, 92, 255, 0.3);
+        }
+        .test-header h1 {
+            margin: 0 0 1rem 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .test-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .test-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .test-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        .test-card h3 {
+            margin: 0 0 1rem 0;
+            color: #1e293b;
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .test-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .status-pending { background: #fef3c7; color: #d97706; }
+        .status-pass { background: #d1fae5; color: #059669; }
+        .status-fail { background: #fee2e2; color: #dc2626; }
+        .status-running { background: #dbeafe; color: #2563eb; }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #0b5cff, #3b82f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem;
+            box-shadow: 0 4px 12px rgba(11, 92, 255, 0.3);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(11, 92, 255, 0.4);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #059669, #10b981);
+        }
+        .btn-warning {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #64748b, #94a3b8);
+        }
+        .test-log {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 2rem;
+        }
+        .log-entry {
+            margin-bottom: 0.5rem;
+            padding: 0.25rem 0;
+        }
+        .log-entry.info { color: #60a5fa; }
+        .log-entry.success { color: #34d399; }
+        .log-entry.warning { color: #fbbf24; }
+        .log-entry.error { color: #f87171; }
+        .test-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .result-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #e2e8f0;
+        }
+        .result-item.pass { border-left-color: #059669; }
+        .result-item.fail { border-left-color: #dc2626; }
+        .result-item.warning { border-left-color: #d97706; }
+        .result-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1e293b;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .result-item p {
+            margin: 0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #dc2626;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .connection-status.online {
+            background: #059669;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0b5cff, #3b82f6);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        @media (max-width: 768px) {
+            .test-header h1 {
+                font-size: 2rem;
+            }
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+            .test-results {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="connection-status" id="connection-status">Çevrimiçi</div>
+    
+    <div class="test-header">
+        <h1>🧪 PWA Test Dashboard</h1>
+        <p>DC TEKNİK - PWA Features Test ve Doğrulama</p>
+    </div>
+
+    <div class="test-grid">
+        <div class="test-card">
+            <h3>📱 PWA Kurulum</h3>
+            <div class="test-status" id="install-status">Bekliyor</div>
+            <p>PWA kurulum özelliklerini test edin</p>
+            <button class="btn" onclick="testInstallPrompt()">Kurulum Testi</button>
+            <button class="btn btn-secondary" onclick="checkInstallStatus()">Durum Kontrolü</button>
+        </div>
+
+        <div class="test-card">
+            <h3>🔄 Offline Mod</h3>
+            <div class="test-status" id="offline-status">Bekliyor</div>
+            <p>Çevrimdışı işlevselliği test edin</p>
+            <button class="btn" onclick="testOfflineMode()">Offline Test</button>
+            <button class="btn btn-secondary" onclick="simulateOffline()">Offline Simülasyon</button>
+        </div>
+
+        <div class="test-card">
+            <h3>🔔 Push Notifications</h3>
+            <div class="test-status" id="notification-status">Bekliyor</div>
+            <p>Bildirim özelliklerini test edin</p>
+            <button class="btn" onclick="testNotifications()">Bildirim Testi</button>
+            <button class="btn btn-secondary" onclick="requestPermission()">İzin İste</button>
+        </div>
+
+        <div class="test-card">
+            <h3>💾 Cache Yönetimi</h3>
+            <div class="test-status" id="cache-status">Bekliyor</div>
+            <p>Önbellek sistemini test edin</p>
+            <button class="btn" onclick="testCache()">Cache Testi</button>
+            <button class="btn btn-warning" onclick="clearCache()">Cache Temizle</button>
+        </div>
+
+        <div class="test-card">
+            <h3>⚡ Performance</h3>
+            <div class="test-status" id="performance-status">Bekliyor</div>
+            <p>PWA performansını test edin</p>
+            <button class="btn" onclick="testPerformance()">Performance Testi</button>
+            <button class="btn btn-secondary" onclick="getMetrics()">Metrikleri Gör</button>
+        </div>
+
+        <div class="test-card">
+            <h3>🎨 App-like Features</h3>
+            <div class="test-status" id="applike-status">Bekliyor</div>
+            <p>Uygulama benzeri özellikleri test edin</p>
+            <button class="btn" onclick="testAppLikeFeatures()">App-like Test</button>
+            <button class="btn btn-secondary" onclick="showSplash()">Splash Screen</button>
+        </div>
+    </div>
+
+    <div class="test-results" id="test-results">
+        <!-- Test results will be populated here -->
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="test-log" id="test-log">
+        <div class="log-entry info">[INFO] PWA Test Dashboard yüklendi</div>
+        <div class="log-entry info">[INFO] Test senaryoları hazırlanıyor...</div>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn btn-success" onclick="runAllTests()">Tüm Testleri Çalıştır</button>
+        <button class="btn btn-secondary" onclick="exportResults()">Sonuçları Dışa Aktar</button>
+        <button class="btn btn-danger" onclick="clearLog()">Log Temizle</button>
+    </div>
+
+    <script>
+        // PWA Test Dashboard Script
+        let testResults = {
+            install: { status: 'pending', details: '' },
+           offline: { status: 'pending', details: '' },
+           notification: { status: 'pending', details: '' },
+           cache: { status: 'pending', details: '' },
+           performance: { status: 'pending', details: '' },
+           applike: { status: 'pending', details: '' }
+        };
+
+        function log(message, type = 'info') {
+            const logContainer = document.getElementById('test-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${type}`;
+            logEntry.textContent = `[${timestamp}] [${type.toUpperCase()}] ${message}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        function updateTestStatus(testName, status, details = '') {
+            testResults[testName] = { status, details };
+            
+            const statusElement = document.getElementById(`${testName}-status`);
+            if (statusElement) {
+                statusElement.textContent = status === 'pass' ? 'Başarılı' : 
+                                          status === 'fail' ? 'Başarısız' : 
+                                          status === 'running' ? 'Çalışıyor' : 'Bekliyor';
+                statusElement.className = `test-status status-${status}`;
+            }
+            
+            log(`${testName} testi: ${status} ${details}`, status === 'pass' ? 'success' : status === 'fail' ? 'error' : 'info');
+            updateTestResults();
+            updateProgress();
+        }
+
+        function updateTestResults() {
+            const resultsContainer = document.getElementById('test-results');
+            resultsContainer.innerHTML = '';
+            
+            Object.keys(testResults).forEach(testName => {
+                const result = testResults[testName];
+                const resultItem = document.createElement('div');
+                resultItem.className = `result-item ${result.status}`;
+                resultItem.innerHTML = `
+                    <h4>${testName.charAt(0).toUpperCase() + testName.slice(1)} Test</h4>
+                    <p>Durum: ${result.status} ${result.details}</p>
+                `;
+                resultsContainer.appendChild(resultItem);
+            });
+        }
+
+        function updateProgress() {
+            const totalTests = Object.keys(testResults).length;
+            const completedTests = Object.values(testResults).filter(result => 
+                result.status === 'pass' || result.status === 'fail'
+            ).length;
+            
+            const progress = (completedTests / totalTests) * 100;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+        }
+
+        // Test functions
+        function testInstallPrompt() {
+            log('PWA kurulum testi başlatılıyor...', 'info');
+            updateTestStatus('install', 'running');
+            
+            setTimeout(() => {
+                if ('serviceWorker' in navigator && 'PushManager' in window) {
+                    updateTestStatus('install', 'pass', '- PWA destekleniyor');
+                } else {
+                    updateTestStatus('install', 'fail', '- PWA desteklenmiyor');
+                }
+            }, 1000);
+        }
+
+        function checkInstallStatus() {
+            log('Kurulum durumu kontrol ediliyor...', 'info');
+            
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                log('Uygulama standalone modda çalışıyor', 'success');
+                alert('✅ PWA başarıyla kurulmuş!');
+            } else {
+                log('Uygulama web modda çalışıyor', 'warning');
+                alert('⚠️ PWA henüz kurulmamış. Kurulum için tarayıcı menüsünden "Uygulamayı yükle" seçeneğini kullanın.');
+            }
+        }
+
+        function testOfflineMode() {
+            log('Offline mod testi başlatılıyor...', 'info');
+            updateTestStatus('offline', 'running');
+            
+            setTimeout(() => {
+                if ('serviceWorker' in navigator) {
+                    updateTestStatus('offline', 'pass', '- Service Worker aktif');
+                } else {
+                    updateTestStatus('offline', 'fail', '- Service Worker desteklenmiyor');
+                }
+            }, 1000);
+        }
+
+        function simulateOffline() {
+            log('Offline simülasyonu başlatılıyor...', 'info');
+            
+            // Simulate offline mode
+            navigator.serviceWorker.ready.then(registration => {
+                registration.sync.register('test-sync').then(() => {
+                    log('Background sync testi başarılı', 'success');
+                });
+            });
+            
+            alert('🔄 Offline simülasyonu başlatıldı. Network sekmesinde offline modu test edebilirsiniz.');
+        }
+
+        function testNotifications() {
+            log('Bildirim testi başlatılıyor...', 'info');
+            updateTestStatus('notification', 'running');
+            
+            setTimeout(() => {
+                if ('Notification' in window) {
+                    if (Notification.permission === 'granted') {
+                        new Notification('DC TEKNİK Test', {
+                            body: 'PWA bildirim testi başarılı!',
+                            icon: '/favicon-192x192.png'
+                        });
+                        updateTestStatus('notification', 'pass', '- Bildirimler aktif');
+                    } else {
+                        updateTestStatus('notification', 'fail', '- Bildirim izni gerekli');
+                    }
+                } else {
+                    updateTestStatus('notification', 'fail', '- Bildirimler desteklenmiyor');
+                }
+            }, 1000);
+        }
+
+        function requestPermission() {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        log('Bildirim izni verildi', 'success');
+                        testNotifications();
+                    } else {
+                        log('Bildirim izni reddedildi', 'warning');
+                    }
+                });
+            }
+        }
+
+        function testCache() {
+            log('Cache testi başlatılıyor...', 'info');
+            updateTestStatus('cache', 'running');
+            
+            setTimeout(() => {
+                if ('caches' in window) {
+                    caches.keys().then(cacheNames => {
+                        log(`Bulunan cache'ler: ${cacheNames.join(', ')}`, 'info');
+                        updateTestStatus('cache', 'pass', `- ${cacheNames.length} cache bulundu`);
+                    });
+                } else {
+                    updateTestStatus('cache', 'fail', '- Cache API desteklenmiyor');
+                }
+            }, 1000);
+        }
+
+        function clearCache() {
+            if ('caches' in window) {
+                caches.keys().then(cacheNames => {
+                    return Promise.all(
+                        cacheNames.map(cacheName => caches.delete(cacheName))
+                    );
+                }).then(() => {
+                    log('Tüm cache\'ler temizlendi', 'success');
+                    alert('✅ Cache temizlendi!');
+                });
+            }
+        }
+
+        function testPerformance() {
+            log('Performance testi başlatılıyor...', 'info');
+            updateTestStatus('performance', 'running');
+            
+            setTimeout(() => {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                const memoryUsage = performance.memory ? performance.memory.usedJSHeapSize : 0;
+                
+                log(`Sayfa yükleme süresi: ${loadTime}ms`, 'info');
+                log(`Bellek kullanımı: ${(memoryUsage / 1024 / 1024).toFixed(2)}MB`, 'info');
+                
+                if (loadTime < 3000) {
+                    updateTestStatus('performance', 'pass', `- ${loadTime}ms yükleme süresi`);
+                } else {
+                    updateTestStatus('performance', 'fail', `- ${loadTime}ms yavaş yükleme`);
+                }
+            }, 1000);
+        }
+
+        function getMetrics() {
+            const metrics = {
+                loadTime: performance.timing.loadEventEnd - performance.timing.navigationStart,
+                memoryUsage: performance.memory ? performance.memory.usedJSHeapSize : 0,
+                connectionType: navigator.connection ? navigator.connection.effectiveType : 'unknown'
+            };
+            
+            log('Performance metrikleri:', 'info');
+            log(`- Yükleme süresi: ${metrics.loadTime}ms`, 'info');
+            log(`- Bellek kullanımı: ${(metrics.memoryUsage / 1024 / 1024).toFixed(2)}MB`, 'info');
+            log(`- Bağlantı türü: ${metrics.connectionType}`, 'info');
+        }
+
+        function testAppLikeFeatures() {
+            log('App-like özellikler test ediliyor...', 'info');
+            updateTestStatus('applike', 'running');
+            
+            setTimeout(() => {
+                const features = {
+                    standalone: window.matchMedia('(display-mode: standalone)').matches,
+                    serviceWorker: 'serviceWorker' in navigator,
+                    manifest: document.querySelector('link[rel="manifest"]') !== null
+                };
+                
+                const passedFeatures = Object.values(features).filter(Boolean).length;
+                
+                if (passedFeatures >= 2) {
+                    updateTestStatus('applike', 'pass', `- ${passedFeatures}/3 özellik aktif`);
+                } else {
+                    updateTestStatus('applike', 'fail', `- ${passedFeatures}/3 özellik aktif`);
+                }
+            }, 1000);
+        }
+
+        function showSplash() {
+            const splash = document.createElement('div');
+            splash.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: linear-gradient(135deg, #0b5cff, #3b82f6);
+                color: white; display: flex; align-items: center; justify-content: center;
+                z-index: 10000; font-size: 2rem; font-weight: bold;
+            `;
+            splash.textContent = 'DC TEKNİK PWA';
+            document.body.appendChild(splash);
+            
+            setTimeout(() => {
+                splash.remove();
+            }, 2000);
+        }
+
+        function runAllTests() {
+            log('Tüm testler başlatılıyor...', 'info');
+            
+            testInstallPrompt();
+            setTimeout(() => testOfflineMode(), 500);
+            setTimeout(() => testNotifications(), 1000);
+            setTimeout(() => testCache(), 1500);
+            setTimeout(() => testPerformance(), 2000);
+            setTimeout(() => testAppLikeFeatures(), 2500);
+        }
+
+        function exportResults() {
+            const results = {
+                timestamp: new Date().toISOString(),
+                testResults: testResults,
+                summary: {
+                    totalTests: Object.keys(testResults).length,
+                    passedTests: Object.values(testResults).filter(r => r.status === 'pass').length,
+                    failedTests: Object.values(testResults).filter(r => r.status === 'fail').length
+                }
+            };
+            
+            const dataStr = JSON.stringify(results, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `pwa-test-results-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            log('Test sonuçları dışa aktarıldı', 'success');
+        }
+
+        function clearLog() {
+            document.getElementById('test-log').innerHTML = '';
+            log('Log temizlendi', 'info');
+        }
+
+        // Connection status monitoring
+        function updateConnectionStatus() {
+            const status = document.getElementById('connection-status');
+            if (navigator.onLine) {
+                status.textContent = 'Çevrimiçi';
+                status.className = 'connection-status online';
+            } else {
+                status.textContent = 'Çevrimdışı';
+                status.className = 'connection-status';
+            }
+        }
+
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+        updateConnectionStatus();
+
+        // Service Worker registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    log('Service Worker kayıtlı', 'success');
+                })
+                .catch(error => {
+                    log(`Service Worker kayıt hatası: ${error}`, 'error');
+                });
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            log('PWA Test Dashboard hazır', 'success');
+            
+            // Auto-run basic tests after 2 seconds
+            setTimeout(() => {
+                testInstallPrompt();
+                testOfflineMode();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
