@@ -6059,6 +6059,392 @@ img {
     line-height: 1.4;
 }
 
+/* SEO Optimization Styles */
+.local-seo-section {
+    padding: 3rem 0;
+    background: #f8f9fa;
+    margin: 2rem 0;
+}
+
+.local-seo-section h2 {
+    color: #1e293b;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.local-seo-section h3 {
+    color: #059669;
+    margin: 1.5rem 0 1rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.local-seo-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.local-seo-section ul li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.local-seo-section ul li:before {
+    content: "✓";
+    color: #059669;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.local-testimonials-section {
+    padding: 3rem 0;
+    background: #ffffff;
+    margin: 2rem 0;
+}
+
+.local-testimonials-section h2 {
+    color: #1e293b;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.testimonial-item {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid #059669;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-rating {
+    color: #fbbf24;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.testimonial-text {
+    font-style: italic;
+    color: #4b5563;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.testimonial-author {
+    color: #059669;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.local-business-info {
+    margin: 2rem 0;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.business-card {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.business-card h3 {
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.business-details {
+    margin-bottom: 2rem;
+}
+
+.business-details p {
+    margin: 0.5rem 0;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.business-details a {
+    color: #059669;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.business-details a:hover {
+    text-decoration: underline;
+}
+
+.business-services {
+    margin-bottom: 2rem;
+}
+
+.business-services h4 {
+    color: #1e293b;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.business-services ul {
+    list-style: none;
+    padding: 0;
+}
+
+.business-services ul li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    color: #4b5563;
+}
+
+.business-services ul li:before {
+    content: "🔧";
+    margin-right: 0.5rem;
+}
+
+.business-area {
+    margin-bottom: 2rem;
+}
+
+.business-area h4 {
+    color: #1e293b;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.business-area p {
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.local-navigation {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.local-navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.local-navigation ul li a {
+    color: #059669;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.local-navigation ul li a:hover {
+    background: #059669;
+    color: #ffffff;
+}
+
+.breadcrumbs {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+
+.breadcrumbs a {
+    color: #059669;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.local-service-menu {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.local-service-menu h3 {
+    color: #1e293b;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.local-service-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.local-service-menu ul li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.local-service-menu ul li:last-child {
+    border-bottom: none;
+}
+
+.local-service-menu ul li a {
+    color: #4b5563;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.local-service-menu ul li a:hover {
+    color: #059669;
+}
+
+/* SEO Optimization Button Styles */
+.seo-optimization-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000;
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.seo-optimization-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(5, 150, 105, 0.4);
+}
+
+.seo-optimization-button.local-seo {
+    right: 80px;
+    background: linear-gradient(135deg, #0b5cff, #3b82f6);
+    box-shadow: 0 4px 12px rgba(11, 92, 255, 0.3);
+}
+
+.seo-optimization-button.local-seo:hover {
+    box-shadow: 0 6px 16px rgba(11, 92, 255, 0.4);
+}
+
+/* SEO Content Enhancement */
+.seo-enhanced-content {
+    margin: 2rem 0;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.seo-enhanced-content h2 {
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.seo-enhanced-content h3 {
+    color: #059669;
+    margin: 1.5rem 0 1rem 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.seo-enhanced-content p {
+    color: #4b5563;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.seo-enhanced-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.seo-enhanced-content ul li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    color: #4b5563;
+}
+
+.seo-enhanced-content ul li:before {
+    content: "✓";
+    color: #059669;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+/* SEO Schema Markup Styles */
+.schema-markup {
+    display: none;
+}
+
+/* SEO Performance Indicators */
+.seo-performance-indicator {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10000;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    font-size: 0.8rem;
+    color: #4b5563;
+}
+
+.seo-performance-indicator .seo-score {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #059669;
+}
+
+.seo-performance-indicator .seo-score.excellent {
+    color: #059669;
+}
+
+.seo-performance-indicator .seo-score.good {
+    color: #0b5cff;
+}
+
+.seo-performance-indicator .seo-score.average {
+    color: #f59e0b;
+}
+
+.seo-performance-indicator .seo-score.poor {
+    color: #dc2626;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .services-intro .intro-card {
@@ -6093,6 +6479,59 @@ img {
     .newsletter-input-group input {
         padding: 0.5rem;
         font-size: 0.8rem;
+    }
+    
+    .local-seo-section {
+        padding: 2rem 0;
+    }
+    
+    .local-seo-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .testimonial-item {
+        padding: 1rem;
+    }
+    
+    .local-business-info {
+        padding: 1rem;
+    }
+    
+    .business-card h3 {
+        font-size: 1.5rem;
+    }
+    
+    .local-navigation ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .local-navigation ul li a {
+        padding: 0.75rem 1rem;
+        text-align: center;
+    }
+    
+    .seo-optimization-button {
+        bottom: 10px;
+        right: 10px;
+        padding: 10px 15px;
+        font-size: 0.8rem;
+    }
+    
+    .seo-optimization-button.local-seo {
+        right: 70px;
+    }
+    
+    .seo-performance-indicator {
+        top: 10px;
+        left: 10px;
+        padding: 0.75rem;
+        font-size: 0.7rem;
     }
 }
 
