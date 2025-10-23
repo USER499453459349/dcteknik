@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA4 & Schema.org Validation - DC TEKNİK</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="ga-measurement-id" content="G-N1Z05DJ9B4">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem; }
+        .section { background: #f8f9fa; padding: 1.5rem; margin: 1rem 0; border-radius: 8px; }
+        .test-btn { background: #007bff; color: white; border: none; padding: 0.5rem 1rem; margin: 0.5rem; border-radius: 4px; cursor: pointer; }
+        .test-btn:hover { background: #0056b3; }
+        .result { background: #e9ecef; padding: 1rem; margin: 1rem 0; border-radius: 4px; font-family: monospace; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+    <h1>🔍 GA4 & Schema.org Validation Tool</h1>
+    <p>Bu sayfa GA4 event'lerini ve Schema.org markup'ını test etmek için kullanılır.</p>
+    
+    <div class="section">
+        <h2>📊 GA4 Event Tests</h2>
+        <button class="test-btn" onclick="testWhatsAppEvent()">WhatsApp Event Test</button>
+        <button class="test-btn" onclick="testPhoneEvent()">Phone Call Event Test</button>
+        <button class="test-btn" onclick="testFormEvent()">Form Submit Event Test</button>
+        <button class="test-btn" onclick="checkGA4Status()">GA4 Status Check</button>
+        <div id="ga4-results" class="result"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🏗️ Schema.org Validation</h2>
+        <button class="test-btn" onclick="validateSchemas()">Validate All Schemas</button>
+        <button class="test-btn" onclick="showSchemaDetails()">Show Schema Details</button>
+        <div id="schema-results" class="result"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🔗 Rich Results Test</h2>
+        <p>Google Rich Results Test için bu sayfayı test edin:</p>
+        <a href="https://search.google.com/test/rich-results" target="_blank" class="test-btn">Google Rich Results Test</a>
+        <a href="https://validator.schema.org/" target="_blank" class="test-btn">Schema.org Validator</a>
+    </div>
+
+    <script>
+        // GA4 Event Tests
+        function testWhatsAppEvent() {
+            const results = document.getElementById('ga4-results');
+            if (typeof validateGA4Event === 'function') {
+                const success = validateGA4Event('whatsapp_contact', { 
+                    event_category: 'test',
+                    event_label: 'validation_page',
+                    value: 1 
+                });
+                results.innerHTML = `<div class="${success ? 'success' : 'error'}">WhatsApp Event: ${success ? '✅ Sent Successfully' : '❌ Failed to Send'}</div>`;
+            } else {
+                results.innerHTML = '<div class="error">❌ validateGA4Event function not found</div>';
+            }
+        }
+        
+        function testPhoneEvent() {
+            const results = document.getElementById('ga4-results');
+            if (typeof validateGA4Event === 'function') {
+                const success = validateGA4Event('phone_call', { 
+                    event_category: 'test',
+                    event_label: 'validation_page',
+                    value: 1 
+                });
+                results.innerHTML = `<div class="${success ? 'success' : 'error'}">Phone Call Event: ${success ? '✅ Sent Successfully' : '❌ Failed to Send'}</div>`;
+            } else {
+                results.innerHTML = '<div class="error">❌ validateGA4Event function not found</div>';
+            }
+        }
+        
+        function testFormEvent() {
+            const results = document.getElementById('ga4-results');
+            if (typeof validateGA4Event === 'function') {
+                const success = validateGA4Event('form_submit', { 
+                    event_category: 'test',
+                    event_label: 'validation_page',
+                    value: 1 
+                });
+                results.innerHTML = `<div class="${success ? 'success' : 'error'}">Form Submit Event: ${success ? '✅ Sent Successfully' : '❌ Failed to Send'}</div>`;
+            } else {
+                results.innerHTML = '<div class="error">❌ validateGA4Event function not found</div>';
+            }
+        }
+        
+        function checkGA4Status() {
+            const results = document.getElementById('ga4-results');
+            const status = {
+                gtag: typeof gtag !== 'undefined',
+                dataLayer: typeof dataLayer !== 'undefined',
+                GA4_MEASUREMENT_ID: document.querySelector('meta[name="ga-measurement-id"]')?.content || 'Not found'
+            };
+            
+            let html = '<h3>GA4 Status:</h3>';
+            html += `<div class="${status.gtag ? 'success' : 'error'}">gtag function: ${status.gtag ? '✅ Available' : '❌ Not Available'}</div>`;
+            html += `<div class="${status.dataLayer ? 'success' : 'error'}">dataLayer: ${status.dataLayer ? '✅ Available' : '❌ Not Available'}</div>`;
+            html += `<div class="${status.GA4_MEASUREMENT_ID !== 'Not found' ? 'success' : 'error'}">Measurement ID: ${status.GA4_MEASUREMENT_ID}</div>`;
+            
+            results.innerHTML = html;
+        }
+        
+        // Schema Validation Tests
+        function validateSchemas() {
+            const results = document.getElementById('schema-results');
+            if (typeof validateSchemaMarkup === 'function') {
+                const validation = validateSchemaMarkup();
+                let html = '<h3>Schema Validation Results:</h3>';
+                html += `<div class="success">✅ Valid Schemas: ${validation.valid}</div>`;
+                html += `<div class="${validation.invalid > 0 ? 'error' : 'success'}">${validation.invalid > 0 ? '❌' : '✅'} Invalid Schemas: ${validation.invalid}</div>`;
+                
+                if (validation.errors.length > 0) {
+                    html += '<h4>Errors:</h4>';
+                    validation.errors.forEach(error => {
+                        html += `<div class="error">❌ ${error}</div>`;
+                    });
+                }
+                
+                results.innerHTML = html;
+            } else {
+                results.innerHTML = '<div class="error">❌ validateSchemaMarkup function not found</div>';
+            }
+        }
+        
+        function showSchemaDetails() {
+            const results = document.getElementById('schema-results');
+            const schemas = document.querySelectorAll('script[type="application/ld+json"]');
+            
+            let html = '<h3>Schema Details:</h3>';
+            schemas.forEach((schema, index) => {
+                try {
+                    const data = JSON.parse(schema.textContent);
+                    html += `<div class="success">Schema ${index + 1}: ${data['@type'] || 'Unknown Type'}</div>`;
+                    html += `<pre style="background: #f8f9fa; padding: 0.5rem; margin: 0.5rem 0; border-radius: 4px; overflow-x: auto;">${JSON.stringify(data, null, 2)}</pre>`;
+                } catch (e) {
+                    html += `<div class="error">Schema ${index + 1}: JSON Parse Error</div>`;
+                }
+            });
+            
+            results.innerHTML = html;
+        }
+        
+        // Load main scripts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load GA4
+            const gaId = document.querySelector('meta[name="ga-measurement-id"]')?.content;
+            if (gaId) {
+                const script = document.createElement('script');
+                script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+                script.async = true;
+                document.head.appendChild(script);
+                
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                window.gtag = gtag;
+                gtag('js', new Date());
+                gtag('config', gaId);
+            }
+            
+            // Load main script functions
+            const mainScript = document.createElement('script');
+            mainScript.src = 'script.js';
+            mainScript.defer = true;
+            document.head.appendChild(mainScript);
+        });
+    </script>
+</body>
+</html>

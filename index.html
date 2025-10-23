@@ -110,8 +110,16 @@
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "DC TEKNİK",
+        "alternateName": "Dinamocu Serdar",
         "url": "https://dctenık.com",
-        "logo": "https://dctenık.com/logo-new.svg",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://dctenık.com/logo-new.svg",
+            "width": 160,
+            "height": 48
+        },
+        "description": "Sultanbeyli'nin güvenilir dinamocu servisi. Dinamo tamiri, alternatör onarımı, marş motoru servisi.",
+        "foundingDate": "2020",
         "sameAs": [
             "https://www.facebook.com/DinamocuSerdar"
         ],
@@ -120,6 +128,7 @@
             "streetAddress": "Atatürk Cad. No:312",
             "addressLocality": "Sultanbeyli",
             "addressRegion": "İstanbul",
+            "postalCode": "34900",
             "addressCountry": "TR"
         },
         "contactPoint": {
@@ -127,7 +136,13 @@
             "telephone": "+90 535 356 24 69",
             "contactType": "customer service",
             "areaServed": "TR",
-            "availableLanguage": ["tr", "en"]
+            "availableLanguage": ["tr", "en"],
+            "hoursAvailable": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                "opens": "08:00",
+                "closes": "18:00"
+            }
         }
     }
     </script>
@@ -149,7 +164,9 @@
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "4.9",
-            "reviewCount": "247"
+            "reviewCount": "247",
+            "bestRating": "5",
+            "worstRating": "1"
         },
         "address": {
             "@type": "PostalAddress",
@@ -1847,7 +1864,7 @@
                                 2.847 okuma
                             </span>
                         </div>
-                        <h3>⚡ Dinamo Arızası: 5 Kritik Belirti ve Acil Çözümler</h3>
+                        <h3><a href="blog.html#dinamo-arizalari">⚡ Dinamo Arızası: 5 Kritik Belirti ve Acil Çözümler</a></h3>
                         <p>Dinamo arızası araç sahiplerinin en çok korktuğu sorunlardan biri. Bu yazıda, dinamo arızasının 5 kritik belirtisini ve acil durumda yapmanız gerekenleri öğreneceksiniz...</p>
                         <div class="blog-tags">
                             <span class="tag">Dinamo</span>
@@ -1879,7 +1896,7 @@
                                 1.923 okuma
                             </span>
                         </div>
-                        <h3>🔧 Alternatör Bakımı: Araç Ömrünü 2 Katına Çıkarın!</h3>
+                        <h3><a href="blog.html#alternator-bakimi">🔧 Alternatör Bakımı: Araç Ömrünü 2 Katına Çıkarın!</a></h3>
                         <p>Alternatör bakımının araç performansına etkisi, düzenli bakım programı ve maliyet tasarrufu sağlayan pratik öneriler...</p>
                         <div class="blog-tags">
                             <span class="tag">Alternatör</span>
@@ -1911,7 +1928,7 @@
                                 1.456 okuma
                             </span>
                         </div>
-                        <h3>🚗 Marş Motoru Arızası: Soğuk Havada Araç Çalışmıyor mu?</h3>
+                        <h3><a href="blog.html#mars-motoru">🚗 Marş Motoru Arızası: Soğuk Havada Araç Çalışmıyor mu?</a></h3>
                         <p>Kış aylarında en sık karşılaşılan sorunlardan biri olan marş motoru arızası. Nedenleri, belirtileri ve soğuk havalarda araç çalıştırma teknikleri...</p>
                         <div class="blog-tags">
                             <span class="tag">Marş Motoru</span>
@@ -1927,7 +1944,11 @@
             <div class="blog-grid">
                 <article class="blog-card">
                     <div class="blog-image">
+                        <picture>
+                            <source type="image/avif" srcset="https://images.unsplash.com/photo-1517420704952-d9f39e95b43f?w=400&h=250&fit=crop&fm=avif">
+                            <source type="image/webp" srcset="https://images.unsplash.com/photo-1517420704952-d9f39e95b43f?w=400&h=250&fit=crop&fm=webp">
                         <img src="https://images.unsplash.com/photo-1517420704952-d9f39e95b43f?w=400&h=250&fit=crop" alt="Kışın Akü Bakımı" width="400" height="250" loading="lazy" decoding="async">
+                        </picture>
                         <div class="blog-category">Bakım</div>
                     </div>
                     <div class="blog-content">
@@ -1938,7 +1959,11 @@
                 </article>
                 <article class="blog-card">
                     <div class="blog-image">
+                        <picture>
+                            <source type="image/avif" srcset="https://images.unsplash.com/photo-1589519160716-cf13a0b1a509?w=400&h=250&fit=crop&fm=avif">
+                            <source type="image/webp" srcset="https://images.unsplash.com/photo-1589519160716-cf13a0b1a509?w=400&h=250&fit=crop&fm=webp">
                         <img src="https://images.unsplash.com/photo-1589519160716-cf13a0b1a509?w=400&h=250&fit=crop" alt="Alternatör Kayışı Gıcırtısı" width="400" height="250" loading="lazy" decoding="async">
+                        </picture>
                         <div class="blog-category">Alternatör</div>
                     </div>
                     <div class="blog-content">
@@ -1949,7 +1974,11 @@
                 </article>
                 <article class="blog-card">
                     <div class="blog-image">
+                        <picture>
+                            <source type="image/avif" srcset="https://images.unsplash.com/photo-1517940310602-960144c3ea38?w=400&h=250&fit=crop&fm=avif">
+                            <source type="image/webp" srcset="https://images.unsplash.com/photo-1517940310602-960144c3ea38?w=400&h=250&fit=crop&fm=webp">
                         <img src="https://images.unsplash.com/photo-1517940310602-960144c3ea38?w=400&h=250&fit=crop" alt="Marş Motoru Tık Sesi" width="400" height="250" loading="lazy" decoding="async">
+                        </picture>
                         <div class="blog-category">Marş Motoru</div>
                     </div>
                     <div class="blog-content">
@@ -2505,7 +2534,7 @@
             </div>
         </div>
     </footer>
-
+    
     <!-- Google Reviews section removed -->
     
     <!-- Floating CTA (Mobile) removed; using .dc-floating widget globally -->

@@ -1616,6 +1616,72 @@ function getHeroVariant() {
     } catch (e) { return 'default'; }
 }
 
+// GA4 Event Validation Helper
+function validateGA4Event(eventName, parameters) {
+    if (typeof gtag === 'undefined') {
+        console.warn('GA4 not loaded - event not tracked:', eventName);
+        return false;
+    }
+    
+    // Validate required conversion events
+    const conversionEvents = ['whatsapp_contact', 'phone_call', 'form_submit'];
+    if (conversionEvents.includes(eventName)) {
+        console.log('✅ GA4 Conversion Event:', eventName, parameters);
+        
+        // Send to GA4
+        gtag('event', eventName, parameters);
+        
+        // Also send as conversion if configured
+        if (window.GA4_CONVERSION_CONFIG && window.GA4_CONVERSION_CONFIG[eventName]) {
+            gtag('event', 'conversion', {
+                send_to: window.GA4_CONVERSION_CONFIG[eventName],
+                value: parameters.value || 1,
+                currency: 'TRY'
+            });
+        }
+        
+        return true;
+    }
+    
+    // Regular event tracking
+    gtag('event', eventName, parameters);
+    return true;
+}
+
+// Schema.org Validation Helper
+function validateSchemaMarkup() {
+    const schemas = document.querySelectorAll('script[type="application/ld+json"]');
+    const results = {
+        valid: 0,
+        invalid: 0,
+        errors: []
+    };
+    
+    schemas.forEach(function(schema, index) {
+        try {
+            const data = JSON.parse(schema.textContent);
+            if (data['@context'] && data['@type']) {
+                results.valid++;
+                console.log(`✅ Schema ${index + 1}: ${data['@type']} is valid`);
+            } else {
+                results.invalid++;
+                results.errors.push(`Schema ${index + 1}: Missing @context or @type`);
+            }
+        } catch (e) {
+            results.invalid++;
+            results.errors.push(`Schema ${index + 1}: JSON parse error - ${e.message}`);
+        }
+    });
+    
+    console.log('📊 Schema Validation Results:', results);
+    return results;
+}
+
+// Auto-validate schemas on page load
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(validateSchemaMarkup, 1000);
+});
+
 function getStoredUtm() {
     try {
         return JSON.parse(sessionStorage.getItem('utm_params') || '{}');
@@ -1985,9 +2051,7 @@ document.addEventListener('DOMContentLoaded', function() {
     whatsappButtons.forEach(function(button) {
         button.addEventListener('click', function() {
             trackButtonClick('whatsapp_contact', 'header');
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'whatsapp_contact', buildGaParams({ value: 1 }));
-            }
+            validateGA4Event('whatsapp_contact', buildGaParams({ value: 1 }));
         });
     });
     
@@ -1996,9 +2060,7 @@ document.addEventListener('DOMContentLoaded', function() {
     phoneLinks.forEach(function(link) {
         link.addEventListener('click', function() {
             trackButtonClick('phone_call', 'contact');
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'phone_call', buildGaParams({ value: 1 }));
-            }
+            validateGA4Event('phone_call', buildGaParams({ value: 1 }));
         });
     });
     
