@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Dashboard - DC TEKNİK</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="ga-measurement-id" content="G-N1Z05DJ9B4">
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 2rem; 
+            background: #f8f9fa;
+        }
+        .dashboard-header {
+            background: linear-gradient(135deg, #0b5cff, #3b82f6);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .dashboard-header h1 {
+            margin: 0 0 1rem 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .dashboard-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .metric-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #0b5cff;
+        }
+        .metric-card h3 {
+            margin: 0 0 0.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .metric-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0 0 0.5rem 0;
+        }
+        .metric-card .change {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .change.positive { color: #059669; }
+        .change.negative { color: #dc2626; }
+        .change.neutral { color: #64748b; }
+        .section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .section h2 {
+            margin: 0 0 1.5rem 0;
+            color: #1e293b;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .core-web-vitals {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .vital-card {
+            background: #f1f5f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+        .vital-card.good { border-left: 4px solid #059669; }
+        .vital-card.needs-improvement { border-left: 4px solid #d97706; }
+        .vital-card.poor { border-left: 4px solid #dc2626; }
+        .vital-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1e293b;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .vital-card .score {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0b5cff;
+            margin: 0 0 0.5rem 0;
+        }
+        .vital-card .status {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        .resource-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .resource-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+        .resource-name {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .resource-metrics {
+            text-align: right;
+        }
+        .resource-metrics .size {
+            font-weight: 700;
+            color: #0b5cff;
+        }
+        .resource-metrics .load-time {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #0b5cff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        .btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #64748b;
+        }
+        .btn-secondary:hover {
+            background: #475569;
+        }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+        }
+        .error {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .security-events {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .security-event {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+        .security-event:last-child {
+            border-bottom: none;
+        }
+        .event-type {
+            font-weight: 600;
+            color: #dc2626;
+        }
+        .event-time {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+        @media (max-width: 768px) {
+            .dashboard-header h1 {
+                font-size: 2rem;
+            }
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            .resource-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <h1>⚡ Performance Dashboard</h1>
+        <p>DC TEKNİK - Performance ve Security Monitoring</p>
+    </div>
+
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <h3>Page Load Time</h3>
+            <div class="value" id="load-time">-</div>
+            <div class="change neutral" id="load-time-change">Yükleniyor...</div>
+        </div>
+        <div class="metric-card">
+            <h3>Performance Score</h3>
+            <div class="value" id="performance-score">-</div>
+            <div class="change neutral" id="performance-score-change">Yükleniyor...</div>
+        </div>
+        <div class="metric-card">
+            <h3>Resource Count</h3>
+            <div class="value" id="resource-count">-</div>
+            <div class="change neutral" id="resource-count-change">Yükleniyor...</div>
+        </div>
+        <div class="metric-card">
+            <h3>Memory Usage</h3>
+            <div class="value" id="memory-usage">-</div>
+            <div class="change neutral" id="memory-usage-change">Yükleniyor...</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🎯 Core Web Vitals</h2>
+        <div class="core-web-vitals">
+            <div class="vital-card" id="lcp-card">
+                <h4>LCP</h4>
+                <div class="score" id="lcp-score">-</div>
+                <div class="status" id="lcp-status">Yükleniyor...</div>
+            </div>
+            <div class="vital-card" id="fid-card">
+                <h4>FID</h4>
+                <div class="score" id="fid-score">-</div>
+                <div class="status" id="fid-status">Yükleniyor...</div>
+            </div>
+            <div class="vital-card" id="cls-card">
+                <h4>CLS</h4>
+                <div class="score" id="cls-score">-</div>
+                <div class="status" id="cls-status">Yükleniyor...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📊 Resource Performance</h2>
+        <div class="resource-list" id="resource-list">
+            <div class="loading">Veriler yükleniyor...</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔒 Security Events</h2>
+        <div class="security-events" id="security-events">
+            <div class="loading">Güvenlik olayları yükleniyor...</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔧 Performance Tools</h2>
+        <div style="text-align: center;">
+            <button class="btn" onclick="refreshData()">Verileri Yenile</button>
+            <button class="btn btn-secondary" onclick="exportData()">Verileri Dışa Aktar</button>
+            <button class="btn" onclick="runPerformanceTest()">Performance Test</button>
+            <button class="btn btn-secondary" onclick="clearCache()">Cache Temizle</button>
+        </div>
+    </div>
+
+    <script>
+        // Performance Dashboard Script
+        let performanceData = {
+            loadTime: 0,
+            performanceScore: 0,
+            resourceCount: 0,
+            memoryUsage: 0,
+            coreWebVitals: {
+                lcp: 0,
+                fid: 0,
+                cls: 0
+            },
+            resources: [],
+            securityEvents: []
+        };
+
+        // Simulate data loading (replace with actual performance data)
+        function loadPerformanceData() {
+            console.log('⚡ Loading performance data...');
+            
+            // Simulate API delay
+            setTimeout(() => {
+                // Mock data - replace with actual performance data
+                performanceData = {
+                    loadTime: 1250,
+                    performanceScore: 92,
+                    resourceCount: 45,
+                    memoryUsage: 32,
+                    coreWebVitals: {
+                        lcp: 2100,
+                        fid: 85,
+                        cls: 0.05
+                    },
+                    resources: [
+                        { name: 'index.html', size: '15.2 KB', loadTime: '120ms' },
+                        { name: 'style.css', size: '45.8 KB', loadTime: '180ms' },
+                        { name: 'script.js', size: '28.4 KB', loadTime: '95ms' },
+                        { name: 'logo-new.svg', size: '8.1 KB', loadTime: '45ms' },
+                        { name: 'hero-image.jpg', size: '156.3 KB', loadTime: '320ms' }
+                    ],
+                    securityEvents: [
+                        { type: 'xss_attempt', time: '2025-01-20T10:30:00Z', details: 'Potential XSS attempt detected' },
+                        { type: 'csrf_attempt', time: '2025-01-20T10:25:00Z', details: 'CSRF attempt blocked' },
+                        { type: 'clickjacking_attempt', time: '2025-01-20T10:20:00Z', details: 'Clickjacking attempt prevented' }
+                    ]
+                };
+                
+                updateDashboard();
+            }, 1000);
+        }
+
+        function updateDashboard() {
+            // Update metrics
+            document.getElementById('load-time').textContent = performanceData.loadTime + 'ms';
+            document.getElementById('performance-score').textContent = performanceData.performanceScore + '/100';
+            document.getElementById('resource-count').textContent = performanceData.resourceCount;
+            document.getElementById('memory-usage').textContent = performanceData.memoryUsage + 'MB';
+
+            // Update Core Web Vitals
+            updateVitalCard('lcp', performanceData.coreWebVitals.lcp, 'LCP', 2500);
+            updateVitalCard('fid', performanceData.coreWebVitals.fid, 'FID', 100);
+            updateVitalCard('cls', performanceData.coreWebVitals.cls, 'CLS', 0.1);
+
+            // Update resources
+            const resourceListContainer = document.getElementById('resource-list');
+            resourceListContainer.innerHTML = '';
+            
+            performanceData.resources.forEach(resource => {
+                const resourceItem = document.createElement('div');
+                resourceItem.className = 'resource-item';
+                resourceItem.innerHTML = `
+                    <div class="resource-name">${resource.name}</div>
+                    <div class="resource-metrics">
+                        <div class="size">${resource.size}</div>
+                        <div class="load-time">${resource.loadTime}</div>
+                    </div>
+                `;
+                resourceListContainer.appendChild(resourceItem);
+            });
+
+            // Update security events
+            const securityEventsContainer = document.getElementById('security-events');
+            securityEventsContainer.innerHTML = '';
+            
+            performanceData.securityEvents.forEach(event => {
+                const eventElement = document.createElement('div');
+                eventElement.className = 'security-event';
+                eventElement.innerHTML = `
+                    <div class="event-type">${event.type.toUpperCase()}</div>
+                    <div>${event.details}</div>
+                    <div class="event-time">${new Date(event.time).toLocaleString()}</div>
+                `;
+                securityEventsContainer.appendChild(eventElement);
+            });
+        }
+
+        function updateVitalCard(vital, value, name, threshold) {
+            const card = document.getElementById(vital + '-card');
+            const score = document.getElementById(vital + '-score');
+            const status = document.getElementById(vital + '-status');
+            
+            score.textContent = value + (vital === 'cls' ? '' : 'ms');
+            
+            if (vital === 'cls') {
+                if (value < threshold) {
+                    card.className = 'vital-card good';
+                    status.textContent = 'Good';
+                } else if (value < threshold * 2) {
+                    card.className = 'vital-card needs-improvement';
+                    status.textContent = 'Needs Improvement';
+                } else {
+                    card.className = 'vital-card poor';
+                    status.textContent = 'Poor';
+                }
+            } else {
+                if (value < threshold) {
+                    card.className = 'vital-card good';
+                    status.textContent = 'Good';
+                } else if (value < threshold * 2) {
+                    card.className = 'vital-card needs-improvement';
+                    status.textContent = 'Needs Improvement';
+                } else {
+                    card.className = 'vital-card poor';
+                    status.textContent = 'Poor';
+                }
+            }
+        }
+
+        function refreshData() {
+            console.log('🔄 Refreshing performance data...');
+            document.getElementById('resource-list').innerHTML = '<div class="loading">Veriler yenileniyor...</div>';
+            loadPerformanceData();
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(performanceData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `dc-teknik-performance-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function runPerformanceTest() {
+            console.log('🧪 Running performance test...');
+            // Implement performance test logic
+            alert('Performance test başlatıldı!');
+        }
+
+        function clearCache() {
+            console.log('🗑️ Clearing cache...');
+            // Implement cache clearing logic
+            alert('Cache temizlendi!');
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPerformanceData();
+            
+            // Auto-refresh every 5 minutes
+            setInterval(refreshData, 300000);
+        });
+    </script>
+</body>
+</html>
