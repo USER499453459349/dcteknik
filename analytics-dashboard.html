@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard - DC TEKNİK</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="ga-measurement-id" content="G-N1Z05DJ9B4">
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 2rem; 
+            background: #f8f9fa;
+        }
+        .dashboard-header {
+            background: linear-gradient(135deg, #0b5cff, #3b82f6);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .dashboard-header h1 {
+            margin: 0 0 1rem 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .dashboard-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .metric-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #0b5cff;
+        }
+        .metric-card h3 {
+            margin: 0 0 0.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .metric-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0 0 0.5rem 0;
+        }
+        .metric-card .change {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .change.positive { color: #059669; }
+        .change.negative { color: #dc2626; }
+        .change.neutral { color: #64748b; }
+        .section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .section h2 {
+            margin: 0 0 1.5rem 0;
+            color: #1e293b;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .conversion-funnel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .funnel-step {
+            background: #f1f5f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+        .funnel-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #64748b;
+        }
+        .funnel-step h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1e293b;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .funnel-step .count {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0b5cff;
+            margin: 0 0 0.5rem 0;
+        }
+        .funnel-step .rate {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        .traffic-sources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .source-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+        .source-name {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .source-metrics {
+            text-align: right;
+        }
+        .source-metrics .sessions {
+            font-weight: 700;
+            color: #0b5cff;
+        }
+        .source-metrics .conversion-rate {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #0b5cff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        .btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #64748b;
+        }
+        .btn-secondary:hover {
+            background: #475569;
+        }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+        }
+        .error {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        @media (max-width: 768px) {
+            .dashboard-header h1 {
+                font-size: 2rem;
+            }
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            .traffic-sources {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <h1>📊 Analytics Dashboard</h1>
+        <p>DC TEKNİK - Performance ve Conversion Analizi</p>
+    </div>
+
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <h3>Sessions (Son 30 Gün)</h3>
+            <div class="value" id="sessions">-</div>
+            <div class="change neutral" id="sessions-change">Yükleniyor...</div>
+        </div>
+        <div class="metric-card">
+            <h3>Conversions</h3>
+            <div class="value" id="conversions">-</div>
+            <div class="change neutral" id="conversions-change">Yükleniyor...</div>
+        </div>
+        <div class="metric-card">
+            <h3>Conversion Rate</h3>
+            <div class="value" id="conversion-rate">-</div>
+            <div class="change neutral" id="conversion-rate-change">Yükleniyor...</div>
+        </div>
+        <div class="metric-card">
+            <h3>Conversion Value</h3>
+            <div class="value" id="conversion-value">-</div>
+            <div class="change neutral" id="conversion-value-change">Yükleniyor...</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🎯 Conversion Funnel</h2>
+        <div class="conversion-funnel">
+            <div class="funnel-step">
+                <h4>Visitors</h4>
+                <div class="count" id="funnel-visitors">-</div>
+                <div class="rate">100%</div>
+            </div>
+            <div class="funnel-step">
+                <h4>Page Views</h4>
+                <div class="count" id="funnel-pageviews">-</div>
+                <div class="rate" id="funnel-pageviews-rate">-</div>
+            </div>
+            <div class="funnel-step">
+                <h4>Engaged Users</h4>
+                <div class="count" id="funnel-engaged">-</div>
+                <div class="rate" id="funnel-engaged-rate">-</div>
+            </div>
+            <div class="funnel-step">
+                <h4>WhatsApp Clicks</h4>
+                <div class="count" id="funnel-whatsapp">-</div>
+                <div class="rate" id="funnel-whatsapp-rate">-</div>
+            </div>
+            <div class="funnel-step">
+                <h4>Phone Calls</h4>
+                <div class="count" id="funnel-phone">-</div>
+                <div class="rate" id="funnel-phone-rate">-</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📈 Traffic Sources</h2>
+        <div class="traffic-sources" id="traffic-sources">
+            <div class="loading">Veriler yükleniyor...</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔧 Dashboard Tools</h2>
+        <div style="text-align: center;">
+            <a href="https://analytics.google.com/analytics/web/" target="_blank" class="btn">Google Analytics 4</a>
+            <a href="https://lookerstudio.google.com/" target="_blank" class="btn btn-secondary">Looker Studio</a>
+            <button class="btn" onclick="refreshData()">Verileri Yenile</button>
+            <button class="btn btn-secondary" onclick="exportData()">Verileri Dışa Aktar</button>
+        </div>
+    </div>
+
+    <script>
+        // Analytics Dashboard Script
+        let dashboardData = {
+            sessions: 0,
+            conversions: 0,
+            conversionRate: 0,
+            conversionValue: 0,
+            trafficSources: [],
+            funnelData: {}
+        };
+
+        // Simulate data loading (replace with actual GA4 API calls)
+        function loadDashboardData() {
+            console.log('📊 Loading dashboard data...');
+            
+            // Simulate API delay
+            setTimeout(() => {
+                // Mock data - replace with actual GA4 API calls
+                dashboardData = {
+                    sessions: 1247,
+                    conversions: 38,
+                    conversionRate: 3.05,
+                    conversionValue: 2850,
+                    trafficSources: [
+                        { source: 'Google Organic', sessions: 456, conversionRate: 3.5 },
+                        { source: 'Facebook', sessions: 234, conversionRate: 2.8 },
+                        { source: 'Instagram', sessions: 189, conversionRate: 3.2 },
+                        { source: 'Google Ads', sessions: 156, conversionRate: 4.1 },
+                        { source: 'Direct', sessions: 143, conversionRate: 2.1 },
+                        { source: 'WhatsApp', sessions: 69, conversionRate: 5.8 }
+                    ],
+                    funnelData: {
+                        visitors: 1247,
+                        pageviews: 2184,
+                        engaged: 892,
+                        whatsapp: 67,
+                        phone: 38
+                    }
+                };
+                
+                updateDashboard();
+            }, 1000);
+        }
+
+        function updateDashboard() {
+            // Update metrics
+            document.getElementById('sessions').textContent = dashboardData.sessions.toLocaleString();
+            document.getElementById('conversions').textContent = dashboardData.conversions.toLocaleString();
+            document.getElementById('conversion-rate').textContent = dashboardData.conversionRate.toFixed(2) + '%';
+            document.getElementById('conversion-value').textContent = '₺' + dashboardData.conversionValue.toLocaleString();
+
+            // Update funnel
+            document.getElementById('funnel-visitors').textContent = dashboardData.funnelData.visitors.toLocaleString();
+            document.getElementById('funnel-pageviews').textContent = dashboardData.funnelData.pageviews.toLocaleString();
+            document.getElementById('funnel-pageviews-rate').textContent = 
+                ((dashboardData.funnelData.pageviews / dashboardData.funnelData.visitors) * 100).toFixed(1) + '%';
+            
+            document.getElementById('funnel-engaged').textContent = dashboardData.funnelData.engaged.toLocaleString();
+            document.getElementById('funnel-engaged-rate').textContent = 
+                ((dashboardData.funnelData.engaged / dashboardData.funnelData.visitors) * 100).toFixed(1) + '%';
+            
+            document.getElementById('funnel-whatsapp').textContent = dashboardData.funnelData.whatsapp.toLocaleString();
+            document.getElementById('funnel-whatsapp-rate').textContent = 
+                ((dashboardData.funnelData.whatsapp / dashboardData.funnelData.visitors) * 100).toFixed(1) + '%';
+            
+            document.getElementById('funnel-phone').textContent = dashboardData.funnelData.phone.toLocaleString();
+            document.getElementById('funnel-phone-rate').textContent = 
+                ((dashboardData.funnelData.phone / dashboardData.funnelData.visitors) * 100).toFixed(1) + '%';
+
+            // Update traffic sources
+            const trafficSourcesContainer = document.getElementById('traffic-sources');
+            trafficSourcesContainer.innerHTML = '';
+            
+            dashboardData.trafficSources.forEach(source => {
+                const sourceItem = document.createElement('div');
+                sourceItem.className = 'source-item';
+                sourceItem.innerHTML = `
+                    <div class="source-name">${source.source}</div>
+                    <div class="source-metrics">
+                        <div class="sessions">${source.sessions} sessions</div>
+                        <div class="conversion-rate">${source.conversionRate.toFixed(1)}% conversion</div>
+                    </div>
+                `;
+                trafficSourcesContainer.appendChild(sourceItem);
+            });
+        }
+
+        function refreshData() {
+            console.log('🔄 Refreshing dashboard data...');
+            document.getElementById('traffic-sources').innerHTML = '<div class="loading">Veriler yenileniyor...</div>';
+            loadDashboardData();
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(dashboardData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `dc-teknik-analytics-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardData();
+            
+            // Auto-refresh every 5 minutes
+            setInterval(refreshData, 300000);
+        });
+    </script>
+</body>
+</html>

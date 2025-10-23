@@ -2073,6 +2073,123 @@ const debouncedResize = debounce(function() {
 
 window.addEventListener('resize', debouncedResize);
 
+// GA4 Conversion Goals Configuration
+const GA4_CONVERSION_CONFIG = {
+    whatsapp_contact: {
+        event_name: 'whatsapp_contact',
+        conversion_value: 50,
+        currency: 'TRY',
+        custom_parameters: {
+            service_type: 'consultation',
+            contact_method: 'whatsapp'
+        }
+    },
+    phone_call: {
+        event_name: 'phone_call',
+        conversion_value: 75,
+        currency: 'TRY',
+        custom_parameters: {
+            service_type: 'consultation',
+            contact_method: 'phone'
+        }
+    },
+    form_submit: {
+        event_name: 'form_submit',
+        conversion_value: 100,
+        currency: 'TRY',
+        custom_parameters: {
+            service_type: 'lead_generation',
+            contact_method: 'form'
+        }
+    },
+    appointment_booking: {
+        event_name: 'appointment_booking',
+        conversion_value: 150,
+        currency: 'TRY',
+        custom_parameters: {
+            service_type: 'appointment',
+            contact_method: 'booking'
+        }
+    },
+    service_inquiry: {
+        event_name: 'service_inquiry',
+        conversion_value: 25,
+        currency: 'TRY',
+        custom_parameters: {
+            service_type: 'inquiry',
+            contact_method: 'website'
+        }
+    }
+};
+
+// Enhanced conversion tracking function
+function trackConversion(conversionType, additionalParams = {}) {
+    if (typeof gtag === 'undefined') {
+        console.warn('GA4 not loaded - conversion not tracked:', conversionType);
+        return false;
+    }
+    
+    const config = GA4_CONVERSION_CONFIG[conversionType];
+    if (!config) {
+        console.warn('Unknown conversion type:', conversionType);
+        return false;
+    }
+    
+    const eventParams = {
+        ...buildGaParams(),
+        ...config.custom_parameters,
+        ...additionalParams,
+        value: config.conversion_value,
+        currency: config.currency
+    };
+    
+    // Track as conversion event
+    gtag('event', config.event_name, eventParams);
+    
+    // Track as purchase event for high-value conversions
+    if (config.conversion_value >= 100) {
+        gtag('event', 'purchase', {
+            transaction_id: `conv_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+            value: config.conversion_value,
+            currency: config.currency,
+            ...eventParams
+        });
+    }
+    
+    console.log(`✅ Conversion tracked: ${conversionType}`, eventParams);
+    return true;
+}
+
+// Enhanced event tracking with conversion value
+function trackEnhancedEvent(eventName, eventCategory, eventLabel, eventValue, isConversion = false) {
+    if (typeof gtag === 'undefined') {
+        console.warn('GA4 not loaded - event not tracked:', eventName);
+        return false;
+    }
+    
+    const eventParams = buildGaParams({
+        event_category: eventCategory,
+        event_label: eventLabel,
+        value: eventValue || 1,
+        conversion_event: isConversion
+    });
+    
+    gtag('event', eventName, eventParams);
+    
+    // If it's a conversion event, also track as conversion
+    if (isConversion && eventValue > 0) {
+        gtag('event', 'conversion', {
+            send_to: 'AW-CONVERSION_ID/CONVERSION_LABEL', // Replace with actual conversion ID
+            value: eventValue,
+            currency: 'TRY',
+            ...eventParams
+        });
+    }
+    
+    console.log(`📊 Event tracked: ${eventName}`, eventParams);
+    return true;
+}
+
 function getStoredUtm() {
     try {
         return JSON.parse(sessionStorage.getItem('utm_params') || '{}');
@@ -2085,11 +2202,18 @@ function buildGaParams(extra) {
         hero_variant: getHeroVariant(),
         geo_region: 'TR-34',
         geo_area: 'Anadolu',
-        geo_district: 'Sultanbeyli'
+        geo_district: 'Sultanbeyli',
+        page_location: window.location.href,
+        page_title: document.title,
+        user_agent: navigator.userAgent,
+        screen_resolution: `${screen.width}x${screen.height}`,
+        viewport_size: `${window.innerWidth}x${window.innerHeight}`
     };
     if (utm.utm_source) base.utm_source = utm.utm_source;
     if (utm.utm_medium) base.utm_medium = utm.utm_medium;
     if (utm.utm_campaign) base.utm_campaign = utm.utm_campaign;
+    if (utm.utm_content) base.utm_content = utm.utm_content;
+    if (utm.utm_term) base.utm_term = utm.utm_term;
     return Object.assign(base, extra || {});
 }
 
@@ -2442,7 +2566,10 @@ document.addEventListener('DOMContentLoaded', function() {
     whatsappButtons.forEach(function(button) {
         button.addEventListener('click', function() {
             trackButtonClick('whatsapp_contact', 'header');
-            validateGA4Event('whatsapp_contact', buildGaParams({ value: 1 }));
+            trackConversion('whatsapp_contact', {
+                button_location: this.closest('.sticky-cta') ? 'sticky_cta' : 'header',
+                button_text: this.textContent.trim()
+            });
         });
     });
     
@@ -2451,7 +2578,10 @@ document.addEventListener('DOMContentLoaded', function() {
     phoneLinks.forEach(function(link) {
         link.addEventListener('click', function() {
             trackButtonClick('phone_call', 'contact');
-            validateGA4Event('phone_call', buildGaParams({ value: 1 }));
+            trackConversion('phone_call', {
+                phone_number: this.href.replace('tel:', ''),
+                link_location: this.closest('.contact-info') ? 'contact_info' : 'header'
+            });
         });
     });
     

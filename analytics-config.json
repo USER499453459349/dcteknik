@@ -1,0 +1,214 @@
+{
+  "ga4_config": {
+    "measurement_id": "G-N1Z05DJ9B4",
+    "property_id": "123456789",
+    "conversion_events": {
+      "whatsapp_contact": {
+        "event_name": "whatsapp_contact",
+        "conversion_value": 50,
+        "currency": "TRY",
+        "looker_studio_dimension": "Contact Method",
+        "looker_studio_metric": "WhatsApp Conversions"
+      },
+      "phone_call": {
+        "event_name": "phone_call",
+        "conversion_value": 75,
+        "currency": "TRY",
+        "looker_studio_dimension": "Contact Method",
+        "looker_studio_metric": "Phone Call Conversions"
+      },
+      "form_submit": {
+        "event_name": "form_submit",
+        "conversion_value": 100,
+        "currency": "TRY",
+        "looker_studio_dimension": "Lead Source",
+        "looker_studio_metric": "Form Submissions"
+      },
+      "appointment_booking": {
+        "event_name": "appointment_booking",
+        "conversion_value": 150,
+        "currency": "TRY",
+        "looker_studio_dimension": "Service Type",
+        "looker_studio_metric": "Appointment Bookings"
+      },
+      "service_inquiry": {
+        "event_name": "service_inquiry",
+        "conversion_value": 25,
+        "currency": "TRY",
+        "looker_studio_dimension": "Inquiry Type",
+        "looker_studio_metric": "Service Inquiries"
+      }
+    },
+    "custom_dimensions": {
+      "hero_variant": "Hero Variant",
+      "geo_region": "Geographic Region",
+      "geo_area": "Geographic Area",
+      "geo_district": "Geographic District",
+      "utm_source": "UTM Source",
+      "utm_medium": "UTM Medium",
+      "utm_campaign": "UTM Campaign",
+      "utm_content": "UTM Content",
+      "utm_term": "UTM Term",
+      "service_type": "Service Type",
+      "contact_method": "Contact Method"
+    },
+    "custom_metrics": {
+      "conversion_value": "Conversion Value (TRY)",
+      "page_load_time": "Page Load Time (ms)",
+      "scroll_depth": "Scroll Depth (%)",
+      "time_on_page": "Time on Page (s)",
+      "bounce_rate": "Bounce Rate (%)"
+    }
+  },
+  "looker_studio_config": {
+    "dashboard_url": "https://lookerstudio.google.com/reporting/YOUR_DASHBOARD_ID",
+    "data_source": "Google Analytics 4",
+    "report_configs": {
+      "conversion_funnel": {
+        "name": "Conversion Funnel Analysis",
+        "description": "Track user journey from landing to conversion",
+        "metrics": [
+          "Sessions",
+          "Users",
+          "WhatsApp Conversions",
+          "Phone Call Conversions",
+          "Form Submissions",
+          "Appointment Bookings"
+        ],
+        "dimensions": [
+          "UTM Source",
+          "UTM Medium",
+          "UTM Campaign",
+          "Hero Variant",
+          "Geographic District"
+        ],
+        "filters": {
+          "date_range": "Last 30 days",
+          "conversion_events": "All conversion events"
+        }
+      },
+      "traffic_sources": {
+        "name": "Traffic Sources & Performance",
+        "description": "Analyze traffic sources and their conversion performance",
+        "metrics": [
+          "Sessions",
+          "Users",
+          "Page Views",
+          "Conversion Rate",
+          "Conversion Value (TRY)"
+        ],
+        "dimensions": [
+          "UTM Source",
+          "UTM Medium",
+          "UTM Campaign",
+          "UTM Content",
+          "UTM Term"
+        ]
+      },
+      "geographic_performance": {
+        "name": "Geographic Performance",
+        "description": "Performance by geographic location",
+        "metrics": [
+          "Sessions",
+          "Users",
+          "Conversions",
+          "Conversion Value (TRY)"
+        ],
+        "dimensions": [
+          "Geographic Region",
+          "Geographic Area",
+          "Geographic District"
+        ]
+      },
+      "user_engagement": {
+        "name": "User Engagement Metrics",
+        "description": "Track user engagement and behavior",
+        "metrics": [
+          "Sessions",
+          "Users",
+          "Page Views",
+          "Scroll Depth (%)",
+          "Time on Page (s)",
+          "Bounce Rate (%)"
+        ],
+        "dimensions": [
+          "Page Title",
+          "Hero Variant",
+          "Device Category",
+          "Browser"
+        ]
+      },
+      "conversion_attribution": {
+        "name": "Conversion Attribution",
+        "description": "Track conversion attribution across touchpoints",
+        "metrics": [
+          "Conversions",
+          "Conversion Value (TRY)",
+          "Cost per Conversion",
+          "Return on Ad Spend (ROAS)"
+        ],
+        "dimensions": [
+          "UTM Source",
+          "UTM Medium",
+          "UTM Campaign",
+          "Contact Method",
+          "Service Type"
+        ]
+      }
+    }
+  },
+  "utm_campaigns": {
+    "social_media": {
+      "facebook": {
+        "source": "facebook",
+        "medium": "social",
+        "campaign_template": "facebook_promo_{date}",
+        "content_template": "post_{post_id}",
+        "term_template": "dinamo_tamiri"
+      },
+      "instagram": {
+        "source": "instagram",
+        "medium": "social",
+        "campaign_template": "instagram_story_{date}",
+        "content_template": "story_{story_id}",
+        "term_template": "alternator_service"
+      }
+    },
+    "search_ads": {
+      "google_ads": {
+        "source": "google",
+        "medium": "cpc",
+        "campaign_template": "dinamo_tamiri_{location}",
+        "content_template": "ad_group_{ad_group_id}",
+        "term_template": "{keyword}"
+      }
+    },
+    "local_seo": {
+      "google_my_business": {
+        "source": "google_my_business",
+        "medium": "local",
+        "campaign_template": "gmb_listing",
+        "content_template": "profile_view",
+        "term_template": "sultanbeyli_dinamocu"
+      }
+    }
+  },
+  "conversion_goals": {
+    "primary": [
+      "whatsapp_contact",
+      "phone_call",
+      "appointment_booking"
+    ],
+    "secondary": [
+      "form_submit",
+      "service_inquiry"
+    ],
+    "micro_conversions": [
+      "scroll_depth_50",
+      "scroll_depth_90",
+      "time_on_page_60",
+      "video_play",
+      "image_click"
+    ]
+  }
+}
