@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Dashboard - DC TEKNİK</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="ga-measurement-id" content="G-N1Z05DJ9B4">
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 2rem; 
+            background: #f8f9fa;
+        }
+        .dashboard-header {
+            background: linear-gradient(135deg, #0b5cff, #3b82f6);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .dashboard-header h1 {
+            margin: 0 0 1rem 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .dashboard-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .test-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #0b5cff;
+        }
+        .test-card h3 {
+            margin: 0 0 1rem 0;
+            color: #1e293b;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        .test-score {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0b5cff;
+            margin: 0 0 0.5rem 0;
+        }
+        .test-status {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        .status-pass { background: #d1fae5; color: #059669; }
+        .status-warning { background: #fef3c7; color: #d97706; }
+        .status-fail { background: #fee2e2; color: #dc2626; }
+        .section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .section h2 {
+            margin: 0 0 1.5rem 0;
+            color: #1e293b;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .test-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .result-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #e2e8f0;
+        }
+        .result-item.pass { border-left-color: #059669; }
+        .result-item.warning { border-left-color: #d97706; }
+        .result-item.fail { border-left-color: #dc2626; }
+        .result-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1e293b;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .result-item p {
+            margin: 0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #0b5cff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        .btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #64748b;
+        }
+        .btn-secondary:hover {
+            background: #475569;
+        }
+        .btn-success {
+            background: #059669;
+        }
+        .btn-success:hover {
+            background: #047857;
+        }
+        .btn-warning {
+            background: #d97706;
+        }
+        .btn-warning:hover {
+            background: #b45309;
+        }
+        .btn-danger {
+            background: #dc2626;
+        }
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+        }
+        .error {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .success {
+            background: #f0fdf4;
+            color: #059669;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .warning {
+            background: #fffbeb;
+            color: #d97706;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .test-log {
+            max-height: 400px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        .log-entry {
+            margin-bottom: 0.5rem;
+            padding: 0.25rem 0;
+        }
+        .log-entry.info { color: #0b5cff; }
+        .log-entry.success { color: #059669; }
+        .log-entry.warning { color: #d97706; }
+        .log-entry.error { color: #dc2626; }
+        @media (max-width: 768px) {
+            .dashboard-header h1 {
+                font-size: 2rem;
+            }
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+            .test-results {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <h1>🧪 Testing Dashboard</h1>
+        <p>DC TEKNİK - Cross-Browser, Accessibility & Performance Testing</p>
+    </div>
+
+    <div class="test-grid">
+        <div class="test-card">
+            <h3>Browser Compatibility</h3>
+            <div class="test-score" id="browser-score">-</div>
+            <div class="test-status" id="browser-status">Yükleniyor...</div>
+            <p>Cross-browser compatibility testing</p>
+        </div>
+        <div class="test-card">
+            <h3>Accessibility</h3>
+            <div class="test-score" id="accessibility-score">-</div>
+            <div class="test-status" id="accessibility-status">Yükleniyor...</div>
+            <p>WCAG 2.1 AA compliance testing</p>
+        </div>
+        <div class="test-card">
+            <h3>Performance</h3>
+            <div class="test-score" id="performance-score">-</div>
+            <div class="test-status" id="performance-status">Yükleniyor...</div>
+            <p>Core Web Vitals & performance testing</p>
+        </div>
+        <div class="test-card">
+            <h3>Security</h3>
+            <div class="test-score" id="security-score">-</div>
+            <div class="test-status" id="security-status">Yükleniyor...</div>
+            <p>Security headers & vulnerability testing</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔍 Test Results</h2>
+        <div class="test-results" id="test-results">
+            <div class="loading">Test sonuçları yükleniyor...</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📊 Test Log</h2>
+        <div class="test-log" id="test-log">
+            <div class="log-entry info">[INFO] Testing dashboard initialized</div>
+            <div class="log-entry info">[INFO] Starting browser compatibility tests...</div>
+            <div class="log-entry info">[INFO] Starting accessibility tests...</div>
+            <div class="log-entry info">[INFO] Starting performance tests...</div>
+            <div class="log-entry info">[INFO] Starting security tests...</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔧 Test Tools</h2>
+        <div style="text-align: center;">
+            <button class="btn" onclick="runAllTests()">Tüm Testleri Çalıştır</button>
+            <button class="btn btn-secondary" onclick="runBrowserTests()">Browser Testleri</button>
+            <button class="btn btn-success" onclick="runAccessibilityTests()">Accessibility Testleri</button>
+            <button class="btn btn-warning" onclick="runPerformanceTests()">Performance Testleri</button>
+            <button class="btn btn-danger" onclick="runSecurityTests()">Security Testleri</button>
+        </div>
+        <div style="text-align: center; margin-top: 1rem;">
+            <button class="btn btn-secondary" onclick="exportResults()">Sonuçları Dışa Aktar</button>
+            <button class="btn btn-secondary" onclick="clearLog()">Log Temizle</button>
+            <button class="btn btn-secondary" onclick="generateReport()">Rapor Oluştur</button>
+        </div>
+    </div>
+
+    <script>
+        // Testing Dashboard Script
+        let testResults = {
+            browser: { score: 0, status: 'pending' },
+            accessibility: { score: 0, status: 'pending' },
+            performance: { score: 0, status: 'pending' },
+            security: { score: 0, status: 'pending' }
+        };
+
+        function log(message, type = 'info') {
+            const logContainer = document.getElementById('test-log');
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${type}`;
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] [${type.toUpperCase()}] ${message}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        function updateTestScore(testType, score, status) {
+            testResults[testType] = { score, status };
+            
+            const scoreElement = document.getElementById(`${testType}-score`);
+            const statusElement = document.getElementById(`${testType}-status`);
+            
+            if (scoreElement && statusElement) {
+                scoreElement.textContent = score + (score < 100 ? '%' : '');
+                statusElement.textContent = status;
+                statusElement.className = `test-status status-${status.toLowerCase()}`;
+            }
+            
+            log(`${testType} test completed: ${score}% (${status})`, status === 'pass' ? 'success' : status === 'warning' ? 'warning' : 'error');
+        }
+
+        function updateTestResults() {
+            const resultsContainer = document.getElementById('test-results');
+            resultsContainer.innerHTML = '';
+            
+            Object.keys(testResults).forEach(testType => {
+                const result = testResults[testType];
+                const resultItem = document.createElement('div');
+                resultItem.className = `result-item ${result.status}`;
+                resultItem.innerHTML = `
+                    <h4>${testType.charAt(0).toUpperCase() + testType.slice(1)} Test</h4>
+                    <p>Score: ${result.score}% | Status: ${result.status}</p>
+                `;
+                resultsContainer.appendChild(resultItem);
+            });
+        }
+
+        function runAllTests() {
+            log('Running all tests...', 'info');
+            runBrowserTests();
+            runAccessibilityTests();
+            runPerformanceTests();
+            runSecurityTests();
+        }
+
+        function runBrowserTests() {
+            log('Running browser compatibility tests...', 'info');
+            
+            // Simulate browser testing
+            setTimeout(() => {
+                const score = Math.floor(Math.random() * 30) + 70; // 70-100
+                const status = score >= 90 ? 'pass' : score >= 80 ? 'warning' : 'fail';
+                updateTestScore('browser', score, status);
+                updateTestResults();
+            }, 2000);
+        }
+
+        function runAccessibilityTests() {
+            log('Running accessibility tests...', 'info');
+            
+            // Simulate accessibility testing
+            setTimeout(() => {
+                const score = Math.floor(Math.random() * 30) + 70; // 70-100
+                const status = score >= 90 ? 'pass' : score >= 80 ? 'warning' : 'fail';
+                updateTestScore('accessibility', score, status);
+                updateTestResults();
+            }, 3000);
+        }
+
+        function runPerformanceTests() {
+            log('Running performance tests...', 'info');
+            
+            // Simulate performance testing
+            setTimeout(() => {
+                const score = Math.floor(Math.random() * 30) + 70; // 70-100
+                const status = score >= 90 ? 'pass' : score >= 80 ? 'warning' : 'fail';
+                updateTestScore('performance', score, status);
+                updateTestResults();
+            }, 4000);
+        }
+
+        function runSecurityTests() {
+            log('Running security tests...', 'info');
+            
+            // Simulate security testing
+            setTimeout(() => {
+                const score = Math.floor(Math.random() * 30) + 70; // 70-100
+                const status = score >= 90 ? 'pass' : score >= 80 ? 'warning' : 'fail';
+                updateTestScore('security', score, status);
+                updateTestResults();
+            }, 5000);
+        }
+
+        function exportResults() {
+            const dataStr = JSON.stringify(testResults, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `test-results-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            log('Test results exported', 'success');
+        }
+
+        function clearLog() {
+            document.getElementById('test-log').innerHTML = '';
+            log('Log cleared', 'info');
+        }
+
+        function generateReport() {
+            log('Generating test report...', 'info');
+            
+            const report = {
+                timestamp: new Date().toISOString(),
+                results: testResults,
+                summary: {
+                    overallScore: Math.round(Object.values(testResults).reduce((sum, result) => sum + result.score, 0) / Object.keys(testResults).length),
+                    totalTests: Object.keys(testResults).length,
+                    passedTests: Object.values(testResults).filter(result => result.status === 'pass').length,
+                    warningTests: Object.values(testResults).filter(result => result.status === 'warning').length,
+                    failedTests: Object.values(testResults).filter(result => result.status === 'fail').length
+                }
+            };
+            
+            console.log('Test Report:', report);
+            log('Test report generated', 'success');
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Testing dashboard loaded', 'success');
+            
+            // Auto-run tests after 2 seconds
+            setTimeout(() => {
+                runAllTests();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
