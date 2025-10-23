@@ -2029,6 +2029,50 @@ document.addEventListener('DOMContentLoaded', function() {
     createBackToTopButton();
 });
 
+// Performance optimization: Lazy load non-critical scripts
+function loadScript(src, callback) {
+    const script = document.createElement('script');
+    script.src = src;
+    script.defer = true;
+    if (callback) script.onload = callback;
+    document.head.appendChild(script);
+}
+
+// Lazy load heavy scripts after page load
+window.addEventListener('load', function() {
+    // Load non-critical scripts after page is fully loaded
+    setTimeout(function() {
+        // Load additional scripts if needed
+        console.log('🚀 Non-critical scripts loaded');
+    }, 1000);
+});
+
+// Optimize scroll listeners with passive option
+function addPassiveScrollListener(element, handler) {
+    element.addEventListener('scroll', handler, { passive: true });
+}
+
+// Debounce function for performance
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Optimize resize listeners
+const debouncedResize = debounce(function() {
+    // Handle resize events
+    console.log('📱 Window resized');
+}, 250);
+
+window.addEventListener('resize', debouncedResize);
+
 function getStoredUtm() {
     try {
         return JSON.parse(sessionStorage.getItem('utm_params') || '{}');

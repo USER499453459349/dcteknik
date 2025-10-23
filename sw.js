@@ -1,9 +1,10 @@
 // Advanced Service Worker for DC TEKNİK
-const CACHE_NAME = 'dcteknik-v1.13.0-pwa-enhanced';
-const STATIC_CACHE = 'dcteknik-static-v1.13.0';
-const DYNAMIC_CACHE = 'dcteknik-dynamic-v1.13.0';
-const IMAGE_CACHE = 'dcteknik-images-v1.13.0';
-const API_CACHE = 'dcteknik-api-v1.13.0';
+const CACHE_NAME = 'dcteknik-v1.14.0-performance-optimized';
+const STATIC_CACHE = 'dcteknik-static-v1.14.0';
+const DYNAMIC_CACHE = 'dcteknik-dynamic-v1.14.0';
+const IMAGE_CACHE = 'dcteknik-images-v1.14.0';
+const API_CACHE = 'dcteknik-api-v1.14.0';
+const FONT_CACHE = 'dcteknik-fonts-v1.14.0';
 
 const urlsToCache = [
     '/',
