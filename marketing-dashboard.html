@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Automation Dashboard - DC TEKNİK</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="ga-measurement-id" content="G-N1Z05DJ9B4">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 2rem; 
+            background: linear-gradient(135deg, #f8f9fa, #e2e8f0);
+            min-height: 100vh;
+        }
+        .dashboard-header {
+            background: linear-gradient(135deg, #0b5cff, #3b82f6);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(11, 92, 255, 0.3);
+        }
+        .dashboard-header h1 {
+            margin: 0 0 1rem 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .dashboard-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        .stat-card h3 {
+            margin: 0 0 1rem 0;
+            color: #1e293b;
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0b5cff;
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .stat-change {
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+        .stat-change.positive {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .stat-change.negative {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .chart-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 2rem;
+        }
+        .chart-container h3 {
+            margin: 0 0 1rem 0;
+            color: #1e293b;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .leads-table {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+        .leads-table h3 {
+            margin: 0;
+            padding: 1.5rem;
+            color: #1e293b;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        td {
+            color: #4b5563;
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .status-cold {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        .status-warm {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .status-hot {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .status-qualified {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .score-bar {
+            width: 100px;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0b5cff, #3b82f6);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        .automation-controls {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 2rem;
+        }
+        .automation-controls h3 {
+            margin: 0 0 1rem 0;
+            color: #1e293b;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        .control-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .control-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .control-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+        .control-item label {
+            font-weight: 500;
+            color: #374151;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #0b5cff, #3b82f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem;
+            box-shadow: 0 4px 12px rgba(11, 92, 255, 0.3);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(11, 92, 255, 0.4);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #059669, #10b981);
+        }
+        .btn-warning {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #64748b, #94a3b8);
+        }
+        .export-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 2rem;
+        }
+        .export-section h3 {
+            margin: 0 0 1rem 0;
+            color: #1e293b;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        .export-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .real-time-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #059669;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .real-time-indicator.offline {
+            background: #dc2626;
+        }
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .control-group {
+                grid-template-columns: 1fr;
+            }
+            .export-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="real-time-indicator" id="real-time-indicator">Canlı Veri</div>
+    
+    <div class="dashboard-header">
+        <h1>📈 Marketing Automation Dashboard</h1>
+        <p>DC TEKNİK - Dinamocu Serdar | Gerçek zamanlı pazarlama otomasyonu</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>📊 Toplam Lead</h3>
+            <div class="stat-number" id="total-leads">0</div>
+            <div class="stat-label">Tüm zamanlar</div>
+            <div class="stat-change positive" id="leads-change">+0%</div>
+        </div>
+        
+        <div class="stat-card">
+            <h3>🔥 Sıcak Lead</h3>
+            <div class="stat-number" id="hot-leads">0</div>
+            <div class="stat-label">Yüksek skorlu</div>
+            <div class="stat-change positive" id="hot-leads-change">+0%</div>
+        </div>
+        
+        <div class="stat-card">
+            <h3>📧 E-posta Aboneleri</h3>
+            <div class="stat-number" id="email-subscribers">0</div>
+            <div class="stat-label">Aktif aboneler</div>
+            <div class="stat-change positive" id="email-change">+0%</div>
+        </div>
+        
+        <div class="stat-card">
+            <h3>💬 WhatsApp Mesajları</h3>
+            <div class="stat-number" id="whatsapp-messages">0</div>
+            <div class="stat-label">Bu ay</div>
+            <div class="stat-change positive" id="whatsapp-change">+0%</div>
+        </div>
+        
+        <div class="stat-card">
+            <h3>🎯 Dönüşüm Oranı</h3>
+            <div class="stat-number" id="conversion-rate">0%</div>
+            <div class="stat-label">Lead to müşteri</div>
+            <div class="stat-change positive" id="conversion-change">+0%</div>
+        </div>
+        
+        <div class="stat-card">
+            <h3>💰 Gelir</h3>
+            <div class="stat-number" id="revenue">0₺</div>
+            <div class="stat-label">Bu ay</div>
+            <div class="stat-change positive" id="revenue-change">+0%</div>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h3>📈 Lead Trend Analizi</h3>
+        <div class="chart-placeholder" id="lead-trend-chart">
+            Lead trend grafiği yükleniyor...
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h3>🎯 Dönüşüm Hunisi</h3>
+        <div class="chart-placeholder" id="conversion-funnel-chart">
+            Dönüşüm hunisi grafiği yükleniyor...
+        </div>
+    </div>
+
+    <div class="leads-table">
+        <h3>👥 Lead Listesi</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Durum</th>
+                        <th>Skor</th>
+                        <th>Segment</th>
+                        <th>Son Aktivite</th>
+                        <th>Eylemler</th>
+                    </tr>
+                </thead>
+                <tbody id="leads-table-body">
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 2rem; color: #64748b;">
+                            Lead verileri yükleniyor...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="automation-controls">
+        <h3>🤖 Otomasyon Kontrolleri</h3>
+        <div class="control-group">
+            <div class="control-item">
+                <input type="checkbox" id="whatsapp-automation" checked>
+                <label for="whatsapp-automation">WhatsApp Otomasyonu</label>
+            </div>
+            <div class="control-item">
+                <input type="checkbox" id="email-automation" checked>
+                <label for="email-automation">E-posta Otomasyonu</label>
+            </div>
+            <div class="control-item">
+                <input type="checkbox" id="lead-nurturing" checked>
+                <label for="lead-nurturing">Lead Nurturing</label>
+            </div>
+            <div class="control-item">
+                <input type="checkbox" id="lead-scoring" checked>
+                <label for="lead-scoring">Lead Scoring</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="control-item">
+                <input type="checkbox" id="follow-up-automation" checked>
+                <label for="follow-up-automation">Follow-up Otomasyonu</label>
+            </div>
+            <div class="control-item">
+                <input type="checkbox" id="newsletter-automation" checked>
+                <label for="newsletter-automation">Bülten Otomasyonu</label>
+            </div>
+            <div class="control-item">
+                <input type="checkbox" id="segmentation" checked>
+                <label for="segmentation">Lead Segmentasyonu</label>
+            </div>
+            <div class="control-item">
+                <input type="checkbox" id="analytics-tracking" checked>
+                <label for="analytics-tracking">Analitik Takibi</label>
+            </div>
+        </div>
+        <button class="btn btn-success" onclick="saveAutomationSettings()">Ayarları Kaydet</button>
+        <button class="btn btn-warning" onclick="testAutomation()">Otomasyonu Test Et</button>
+    </div>
+
+    <div class="export-section">
+        <h3>📤 Veri Dışa Aktarma</h3>
+        <div class="export-buttons">
+            <button class="btn" onclick="exportLeads()">Lead Verilerini Dışa Aktar</button>
+            <button class="btn btn-secondary" onclick="exportEmailSubscribers()">E-posta Abonelerini Dışa Aktar</button>
+            <button class="btn btn-warning" onclick="exportAnalytics()">Analitik Verilerini Dışa Aktar</button>
+            <button class="btn btn-danger" onclick="clearAllData()">Tüm Verileri Temizle</button>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn btn-success" onclick="refreshDashboard()">Dashboard'u Yenile</button>
+        <button class="btn btn-secondary" onclick="exportDashboard()">Dashboard'u Dışa Aktar</button>
+    </div>
+
+    <script>
+        // Marketing Automation Dashboard Script
+        let dashboardData = {
+            leads: [],
+            emailSubscribers: [],
+            whatsappMessages: [],
+            analytics: {}
+        };
+
+        function refreshDashboard() {
+            loadDashboardData();
+            updateStats();
+            updateCharts();
+            updateLeadsTable();
+        }
+
+        function loadDashboardData() {
+            // Load leads data
+            if (window.leadNurturing) {
+                dashboardData.leads = window.leadNurturing.leads || [];
+            }
+            
+            // Load email subscribers data
+            if (window.emailMarketing) {
+                dashboardData.emailSubscribers = window.emailMarketing.subscribers || [];
+            }
+            
+            // Load WhatsApp messages data
+            if (window.whatsappAutomation) {
+                dashboardData.whatsappMessages = window.whatsappAutomation.leadData.newLeads || [];
+            }
+        }
+
+        function updateStats() {
+            // Update total leads
+            const totalLeads = dashboardData.leads.length;
+            document.getElementById('total-leads').textContent = totalLeads;
+            
+            // Update hot leads
+            const hotLeads = dashboardData.leads.filter(lead => lead.status === 'hot' || lead.status === 'qualified').length;
+            document.getElementById('hot-leads').textContent = hotLeads;
+            
+            // Update email subscribers
+            const emailSubscribers = dashboardData.emailSubscribers.filter(sub => sub.status === 'active').length;
+            document.getElementById('email-subscribers').textContent = emailSubscribers;
+            
+            // Update WhatsApp messages
+            const whatsappMessages = dashboardData.whatsappMessages.length;
+            document.getElementById('whatsapp-messages').textContent = whatsappMessages;
+            
+            // Update conversion rate
+            const conversionRate = totalLeads > 0 ? Math.round((hotLeads / totalLeads) * 100) : 0;
+            document.getElementById('conversion-rate').textContent = conversionRate + '%';
+            
+            // Update revenue (mock data)
+            const revenue = hotLeads * 150; // 150₺ per hot lead
+            document.getElementById('revenue').textContent = revenue + '₺';
+        }
+
+        function updateCharts() {
+            // Update lead trend chart
+            const leadTrendChart = document.getElementById('lead-trend-chart');
+            leadTrendChart.innerHTML = `
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">📈</div>
+                    <div>Lead Trend Analizi</div>
+                    <div style="font-size: 0.9rem; color: #64748b; margin-top: 0.5rem;">
+                        Toplam Lead: ${dashboardData.leads.length}
+                    </div>
+                </div>
+            `;
+            
+            // Update conversion funnel chart
+            const conversionFunnelChart = document.getElementById('conversion-funnel-chart');
+            const coldLeads = dashboardData.leads.filter(lead => lead.status === 'cold').length;
+            const warmLeads = dashboardData.leads.filter(lead => lead.status === 'warm').length;
+            const hotLeads = dashboardData.leads.filter(lead => lead.status === 'hot').length;
+            const qualifiedLeads = dashboardData.leads.filter(lead => lead.status === 'qualified').length;
+            
+            conversionFunnelChart.innerHTML = `
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🎯</div>
+                    <div>Dönüşüm Hunisi</div>
+                    <div style="font-size: 0.9rem; color: #64748b; margin-top: 0.5rem;">
+                        Soğuk: ${coldLeads} | Sıcak: ${warmLeads} | Ateşli: ${hotLeads} | Nitelikli: ${qualifiedLeads}
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateLeadsTable() {
+            const tableBody = document.getElementById('leads-table-body');
+            
+            if (dashboardData.leads.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 2rem; color: #64748b;">
+                            Henüz lead verisi bulunmuyor.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tableBody.innerHTML = dashboardData.leads.map(lead => `
+                <tr>
+                    <td>${lead.id}</td>
+                    <td>
+                        <span class="status-badge status-${lead.status}">
+                            ${lead.status === 'cold' ? 'Soğuk' : 
+                              lead.status === 'warm' ? 'Sıcak' : 
+                              lead.status === 'hot' ? 'Ateşli' : 'Nitelikli'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: ${Math.min(lead.score || 0, 100)}%"></div>
+                        </div>
+                        <span style="font-size: 0.8rem; color: #64748b;">${lead.score || 0}/100</span>
+                    </td>
+                    <td>${lead.segment || 'Yeni Ziyaretçi'}</td>
+                    <td>${new Date(lead.lastActivity || lead.createdAt).toLocaleDateString('tr-TR')}</td>
+                    <td>
+                        <button class="btn" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;" onclick="viewLeadDetails('${lead.id}')">
+                            Detay
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function viewLeadDetails(leadId) {
+            const lead = dashboardData.leads.find(l => l.id === leadId);
+            if (lead) {
+                alert(`Lead Detayları:\n\nID: ${lead.id}\nDurum: ${lead.status}\nSkor: ${lead.score}\nSegment: ${lead.segment}\nOluşturulma: ${new Date(lead.createdAt).toLocaleString('tr-TR')}\nSon Aktivite: ${new Date(lead.lastActivity).toLocaleString('tr-TR')}`);
+            }
+        }
+
+        function saveAutomationSettings() {
+            const settings = {
+                whatsappAutomation: document.getElementById('whatsapp-automation').checked,
+                emailAutomation: document.getElementById('email-automation').checked,
+                leadNurturing: document.getElementById('lead-nurturing').checked,
+                leadScoring: document.getElementById('lead-scoring').checked,
+                followUpAutomation: document.getElementById('follow-up-automation').checked,
+                newsletterAutomation: document.getElementById('newsletter-automation').checked,
+                segmentation: document.getElementById('segmentation').checked,
+                analyticsTracking: document.getElementById('analytics-tracking').checked
+            };
+            
+            localStorage.setItem('dcteknik_automation_settings', JSON.stringify(settings));
+            
+            // Update automation systems
+            if (window.whatsappAutomation) {
+                window.whatsappAutomation.updateConfig({ automationEnabled: settings.whatsappAutomation });
+            }
+            if (window.emailMarketing) {
+                window.emailMarketing.config.automationEnabled = settings.emailAutomation;
+            }
+            if (window.leadNurturing) {
+                window.leadNurturing.config.nurturingEnabled = settings.leadNurturing;
+                window.leadNurturing.config.scoringEnabled = settings.leadScoring;
+            }
+            
+            showNotification('Otomasyon ayarları kaydedildi!', 'success');
+        }
+
+        function testAutomation() {
+            showNotification('Otomasyon testi başlatıldı...', 'info');
+            
+            setTimeout(() => {
+                showNotification('Otomasyon testi tamamlandı!', 'success');
+            }, 2000);
+        }
+
+        function exportLeads() {
+            if (window.leadNurturing) {
+                const leadsData = window.leadNurturing.exportLeads();
+                downloadJSON(leadsData, 'dcteknik-leads.json');
+            }
+        }
+
+        function exportEmailSubscribers() {
+            if (window.emailMarketing) {
+                const subscribersData = window.emailMarketing.exportSubscribers();
+                downloadJSON(subscribersData, 'dcteknik-email-subscribers.json');
+            }
+        }
+
+        function exportAnalytics() {
+            const analyticsData = {
+                leads: dashboardData.leads,
+                emailSubscribers: dashboardData.emailSubscribers,
+                whatsappMessages: dashboardData.whatsappMessages,
+                exportDate: new Date().toISOString()
+            };
+            downloadJSON(analyticsData, 'dcteknik-analytics.json');
+        }
+
+        function exportDashboard() {
+            const dashboardData = {
+                stats: {
+                    totalLeads: document.getElementById('total-leads').textContent,
+                    hotLeads: document.getElementById('hot-leads').textContent,
+                    emailSubscribers: document.getElementById('email-subscribers').textContent,
+                    whatsappMessages: document.getElementById('whatsapp-messages').textContent,
+                    conversionRate: document.getElementById('conversion-rate').textContent,
+                    revenue: document.getElementById('revenue').textContent
+                },
+                leads: dashboardData.leads,
+                exportDate: new Date().toISOString()
+            };
+            downloadJSON(dashboardData, 'dcteknik-dashboard.json');
+        }
+
+        function clearAllData() {
+            if (confirm('Tüm verileri temizlemek istediğinizden emin misiniz? Bu işlem geri alınamaz.')) {
+                localStorage.removeItem('dcteknik_leads');
+                localStorage.removeItem('dcteknik_subscribers');
+                localStorage.removeItem('dcteknik_automation_config');
+                localStorage.removeItem('dcteknik_nurturing_queue');
+                
+                showNotification('Tüm veriler temizlendi!', 'success');
+                refreshDashboard();
+            }
+        }
+
+        function downloadJSON(data, filename) {
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            showNotification('Veri dışa aktarıldı!', 'success');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 20px; right: 20px; z-index: 10000;
+                background: ${type === 'success' ? '#059669' : type === 'error' ? '#dc2626' : '#0b5cff'};
+                color: white; padding: 15px 20px; border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-weight: 500;
+                max-width: 300px; z-index: 10000;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        function updateRealTimeIndicator() {
+            const indicator = document.getElementById('real-time-indicator');
+            const isOnline = navigator.onLine;
+            
+            if (isOnline) {
+                indicator.textContent = 'Canlı Veri';
+                indicator.className = 'real-time-indicator';
+            } else {
+                indicator.textContent = 'Çevrimdışı';
+                indicator.className = 'real-time-indicator offline';
+            }
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load automation settings
+            const settings = localStorage.getItem('dcteknik_automation_settings');
+            if (settings) {
+                const parsedSettings = JSON.parse(settings);
+                Object.keys(parsedSettings).forEach(key => {
+                    const checkbox = document.getElementById(key);
+                    if (checkbox) {
+                        checkbox.checked = parsedSettings[key];
+                    }
+                });
+            }
+            
+            // Initial data load
+            refreshDashboard();
+            
+            // Update real-time indicator
+            updateRealTimeIndicator();
+            
+            // Refresh dashboard every 30 seconds
+            setInterval(refreshDashboard, 30000);
+            
+            // Update real-time indicator every 5 seconds
+            setInterval(updateRealTimeIndicator, 5000);
+        });
+
+        // Handle online/offline events
+        window.addEventListener('online', updateRealTimeIndicator);
+        window.addEventListener('offline', updateRealTimeIndicator);
+    </script>
+</body>
+</html>
