@@ -6445,6 +6445,400 @@ img {
     color: #dc2626;
 }
 
+/* Mobile Optimization Styles */
+.mobile-nav {
+    position: relative;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #1e293b;
+}
+
+.mobile-menu-open ul {
+    display: flex !important;
+}
+
+.mobile-back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-loading-states {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.mobile-notification {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 10000;
+    background: #0b5cff;
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-weight: 500;
+    text-align: center;
+}
+
+.form-progress {
+    width: 100%;
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.form-progress-fill {
+    height: 100%;
+    background: #0b5cff;
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* Mobile Touch Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .btn:hover {
+        transform: none;
+        box-shadow: 0 4px 12px rgba(11, 92, 255, 0.3);
+    }
+    
+    .card:hover {
+        transform: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .service-card:hover {
+        transform: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Mobile Performance Optimizations */
+.mobile-optimized {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+    will-change: transform, opacity;
+}
+
+.mobile-smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+
+/* Mobile Form Optimizations */
+@media (max-width: 768px) {
+    input, textarea, select {
+        font-size: 16px !important;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+    
+    input[type="submit"], button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-control {
+        padding: 1rem;
+        border-radius: 8px;
+        border: 2px solid #e2e8f0;
+        font-size: 16px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .form-control:focus {
+        border-color: #0b5cff;
+        box-shadow: 0 0 0 3px rgba(11, 92, 255, 0.1);
+        outline: none;
+    }
+}
+
+/* Mobile Navigation Optimizations */
+@media (max-width: 768px) {
+    .mobile-nav {
+        flex-direction: column;
+        position: relative;
+    }
+    
+    .mobile-nav .mobile-menu-toggle {
+        display: block !important;
+    }
+    
+    .mobile-nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        border-radius: 8px;
+        margin-top: 0.5rem;
+    }
+    
+    .mobile-nav.mobile-menu-open ul {
+        display: flex;
+    }
+    
+    .mobile-nav ul li {
+        width: 100%;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .mobile-nav ul li:last-child {
+        border-bottom: none;
+    }
+    
+    .mobile-nav ul li a {
+        display: block;
+        padding: 1rem;
+        text-align: center;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Mobile Image Optimizations */
+@media (max-width: 768px) {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .hero-image {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    
+    .service-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+}
+
+/* Mobile Button Optimizations */
+@media (max-width: 768px) {
+    .btn {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 0.75rem 1.5rem;
+        font-size: 16px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #0b5cff, #3b82f6);
+        color: white;
+        border: none;
+    }
+    
+    .btn-secondary {
+        background: linear-gradient(135deg, #64748b, #94a3b8);
+        color: white;
+        border: none;
+    }
+    
+    .btn-success {
+        background: linear-gradient(135deg, #059669, #10b981);
+        color: white;
+        border: none;
+    }
+}
+
+/* Mobile Card Optimizations */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .service-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .testimonial-card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Mobile Grid Optimizations */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+/* Mobile Typography Optimizations */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+        line-height: 1.3;
+        margin-bottom: 0.75rem;
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+        line-height: 1.4;
+        margin-bottom: 0.5rem;
+    }
+    
+    p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+    
+    .lead {
+        font-size: 1.1rem;
+        line-height: 1.5;
+    }
+}
+
+/* Mobile Spacing Optimizations */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .section {
+        padding: 2rem 0;
+    }
+    
+    .hero {
+        padding: 3rem 0;
+    }
+    
+    .footer {
+        padding: 2rem 0;
+    }
+}
+
+/* Mobile Animation Optimizations */
+@media (max-width: 768px) {
+    .animate-on-scroll {
+        animation: none;
+    }
+    
+    .fade-in {
+        animation: none;
+        opacity: 1;
+    }
+    
+    .slide-in {
+        animation: none;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Accessibility Optimizations */
+@media (max-width: 768px) {
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+    
+    .focus-visible {
+        outline: 2px solid #0b5cff;
+        outline-offset: 2px;
+    }
+}
+
+/* Mobile Performance Optimizations */
+@media (max-width: 768px) {
+    * {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000;
+        perspective: 1000;
+    }
+    
+    .mobile-optimized {
+        will-change: transform, opacity;
+    }
+    
+    .mobile-smooth-scroll {
+        -webkit-overflow-scrolling: touch;
+        overflow-scrolling: touch;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .services-intro .intro-card {
@@ -6523,7 +6917,7 @@ img {
         font-size: 0.8rem;
     }
     
-    .seo-optimization-button.local-seo {
+    .seo-optimization-button.local-seo-impact {
         right: 70px;
     }
     
