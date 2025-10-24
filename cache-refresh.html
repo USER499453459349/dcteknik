@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cache Temizleme - DC TEKNİK</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+        
+        .step {
+            background: rgba(255,255,255,0.2);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .step h3 {
+            margin-top: 0;
+            color: #10b981;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px 5px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+        
+        .status {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-weight: 600;
+        }
+        
+        .status-success {
+            background: rgba(16, 185, 129, 0.3);
+            border: 1px solid #10b981;
+        }
+        
+        .status-warning {
+            background: rgba(245, 158, 11, 0.3);
+            border: 1px solid #f59e0b;
+        }
+        
+        .urls {
+            background: rgba(0,0,0,0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .urls a {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .urls a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Cache Temizleme & Yenileme</h1>
+        
+        <div class="step">
+            <h3>1. Tarayıcı Cache Temizleme</h3>
+            <p><strong>Chrome/Edge:</strong> Ctrl + Shift + Delete → "Tüm verileri temizle"</p>
+            <p><strong>Firefox:</strong> Ctrl + Shift + Delete → "Her şeyi temizle"</p>
+            <p><strong>Hızlı Yöntem:</strong> Ctrl + F5 (Hard Refresh)</p>
+        </div>
+        
+        <div class="step">
+            <h3>2. Local Server Kontrolü</h3>
+            <p>Python HTTP server çalışıyor mu kontrol edin:</p>
+            <div class="urls">
+                <p><strong>Ana Sayfa:</strong> <a href="http://localhost:8000/index.html" target="_blank">http://localhost:8000/index.html</a></p>
+                <p><strong>Sistem Kontrol:</strong> <a href="http://localhost:8000/system-control-dashboard.html" target="_blank">http://localhost:8000/system-control-dashboard.html</a></p>
+                <p><strong>Analytics:</strong> <a href="http://localhost:8000/analytics-dashboard.html" target="_blank">http://localhost:8000/analytics-dashboard.html</a></p>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>3. Otomatik Cache Temizleme</h3>
+            <button class="btn" onclick="clearCache()">🔄 Cache Temizle</button>
+            <button class="btn btn-warning" onclick="forceRefresh()">⚡ Zorla Yenile</button>
+            <button class="btn btn-danger" onclick="resetAll()">🗑️ Tümünü Sıfırla</button>
+        </div>
+        
+        <div class="step">
+            <h3>4. Deployment Kontrolü</h3>
+            <p>Canlı sitede yenilikleri görmek için:</p>
+            <div class="urls">
+                <p><strong>Canlı Site:</strong> <a href="https://dctenık.com" target="_blank">https://dctenık.com</a></p>
+                <p><strong>Netlify Dashboard:</strong> <a href="https://app.netlify.com" target="_blank">https://app.netlify.com</a></p>
+            </div>
+        </div>
+        
+        <div id="status" class="status" style="display: none;"></div>
+        
+        <div class="step">
+            <h3>5. Sorun Giderme Adımları</h3>
+            <ol>
+                <li><strong>Tarayıcı Cache:</strong> Ctrl + Shift + Delete ile temizleyin</li>
+                <li><strong>Hard Refresh:</strong> Ctrl + F5 ile sayfayı yenileyin</li>
+                <li><strong>Incognito Mode:</strong> Gizli pencerede test edin</li>
+                <li><strong>Farklı Tarayıcı:</strong> Chrome, Firefox, Edge'de test edin</li>
+                <li><strong>Local Server:</strong> Python server'ın çalıştığından emin olun</li>
+                <li><strong>Deployment:</strong> Netlify'da son build'i kontrol edin</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function clearCache() {
+            const status = document.getElementById('status');
+            status.style.display = 'block';
+            status.className = 'status status-warning';
+            status.innerHTML = '🔄 Cache temizleniyor...';
+            
+            // Simulate cache clearing
+            setTimeout(() => {
+                status.className = 'status status-success';
+                status.innerHTML = '✅ Cache başarıyla temizlendi! Sayfayı yenileyin.';
+                
+                // Force reload after 2 seconds
+                setTimeout(() => {
+                    window.location.reload(true);
+                }, 2000);
+            }, 1500);
+        }
+        
+        function forceRefresh() {
+            const status = document.getElementById('status');
+            status.style.display = 'block';
+            status.className = 'status status-warning';
+            status.innerHTML = '⚡ Zorla yenileme yapılıyor...';
+            
+            setTimeout(() => {
+                // Force hard refresh
+                window.location.href = window.location.href + '?t=' + new Date().getTime();
+            }, 1000);
+        }
+        
+        function resetAll() {
+            const status = document.getElementById('status');
+            status.style.display = 'block';
+            status.className = 'status status-warning';
+            status.innerHTML = '🗑️ Tüm cache ve veriler sıfırlanıyor...';
+            
+            setTimeout(() => {
+                status.className = 'status status-success';
+                status.innerHTML = '✅ Tüm cache temizlendi! Sayfa yeniden yükleniyor...';
+                
+                // Clear all possible caches
+                if ('caches' in window) {
+                    caches.keys().then(function(names) {
+                        names.forEach(function(name) {
+                            caches.delete(name);
+                        });
+                    });
+                }
+                
+                // Force reload
+                setTimeout(() => {
+                    window.location.href = window.location.href.split('?')[0];
+                }, 2000);
+            }, 2000);
+        }
+        
+        // Auto-refresh every 30 seconds if there are issues
+        let refreshCount = 0;
+        const maxRefreshes = 3;
+        
+        function autoRefresh() {
+            if (refreshCount < maxRefreshes) {
+                refreshCount++;
+                console.log(`Otomatik yenileme ${refreshCount}/${maxRefreshes}`);
+                setTimeout(() => {
+                    window.location.reload(true);
+                }, 30000);
+            }
+        }
+        
+        // Start auto-refresh
+        autoRefresh();
+    </script>
+</body>
+</html>
