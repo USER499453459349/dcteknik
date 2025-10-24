@@ -2848,5 +2848,28 @@
             });
         }
     </script>
+    
+    <!-- Modern Design System Auto-Start -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-start modern intro
+            if (window.modernIntro) {
+                window.modernIntro.start();
+                console.log('🚀 Modern Intro started!');
+            }
+            
+            // Auto-start modern design
+            if (window.modernDesign) {
+                window.modernDesign.init();
+                console.log('🎨 Modern Design started!');
+            }
+            
+            // Auto-start modern components
+            if (window.modernComponents) {
+                window.modernComponents.init();
+                console.log('🧩 Modern Components started!');
+            }
+        });
+    </script>
 </body>
 </html> 

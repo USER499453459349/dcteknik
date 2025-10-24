@@ -818,10 +818,14 @@ class ModernDesign {
     }
 }
 
-// Initialize modern design
-const modernDesign = new ModernDesign();
+// Initialize modern design when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    const modernDesign = new ModernDesign();
+    
+    // Export for external use
+    window.modernDesign = modernDesign;
+    
+    console.log('✅ Modern Design System ready!');
+});
 
-// Export for external use
-window.modernDesign = modernDesign;
-
-console.log('✅ Modern Design System ready!');
+console.log('✅ Modern Design System script loaded!');

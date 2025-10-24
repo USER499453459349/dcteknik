@@ -736,10 +736,14 @@ class ModernIntro {
     }
 }
 
-// Initialize modern intro
-const modernIntro = new ModernIntro();
+// Initialize modern intro when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    const modernIntro = new ModernIntro();
+    
+    // Export for external use
+    window.modernIntro = modernIntro;
+    
+    console.log('✅ Modern Intro ready!');
+});
 
-// Export for external use
-window.modernIntro = modernIntro;
-
-console.log('✅ Modern Intro ready!');
+console.log('✅ Modern Intro script loaded!');

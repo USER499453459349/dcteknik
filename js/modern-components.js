@@ -955,10 +955,14 @@ class ModernComponents {
     }
 }
 
-// Initialize modern components
-const modernComponents = new ModernComponents();
+// Initialize modern components when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    const modernComponents = new ModernComponents();
+    
+    // Export for external use
+    window.modernComponents = modernComponents;
+    
+    console.log('✅ Modern Components ready!');
+});
 
-// Export for external use
-window.modernComponents = modernComponents;
-
-console.log('✅ Modern Components ready!');
+console.log('✅ Modern Components script loaded!');
