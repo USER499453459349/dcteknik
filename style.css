@@ -6,11 +6,28 @@
 html {
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
+    scroll-behavior: smooth;
 }
 
 body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* Performance optimizations */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 /* Modern Design System - Enhanced CSS Variables */
@@ -351,13 +368,19 @@ body {
 .hero--video .hero-content h2,
 .hero--video .hero-content p { text-shadow: 0 2px 8px rgba(0,0,0,.6); }
 @media (prefers-reduced-motion: reduce) {
-  .hero-video { display: none; }
+  .hero-video { 
+    display: none; 
+    visibility: hidden;
+}
   .hero-video-wrap { background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&auto=format&fit=crop') center/cover no-repeat; }
 }
 .hero--clean { position: relative; overflow: hidden; }
 .hero--clean .hero-bg-image { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&auto=format&fit=crop') center/cover no-repeat; filter: brightness(0.55) saturate(1.1); }
 .hero--clean .hero-content { position: relative; z-index: 1; padding: 6rem 0 3rem; }
-.hero-visual--hidden { display: none; }
+.hero-visual--hidden { 
+    display: none; 
+    visibility: hidden;
+}
 /* CSS Variables for Light/Dark Mode */
 :root {
     /* Light Mode Colors */
@@ -5868,19 +5891,25 @@ img {
         grid-template-columns: 1fr;
         gap: 1.5rem;
         padding: 0 1rem;
+        width: 100%;
+        max-width: 100%;
     }
     
     .blog-section h2 {
         font-size: 2rem;
         margin-bottom: 2rem;
+        text-align: center;
     }
     
     .blog-section {
         padding: 2rem 0;
+        margin: 1rem 0;
     }
     
     .blog-card {
         margin-bottom: 1.5rem;
+        width: 100%;
+        max-width: 100%;
     }
 }
 
