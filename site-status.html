@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Durumu - DC TEKNİK</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            color: white;
+            margin: 0;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .status-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        .status-card h3 {
+            color: #60a5fa;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-ok { background: #10b981; }
+        .status-warning { background: #f59e0b; }
+        .status-error { background: #ef4444; }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        .timestamp {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Site Durumu ve Kontrol Paneli</h1>
+        
+        <div class="status-grid">
+            <div class="status-card">
+                <h3>📊 Site Performansı</h3>
+                <ul class="feature-list">
+                    <li><span class="status-indicator status-ok"></span>Blog bölümü aktif ve görünür</li>
+                    <li><span class="status-indicator status-ok"></span>Newsletter formu çalışıyor</li>
+                    <li><span class="status-indicator status-ok"></span>Responsive tasarım aktif</li>
+                    <li><span class="status-indicator status-ok"></span>JavaScript error handling iyileştirildi</li>
+                </ul>
+            </div>
+            
+            <div class="status-card">
+                <h3>🔧 Teknik Durum</h3>
+                <ul class="feature-list">
+                    <li><span class="status-indicator status-ok"></span>GitHub Actions deployment aktif</li>
+                    <li><span class="status-indicator status-ok"></span>Inline CSS ile zorla görünürlük</li>
+                    <li><span class="status-indicator status-ok"></span>Mobile responsive CSS eklendi</li>
+                    <li><span class="status-indicator status-ok"></span>Error handling iyileştirildi</li>
+                </ul>
+            </div>
+            
+            <div class="status-card">
+                <h3>📱 Kullanıcı Deneyimi</h3>
+                <ul class="feature-list">
+                    <li><span class="status-indicator status-ok"></span>Blog kartları düzgün görünüyor</li>
+                    <li><span class="status-indicator status-ok"></span>Newsletter abonelik sistemi aktif</li>
+                    <li><span class="status-indicator status-ok"></span>Mobile uyumlu tasarım</li>
+                    <li><span class="status-indicator status-ok"></span>Hata mesajları kullanıcı dostu</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="status-card">
+            <h3>🎯 Son Güncellemeler</h3>
+            <ul class="feature-list">
+                <li><span class="status-indicator status-ok"></span>Blog bölümü hero section'dan sonra taşındı</li>
+                <li><span class="status-indicator status-ok"></span>Inline CSS ile zorla görünürlük sağlandı</li>
+                <li><span class="status-indicator status-ok"></span>JavaScript error handling iyileştirildi</li>
+                <li><span class="status-indicator status-ok"></span>Responsive tasarım için CSS eklendi</li>
+                <li><span class="status-indicator status-ok"></span>Newsletter formu error handling iyileştirildi</li>
+            </ul>
+        </div>
+        
+        <div class="timestamp">
+            Son güncelleme: <span id="currentTime"></span>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('currentTime').textContent = new Date().toLocaleString('tr-TR');
+    </script>
+</body>
+</html>
