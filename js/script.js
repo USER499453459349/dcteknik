@@ -235,7 +235,9 @@ function initializeNewsletterForm() {
             subscriptions.push(data);
             localStorage.setItem('newsletter_subscriptions', JSON.stringify(subscriptions));
         } catch (error) {
-            console.log('Error storing subscription:', error);
+            console.warn('Error storing subscription:', error);
+            // Fallback: Show success message anyway
+            showNotification('✅ Başarıyla abone oldunuz! Yeniliklerden haberdar olacaksınız.', 'success');
         }
     });
 }
