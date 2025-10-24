@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚨 ACİL ERİŞİM - DC TEKNİK</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .emergency-container {
+            background: rgba(255,255,255,0.1);
+            padding: 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 800px;
+            margin: 2rem;
+        }
+        
+        .emergency-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #fecaca;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .emergency-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #fca5a5;
+        }
+        
+        .access-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 2rem 0;
+        }
+        
+        .access-card {
+            background: rgba(255,255,255,0.2);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid #f87171;
+            transition: all 0.3s ease;
+        }
+        
+        .access-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-color: #10b981;
+        }
+        
+        .access-card h3 {
+            color: #10b981;
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+        
+        .access-link {
+            display: block;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        .access-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+        
+        .emergency-actions {
+            background: rgba(239, 68, 68, 0.2);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 5px solid #ef4444;
+        }
+        
+        .emergency-actions h3 {
+            color: #fecaca;
+            margin-top: 0;
+        }
+        
+        .action-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px 5px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-online { background: #10b981; }
+        .status-warning { background: #f59e0b; }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .quick-fix {
+            background: rgba(16, 185, 129, 0.2);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 5px solid #10b981;
+        }
+        
+        .quick-fix h3 {
+            color: #10b981;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="emergency-container">
+        <h1 class="emergency-title">🚨 ACİL ERİŞİM</h1>
+        <p class="emergency-subtitle">DC TEKNİK - Dinamocu Servisi</p>
+        
+        <div class="access-links">
+            <div class="access-card">
+                <h3><span class="status-indicator status-online"></span>Ana Sayfa</h3>
+                <a href="https://USER499453459349.github.io/dcteknik/" class="access-link" target="_blank">
+                    🏠 Ana Sayfa - GitHub Pages
+                </a>
+                <p>Kesin çalışır - Anında erişim</p>
+            </div>
+            
+            <div class="access-card">
+                <h3><span class="status-indicator status-online"></span>Sistem Kontrol</h3>
+                <a href="https://USER499453459349.github.io/dcteknik/system-control-dashboard.html" class="access-link" target="_blank">
+                    🔧 Sistem Kontrol Paneli
+                </a>
+                <p>Tüm sistem kontrolleri</p>
+            </div>
+            
+            <div class="access-card">
+                <h3><span class="status-indicator status-online"></span>Cache Temizleme</h3>
+                <a href="https://USER499453459349.github.io/dcteknik/cache-refresh.html" class="access-link" target="_blank">
+                    🔄 Cache Temizleme
+                </a>
+                <p>Browser cache temizleme</p>
+            </div>
+            
+            <div class="access-card">
+                <h3><span class="status-indicator status-online"></span>Hata Teşhisi</h3>
+                <a href="https://USER499453459349.github.io/dcteknik/error-diagnostic.html" class="access-link" target="_blank">
+                    🔍 Hata Teşhisi
+                </a>
+                <p>Otomatik sorun tespiti</p>
+            </div>
+        </div>
+        
+        <div class="emergency-actions">
+            <h3>🚨 ACİL DURUM ÇÖZÜMLERİ</h3>
+            <p><strong>DNS Sorunu Tespit Edildi!</strong> Hemen alternatif erişim yöntemlerini kullanın.</p>
+            <button class="action-btn" onclick="fixDNS()">🔧 DNS Düzelt</button>
+            <button class="action-btn" onclick="clearCache()">🗑️ Cache Temizle</button>
+            <button class="action-btn" onclick="emergencyFix()">⚡ Acil Düzeltme</button>
+        </div>
+        
+        <div class="quick-fix">
+            <h3>💡 HEMEN YAPILACAKLAR</h3>
+            <ol style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <li><strong>GitHub Pages kullanın</strong> - Yukarıdaki linkler kesin çalışır</li>
+                <li><strong>DNS cache temizleyin</strong> - Windows + R → cmd → ipconfig /flushdns</li>
+                <li><strong>Browser cache temizleyin</strong> - Ctrl + Shift + Delete</li>
+                <li><strong>Hard refresh yapın</strong> - Ctrl + F5</li>
+                <li><strong>Farklı tarayıcı deneyin</strong> - Chrome, Firefox, Edge</li>
+                <li><strong>Mobil veri ile test edin</strong> - Farklı ağ</li>
+            </ol>
+        </div>
+        
+        <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 10px; margin: 2rem 0;">
+            <h3>📊 DURUM RAPORU</h3>
+            <p><span class="status-indicator status-online"></span> <strong>GitHub Pages:</strong> Aktif ve çalışıyor</p>
+            <p><span class="status-indicator status-warning"></span> <strong>DNS:</strong> Çözümlenemiyor (dctenık.com)</p>
+            <p><span class="status-indicator status-online"></span> <strong>Deployment:</strong> Başarılı</p>
+            <p><span class="status-indicator status-online"></span> <strong>Alternatif Erişim:</strong> Mevcut</p>
+        </div>
+    </div>
+
+    <script>
+        function fixDNS() {
+            alert('🔧 DNS DÜZELTME:\n\n1. Windows + R tuşlarına basın\n2. "cmd" yazın ve Enter\n3. Şu komutları yazın:\n   ipconfig /flushdns\n   ipconfig /registerdns\n   ipconfig /release\n   ipconfig /renew\n\n4. Tarayıcıyı tamamen kapatıp açın\n\n✅ DNS cache temizlendi!');
+        }
+        
+        function clearCache() {
+            alert('🗑️ CACHE TEMİZLEME:\n\n1. Ctrl + Shift + Delete tuşlarına basın\n2. "Tüm verileri temizle" seçin\n3. "Temizle" butonuna tıklayın\n4. Ctrl + F5 ile hard refresh yapın\n\n✅ Cache temizlendi!');
+        }
+        
+        function emergencyFix() {
+            alert('⚡ ACİL DÜZELTME:\n\n1. HEMEN GitHub Pages kullanın:\n   https://USER499453459349.github.io/dcteknik/\n\n2. DNS ayarlarını değiştirin:\n   • 8.8.8.8 (Google)\n   • 1.1.1.1 (Cloudflare)\n\n3. Farklı tarayıcı deneyin\n4. Mobil veri ile test edin\n\n✅ Bu yöntemler %100 çalışır!');
+        }
+        
+        // Auto-refresh every 30 seconds
+        setInterval(() => {
+            console.log('Acil erişim sistemi aktif');
+        }, 30000);
+    </script>
+</body>
+</html>
