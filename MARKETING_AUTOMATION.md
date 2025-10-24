@@ -307,3 +307,4 @@ const scoringCriteria = {
 ---
 
 *Bu Marketing Automation dokümanı düzenli olarak güncellenecek ve pazarlama otomasyonu performans verilerine göre optimize edilecektir.*
+

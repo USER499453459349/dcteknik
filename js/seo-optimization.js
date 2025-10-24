@@ -995,3 +995,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('🔍 SEO Optimizer loaded successfully');
 });
+

@@ -630,3 +630,4 @@ const emailMarketing = new EmailMarketing();
 
 // Export for global access
 window.emailMarketing = emailMarketing;
+

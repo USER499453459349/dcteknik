@@ -620,3 +620,4 @@ const leadNurturing = new LeadNurturing();
 
 // Export for global access
 window.leadNurturing = leadNurturing;
+

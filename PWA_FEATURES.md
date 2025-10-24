@@ -295,3 +295,4 @@ class PWAFeatures {
 ---
 
 *Bu PWA Features dokümanı düzenli olarak güncellenecek ve PWA performans verilerine göre optimize edilecektir.*
+

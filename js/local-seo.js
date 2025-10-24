@@ -711,3 +711,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('🏠 Local SEO Enhancer loaded successfully');
 });
+

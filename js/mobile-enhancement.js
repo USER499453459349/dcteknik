@@ -1031,3 +1031,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('📱 Mobile Enhancer loaded successfully');
 });
+

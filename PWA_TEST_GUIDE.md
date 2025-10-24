@@ -301,3 +301,4 @@ PWA Skoru: 95/100
 ---
 
 *Bu test rehberi PWA özelliklerinin doğru çalıştığını doğrulamak için kullanılmalıdır.*
+
