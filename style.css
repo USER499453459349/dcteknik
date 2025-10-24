@@ -1,3 +1,18 @@
+/* Cross-browser compatibility */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 /* Modern Design System - Enhanced CSS Variables */
 :root {
     /* Primary Colors - Modern Blue Gradient */
@@ -1263,6 +1278,9 @@ body[dir="rtl"] .contact-info {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .contact-info {
@@ -2838,6 +2856,9 @@ body[dir="rtl"] .contact-info {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .contact-info {
@@ -5826,16 +5847,27 @@ img {
 
 .blog-grid-home {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 /* Blog Section Responsive */
+@media (max-width: 1024px) {
+    .blog-grid-home {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
 @media (max-width: 768px) {
     .blog-grid-home {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        padding: 0 1rem;
     }
     
     .blog-section h2 {
@@ -5846,11 +5878,24 @@ img {
     .blog-section {
         padding: 2rem 0;
     }
+    
+    .blog-card {
+        margin-bottom: 1.5rem;
+    }
 }
 
 @media (max-width: 480px) {
     .blog-section h2 {
         font-size: 1.5rem;
+    }
+    
+    .blog-grid-home {
+        gap: 1rem;
+        padding: 0 0.5rem;
+    }
+    
+    .blog-card {
+        margin-bottom: 1rem;
     }
 }
 
@@ -5984,11 +6029,36 @@ img {
     display: flex;
     flex-direction: column;
     margin-bottom: 2rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .blog-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.blog-image {
+    position: relative;
+    height: 200px;
+    background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 15px 15px 0 0;
+}
+
+.blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.blog-image:hover img {
+    transform: scale(1.05);
 }
 
 .blog-card-image {
