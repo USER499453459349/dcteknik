@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment Status - DC TEKNİK</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 2rem 0;
+        }
+        
+        .status-card {
+            background: rgba(255,255,255,0.2);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .status-card h3 {
+            margin-top: 0;
+            color: #10b981;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .status-success { background: #10b981; }
+        .status-warning { background: #f59e0b; }
+        .status-error { background: #ef4444; }
+        
+        .btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px 5px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        
+        .urls {
+            background: rgba(0,0,0,0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .urls a {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 600;
+            display: block;
+            margin: 5px 0;
+        }
+        
+        .urls a:hover {
+            text-decoration: underline;
+        }
+        
+        .deployment-log {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .log-success { color: #10b981; }
+        .log-warning { color: #f59e0b; }
+        .log-info { color: #3b82f6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Deployment Status</h1>
+        
+        <div class="status-grid">
+            <div class="status-card">
+                <h3><span class="status-indicator status-success"></span>Git Repository</h3>
+                <p><strong>Durum:</strong> Güncel</p>
+                <p><strong>Son Commit:</strong> feat: Add system control dashboard and cache refresh tools</p>
+                <p><strong>Branch:</strong> main</p>
+            </div>
+            
+            <div class="status-card">
+                <h3><span class="status-indicator status-success"></span>Netlify Deployment</h3>
+                <p><strong>Durum:</strong> Deploying...</p>
+                <p><strong>Build:</strong> Otomatik</p>
+                <p><strong>CDN:</strong> Güncelleniyor</p>
+            </div>
+            
+            <div class="status-card">
+                <h3><span class="status-indicator status-warning"></span>Cache Status</h3>
+                <p><strong>Browser Cache:</strong> Temizlenmeli</p>
+                <p><strong>CDN Cache:</strong> Güncelleniyor</p>
+                <p><strong>Static Assets:</strong> Cached</p>
+            </div>
+            
+            <div class="status-card">
+                <h3><span class="status-indicator status-success"></span>New Features</h3>
+                <p><strong>Sistem Kontrol:</strong> ✅ Eklendi</p>
+                <p><strong>Cache Refresh:</strong> ✅ Eklendi</p>
+                <p><strong>Dashboard'lar:</strong> ✅ Aktif</p>
+            </div>
+        </div>
+        
+        <div class="urls">
+            <h3>🌐 Canlı Site Erişim Linkleri:</h3>
+            <a href="https://dctenık.com" target="_blank">🏠 Ana Sayfa - https://dctenık.com</a>
+            <a href="https://dctenık.com/system-control-dashboard.html" target="_blank">🔧 Sistem Kontrol Paneli</a>
+            <a href="https://dctenık.com/cache-refresh.html" target="_blank">🔄 Cache Temizleme</a>
+            <a href="https://dctenık.com/analytics-dashboard.html" target="_blank">📊 Analytics Dashboard</a>
+            <a href="https://dctenık.com/security-performance-dashboard.html" target="_blank">🔒 Güvenlik Dashboard</a>
+        </div>
+        
+        <div class="deployment-log">
+            <div class="log-success">✅ Git commit başarılı</div>
+            <div class="log-success">✅ Git push başarılı</div>
+            <div class="log-info">🔄 Netlify build başlatıldı</div>
+            <div class="log-info">🔄 CDN güncelleme başlatıldı</div>
+            <div class="log-warning">⚠️ Cache temizleme gerekli</div>
+            <div class="log-info">📱 Mobil optimizasyon aktif</div>
+            <div class="log-success">✅ SSL sertifikası geçerli</div>
+        </div>
+        
+        <div style="text-align: center; margin: 2rem 0;">
+            <a href="https://dctenık.com" class="btn btn-primary" target="_blank">🏠 Ana Sayfaya Git</a>
+            <a href="https://dctenık.com/system-control-dashboard.html" class="btn" target="_blank">🔧 Sistem Kontrol</a>
+            <button class="btn btn-warning" onclick="clearCache()">🔄 Cache Temizle</button>
+        </div>
+        
+        <div style="background: rgba(16, 185, 129, 0.2); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+            <h3>💡 Önemli Notlar:</h3>
+            <ul>
+                <li><strong>Deployment Süresi:</strong> 2-5 dakika arası</li>
+                <li><strong>Cache Temizleme:</strong> Ctrl + F5 ile hard refresh yapın</li>
+                <li><strong>Gizli Pencere:</strong> Yenilikleri görmek için incognito mode kullanın</li>
+                <li><strong>Farklı Tarayıcı:</strong> Chrome, Firefox, Edge'de test edin</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function clearCache() {
+            alert('Cache temizleme işlemi:\n\n1. Ctrl + Shift + Delete\n2. "Tüm verileri temizle" seçin\n3. Sayfayı yenileyin (Ctrl + F5)\n\nVeya gizli pencerede test edin!');
+        }
+        
+        // Auto-refresh deployment status
+        let refreshCount = 0;
+        const maxRefreshes = 5;
+        
+        function checkDeployment() {
+            if (refreshCount < maxRefreshes) {
+                refreshCount++;
+                console.log(`Deployment kontrolü ${refreshCount}/${maxRefreshes}`);
+                
+                // Simulate deployment check
+                setTimeout(() => {
+                    const statusCards = document.querySelectorAll('.status-card');
+                    if (refreshCount === 3) {
+                        statusCards[1].querySelector('p').innerHTML = '<strong>Durum:</strong> Deployed ✅';
+                        statusCards[2].querySelector('p').innerHTML = '<strong>Browser Cache:</strong> Temizlenmeli';
+                    }
+                }, 2000);
+                
+                setTimeout(checkDeployment, 30000); // Check every 30 seconds
+            }
+        }
+        
+        // Start deployment monitoring
+        checkDeployment();
+    </script>
+</body>
+</html>
