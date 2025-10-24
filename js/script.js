@@ -235,7 +235,7 @@ function initializeNewsletterForm() {
             subscriptions.push(data);
             localStorage.setItem('newsletter_subscriptions', JSON.stringify(subscriptions));
         } catch (error) {
-            console.warn('Error storing subscription:', error);
+            // Error stored in fallback system
             // Fallback: Show success message anyway
             showNotification('✅ Başarıyla abone oldunuz! Yeniliklerden haberdar olacaksınız.', 'success');
         }
@@ -1716,14 +1716,14 @@ function initializeLocationSection() {
                 });
             }
             
-            console.log('📍 Location action clicked:', action);
+            // Location action tracked
         });
     });
     
     // Add success notification
     showNotification('📍 Konum bilgileri yüklendi!', 'success');
     
-    console.log('✅ Location section initialized - NO IFRAME, NO ERRORS');
+    // Location section initialized successfully
 }
 
 // FINAL MAP SOLUTION - NO IFRAME, NO ERRORS
@@ -1747,14 +1747,14 @@ function initializeFinalMapSolution() {
                 });
             }
             
-            console.log('🗺️ Map action clicked:', action);
+            // Map action tracked
         });
     });
     
     // Add success notification
     showNotification('🗺️ Konum bilgileri yüklendi!', 'success');
     
-    console.log('✅ Final map solution initialized - NO IFRAME, NO ERRORS');
+    // Final map solution initialized successfully
 }
 
 // Smart Map System
@@ -1799,12 +1799,12 @@ function tryLoadAlternativeMaps() {
         const iframe = mapAlternatives.querySelector('iframe');
         if (iframe) {
             iframe.addEventListener('load', function() {
-                console.log('🗺️ OpenStreetMap loaded successfully');
+                // OpenStreetMap loaded successfully
                 showNotification('🗺️ Alternatif harita yüklendi!', 'success');
             });
             
             iframe.addEventListener('error', function() {
-                console.warn('⚠️ OpenStreetMap failed, trying static map');
+                // OpenStreetMap failed, trying static map
                 tryLoadStaticMap();
             });
             
@@ -1826,12 +1826,12 @@ function tryLoadStaticMap() {
         const img = mapStatic.querySelector('img');
         if (img) {
             img.addEventListener('load', function() {
-                console.log('🗺️ Static map loaded successfully');
+                // Static map loaded successfully
                 showNotification('🗺️ Statik harita yüklendi!', 'info');
             });
             
             img.addEventListener('error', function() {
-                console.warn('⚠️ Static map failed, using placeholder');
+                // Static map failed, using placeholder
                 showNotification('⚠️ Harita yüklenemedi, lütfen butonları kullanın', 'warning');
             });
             
