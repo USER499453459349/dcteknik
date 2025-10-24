@@ -19,6 +19,8 @@ body {
 img {
     max-width: 100%;
     height: auto;
+    loading: lazy;
+    decoding: async;
 }
 
 /* Reduce motion for accessibility */
@@ -5893,6 +5895,7 @@ img {
         padding: 0 1rem;
         width: 100%;
         max-width: 100%;
+        box-sizing: border-box;
     }
     
     .blog-section h2 {
@@ -5904,12 +5907,14 @@ img {
     .blog-section {
         padding: 2rem 0;
         margin: 1rem 0;
+        box-sizing: border-box;
     }
     
     .blog-card {
         margin-bottom: 1.5rem;
         width: 100%;
         max-width: 100%;
+        box-sizing: border-box;
     }
 }
 

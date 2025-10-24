@@ -238,6 +238,7 @@ function initializeNewsletterForm() {
             // Error stored in fallback system
             console.warn('Newsletter subscription error:', error);
             // Fallback: Show success message anyway
+            // Fallback: Show success message anyway
             showNotification('✅ Başarıyla abone oldunuz! Yeniliklerden haberdar olacaksınız.', 'success');
         }
     });
@@ -1888,6 +1889,7 @@ function getCurrentLocation() {
             },
             function(error) {
                 console.warn('Geolocation error:', error);
+                // Fallback: Show manual location option
                 // Fallback: Show manual location option
                 showNotification('⚠️ Konum bulunamadı, lütfen manuel olarak arayın', 'warning');
             }
