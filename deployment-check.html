@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DC TEKNİK - Deployment Kontrol</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            color: #10b981;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .status {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .success {
+            border-left: 5px solid #10b981;
+        }
+        .info {
+            border-left: 5px solid #3b82f6;
+        }
+        .timestamp {
+            text-align: center;
+            color: #94a3b8;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 DC TEKNİK - Deployment Kontrol</h1>
+        
+        <div class="status success">
+            <h3>✅ Deployment Durumu</h3>
+            <p><strong>Durum:</strong> Aktif</p>
+            <p><strong>Son Güncelleme:</strong> 24.10.2025 17:15</p>
+            <p><strong>Repository:</strong> USER499453459349/dcteknik</p>
+        </div>
+        
+        <div class="status info">
+            <h3>📰 Blog Bölümü Yenilikleri</h3>
+            <p><strong>Konum:</strong> Hero bölümünden hemen sonra</p>
+            <p><strong>Görünürlük:</strong> Mavi gradient arka plan</p>
+            <p><strong>Özellikler:</strong> Newsletter sistemi, animasyonlar</p>
+        </div>
+        
+        <div class="status info">
+            <h3>🔧 Teknik Detaylar</h3>
+            <p><strong>GitHub Actions:</strong> ✅ Aktif</p>
+            <p><strong>GitHub Pages:</strong> ✅ Otomatik deployment</p>
+            <p><strong>Branch:</strong> main</p>
+        </div>
+        
+        <div class="status success">
+            <h3>🎯 Beklenen Sonuçlar</h3>
+            <p>• Blog bölümü hero'dan hemen sonra görünecek</p>
+            <p>• Mavi gradient arka plan ile belirgin olacak</p>
+            <p>• Newsletter abonelik formu çalışacak</p>
+            <p>• Responsive tasarım tüm cihazlarda mükemmel olacak</p>
+        </div>
+        
+        <div class="timestamp">
+            <p>Son kontrol: <span id="timestamp"></span></p>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('timestamp').textContent = new Date().toLocaleString('tr-TR');
+    </script>
+</body>
+</html>
