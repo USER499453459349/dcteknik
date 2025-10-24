@@ -198,10 +198,97 @@ function trackConversionEvent(eventType, value = 0) {
     }
 }
 
+// Newsletter Form Handler
+function initializeNewsletterForm() {
+    const newsletterForm = document.getElementById('newsletterForm');
+    if (!newsletterForm) return;
+    
+    newsletterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(newsletterForm);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            interest: formData.get('interest'),
+            timestamp: new Date().toISOString()
+        };
+        
+        // Track newsletter subscription
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'newsletter_signup', {
+                event_category: 'engagement',
+                event_label: data.interest,
+                value: 25
+            });
+        }
+        
+        // Show success message
+        showNotification('✅ Başarıyla abone oldunuz! Yeniliklerden haberdar olacaksınız.', 'success');
+        
+        // Reset form
+        newsletterForm.reset();
+        
+        // Store subscription data
+        try {
+            const subscriptions = JSON.parse(localStorage.getItem('newsletter_subscriptions') || '[]');
+            subscriptions.push(data);
+            localStorage.setItem('newsletter_subscriptions', JSON.stringify(subscriptions));
+        } catch (error) {
+            console.log('Error storing subscription:', error);
+        }
+    });
+}
+
+// Notification system
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-message">${message}</span>
+            <button class="notification-close">&times;</button>
+        </div>
+    `;
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        z-index: 10000;
+        max-width: 400px;
+        animation: slideIn 0.3s ease;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+    
+    // Close button functionality
+    const closeBtn = notification.querySelector('.notification-close');
+    closeBtn.addEventListener('click', () => {
+        notification.remove();
+    });
+}
+
 // Initialize language system
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize analytics first
     initializeAnalytics();
+    
+    // Initialize newsletter form
+    initializeNewsletterForm();
     
     // Initialize theme system
     initializeTheme();
