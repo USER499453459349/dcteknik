@@ -7,16 +7,40 @@ navToggle.addEventListener('click', () => {
     navToggle.classList.toggle('active');
 });
 
-// Fix Duplicate Contact Links
+// Fix All Design Issues
 document.addEventListener('DOMContentLoaded', function() {
+    // Fix Logo Display
+    const logoImage = document.querySelector('.logo-image');
+    if (logoImage) {
+        logoImage.style.display = 'block';
+        logoImage.style.width = '160px';
+        logoImage.style.height = '48px';
+        logoImage.style.objectFit = 'contain';
+    }
+    
+    // Remove duplicate navigation
+    const navMenus = document.querySelectorAll('.nav-menu');
+    if (navMenus.length > 1) {
+        for (let i = 1; i < navMenus.length; i++) {
+            navMenus[i].style.display = 'none';
+            navMenus[i].classList.add('duplicate');
+        }
+    }
+    
     // Remove duplicate contact links
     const contactLinks = document.querySelectorAll('a[href="#contact"]');
     if (contactLinks.length > 1) {
-        // Keep only the first one, hide the rest
         for (let i = 1; i < contactLinks.length; i++) {
             contactLinks[i].style.display = 'none';
         }
     }
+    
+    // Fix floating buttons z-index
+    const floatingButtons = document.querySelectorAll('.floating-buttons, .dc-floating-widget');
+    floatingButtons.forEach(button => {
+        button.style.zIndex = '9999';
+        button.style.position = 'fixed';
+    });
     
     // Fix overlapping popups
     const sessionWarning = document.querySelector('.session-warning');
@@ -26,6 +50,12 @@ document.addEventListener('DOMContentLoaded', function() {
         sessionWarning.style.top = '50%';
         sessionWarning.style.left = '50%';
         sessionWarning.style.transform = 'translate(-50%, -50%)';
+    }
+    
+    // Fix language dropdown
+    const languageDropdown = document.querySelector('.language-dropdown');
+    if (languageDropdown) {
+        languageDropdown.style.zIndex = '1001';
     }
 });
 

@@ -11144,12 +11144,36 @@ input:disabled + .slider {
     backdrop-filter: blur(10px) !important;
 }
 
+/* Fix Logo Display */
+.nav-logo .logo-image {
+    display: block !important;
+    width: 160px !important;
+    height: 48px !important;
+    object-fit: contain !important;
+}
+
 /* Fix Floating Elements */
 .dc-floating-widget {
     z-index: var(--z-floating) !important;
     position: fixed !important;
     right: 20px !important;
     bottom: 20px !important;
+}
+
+/* Fix Floating Buttons Z-Index */
+.floating-buttons {
+    z-index: 9999 !important;
+    position: fixed !important;
+}
+
+/* Hide Duplicate Navigation */
+.nav-menu.duplicate {
+    display: none !important;
+}
+
+/* Fix Language Dropdown */
+.language-dropdown {
+    z-index: 1001 !important;
 }
 
 /* Hide Duplicate Contact Links */
