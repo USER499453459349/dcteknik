@@ -11116,6 +11116,47 @@ input:disabled + .slider {
     margin: 0;
 }
 
+/* Z-Index Management - Fix Overlapping Issues */
+:root {
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal-backdrop: 1040;
+    --z-modal: 1050;
+    --z-popover: 1060;
+    --z-tooltip: 1070;
+    --z-toast: 1080;
+    --z-floating: 1090;
+    --z-session-warning: 1100;
+}
+
+/* Fix Overlapping Popups */
+.session-warning {
+    z-index: var(--z-session-warning) !important;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    color: white !important;
+    padding: 20px !important;
+    border-radius: 10px !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* Fix Floating Elements */
+.dc-floating-widget {
+    z-index: var(--z-floating) !important;
+    position: fixed !important;
+    right: 20px !important;
+    bottom: 20px !important;
+}
+
+/* Hide Duplicate Contact Links */
+.duplicate-contact {
+    display: none !important;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .diagnostic-step {

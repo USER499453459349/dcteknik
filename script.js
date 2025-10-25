@@ -7,6 +7,28 @@ navToggle.addEventListener('click', () => {
     navToggle.classList.toggle('active');
 });
 
+// Fix Duplicate Contact Links
+document.addEventListener('DOMContentLoaded', function() {
+    // Remove duplicate contact links
+    const contactLinks = document.querySelectorAll('a[href="#contact"]');
+    if (contactLinks.length > 1) {
+        // Keep only the first one, hide the rest
+        for (let i = 1; i < contactLinks.length; i++) {
+            contactLinks[i].style.display = 'none';
+        }
+    }
+    
+    // Fix overlapping popups
+    const sessionWarning = document.querySelector('.session-warning');
+    if (sessionWarning) {
+        sessionWarning.style.zIndex = '1100';
+        sessionWarning.style.position = 'fixed';
+        sessionWarning.style.top = '50%';
+        sessionWarning.style.left = '50%';
+        sessionWarning.style.transform = 'translate(-50%, -50%)';
+    }
+});
+
 // Close mobile menu when clicking on a link
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {

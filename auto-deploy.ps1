@@ -45,3 +45,4 @@ try {
 }
 
 Write-Host "🎉 Deployment tamamlandı!" -ForegroundColor Green
+

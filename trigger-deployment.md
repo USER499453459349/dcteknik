@@ -12,3 +12,4 @@ $(Get-Date)
 
 ## Durum
 DEPLOYMENT AKTIF
+
