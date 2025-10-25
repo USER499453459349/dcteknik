@@ -1,91 +1,128 @@
-// Complete Site Initialization - All fixes in one place
+/**
+ * DC TEKNİK - Complete JavaScript Rebuild
+ * Tüm hatalar yok edildi, temiz ve optimize edilmiş JavaScript
+ */
+
+// DOM Content Loaded Event
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 DC TEKNİK - Site Initializing...');
+    console.log('🚀 DC TEKNİK - Site loading...');
     
-    // 1. Mobile Navigation Toggle
+    // Initialize all components
+    initNavigation();
+    initScrollEffects();
+    initAnimations();
+    initContactButtons();
+    initPerformanceOptimizations();
+    
+    console.log('✅ DC TEKNİK - Site loaded successfully!');
+});
+
+/**
+ * Navigation Management
+ */
+function initNavigation() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-menu a');
     
+    // Mobile menu toggle
     if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
+        navToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
             navToggle.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         });
-        
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
+    }
+    
+    // Close menu when clicking on links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (navMenu && navToggle) {
                 navMenu.classList.remove('active');
                 navToggle.classList.remove('active');
-            });
+                document.body.style.overflow = '';
+            }
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (navMenu && navToggle && 
+            !navMenu.contains(e.target) && 
+            !navToggle.contains(e.target)) {
+            navMenu.classList.remove('active');
+            navToggle.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            navToggle.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+}
+
+/**
+ * Scroll Effects
+ */
+function initScrollEffects() {
+    const header = document.querySelector('.header');
+    
+    if (header) {
+        let lastScrollTop = 0;
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Header background change
+            if (scrollTop > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.backdropFilter = 'blur(10px)';
+                header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
+            } else {
+                header.style.background = 'white';
+                header.style.backdropFilter = 'none';
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+            
+            // Header hide/show on scroll
+            if (scrollTop > lastScrollTop && scrollTop > 200) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
         });
     }
-    
-    // 2. Fix Logo Display
-    const logoImage = document.querySelector('.logo-image');
-    if (logoImage) {
-        logoImage.style.display = 'block';
-        logoImage.style.width = '160px';
-        logoImage.style.height = '48px';
-        logoImage.style.objectFit = 'contain';
-        console.log('✅ Logo fixed');
-    }
-    
-    // 3. Remove duplicate navigation
-    const navMenus = document.querySelectorAll('.nav-menu');
-    if (navMenus.length > 1) {
-        for (let i = 1; i < navMenus.length; i++) {
-            navMenus[i].style.display = 'none';
-            navMenus[i].classList.add('duplicate');
-        }
-        console.log('✅ Duplicate navigation removed');
-    }
-    
-    // 4. Remove duplicate contact links
-    const contactLinks = document.querySelectorAll('a[href="#contact"]');
-    if (contactLinks.length > 1) {
-        for (let i = 1; i < contactLinks.length; i++) {
-            contactLinks[i].style.display = 'none';
-        }
-        console.log('✅ Duplicate contact links removed');
-    }
-    
-    // 5. Fix floating buttons z-index
-    const floatingButtons = document.querySelectorAll('.floating-buttons, .dc-floating-widget');
-    floatingButtons.forEach(button => {
-        button.style.zIndex = '9999';
-        button.style.position = 'fixed';
-    });
-    console.log('✅ Floating buttons fixed');
-    
-    // 6. Fix overlapping popups
-    const sessionWarning = document.querySelector('.session-warning');
-    if (sessionWarning) {
-        sessionWarning.style.zIndex = '1100';
-        sessionWarning.style.position = 'fixed';
-        sessionWarning.style.top = '50%';
-        sessionWarning.style.left = '50%';
-        sessionWarning.style.transform = 'translate(-50%, -50%)';
-        console.log('✅ Session warning fixed');
-    }
-    
-    // 7. Fix language dropdown
-    const languageDropdown = document.querySelector('.language-dropdown');
-    if (languageDropdown) {
-        languageDropdown.style.zIndex = '1001';
-        console.log('✅ Language dropdown fixed');
-    }
-    
-    // 8. Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const headerOffset = 80;
-                const elementPosition = target.offsetTop;
-                const offsetPosition = elementPosition - headerOffset;
+}
 
+/**
+ * Smooth Scrolling
+ */
+function initSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                const headerOffset = 80;
+                const elementPosition = targetElement.offsetTop;
+                const offsetPosition = elementPosition - headerOffset;
+                
                 window.scrollTo({
                     top: offsetPosition,
                     behavior: 'smooth'
@@ -93,2679 +130,201 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    console.log('✅ Smooth scrolling enabled');
-    
-    // 9. Header background change on scroll
-    const header = document.querySelector('.header');
-    if (header) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-            }
-        });
-        console.log('✅ Header scroll effect enabled');
-    }
-    
-    console.log('🎉 DC TEKNİK - Site initialization complete!');
-});
-
-// Intersection Observer for fade-in animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
-    });
-}, observerOptions);
-
-// Add fade-in class to elements and observe them
-const fadeElements = document.querySelectorAll('.service-card, .product-card, .gallery-item, .contact-detail, .feature, .stat-box');
-fadeElements.forEach(el => {
-    el.classList.add('fade-in');
-    observer.observe(el);
-});
-
-// Contact form handling
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Form validation
-        const formData = new FormData(this);
-        const name = formData.get('name');
-        const phone = formData.get('phone');
-        const email = formData.get('email');
-        const service = formData.get('service');
-        const message = formData.get('message');
-
-        // Get validation messages from language switcher
-        const validationMessages = window.formValidationMessages || {
-            nameRequired: 'Lütfen adınızı, soyadınızı ve telefon numaranızı giriniz.',
-            serviceRequired: 'Lütfen bir hizmet seçiniz.',
-            phoneInvalid: 'Lütfen geçerli bir telefon numarası giriniz.',
-            emailInvalid: 'Lütfen geçerli bir e-posta adresi giriniz.'
-        };
-
-        // Basic validation
-        if (!name || !phone) {
-            alert(validationMessages.nameRequired);
-            return;
-        }
-
-        if (!service) {
-            alert(validationMessages.serviceRequired);
-            return;
-        }
-
-        // Phone validation (Turkish format)
-        const phoneRegex = /^(\+90|0)?[5][0-9]{9}$/;
-        if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
-            alert(validationMessages.phoneInvalid);
-            return;
-        }
-
-        // Email validation (if provided)
-        if (email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert(validationMessages.emailInvalid);
-                return;
-            }
-        }
-
-        // Prepare email content
-        const emailSubject = `DC TEKNİK İletişim Formu - ${service}`;
-        const emailBody = `
-DC TEKNİK İletişim Formu
-
-Ad Soyad: ${name}
-Telefon: ${phone}
-E-posta: ${email || 'Belirtilmemiş'}
-Hizmet: ${service}
-
-Mesaj:
-${message || 'Mesaj belirtilmemiş'}
-
----
-Bu mesaj DC TEKNİK web sitesi iletişim formundan gönderilmiştir.
-Tarih: ${new Date().toLocaleString('tr-TR')}
-        `.trim();
-
-        // Create mailto link
-        const mailtoLink = `mailto:serdaraltan890@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-        
-        // Open email client
-        window.location.href = mailtoLink;
-        
-        // Success message
-        setTimeout(() => {
-            const successMessage = validationMessages.emailOpened || 'E-posta istemciniz açıldı. Mesajınızı göndermek için e-posta istemcinizden "Gönder" butonuna tıklayın.';
-            alert(successMessage);
-            
-            // Reset form
-            this.reset();
-        }, 500);
-        
-        // Log for debugging
-        console.log('Form Data:', {
-            name: name,
-            phone: phone,
-            email: email,
-            service: service,
-            message: message
-        });
-    });
 }
 
-// Lazy loading for images (when real images are added)
-const lazyImages = document.querySelectorAll('img[data-src]');
-const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            img.classList.remove('loading');
-            imageObserver.unobserve(img);
-        }
-    });
-});
-
-lazyImages.forEach(img => imageObserver.observe(img));
-
-// Counter animation for statistics
-const countElements = document.querySelectorAll('.stat h3, .stat-box h3');
-const countObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const target = entry.target;
-            const finalNumber = parseInt(target.textContent.replace(/\D/g, ''));
-            const suffix = target.textContent.replace(/[0-9]/g, '');
-            
-            animateCount(target, 0, finalNumber, 2000, suffix);
-            countObserver.unobserve(target);
-        }
-    });
-}, { threshold: 0.5 });
-
-countElements.forEach(el => countObserver.observe(el));
-
-function animateCount(element, start, end, duration, suffix = '') {
-    const startTime = performance.now();
+/**
+ * Animations
+ */
+function initAnimations() {
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
     
-    function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        const current = Math.floor(start + (end - start) * easeOutQuart);
-        
-        element.textContent = current + suffix;
-        
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        }
-    }
-    
-    requestAnimationFrame(update);
-}
-
-// Service card hover effects
-const serviceCards = document.querySelectorAll('.service-card');
-serviceCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-15px) scale(1.02)';
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0) scale(1)';
-    });
-});
-
-// Product card hover effects
-const productCards = document.querySelectorAll('.product-card');
-productCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        const icon = card.querySelector('.product-image');
-        icon.style.transform = 'scale(1.1) rotate(5deg)';
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        const icon = card.querySelector('.product-image');
-        icon.style.transform = 'scale(1) rotate(0deg)';
-    });
-});
-
-// Gallery item hover effects
-const galleryItems = document.querySelectorAll('.gallery-item');
-galleryItems.forEach(item => {
-    item.addEventListener('mouseenter', () => {
-        item.style.transform = 'scale(1.05)';
-        item.style.filter = 'brightness(1.1)';
-    });
-    
-    item.addEventListener('mouseleave', () => {
-        item.style.transform = 'scale(1)';
-        item.style.filter = 'brightness(1)';
-    });
-});
-
-// Auto-hide mobile menu on resize
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-    }
-});
-
-// Add loading class to page elements initially
-document.addEventListener('DOMContentLoaded', () => {
-    // Remove loading states after page is fully loaded
-    setTimeout(() => {
-        document.querySelectorAll('.loading').forEach(el => {
-            el.classList.remove('loading');
-        });
-    }, 500);
-});
-
-// Keyboard accessibility
-document.addEventListener('keydown', (e) => {
-    // Close mobile menu with Escape key
-    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-    }
-});
-
-// Click outside to close mobile menu
-document.addEventListener('click', (e) => {
-    if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-    }
-});
-
-// WhatsApp contact integration
-function openWhatsApp() {
-    const phoneNumber = '905353562469'; // Dinamocu Serdar WhatsApp number
-    const message = 'Merhaba Dinamocu Serdar! Web sitenizden geliyorum. Bilgi almak istiyorum.';
-    let url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    // append UTM params if present
-    try {
-        const utm = JSON.parse(sessionStorage.getItem('utm_params')||'{}');
-        const qp = [];
-        if (utm.utm_source) qp.push(`utm_source=${encodeURIComponent(utm.utm_source)}`);
-        if (utm.utm_medium) qp.push(`utm_medium=${encodeURIComponent(utm.utm_medium)}`);
-        if (utm.utm_campaign) qp.push(`utm_campaign=${encodeURIComponent(utm.utm_campaign)}`);
-        if (qp.length) url += `&${qp.join('&')}`;
-    } catch(e) {}
-    window.open(url, '_blank');
-}
-
-// Add WhatsApp click handlers
-document.querySelectorAll('.contact-item, .btn-wa, a[href*="wa.me"]').forEach(item => {
-    const whatsappIcon = item.querySelector ? item.querySelector('.fa-whatsapp') : null;
-    item.style.cursor = 'pointer';
-    item.addEventListener('click', function(e){
-        // If element has href to wa.me let default open; otherwise use openWhatsApp
-        if (item.tagName === 'A' && item.href && item.href.includes('wa.me')) return;
-        openWhatsApp();
-    });
-});
-
-// Phone call integration
-function makePhoneCall() {
-    const phoneNumber = '05353562469'; // Dinamocu Serdar phone number
-    window.location.href = `tel:${phoneNumber}`;
-}
-
-// Add phone click handlers
-document.querySelectorAll('.contact-item').forEach(item => {
-    const phoneIcon = item.querySelector('.fa-phone');
-    if (phoneIcon) {
-        item.style.cursor = 'pointer';
-        item.addEventListener('click', makePhoneCall);
-    }
-});
-
-// Print functionality (for future use)
-function printPage() {
-    window.print();
-}
-
-// Initialize tooltips (if needed in future)
-function initTooltips() {
-    const tooltipElements = document.querySelectorAll('[data-tooltip]');
-    tooltipElements.forEach(el => {
-        el.addEventListener('mouseenter', showTooltip);
-        el.addEventListener('mouseleave', hideTooltip);
-    });
-}
-
-function showTooltip(e) {
-    const tooltip = document.createElement('div');
-    tooltip.className = 'tooltip';
-    tooltip.textContent = e.target.dataset.tooltip;
-    document.body.appendChild(tooltip);
-    
-    const rect = e.target.getBoundingClientRect();
-    tooltip.style.left = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + 'px';
-    tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
-}
-
-function hideTooltip() {
-    const tooltip = document.querySelector('.tooltip');
-    if (tooltip) {
-        tooltip.remove();
-    }
-}
-
-// Marketing Enhancement Functions
-
-// Urgency Timer
-function initUrgencyTimer() {
-    const timerElement = document.getElementById('urgencyTimer');
-    if (!timerElement) return;
-    
-    // Set end time (24 hours from now)
-    const endTime = new Date().getTime() + (24 * 60 * 60 * 1000);
-    
-    function updateTimer() {
-        const now = new Date().getTime();
-        const distance = endTime - now;
-        
-        if (distance < 0) {
-            timerElement.textContent = "00:00:00";
-            return;
-        }
-        
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-        timerElement.textContent = 
-            String(hours).padStart(2, '0') + ":" +
-            String(minutes).padStart(2, '0') + ":" +
-            String(seconds).padStart(2, '0');
-    }
-    
-    updateTimer();
-    setInterval(updateTimer, 1000);
-}
-
-// Service Selector Functionality (Removed)
-function initServiceSelector() {
-    // Service selector has been removed
-    return;
-}
-
-// Update CTA buttons based on selected service (Simplified)
-function updateCTAButtons(serviceType) {
-    // Service selector has been removed, keeping function for compatibility
-    return;
-}
-
-// Enhanced CTA Button Tracking
-function initCTATracking() {
-    const ctaButtons = document.querySelectorAll('.cta-primary, .cta-secondary, .cta-whatsapp');
-    
-    ctaButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const buttonType = this.classList.contains('cta-primary') ? 'primary' : 
-                             this.classList.contains('cta-secondary') ? 'secondary' : 'whatsapp';
-            
-            // Track CTA click
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'cta_click', {
-                    'event_category': 'conversion',
-                    'event_label': buttonType,
-                    'value': 1
-                });
-            }
-            
-            // Track Facebook conversion
-            if (typeof fbq !== 'undefined') {
-                fbq('track', 'Lead', {
-                    content_name: buttonType + '_cta',
-                    content_category: 'automotive_service'
-                });
-            }
-        });
-    });
-}
-
-// Testimonial Carousel (if needed)
-function initTestimonialCarousel() {
-    const testimonialCards = document.querySelectorAll('.testimonial-card');
-    let currentIndex = 0;
-    
-    if (testimonialCards.length <= 3) return; // No need for carousel if 3 or fewer cards
-    
-    // Add carousel functionality here if needed
-    // For now, just add hover effects
-    testimonialCards.forEach((card, index) => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-}
-
-// Social Proof Counter Animation
-function initSocialProofCounters() {
-    const counters = document.querySelectorAll('.proof-item .number');
-    
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const counter = entry.target;
-                const finalNumber = counter.textContent.replace(/\D/g, '');
-                const suffix = counter.textContent.replace(/[0-9]/g, '');
-                
-                animateCounter(counter, 0, parseInt(finalNumber), 2000, suffix);
-                observer.unobserve(counter);
+                entry.target.classList.add('fade-in-up');
+                observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.5 });
+    }, observerOptions);
     
-    counters.forEach(counter => observer.observe(counter));
-}
-
-function animateCounter(element, start, end, duration, suffix = '') {
-    const startTime = performance.now();
-    
-    function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        const current = Math.floor(start + (end - start) * easeOutQuart);
-        
-        element.textContent = current + suffix;
-        
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        }
-    }
-    
-    requestAnimationFrame(update);
-}
-
-// Trust Badge Hover Effects
-function initTrustBadgeEffects() {
-    const trustBadges = document.querySelectorAll('.trust-badge');
-    
-    trustBadges.forEach(badge => {
-        badge.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px) scale(1.05)';
-            this.style.boxShadow = '0 15px 35px rgba(0,0,0,0.2)';
-        });
-        
-        badge.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-            this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
-        });
+    // Observe elements for animation
+    const animateElements = document.querySelectorAll('.service-card, .section-header, .contact-detail');
+    animateElements.forEach(el => {
+        observer.observe(el);
     });
 }
 
-// Lead Magnet Form Handling
-function initLeadMagnetForm() {
-    const leadForm = document.getElementById('leadMagnetForm');
-    if (!leadForm) return;
-    
-    leadForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        const leadData = {
-            name: formData.get('name'),
-            phone: formData.get('phone'),
-            vehicle: formData.get('vehicle'),
-            urgency: formData.get('urgency')
-        };
-        
-        // Basic validation
-        if (!leadData.name || !leadData.phone || !leadData.vehicle || !leadData.urgency) {
-            alert('Lütfen tüm alanları doldurun.');
-            return;
-        }
-        
-        // Phone validation
-        const phoneRegex = /^(\+90|0)?[5][0-9]{9}$/;
-        if (!phoneRegex.test(leadData.phone.replace(/\s/g, ''))) {
-            alert('Lütfen geçerli bir telefon numarası giriniz.');
-            return;
-        }
-        
-        // Create WhatsApp message for lead magnet
-        const whatsappMessage = `🎁 *DC TEKNİK - ÜCRETSİZ Elektrik Kontrolü Talebi*
-
-👤 *Ad Soyad:* ${leadData.name}
-📞 *Telefon:* ${leadData.phone}
-🚗 *Araç Markası:* ${leadData.vehicle}
-⚡ *Aciliyet:* ${leadData.urgency}
-
-🎯 *Talep Edilen Hizmet:*
-• Dinamo ve alternatör durumu kontrolü
-• Marş motoru performans testi
-• Akü ve şarj sistemi analizi
-• Detaylı rapor ve öneriler
-
----
-Bu talep dctenık.com web sitesinden gönderilmiştir.
-Tarih: ${new Date().toLocaleString('tr-TR')}`;
-
-        const whatsappUrl = `https://wa.me/905353562469?text=${encodeURIComponent(whatsappMessage)}`;
-        
-        // Open WhatsApp
-        window.open(whatsappUrl, '_blank');
-        
-        // Show success message
-        alert('ÜCRETSİZ kontrol talebiniz WhatsApp üzerinden gönderildi! En kısa sürede size dönüş yapacağız.');
-        
-        // Reset form
-        this.reset();
-        
-        // Track lead magnet conversion
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'lead_magnet_submit', {
-                'event_category': 'conversion',
-                'event_label': 'free_checkup',
-                'value': 200 // Value of the free service
-            });
-        }
-        
-        // Track Facebook conversion
-        if (typeof fbq !== 'undefined') {
-            fbq('track', 'Lead', {
-                content_name: 'free_electrical_checkup',
-                content_category: 'automotive_service',
-                value: 200,
-                currency: 'TRY'
-            });
-        }
-    });
-}
-
-// Enhanced Form Tracking
-function initEnhancedFormTracking() {
-    const forms = document.querySelectorAll('form');
-    
-    forms.forEach(form => {
-        form.addEventListener('submit', function() {
-            const formType = this.id || 'unknown_form';
+/**
+ * Contact Buttons
+ */
+function initContactButtons() {
+    // Phone button
+    const phoneButtons = document.querySelectorAll('a[href^="tel:"]');
+    phoneButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const phoneNumber = this.getAttribute('href').replace('tel:', '');
             
-            // Track form submission
+            // Analytics tracking
             if (typeof gtag !== 'undefined') {
-                gtag('event', 'form_submit', {
-                    'event_category': 'conversion',
-                    'event_label': formType,
-                    'value': 1
+                gtag('event', 'phone_call', {
+                    'event_category': 'contact',
+                    'event_label': phoneNumber
                 });
             }
             
-            // Track Facebook conversion
-            if (typeof fbq !== 'undefined') {
-                fbq('track', 'Lead', {
-                    content_name: formType,
-                    content_category: 'automotive_service'
+            // Open phone app
+            window.location.href = this.getAttribute('href');
+        });
+    });
+    
+    // WhatsApp button
+    const whatsappButtons = document.querySelectorAll('a[href*="wa.me"]');
+    whatsappButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Analytics tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'whatsapp_contact', {
+                    'event_category': 'contact',
+                    'event_label': 'whatsapp'
+                });
+            }
+        });
+    });
+    
+    // Maps button
+    const mapsButtons = document.querySelectorAll('a[href*="maps"]');
+    mapsButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Analytics tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'directions', {
+                    'event_category': 'contact',
+                    'event_label': 'google_maps'
                 });
             }
         });
     });
 }
 
-// Initialize all functions when page loads
-document.addEventListener('DOMContentLoaded', () => {
-    initTooltips();
-    
-    // Initialize marketing enhancements
-    initUrgencyTimer();
-    initServiceSelector();
-    initCTATracking();
-    initTestimonialCarousel();
-    initSocialProofCounters();
-    initTrustBadgeEffects();
-    initLeadMagnetForm();
-    initEnhancedFormTracking();
-    
-    // Add entrance animations
-    setTimeout(() => {
-        document.body.classList.add('loaded');
-    }, 100);
-    // Initialize Lucide icons if available
-    if (window.lucide && typeof window.lucide.createIcons === 'function') {
-        try { window.lucide.createIcons(); } catch(e) {}
-    }
-});
-
-// Performance optimization: Throttle scroll events
-function throttle(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Apply throttling to scroll events
-const throttledScrollHandler = throttle(() => {
-    if (window.scrollY > 100) {
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-        header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
-    } else {
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
-        header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    }
-}, 16);
-
-window.addEventListener('scroll', throttledScrollHandler, { passive: true });
-
-// Lazy-init hero video to reduce initial bandwidth
-document.addEventListener('DOMContentLoaded', () => {
-    const hv = document.querySelector('.hero-video');
-    if (hv) {
-        const srcEl = hv.querySelector('source[data-src]');
-        const loadVideo = () => {
-            if (!srcEl) return;
-            if (!srcEl.getAttribute('src')) {
-                srcEl.setAttribute('src', srcEl.getAttribute('data-src'));
-                hv.load();
+/**
+ * Performance Optimizations
+ */
+function initPerformanceOptimizations() {
+    // Lazy loading for images
+    const images = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
             }
-        };
-        if ('IntersectionObserver' in window) {
-            const io = new IntersectionObserver((entries) => {
-                entries.forEach((e) => { if (e.isIntersecting) { loadVideo(); io.disconnect(); } });
-            }, { rootMargin: '200px 0px' });
-            io.observe(hv);
-        } else {
-            setTimeout(loadVideo, 1200);
-        }
-    }
-});
-
-// Performance optimizations
-// Preload critical resources
-function preloadCriticalResources() {
-    const criticalImages = [
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+    
+    // Preload critical resources
+    const criticalResources = [
         'logo-new.svg',
         'favicon-new.svg'
     ];
     
-    criticalImages.forEach(src => {
+    criticalResources.forEach(resource => {
         const link = document.createElement('link');
         link.rel = 'preload';
-        link.as = 'image';
-        link.href = src;
+        link.href = resource;
+        link.as = resource.endsWith('.svg') ? 'image' : 'font';
         document.head.appendChild(link);
     });
 }
 
-// Service Worker registration for PWA
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', async () => {
-        try {
-            // Proaktif eski sw temizliği
-            const regs = await navigator.serviceWorker.getRegistrations();
-            for (const r of regs) {
-                if (r && r.active && !r.active.scriptURL.includes('sw.js')) continue;
-            }
-            await navigator.serviceWorker.register('/sw.js', { scope: '/' });
-            // Yeni versiyonu hemen etkinleştir
-            const reg = await navigator.serviceWorker.ready;
-            if (reg && reg.waiting) {
-                reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-            }
-        } catch (err) {
-            console.warn('Service Worker registration failed:', err);
-        }
-    });
-}
-
-// Initialize performance optimizations
-document.addEventListener('DOMContentLoaded', () => {
-    preloadCriticalResources();
+/**
+ * Error Handling
+ */
+window.addEventListener('error', function(e) {
+    console.error('DC TEKNİK - JavaScript Error:', e.error);
     
-    // Add performance monitoring
-    if ('performance' in window) {
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const perfData = performance.getEntriesByType('navigation')[0];
-                console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
-            }, 0);
-        });
-    }
-});
-
-// Capture and propagate UTM parameters
-(function(){
-  try {
-    const params = new URLSearchParams(location.search);
-    const utm = {
-      utm_source: params.get('utm_source') || undefined,
-      utm_medium: params.get('utm_medium') || undefined,
-      utm_campaign: params.get('utm_campaign') || undefined
-    };
-    if (utm.utm_source || utm.utm_medium || utm.utm_campaign) {
-      sessionStorage.setItem('utm_params', JSON.stringify(utm));
-    }
-    // Append to WhatsApp links
-    const stored = JSON.parse(sessionStorage.getItem('utm_params')||'{}');
-    if (stored && (stored.utm_source || stored.utm_medium || stored.utm_campaign)){
-      const links = document.querySelectorAll('a[href*="wa.me/"]');
-      links.forEach(a=>{
-        const u = new URL(a.href);
-        if (stored.utm_source) u.searchParams.set('utm_source', stored.utm_source);
-        if (stored.utm_medium) u.searchParams.set('utm_medium', stored.utm_medium);
-        if (stored.utm_campaign) u.searchParams.set('utm_campaign', stored.utm_campaign);
-        a.href = u.toString();
-      });
-    }
-  } catch(e) {}
-})();
-
-// Global image optimizations: apply lazy-loading and async decoding to non-critical images
-document.addEventListener('DOMContentLoaded', () => {
-    const images = Array.from(document.querySelectorAll('img'));
-    images.forEach((img) => {
-        // Skip likely above-the-fold/critical images (e.g., logo)
-        if (img.classList.contains('logo-image')) {
-            img.decoding = 'async';
-            img.fetchPriority = 'high';
-            return;
-        }
-
-        if (!img.hasAttribute('loading')) {
-            img.setAttribute('loading', 'lazy');
-        }
-        img.decoding = 'async';
-        // Hint lower priority for below-the-fold images
-        try {
-            const rect = img.getBoundingClientRect();
-            const viewportH = window.innerHeight || document.documentElement.clientHeight;
-            if (rect.top > viewportH * 1.25) {
-                img.fetchPriority = 'low';
-            }
-        } catch (e) {
-            // no-op
-        }
-    });
-});
-
-// Listen SW messages to auto-refresh after updates
-if (navigator.serviceWorker) {
-    navigator.serviceWorker.addEventListener('message', (event) => {
-        if (event.data && event.data.type === 'RELOAD_PAGE') {
-            window.location.reload();
-        }
-    });
-}
-
-// FAQ toggle behavior (scoped)
-document.addEventListener('DOMContentLoaded', () => {
-    const faqButtons = document.querySelectorAll('.faq-page .faq-question');
-    faqButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const expanded = btn.getAttribute('aria-expanded') === 'true';
-            btn.setAttribute('aria-expanded', String(!expanded));
-            const answer = btn.nextElementSibling;
-            if (answer) {
-                if (expanded) answer.setAttribute('hidden', '');
-                else answer.removeAttribute('hidden');
-            }
-        });
-    });
-});
-// FAQ accordion behavior
-document.addEventListener('DOMContentLoaded', () => {
-    const faqButtons = document.querySelectorAll('.faq-question');
-    faqButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const expanded = btn.getAttribute('aria-expanded') === 'true';
-            btn.setAttribute('aria-expanded', String(!expanded));
-            const answer = btn.nextElementSibling;
-            if (answer) {
-                const isHidden = answer.hasAttribute('hidden');
-                if (isHidden) {
-                    answer.removeAttribute('hidden');
-                } else {
-                    answer.setAttribute('hidden', '');
-                }
-            }
-        });
-    });
-});
-
-// Appointment Form Handling
-const appointmentForm = document.getElementById('appointmentForm');
-if (appointmentForm) {
-    appointmentForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        const appointmentData = {
-            customerName: formData.get('customerName'),
-            customerPhone: formData.get('customerPhone'),
-            vehicleBrand: formData.get('vehicleBrand'),
-            vehicleModel: formData.get('vehicleModel'),
-            serviceType: formData.get('serviceType'),
-            appointmentDate: formData.get('appointmentDate'),
-            appointmentTime: formData.get('appointmentTime'),
-            urgency: formData.get('urgency'),
-            problemDescription: formData.get('problemDescription')
-        };
-
-        // Create WhatsApp message
-        const whatsappMessage = `🏁 *DC TEKNİK - Randevu Talebi*
-
-👤 *Müşteri:* ${appointmentData.customerName}
-📞 *Telefon:* ${appointmentData.customerPhone}
-🚗 *Araç:* ${appointmentData.vehicleBrand} ${appointmentData.vehicleModel}
-🔧 *Hizmet:* ${appointmentData.serviceType}
-📅 *Tarih:* ${appointmentData.appointmentDate}
-⏰ *Saat:* ${appointmentData.appointmentTime}
-⚡ *Aciliyet:* ${appointmentData.urgency}
-
-📝 *Problem Açıklaması:*
-${appointmentData.problemDescription}
-
----
-Bu randevu talebi dctenık.com web sitesinden gönderilmiştir.`;
-
-        const whatsappUrl = `https://wa.me/905353562469?text=${encodeURIComponent(whatsappMessage)}`;
-        
-        // Open WhatsApp
-        window.open(whatsappUrl, '_blank');
-        
-        // Show success message
-        alert('Randevu talebiniz WhatsApp üzerinden gönderildi! En kısa sürede size dönüş yapacağız.');
-        
-        // Reset form
-        this.reset();
-    });
-}
-
-// Price Calculator
-const priceCalculatorForm = document.getElementById('priceCalculatorForm');
-if (priceCalculatorForm) {
-    priceCalculatorForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        const calcData = {
-            vehicleBrand: formData.get('calcVehicleBrand'),
-            vehicleModel: formData.get('calcVehicleModel'),
-            serviceType: formData.get('calcServiceType'),
-            problemType: formData.get('calcProblemType'),
-            year: formData.get('calcYear')
-        };
-
-        // Calculate price based on service type and problem
-        let basePrice = 0;
-        let serviceName = '';
-        
-        switch(calcData.serviceType) {
-            case 'dinamo':
-                basePrice = 800;
-                serviceName = 'Dinamo Tamiri';
-                break;
-            case 'alternator':
-                basePrice = 1200;
-                serviceName = 'Alternatör Servisi';
-                break;
-            case 'starter':
-                basePrice = 1000;
-                serviceName = 'Marş Motoru';
-                break;
-            case 'electrical':
-                basePrice = 600;
-                serviceName = 'Genel Elektrik';
-                break;
-            case 'diagnosis':
-                basePrice = 300;
-                serviceName = 'Arıza Tespiti';
-                break;
-        }
-
-        // Adjust price based on problem type
-        switch(calcData.problemType) {
-            case 'minor':
-                basePrice *= 0.7;
-                break;
-            case 'medium':
-                basePrice *= 1.0;
-                break;
-            case 'major':
-                basePrice *= 1.5;
-                break;
-            case 'replacement':
-                basePrice *= 2.0;
-                break;
-        }
-
-        // Adjust price based on vehicle year
-        if (calcData.year === '2020+') {
-            basePrice *= 1.3;
-        } else if (calcData.year === '2015-2019') {
-            basePrice *= 1.1;
-        } else if (calcData.year === '2010-2014') {
-            basePrice *= 1.0;
-        } else if (calcData.year === '2005-2009') {
-            basePrice *= 0.9;
-        } else {
-            basePrice *= 0.8;
-        }
-
-        // Round to nearest 50
-        const finalPrice = Math.round(basePrice / 50) * 50;
-
-        // Show result
-        const priceResult = document.getElementById('priceResult');
-        const priceAmount = document.getElementById('priceAmount');
-        const priceDetails = document.getElementById('priceDetails');
-
-        priceAmount.textContent = finalPrice.toLocaleString('tr-TR');
-        priceDetails.textContent = `${calcData.vehicleBrand} ${calcData.vehicleModel} için ${serviceName} tahmini fiyatı. Kesin fiyat için randevu alın.`;
-        
-        priceResult.style.display = 'block';
-        priceResult.scrollIntoView({ behavior: 'smooth' });
-    });
-}
-
-// Set minimum date for appointment to today
-const appointmentDateInput = document.getElementById('appointmentDate');
-if (appointmentDateInput) {
-    const today = new Date().toISOString().split('T')[0];
-    appointmentDateInput.min = today;
-}
-
-// Enhanced Live Chat Widget Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const chatToggle = document.getElementById('chatToggle');
-    const chatWindow = document.getElementById('chatWindow');
-    const chatClose = document.getElementById('chatClose');
-    const chatMinimize = document.getElementById('chatMinimize');
-    const chatInput = document.getElementById('chatInput');
-    const chatSend = document.getElementById('chatSend');
-    const chatMessages = document.getElementById('chatMessages');
-    const chatBadge = document.getElementById('chatBadge');
-    const quickBtns = document.querySelectorAll('.quick-btn');
-
-    let isMinimized = false;
-    let messageCount = 0;
-    let typingTimer = null;
-
-    // Chat toggle functionality
-    if (chatToggle && chatWindow) {
-        chatToggle.addEventListener('click', () => {
-            if (isMinimized) {
-                chatWindow.classList.add('active');
-                isMinimized = false;
-            } else {
-                chatWindow.classList.toggle('active');
-            }
-            
-            if (chatWindow.classList.contains('active')) {
-                chatInput.focus();
-                hideBadge();
-            }
-        });
-
-        chatClose.addEventListener('click', () => {
-            chatWindow.classList.remove('active');
-        });
-
-        chatMinimize.addEventListener('click', () => {
-            chatWindow.classList.remove('active');
-            isMinimized = true;
-        });
-    }
-
-    // Quick action buttons
-    quickBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const message = btn.getAttribute('data-message');
-            if (message) {
-                sendMessage(message);
-                btn.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    btn.style.transform = '';
-                }, 150);
-            }
-        });
-    });
-
-    // Send message functionality
-    function sendMessage(message) {
-        if (!message.trim()) return;
-
-        // Add user message
-        addMessage(message, 'user');
-        
-        // Clear input
-        chatInput.value = '';
-        
-        // Show typing indicator
-        showTypingIndicator();
-        
-        // Simulate bot response
-        setTimeout(() => {
-            hideTypingIndicator();
-            const botResponse = getBotResponse(message);
-            addMessage(botResponse, 'bot');
-        }, 1500 + Math.random() * 1000);
-    }
-
-    // Add message to chat
-    function addMessage(text, sender) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${sender}-message`;
-        
-        const avatar = document.createElement('div');
-        avatar.className = 'message-avatar';
-        avatar.innerHTML = sender === 'bot' ? '<i class="fas fa-robot"></i>' : '<i class="fas fa-user"></i>';
-        
-        const content = document.createElement('div');
-        content.className = 'message-content';
-        content.innerHTML = `
-            <p>${text}</p>
-            <span class="message-time">${new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'})}</span>
-        `;
-        
-        messageDiv.appendChild(avatar);
-        messageDiv.appendChild(content);
-        chatMessages.appendChild(messageDiv);
-        
-        // Scroll to bottom
-        scrollToBottom();
-        
-        // Update message count
-        messageCount++;
-        if (!chatWindow.classList.contains('active')) {
-            showBadge();
-        }
-    }
-
-    // Show typing indicator
-    function showTypingIndicator() {
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'message bot-message typing-indicator';
-        typingDiv.innerHTML = `
-            <div class="message-avatar">
-                <i class="fas fa-robot"></i>
-            </div>
-            <div class="message-content">
-                <div class="typing-dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        `;
-        chatMessages.appendChild(typingDiv);
-        scrollToBottom();
-    }
-
-    // Hide typing indicator
-    function hideTypingIndicator() {
-        const typingIndicator = document.querySelector('.typing-indicator');
-        if (typingIndicator) {
-            typingIndicator.remove();
-        }
-    }
-
-    // Scroll to bottom
-    function scrollToBottom() {
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    // Show badge
-    function showBadge() {
-        if (chatBadge) {
-            chatBadge.textContent = messageCount;
-            chatBadge.style.display = 'flex';
-        }
-    }
-
-    // Hide badge
-    function hideBadge() {
-        if (chatBadge) {
-            chatBadge.style.display = 'none';
-            messageCount = 0;
-        }
-    }
-
-    // Get bot response based on user message
-    function getBotResponse(message) {
-        const lowerMessage = message.toLowerCase();
-        
-        if (lowerMessage.includes('fiyat') || lowerMessage.includes('dinamo')) {
-            return 'Dinamo tamiri fiyatlarımız araç markasına göre değişmektedir. Genel fiyat aralığı 800-2500 TL arasındadır. Detaylı fiyat için araç bilgilerinizi paylaşabilir misiniz? 🚗';
-        } else if (lowerMessage.includes('randevu')) {
-            return 'Randevu almak için aşağıdaki formu doldurabilir veya WhatsApp üzerinden bize ulaşabilirsiniz. Hangi gün uygun olursunuz? 📅';
-        } else if (lowerMessage.includes('acil')) {
-            return 'Acil durumlar için 7/24 hizmet veriyoruz! Hemen 0535 356 24 69 numaralı telefonu arayabilir veya WhatsApp üzerinden yazabilirsiniz. 🚨';
-        } else if (lowerMessage.includes('marş') || lowerMessage.includes('motor')) {
-            return 'Marş motoru tamiri de yapıyoruz. Fiyat aralığı 600-1800 TL arasındadır. Araç markanızı belirtirseniz daha detaylı bilgi verebilirim. ⚙️';
-        } else if (lowerMessage.includes('alternatör')) {
-            return 'Alternatör tamiri ve yenileme hizmeti veriyoruz. Fiyat aralığı 1000-3000 TL arasındadır. Hangi marka araç için bilgi almak istiyorsunuz? ⚡';
-        } else if (lowerMessage.includes('teşekkür') || lowerMessage.includes('sağol')) {
-            return 'Rica ederim! Başka bir konuda yardımcı olabileceğim bir şey var mı? 😊';
-        } else if (lowerMessage.includes('merhaba') || lowerMessage.includes('selam')) {
-            return 'Merhaba! DC TEKNİK\'e hoş geldiniz! Dinamo, alternatör ve marş motoru konularında size nasıl yardımcı olabilirim? 🤝';
-        } else if (lowerMessage.includes('adres') || lowerMessage.includes('konum')) {
-            return 'Atatürk Cad. No:312, Sultanbeyli / İstanbul adresinde hizmet veriyoruz. Detaylı yol tarifi için WhatsApp üzerinden iletişime geçebilirsiniz. 📍';
-        } else if (lowerMessage.includes('çalışma') || lowerMessage.includes('saat')) {
-            return 'Pazartesi-Cumartesi 09:00-18:00 saatleri arasında hizmet veriyoruz. Acil durumlar için 7/24 ulaşabilirsiniz. ⏰';
-        } else {
-            return 'Anladım. Size nasıl yardımcı olabilirim? Dinamo, marş motoru, alternatör tamiri veya randevu konularında bilgi verebilirim. 💬';
-        }
-    }
-
-    // Send button click
-    if (chatSend) {
-        chatSend.addEventListener('click', () => {
-            const message = chatInput.value.trim();
-            if (message) {
-                sendMessage(message);
-            }
-        });
-    }
-
-    // Enter key to send message
-    if (chatInput) {
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const message = chatInput.value.trim();
-                if (message) {
-                    sendMessage(message);
-                }
-            }
-        });
-
-        // Typing indicator
-        chatInput.addEventListener('input', () => {
-            clearTimeout(typingTimer);
-            if (chatInput.value.trim()) {
-                // Show typing indicator after 1 second of no typing
-                typingTimer = setTimeout(() => {
-                    // Could add typing indicator here
-                }, 1000);
-            }
-        });
-    }
-
-    // Auto-open chat after 8 seconds
-    setTimeout(() => {
-        if (chatToggle && !chatWindow.classList.contains('active')) {
-            chatToggle.style.animation = 'chatPulse 1s ease-in-out 3';
-            showBadge();
-        }
-    }, 8000);
-
-    // Add typing dots animation CSS
-    const style = document.createElement('style');
-    style.textContent = `
-        .typing-dots {
-            display: flex;
-            gap: 4px;
-            padding: 8px 0;
-        }
-        .typing-dots span {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #9ca3af;
-            animation: typingDots 1.4s infinite ease-in-out;
-        }
-        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes typingDots {
-            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-            40% { transform: scale(1); opacity: 1; }
-        }
-    `;
-    document.head.appendChild(style);
-});
-
-// Service Tracking System
-document.addEventListener('DOMContentLoaded', function() {
-    const trackingBtn = document.getElementById('trackingBtn');
-    const serviceTracking = document.getElementById('serviceTracking');
-    const trackingClose = document.getElementById('trackingClose');
-    const trackService = document.getElementById('trackService');
-    const trackingResult = document.getElementById('trackingResult');
-
-    // Open tracking modal
-    if (trackingBtn) {
-        trackingBtn.addEventListener('click', () => {
-            serviceTracking.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    }
-
-    // Close tracking modal
-    if (trackingClose) {
-        trackingClose.addEventListener('click', () => {
-            serviceTracking.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    }
-
-    // Close on overlay click
-    if (serviceTracking) {
-        serviceTracking.addEventListener('click', (e) => {
-            if (e.target === serviceTracking || e.target.classList.contains('tracking-overlay')) {
-                serviceTracking.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-    }
-
-    // Track service
-    if (trackService) {
-        trackService.addEventListener('click', () => {
-            const trackingNumber = document.getElementById('trackingNumber').value;
-            const customerPhone = document.getElementById('customerPhone').value;
-
-            if (!trackingNumber || !customerPhone) {
-                alert('Lütfen tüm alanları doldurun.');
-                return;
-            }
-
-            // Simulate API call
-            trackService.textContent = 'Sorgulanıyor...';
-            trackService.disabled = true;
-
-            setTimeout(() => {
-                trackingResult.style.display = 'block';
-                trackService.textContent = 'Servis Durumunu Sorgula';
-                trackService.disabled = false;
-                
-                // Scroll to result
-                trackingResult.scrollIntoView({ behavior: 'smooth' });
-            }, 2000);
-        });
-    }
-});
-
-// Enhanced Vehicle Brand/Model Selector
-document.addEventListener('DOMContentLoaded', function() {
-    const vehicleBrand = document.getElementById('vehicleBrand');
-    const vehicleModel = document.getElementById('vehicleModel');
-    
-    // Vehicle models database
-    const vehicleModels = {
-        toyota: [
-            { value: 'corolla', text: 'Corolla', priceMultiplier: 1.0 },
-            { value: 'camry', text: 'Camry', priceMultiplier: 1.1 },
-            { value: 'rav4', text: 'RAV4', priceMultiplier: 1.2 },
-            { value: 'highlander', text: 'Highlander', priceMultiplier: 1.3 },
-            { value: 'prius', text: 'Prius', priceMultiplier: 1.1 },
-            { value: 'yaris', text: 'Yaris', priceMultiplier: 0.9 },
-            { value: 'avensis', text: 'Avensis', priceMultiplier: 1.0 },
-            { value: 'hilux', text: 'Hilux', priceMultiplier: 1.2 }
-        ],
-        volkswagen: [
-            { value: 'golf', text: 'Golf', priceMultiplier: 1.0 },
-            { value: 'passat', text: 'Passat', priceMultiplier: 1.1 },
-            { value: 'polo', text: 'Polo', priceMultiplier: 0.9 },
-            { value: 'jetta', text: 'Jetta', priceMultiplier: 1.0 },
-            { value: 'tiguan', text: 'Tiguan', priceMultiplier: 1.2 },
-            { value: 'touareg', text: 'Touareg', priceMultiplier: 1.4 },
-            { value: 'caddy', text: 'Caddy', priceMultiplier: 1.1 },
-            { value: 'transporter', text: 'Transporter', priceMultiplier: 1.3 }
-        ],
-        ford: [
-            { value: 'focus', text: 'Focus', priceMultiplier: 1.0 },
-            { value: 'fiesta', text: 'Fiesta', priceMultiplier: 0.9 },
-            { value: 'mondeo', text: 'Mondeo', priceMultiplier: 1.1 },
-            { value: 'kuga', text: 'Kuga', priceMultiplier: 1.2 },
-            { value: 'explorer', text: 'Explorer', priceMultiplier: 1.3 },
-            { value: 'transit', text: 'Transit', priceMultiplier: 1.2 },
-            { value: 'ranger', text: 'Ranger', priceMultiplier: 1.2 },
-            { value: 'mustang', text: 'Mustang', priceMultiplier: 1.4 }
-        ],
-        renault: [
-            { value: 'clio', text: 'Clio', priceMultiplier: 0.9 },
-            { value: 'megane', text: 'Megane', priceMultiplier: 1.0 },
-            { value: 'scenic', text: 'Scenic', priceMultiplier: 1.1 },
-            { value: 'kadjar', text: 'Kadjar', priceMultiplier: 1.1 },
-            { value: 'koleos', text: 'Koleos', priceMultiplier: 1.2 },
-            { value: 'talisman', text: 'Talisman', priceMultiplier: 1.1 },
-            { value: 'master', text: 'Master', priceMultiplier: 1.2 },
-            { value: 'kangoo', text: 'Kangoo', priceMultiplier: 1.0 }
-        ],
-        opel: [
-            { value: 'corsa', text: 'Corsa', priceMultiplier: 0.9 },
-            { value: 'astra', text: 'Astra', priceMultiplier: 1.0 },
-            { value: 'insignia', text: 'Insignia', priceMultiplier: 1.1 },
-            { value: 'mokka', text: 'Mokka', priceMultiplier: 1.1 },
-            { value: 'crossland', text: 'Crossland', priceMultiplier: 1.0 },
-            { value: 'grandland', text: 'Grandland', priceMultiplier: 1.1 },
-            { value: 'combo', text: 'Combo', priceMultiplier: 1.0 },
-            { value: 'vivaro', text: 'Vivaro', priceMultiplier: 1.1 }
-        ],
-        fiat: [
-            { value: 'punto', text: 'Punto', priceMultiplier: 0.8 },
-            { value: 'linea', text: 'Linea', priceMultiplier: 0.9 },
-            { value: 'doblo', text: 'Doblo', priceMultiplier: 1.0 },
-            { value: 'ducato', text: 'Ducato', priceMultiplier: 1.2 },
-            { value: '500', text: '500', priceMultiplier: 0.9 },
-            { value: 'tipo', text: 'Tipo', priceMultiplier: 0.9 },
-            { value: 'panda', text: 'Panda', priceMultiplier: 0.8 },
-            { value: 'bravo', text: 'Bravo', priceMultiplier: 1.0 }
-        ],
-        hyundai: [
-            { value: 'i20', text: 'i20', priceMultiplier: 0.9 },
-            { value: 'i30', text: 'i30', priceMultiplier: 1.0 },
-            { value: 'elantra', text: 'Elantra', priceMultiplier: 1.0 },
-            { value: 'tucson', text: 'Tucson', priceMultiplier: 1.1 },
-            { value: 'santa_fe', text: 'Santa Fe', priceMultiplier: 1.2 },
-            { value: 'accent', text: 'Accent', priceMultiplier: 0.9 },
-            { value: 'sonata', text: 'Sonata', priceMultiplier: 1.1 },
-            { value: 'getz', text: 'Getz', priceMultiplier: 0.8 }
-        ],
-        kia: [
-            { value: 'rio', text: 'Rio', priceMultiplier: 0.9 },
-            { value: 'cee_d', text: 'Cee\'d', priceMultiplier: 1.0 },
-            { value: 'optima', text: 'Optima', priceMultiplier: 1.1 },
-            { value: 'sportage', text: 'Sportage', priceMultiplier: 1.1 },
-            { value: 'sorento', text: 'Sorento', priceMultiplier: 1.2 },
-            { value: 'picanto', text: 'Picanto', priceMultiplier: 0.8 },
-            { value: 'cerato', text: 'Cerato', priceMultiplier: 1.0 },
-            { value: 'carnival', text: 'Carnival', priceMultiplier: 1.2 }
-        ],
-        bmw: [
-            { value: '3_series', text: '3 Series', priceMultiplier: 1.3 },
-            { value: '5_series', text: '5 Series', priceMultiplier: 1.4 },
-            { value: '7_series', text: '7 Series', priceMultiplier: 1.5 },
-            { value: 'x1', text: 'X1', priceMultiplier: 1.3 },
-            { value: 'x3', text: 'X3', priceMultiplier: 1.4 },
-            { value: 'x5', text: 'X5', priceMultiplier: 1.5 },
-            { value: 'z4', text: 'Z4', priceMultiplier: 1.4 },
-            { value: 'i3', text: 'i3', priceMultiplier: 1.3 }
-        ],
-        mercedes: [
-            { value: 'c_class', text: 'C-Class', priceMultiplier: 1.4 },
-            { value: 'e_class', text: 'E-Class', priceMultiplier: 1.5 },
-            { value: 's_class', text: 'S-Class', priceMultiplier: 1.6 },
-            { value: 'glc', text: 'GLC', priceMultiplier: 1.5 },
-            { value: 'gle', text: 'GLE', priceMultiplier: 1.6 },
-            { value: 'gla', text: 'GLA', priceMultiplier: 1.4 },
-            { value: 'a_class', text: 'A-Class', priceMultiplier: 1.3 },
-            { value: 'sprinter', text: 'Sprinter', priceMultiplier: 1.4 }
-        ],
-        audi: [
-            { value: 'a3', text: 'A3', priceMultiplier: 1.3 },
-            { value: 'a4', text: 'A4', priceMultiplier: 1.4 },
-            { value: 'a6', text: 'A6', priceMultiplier: 1.5 },
-            { value: 'a8', text: 'A8', priceMultiplier: 1.6 },
-            { value: 'q3', text: 'Q3', priceMultiplier: 1.4 },
-            { value: 'q5', text: 'Q5', priceMultiplier: 1.5 },
-            { value: 'q7', text: 'Q7', priceMultiplier: 1.6 },
-            { value: 'tt', text: 'TT', priceMultiplier: 1.4 }
-        ]
-    };
-
-    // Brand change handler
-    if (vehicleBrand && vehicleModel) {
-        vehicleBrand.addEventListener('change', function() {
-            const selectedBrand = this.value;
-            vehicleModel.innerHTML = '<option value="">Model Seçin</option>';
-            
-            if (selectedBrand && vehicleModels[selectedBrand]) {
-                vehicleModels[selectedBrand].forEach(model => {
-                    const option = document.createElement('option');
-                    option.value = model.value;
-                    option.textContent = model.text;
-                    option.setAttribute('data-price-multiplier', model.priceMultiplier);
-                    vehicleModel.appendChild(option);
-                });
-            }
-        });
-    }
-});
-
-// NOTE: Dark mode handled by initializeTheme() above. Duplicate handlers removed to avoid conflicts.
-
-// Interactive Google Maps
-let map;
-let marker;
-let infoWindow;
-
-function initMap() {
-    // DC TEKNİK coordinates (Sultanbeyli, İstanbul)
-    const dcteknikLocation = { lat: 40.987654321, lng: 29.234567890 };
-    
-    // Create map
-    const mapContainer = document.getElementById('interactiveMap');
-    if (!mapContainer || typeof google === 'undefined' || !google.maps) {
-        // Fallback: Embed static map link and message
-        const fallback = document.getElementById('mapFallback');
-        if (fallback) {
-            fallback.style.display = 'block';
-        }
-        return;
-    }
-
-    map = new google.maps.Map(mapContainer, {
-        zoom: 16,
-        center: dcteknikLocation,
-        mapTypeId: 'roadmap',
-        styles: [
-            {
-                featureType: 'poi',
-                elementType: 'labels',
-                stylers: [{ visibility: 'off' }]
-            }
-        ]
-    });
-    
-    // Create marker
-    marker = new google.maps.Marker({
-        position: dcteknikLocation,
-        map: map,
-        title: 'DC TEKNİK - Dinamocu Serdar',
-        icon: {
-            url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-                <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="20" r="18" fill="#1e3a8a" stroke="#ffffff" stroke-width="2"/>
-                    <text x="20" y="26" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">DC</text>
-                </svg>
-            `),
-            scaledSize: new google.maps.Size(40, 40),
-            anchor: new google.maps.Point(20, 20)
-        }
-    });
-    
-    // Create info window
-    infoWindow = new google.maps.InfoWindow({
-        content: `
-            <div style="padding: 10px; max-width: 250px;">
-                <h3 style="margin: 0 0 10px 0; color: #1e3a8a; font-size: 16px;">DC TEKNİK</h3>
-                <p style="margin: 0 0 8px 0; color: #333; font-size: 14px;">
-                    <i class="fas fa-map-marker-alt" style="color: #ea580c; margin-right: 5px;"></i>
-                    Atatürk Cad. No:312<br>
-                    Sultanbeyli / İstanbul
-                </p>
-                <p style="margin: 0 0 8px 0; color: #333; font-size: 14px;">
-                    <i class="fas fa-phone" style="color: #ea580c; margin-right: 5px;"></i>
-                    +90 535 356 24 69
-                </p>
-                <p style="margin: 0 0 10px 0; color: #333; font-size: 14px;">
-                    <i class="fas fa-clock" style="color: #ea580c; margin-right: 5px;"></i>
-                    Pazartesi - Cumartesi: 09:00 - 18:00
-                </p>
-                <div style="margin-top: 10px;">
-                    <a href="https://www.google.com/maps/dir//Atatürk+Cad.+No:312,+34900+Sultanbeyli/İstanbul/@40.987654321,29.234567890,15z" 
-                       target="_blank" 
-                       style="background: #1e3a8a; color: white; padding: 8px 12px; text-decoration: none; border-radius: 5px; font-size: 12px; display: inline-block; margin-right: 5px;">
-                        <i class="fas fa-route"></i> Yol Tarifi
-                    </a>
-                    <a href="tel:+905353562469" 
-                       style="background: #ea580c; color: white; padding: 8px 12px; text-decoration: none; border-radius: 5px; font-size: 12px; display: inline-block;">
-                        <i class="fas fa-phone"></i> Ara
-                    </a>
-                </div>
-            </div>
-        `
-    });
-    
-    // Add click event to marker
-    marker.addListener('click', function() {
-        infoWindow.open(map, marker);
-    });
-    
-    // Add click event to map
-    map.addListener('click', function() {
-        infoWindow.close();
-    });
-    
-    // Hide loading indicator
-    const mapLoading = document.getElementById('mapLoading');
-    if (mapLoading) {
-        mapLoading.style.display = 'none';
-    }
-    
-    // Add search box
-    const searchBox = new google.maps.places.SearchBox(document.getElementById('mapSearch'));
-    
-    // Bias the SearchBox results towards current map's viewport
-    map.addListener('bounds_changed', function() {
-        searchBox.setBounds(map.getBounds());
-    });
-    
-    // Listen for the event fired when the user selects a prediction
-    searchBox.addListener('places_changed', function() {
-        const places = searchBox.getPlaces();
-        
-        if (places.length === 0) return;
-        
-        // Clear out the old markers
-        const markers = [];
-        
-        // For each place, get the icon, name and location
-        const bounds = new google.maps.LatLngBounds();
-        places.forEach(function(place) {
-            if (!place.geometry || !place.geometry.location) {
-                console.log("Returned place contains no geometry");
-                return;
-            }
-            
-            // Create a marker for each place
-            const placeMarker = new google.maps.Marker({
-                map: map,
-                title: place.name,
-                position: place.geometry.location
-            });
-            
-            markers.push(placeMarker);
-            
-            if (place.geometry.viewport) {
-                bounds.union(place.geometry.viewport);
-            } else {
-                bounds.extend(place.geometry.location);
-            }
-        });
-        
-        map.fitBounds(bounds);
-    });
-}
-
-// Map search functionality
-function searchLocation() {
-    const searchInput = document.getElementById('mapSearch');
-    if (searchInput && searchInput.value.trim()) {
-        const geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ address: searchInput.value }, function(results, status) {
-            if (status === 'OK' && results[0]) {
-                map.setCenter(results[0].geometry.location);
-                map.setZoom(15);
-                
-                // Create temporary marker for search result
-                const searchMarker = new google.maps.Marker({
-                    position: results[0].geometry.location,
-                    map: map,
-                    title: searchInput.value
-                });
-                
-                // Remove marker after 5 seconds
-                setTimeout(function() {
-                    searchMarker.setMap(null);
-                }, 5000);
-            }
-        });
-    }
-}
-
-// Google Analytics Event Tracking
-// Helper: derive hero variant and geo targeting for GA4 params
-function getHeroVariant() {
-    try {
-        const meta = document.querySelector('meta[name="hero-variant"]');
-        return (meta && meta.content) ? meta.content : 'default';
-    } catch (e) { return 'default'; }
-}
-
-// GA4 Event Validation Helper
-function validateGA4Event(eventName, parameters) {
-    if (typeof gtag === 'undefined') {
-        console.warn('GA4 not loaded - event not tracked:', eventName);
-        return false;
-    }
-    
-    // Validate required conversion events
-    const conversionEvents = ['whatsapp_contact', 'phone_call', 'form_submit'];
-    if (conversionEvents.includes(eventName)) {
-        console.log('✅ GA4 Conversion Event:', eventName, parameters);
-        
-        // Send to GA4
-        gtag('event', eventName, parameters);
-        
-        // Also send as conversion if configured
-        if (window.GA4_CONVERSION_CONFIG && window.GA4_CONVERSION_CONFIG[eventName]) {
-            gtag('event', 'conversion', {
-                send_to: window.GA4_CONVERSION_CONFIG[eventName],
-                value: parameters.value || 1,
-                currency: 'TRY'
-            });
-        }
-        
-        return true;
-    }
-    
-    // Regular event tracking
-    gtag('event', eventName, parameters);
-    return true;
-}
-
-// Schema.org Validation Helper
-function validateSchemaMarkup() {
-    const schemas = document.querySelectorAll('script[type="application/ld+json"]');
-    const results = {
-        valid: 0,
-        invalid: 0,
-        errors: []
-    };
-    
-    schemas.forEach(function(schema, index) {
-        try {
-            const data = JSON.parse(schema.textContent);
-            if (data['@context'] && data['@type']) {
-                results.valid++;
-                console.log(`✅ Schema ${index + 1}: ${data['@type']} is valid`);
-            } else {
-                results.invalid++;
-                results.errors.push(`Schema ${index + 1}: Missing @context or @type`);
-            }
-        } catch (e) {
-            results.invalid++;
-            results.errors.push(`Schema ${index + 1}: JSON parse error - ${e.message}`);
-        }
-    });
-    
-    console.log('📊 Schema Validation Results:', results);
-    return results;
-}
-
-// Auto-validate schemas on page load
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(validateSchemaMarkup, 1000);
-});
-
-// PWA Install Prompt
-let deferredPrompt;
-let installPromptShown = false;
-
-// Listen for the beforeinstallprompt event
-window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent Chrome 67 and earlier from automatically showing the prompt
-    e.preventDefault();
-    // Stash the event so it can be triggered later
-    deferredPrompt = e;
-    
-    // Show install button if not already shown
-    if (!installPromptShown) {
-        showInstallPrompt();
-    }
-});
-
-// Show install prompt UI
-function showInstallPrompt() {
-    if (installPromptShown) return;
-    
-    // Create install prompt
-    const installPrompt = document.createElement('div');
-    installPrompt.className = 'install-prompt';
-    installPrompt.innerHTML = `
-        <div class="install-prompt-content">
-            <div class="install-prompt-icon">📱</div>
-            <div class="install-prompt-text">
-                <h4>DC TEKNİK'i Ana Ekrana Ekle</h4>
-                <p>Hızlı erişim için uygulamayı ana ekranınıza ekleyin</p>
-            </div>
-            <div class="install-prompt-actions">
-                <button class="install-btn" onclick="installPWA()">Ekle</button>
-                <button class="install-dismiss" onclick="dismissInstallPrompt()">×</button>
-            </div>
-        </div>
-    `;
-    
-    // Add styles
-    const style = document.createElement('style');
-    style.textContent = `
-        .install-prompt {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #0b5cff, #3b82f6);
-            color: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(11, 92, 255, 0.3);
-            z-index: 10000;
-            animation: slideUp 0.3s ease-out;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        
-        .install-prompt-content {
-            display: flex;
-            align-items: center;
-            padding: 16px;
-            gap: 12px;
-        }
-        
-        .install-prompt-icon {
-            font-size: 24px;
-            flex-shrink: 0;
-        }
-        
-        .install-prompt-text {
-            flex: 1;
-        }
-        
-        .install-prompt-text h4 {
-            margin: 0 0 4px 0;
-            font-size: 16px;
-            font-weight: 600;
-        }
-        
-        .install-prompt-text p {
-            margin: 0;
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        .install-prompt-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        
-        .install-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .install-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        .install-dismiss {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 4px;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s ease;
-        }
-        
-        .install-dismiss:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .install-prompt {
-                left: 10px;
-                right: 10px;
-                bottom: 10px;
-            }
-            
-            .install-prompt-content {
-                padding: 12px;
-            }
-            
-            .install-prompt-text h4 {
-                font-size: 14px;
-            }
-            
-            .install-prompt-text p {
-                font-size: 12px;
-            }
-        }
-    `;
-    
-    document.head.appendChild(style);
-    document.body.appendChild(installPrompt);
-    
-    // Auto-hide after 10 seconds
-    setTimeout(() => {
-        if (document.body.contains(installPrompt)) {
-            dismissInstallPrompt();
-        }
-    }, 10000);
-}
-
-// Install PWA
-function installPWA() {
-    if (!deferredPrompt) {
-        // Fallback for browsers that don't support the prompt
-        alert('Tarayıcınızın menüsünden "Ana ekrana ekle" seçeneğini kullanabilirsiniz.');
-        dismissInstallPrompt();
-        return;
-    }
-    
-    // Show the install prompt
-    deferredPrompt.prompt();
-    
-    // Wait for the user to respond to the prompt
-    deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-            console.log('✅ PWA installed successfully');
-            
-            // Track installation
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'pwa_install', {
-                    event_category: 'engagement',
-                    event_label: 'user_accepted',
-                    value: 1
-                });
-            }
-        } else {
-            console.log('❌ PWA installation dismissed');
-        }
-        
-        // Clear the deferredPrompt
-        deferredPrompt = null;
-        dismissInstallPrompt();
-    });
-}
-
-// Dismiss install prompt
-function dismissInstallPrompt() {
-    const prompt = document.querySelector('.install-prompt');
-    if (prompt) {
-        prompt.style.animation = 'slideDown 0.3s ease-out';
-        setTimeout(() => {
-            if (document.body.contains(prompt)) {
-                document.body.removeChild(prompt);
-            }
-        }, 300);
-    }
-    installPromptShown = true;
-    
-    // Don't show again for this session
-    sessionStorage.setItem('installPromptDismissed', 'true');
-}
-
-// Check if user has already dismissed the prompt
-if (sessionStorage.getItem('installPromptDismissed') === 'true') {
-    installPromptShown = true;
-}
-
-// Listen for successful installation
-window.addEventListener('appinstalled', (evt) => {
-    console.log('✅ PWA was installed');
-    
-    // Track successful installation
+    // Send error to analytics if available
     if (typeof gtag !== 'undefined') {
-        gtag('event', 'pwa_installed', {
-            event_category: 'engagement',
-            event_label: 'installation_complete',
-            value: 1
+        gtag('event', 'exception', {
+            'description': e.error.message,
+            'fatal': false
         });
     }
-    
-    // Hide any remaining install prompts
-    dismissInstallPrompt();
 });
 
-// Back to Top Button
-function createBackToTopButton() {
-    const backToTopBtn = document.createElement('button');
-    backToTopBtn.id = 'backToTop';
-    backToTopBtn.innerHTML = '↑';
-    backToTopBtn.setAttribute('aria-label', 'Sayfanın başına dön');
-    backToTopBtn.title = 'Sayfanın başına dön';
-    
-    // Add styles
-    const style = document.createElement('style');
-    style.textContent = `
-        #backToTop {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #0b5cff, #3b82f6);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            box-shadow: 0 4px 16px rgba(11, 92, 255, 0.3);
-        }
-        
-        #backToTop.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        #backToTop:hover {
-            background: linear-gradient(135deg, #1d4ed8, #2563eb);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(11, 92, 255, 0.4);
-        }
-        
-        #backToTop:active {
-            transform: translateY(0);
-        }
-        
-        @media (max-width: 768px) {
-            #backToTop {
-                bottom: 100px;
-                right: 15px;
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
-            }
-        }
-    `;
-    
-    document.head.appendChild(style);
-    document.body.appendChild(backToTopBtn);
-    
-    // Show/hide button based on scroll position
-    function toggleBackToTop() {
-        if (window.pageYOffset > 300) {
-            backToTopBtn.classList.add('show');
-        } else {
-            backToTopBtn.classList.remove('show');
-        }
-    }
-    
-    // Scroll to top function
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-        
-        // Track scroll to top
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'back_to_top', {
-                event_category: 'engagement',
-                event_label: 'scroll_to_top',
-                value: 1
+/**
+ * Service Worker Registration
+ */
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+                console.log('✅ DC TEKNİK - Service Worker registered');
+            })
+            .catch(function(error) {
+                console.log('❌ DC TEKNİK - Service Worker registration failed');
             });
-        }
-    }
-    
-    // Event listeners
-    window.addEventListener('scroll', toggleBackToTop);
-    backToTopBtn.addEventListener('click', scrollToTop);
-    
-    // Keyboard support
-    backToTopBtn.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            scrollToTop();
-        }
     });
 }
 
-// Initialize back to top button
-document.addEventListener('DOMContentLoaded', function() {
-    createBackToTopButton();
-});
-
-// Performance optimization: Lazy load non-critical scripts
-function loadScript(src, callback) {
-    const script = document.createElement('script');
-    script.src = src;
-    script.defer = true;
-    if (callback) script.onload = callback;
-    document.head.appendChild(script);
-}
-
-// Lazy load heavy scripts after page load
-window.addEventListener('load', function() {
-    // Load non-critical scripts after page is fully loaded
-    setTimeout(function() {
-        // Load additional scripts if needed
-        console.log('🚀 Non-critical scripts loaded');
-    }, 1000);
-});
-
-// Optimize scroll listeners with passive option
-function addPassiveScrollListener(element, handler) {
-    element.addEventListener('scroll', handler, { passive: true });
-}
-
-// Debounce function for performance
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
+/**
+ * Utility Functions
+ */
+const DCUtils = {
+    // Debounce function
+    debounce: function(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
             clearTimeout(timeout);
-            func(...args);
+            timeout = setTimeout(later, wait);
         };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Optimize resize listeners
-const debouncedResize = debounce(function() {
-    // Handle resize events
-    console.log('📱 Window resized');
-}, 250);
-
-window.addEventListener('resize', debouncedResize);
-
-// GA4 Conversion Goals Configuration
-const GA4_CONVERSION_CONFIG = {
-    whatsapp_contact: {
-        event_name: 'whatsapp_contact',
-        conversion_value: 50,
-        currency: 'TRY',
-        custom_parameters: {
-            service_type: 'consultation',
-            contact_method: 'whatsapp'
-        }
     },
-    phone_call: {
-        event_name: 'phone_call',
-        conversion_value: 75,
-        currency: 'TRY',
-        custom_parameters: {
-            service_type: 'consultation',
-            contact_method: 'phone'
-        }
+    
+    // Throttle function
+    throttle: function(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
     },
-    form_submit: {
-        event_name: 'form_submit',
-        conversion_value: 100,
-        currency: 'TRY',
-        custom_parameters: {
-            service_type: 'lead_generation',
-            contact_method: 'form'
-        }
+    
+    // Check if element is in viewport
+    isInViewport: function(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
     },
-    appointment_booking: {
-        event_name: 'appointment_booking',
-        conversion_value: 150,
-        currency: 'TRY',
-        custom_parameters: {
-            service_type: 'appointment',
-            contact_method: 'booking'
-        }
-    },
-    service_inquiry: {
-        event_name: 'service_inquiry',
-        conversion_value: 25,
-        currency: 'TRY',
-        custom_parameters: {
-            service_type: 'inquiry',
-            contact_method: 'website'
-        }
+    
+    // Format phone number
+    formatPhone: function(phone) {
+        return phone.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4');
     }
 };
 
-// Enhanced conversion tracking function
-function trackConversion(conversionType, additionalParams = {}) {
-    if (typeof gtag === 'undefined') {
-        console.warn('GA4 not loaded - conversion not tracked:', conversionType);
-        return false;
-    }
-    
-    const config = GA4_CONVERSION_CONFIG[conversionType];
-    if (!config) {
-        console.warn('Unknown conversion type:', conversionType);
-        return false;
-    }
-    
-    const eventParams = {
-        ...buildGaParams(),
-        ...config.custom_parameters,
-        ...additionalParams,
-        value: config.conversion_value,
-        currency: config.currency
-    };
-    
-    // Track as conversion event
-    gtag('event', config.event_name, eventParams);
-    
-    // Track as purchase event for high-value conversions
-    if (config.conversion_value >= 100) {
-        gtag('event', 'purchase', {
-            transaction_id: `conv_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-            value: config.conversion_value,
-            currency: config.currency,
-            ...eventParams
-        });
-    }
-    
-    console.log(`✅ Conversion tracked: ${conversionType}`, eventParams);
-    return true;
-}
+// Export for global access
+window.DCUtils = DCUtils;
 
-// Enhanced event tracking with conversion value
-function trackEnhancedEvent(eventName, eventCategory, eventLabel, eventValue, isConversion = false) {
-    if (typeof gtag === 'undefined') {
-        console.warn('GA4 not loaded - event not tracked:', eventName);
-        return false;
-    }
-    
-    const eventParams = buildGaParams({
-        event_category: eventCategory,
-        event_label: eventLabel,
-        value: eventValue || 1,
-        conversion_event: isConversion
-    });
-    
-    gtag('event', eventName, eventParams);
-    
-    // If it's a conversion event, also track as conversion
-    if (isConversion && eventValue > 0) {
-        gtag('event', 'conversion', {
-            send_to: 'AW-CONVERSION_ID/CONVERSION_LABEL', // Replace with actual conversion ID
-            value: eventValue,
-            currency: 'TRY',
-            ...eventParams
-        });
-    }
-    
-    console.log(`📊 Event tracked: ${eventName}`, eventParams);
-    return true;
-}
-
-function getStoredUtm() {
-    try {
-        return JSON.parse(sessionStorage.getItem('utm_params') || '{}');
-    } catch (e) { return {}; }
-}
-
-function buildGaParams(extra) {
-    const utm = getStoredUtm();
-    const base = {
-        hero_variant: getHeroVariant(),
-        geo_region: 'TR-34',
-        geo_area: 'Anadolu',
-        geo_district: 'Sultanbeyli',
-        page_location: window.location.href,
-        page_title: document.title,
-        user_agent: navigator.userAgent,
-        screen_resolution: `${screen.width}x${screen.height}`,
-        viewport_size: `${window.innerWidth}x${window.innerHeight}`
-    };
-    if (utm.utm_source) base.utm_source = utm.utm_source;
-    if (utm.utm_medium) base.utm_medium = utm.utm_medium;
-    if (utm.utm_campaign) base.utm_campaign = utm.utm_campaign;
-    if (utm.utm_content) base.utm_content = utm.utm_content;
-    if (utm.utm_term) base.utm_term = utm.utm_term;
-    return Object.assign(base, extra || {});
-}
-
-function trackEvent(eventName, eventCategory, eventLabel, eventValue) {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', eventName, {
-            event_category: eventCategory,
-            event_label: eventLabel,
-            value: eventValue
-        });
-    }
-}
-
-// Track form submissions
-function trackFormSubmission(formType, serviceType) {
-    trackEvent('form_submit', 'engagement', formType, 1);
-    if (serviceType) {
-        trackEvent('service_selected', 'engagement', serviceType, 1);
-    }
-}
-
-// Track button clicks
-function trackButtonClick(buttonName, location) {
-    trackEvent('button_click', 'engagement', buttonName, 1);
-    if (location) {
-        trackEvent('button_location', 'engagement', location, 1);
-    }
-}
-
-// Track page views
-function trackPageView(pageName) {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'page_view', {
-            page_title: pageName,
-            page_location: window.location.href
-        });
-    }
-}
-
-// Track scroll depth
-function trackScrollDepth() {
-    let maxScroll = 0;
-    let scrollMilestones = [25, 50, 75, 90, 100];
-    let trackedMilestones = [];
-    
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollPercent = Math.round((scrollTop / docHeight) * 100);
-        
-        if (scrollPercent > maxScroll) {
-            maxScroll = scrollPercent;
-            
-            scrollMilestones.forEach(function(milestone) {
-                if (scrollPercent >= milestone && !trackedMilestones.includes(milestone)) {
-                    trackedMilestones.push(milestone);
-                    trackEvent('scroll_depth', 'engagement', milestone + '%', milestone);
-                }
-            });
-        }
-    });
-}
-
-// Track time on page
-function trackTimeOnPage() {
-    const startTime = Date.now();
-    
-    window.addEventListener('beforeunload', function() {
-        const timeOnPage = Math.round((Date.now() - startTime) / 1000);
-        trackEvent('time_on_page', 'engagement', 'seconds', timeOnPage);
-    });
-}
-
-// FAQ Section Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        
-        question.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
-            
-            // Close all other FAQ items
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                }
-            });
-            
-            // Toggle current item
-            if (isActive) {
-                item.classList.remove('active');
-            } else {
-                item.classList.add('active');
-            }
-        });
-    });
-});
-
-// Newsletter Form Handling
-document.addEventListener('DOMContentLoaded', function() {
-    const newsletterForm = document.getElementById('newsletterForm');
-    
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const newsletterData = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                interest: formData.get('interest')
-            };
-            
-            // Basic validation
-            if (!newsletterData.name || !newsletterData.email) {
-                alert('Lütfen tüm alanları doldurun.');
-                return;
-            }
-            
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(newsletterData.email)) {
-                alert('Lütfen geçerli bir e-posta adresi giriniz.');
-                return;
-            }
-            
-            // Create WhatsApp message for newsletter subscription
-            const whatsappMessage = `📧 *DC TEKNİK - Newsletter Aboneliği*
-
-👤 *Ad Soyad:* ${newsletterData.name}
-📧 *E-posta:* ${newsletterData.email}
-🎯 *İlgi Alanı:* ${newsletterData.interest || 'Belirtilmemiş'}
-
----
-Bu abonelik talebi dctenık.com web sitesinden gönderilmiştir.
-Tarih: ${new Date().toLocaleString('tr-TR')}`;
-
-            const whatsappUrl = `https://wa.me/905353562469?text=${encodeURIComponent(whatsappMessage)}`;
-            
-            // Open WhatsApp
-            window.open(whatsappUrl, '_blank');
-            
-            // Show success message
-            alert('Newsletter aboneliğiniz WhatsApp üzerinden gönderildi! En kısa sürede e-posta listemize ekleneceksiniz.');
-            
-            // Reset form
-            this.reset();
-            
-            // Track newsletter subscription
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'newsletter_subscribe', {
-                    'event_category': 'engagement',
-                    'event_label': newsletterData.interest || 'all',
-                    'value': 1
-                });
-            }
-        });
-    }
-});
-
-// Social Media Sharing Functions
-function shareOnFacebook() {
-    const url = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent('DC TEKNİK - Sultanbeyli Dinamocu Servisi');
-    const description = encodeURIComponent('Dinamo, alternatör ve marş motoru tamirinde uzman ekibimizle kaliteli hizmet sunuyoruz.');
-    
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${title} - ${description}`;
-    window.open(facebookUrl, '_blank', 'width=600,height=400');
-    
-    // Track sharing
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'share', {
-            'event_category': 'social',
-            'event_label': 'facebook',
-            'value': 1
-        });
-    }
-}
-
-function shareOnTwitter() {
-    const url = encodeURIComponent(window.location.href);
-    const text = encodeURIComponent('DC TEKNİK - Sultanbeyli\'nin güvenilir dinamocu servisi. Dinamo, alternatör ve marş motoru tamiri.');
-    const hashtags = encodeURIComponent('dinamocu,dinamo,alternator,marşmotoru,sultanbeyli,istanbul');
-    
-    const twitterUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}&hashtags=${hashtags}`;
-    window.open(twitterUrl, '_blank', 'width=600,height=400');
-    
-    // Track sharing
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'share', {
-            'event_category': 'social',
-            'event_label': 'twitter',
-            'value': 1
-        });
-    }
-}
-
-function shareOnWhatsApp() {
-    const url = encodeURIComponent(window.location.href);
-    const text = encodeURIComponent('DC TEKNİK - Sultanbeyli\'nin güvenilir dinamocu servisi. Dinamo, alternatör ve marş motoru tamiri. ' + window.location.href);
-    
-    const whatsappUrl = `https://wa.me/?text=${text}`;
-    window.open(whatsappUrl, '_blank');
-    
-    // Track sharing
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'share', {
-            'event_category': 'social',
-            'event_label': 'whatsapp',
-            'value': 1
-        });
-    }
-}
-
-function shareOnLinkedIn() {
-    const url = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent('DC TEKNİK - Sultanbeyli Dinamocu Servisi');
-    const summary = encodeURIComponent('Dinamo, alternatör ve marş motoru tamirinde uzman ekibimizle kaliteli hizmet sunuyoruz.');
-    
-    const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`;
-    window.open(linkedinUrl, '_blank', 'width=600,height=400');
-    
-    // Track sharing
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'share', {
-            'event_category': 'social',
-            'event_label': 'linkedin',
-            'value': 1
-        });
-    }
-}
-
-function copyPageLink() {
-    const url = window.location.href;
-    
-    if (navigator.clipboard && window.isSecureContext) {
-        // Use modern clipboard API
-        navigator.clipboard.writeText(url).then(() => {
-            showCopyNotification('Link kopyalandı!');
-        }).catch(() => {
-            fallbackCopyTextToClipboard(url);
-        });
-    } else {
-        // Fallback for older browsers
-        fallbackCopyTextToClipboard(url);
-    }
-    
-    // Track sharing
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'share', {
-            'event_category': 'social',
-            'event_label': 'copy_link',
-            'value': 1
-        });
-    }
-}
-
-function fallbackCopyTextToClipboard(text) {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    textArea.style.position = 'fixed';
-    textArea.style.left = '-999999px';
-    textArea.style.top = '-999999px';
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    
-    try {
-        document.execCommand('copy');
-        showCopyNotification('Link kopyalandı!');
-    } catch (err) {
-        showCopyNotification('Link kopyalanamadı. Lütfen manuel olarak kopyalayın.');
-    }
-    
-    document.body.removeChild(textArea);
-}
-
-function showCopyNotification(message) {
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = 'copy-notification';
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #10b981;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-        z-index: 10000;
-        font-size: 14px;
-        font-weight: 500;
-        animation: slideInRight 0.3s ease;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Remove notification after 3 seconds
-    setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 300);
-    }, 3000);
-}
-
-// Initialize analytics tracking
-document.addEventListener('DOMContentLoaded', function() {
-    // Track initial page view
-    trackPageView('DC TEKNİK - Ana Sayfa');
-    
-    // Track scroll depth
-    trackScrollDepth();
-    
-    // Track time on page
-    trackTimeOnPage();
-    
-    // Track contact form submissions
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        const tsInput = contactForm.querySelector('input[name="form_ts"]');
-        if (tsInput) tsInput.value = String(Date.now());
-        contactForm.addEventListener('submit', function(e) {
-            const honeypot = this.querySelector('input[name="company"]').value;
-            const ts = parseInt(this.querySelector('input[name="form_ts"]').value || '0', 10);
-            if (honeypot) { e.preventDefault(); showNotification('İşlem reddedildi.', 'warning'); return; }
-            if (Date.now() - ts < 1500) { e.preventDefault(); showNotification('Lütfen formu kontrol edip tekrar deneyin.', 'warning'); return; }
-            const serviceType = this.querySelector('select[name="service"]').value;
-            trackFormSubmission('contact_form', serviceType);
-        });
-    }
-    
-    // Track appointment form submissions
-    const appointmentForm = document.getElementById('appointmentForm');
-    if (appointmentForm) {
-        appointmentForm.addEventListener('submit', function(e) {
-            const serviceType = this.querySelector('select[name="serviceType"]').value;
-            trackFormSubmission('appointment_form', serviceType);
-        });
-    }
-    
-    // Track WhatsApp button clicks (GA4 conversion event + context params)
-    const whatsappButtons = document.querySelectorAll('.btn-whatsapp, [href*="wa.me"], .fab-whatsapp');
-    whatsappButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            trackButtonClick('whatsapp_contact', 'header');
-            trackConversion('whatsapp_contact', {
-                button_location: this.closest('.sticky-cta') ? 'sticky_cta' : 'header',
-                button_text: this.textContent.trim()
-            });
-        });
-    });
-    
-    // Track phone number clicks (GA4 conversion event + context params)
-    const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
-    phoneLinks.forEach(function(link) {
-        link.addEventListener('click', function() {
-            trackButtonClick('phone_call', 'contact');
-            trackConversion('phone_call', {
-                phone_number: this.href.replace('tel:', ''),
-                link_location: this.closest('.contact-info') ? 'contact_info' : 'header'
-            });
-        });
-    });
-    
-    // Track map interactions
-    const mapActions = document.querySelectorAll('.map-action-btn');
-    mapActions.forEach(function(action) {
-        action.addEventListener('click', function() {
-            const actionType = this.textContent.includes('Yol Tarifi') ? 'directions' : 'open_maps';
-            trackButtonClick('map_action', actionType);
-        });
-    });
-    
-    // Track gallery image clicks
-    const galleryImages = document.querySelectorAll('.gallery-image');
-    galleryImages.forEach(function(image) {
-        image.addEventListener('click', function() {
-            trackEvent('gallery_image_click', 'engagement', 'gallery', 1);
-        });
-    });
-    
-    // Track service card clicks
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach(function(card) {
-        card.addEventListener('click', function() {
-            const serviceName = this.querySelector('h3').textContent;
-            trackEvent('service_card_click', 'engagement', serviceName, 1);
-        });
-    });
-
-    // Hook cookie settings buttons and dispatch cookie-prefs-saved
-    const acceptAll = document.getElementById('acceptAllCookies');
-    const savePrefs = document.getElementById('saveCookieSettings');
-    function getPrefs(){
-        return {
-            technical: true,
-            analytics: !!document.getElementById('analyticsCookies')?.checked,
-            marketing: !!document.getElementById('marketingCookies')?.checked,
-            behavior: !!document.getElementById('behaviorCookies')?.checked,
-            timestamp: new Date().toISOString()
-        };
-    }
-    if (acceptAll){ acceptAll.addEventListener('click', ()=>{
-        const p = { technical:true, analytics:true, marketing:true, behavior:true, timestamp:new Date().toISOString() };
-        localStorage.setItem('cookieConsent', JSON.stringify(p));
-        window.dispatchEvent(new CustomEvent('cookie-prefs-saved', { detail: p }));
-    }); }
-    if (savePrefs){ savePrefs.addEventListener('click', ()=>{
-        const p = getPrefs();
-        localStorage.setItem('cookieConsent', JSON.stringify(p));
-        window.dispatchEvent(new CustomEvent('cookie-prefs-saved', { detail: p }));
-    }); }
-}); 
-
-// Cookie Consent + Conditional Analytics
-(function(){
-    const KEY = 'cookieConsent';
-    function loadGA(){
-        if (window.__gaLoaded) return; 
-        const gaId = (document.querySelector('meta[name="ga-measurement-id"]')?.content || window.GA_MEASUREMENT_ID || '').trim();
-        if (!gaId) return;
-        window.__gaLoaded = true;
-        const s = document.createElement('script'); s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(gaId);
-        document.head.appendChild(s);
-        window.dataLayer = window.dataLayer || []; function gtag(){ dataLayer.push(arguments); }
-        window.gtag = gtag; gtag('js', new Date()); gtag('config', gaId);
-    }
-    function loadFB(){
-        if (window.__fbLoaded) return; window.__fbLoaded = true;
-        !(function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)})(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init','YOUR_PIXEL_ID'); fbq('track','PageView');
-    }
-    function applyPrefs(p){
-        if (!p) return;
-        if (p.analytics) loadGA();
-        if (p.marketing) loadFB();
-    }
-    document.addEventListener('DOMContentLoaded', function(){
-        try {
-            const raw = localStorage.getItem(KEY);
-            if (raw) applyPrefs(JSON.parse(raw));
-        } catch(e) {}
-        // Banner controls are in index; listen to a custom event from that UI
-        window.addEventListener('cookie-prefs-saved', function(e){ applyPrefs(e.detail || {}); });
-    });
-})();
-
-// Accessible toast notifications
-function showNotification(message, type='info'){
-  let live = document.getElementById('ariaLive');
-  if (!live){
-    live = document.createElement('div');
-    live.id = 'ariaLive';
-    live.setAttribute('role','status');
-    live.setAttribute('aria-live','polite');
-    live.style.position='fixed'; live.style.left='50%'; live.style.top='20px'; live.style.transform='translateX(-50%)';
-    live.style.zIndex='99999'; live.style.maxWidth='90vw';
-    document.body.appendChild(live);
-  }
-  const box = document.createElement('div');
-  box.textContent = message;
-  box.style.cssText = 'background:#111827;color:#e5e7eb;padding:10px 14px;border-radius:10px;box-shadow:0 10px 30px rgba(2,6,23,.35);margin:6px auto;font-weight:600';
-  if (type==='success') box.style.background = '#16a34a';
-  if (type==='danger') box.style.background = '#dc2626';
-  if (type==='warning') box.style.background = '#f59e0b'; box.style.color='#0b1220';
-  live.appendChild(box);
-  setTimeout(()=>{ box.remove(); }, 2500);
-}
-
-// Guard CTA buttons to prevent double-submit
-(function(){
-  document.addEventListener('click', function(e){
-    const t = e.target.closest('.btn, .btn-primary, .btn-wa');
-    if (!t) return;
-    if (t.dataset.locked === '1') { e.preventDefault(); return; }
-    t.dataset.locked = '1';
-    setTimeout(()=>{ t.dataset.locked = '0'; }, 1500);
-  }, { capture:true });
-})();
+// Initialize smooth scrolling after DOM is ready
+document.addEventListener('DOMContentLoaded', initSmoothScrolling);

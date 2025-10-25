@@ -1,389 +1,160 @@
-// Advanced Service Worker for DC TEKNİK
-const CACHE_NAME = 'dcteknik-pwa-v2.0.0';
-const STATIC_CACHE = 'dcteknik-static-pwa-v2.0.0';
-const DYNAMIC_CACHE = 'dcteknik-dynamic-pwa-v2.0.0';
-const IMAGE_CACHE = 'dcteknik-images-pwa-v2.0.0';
-const API_CACHE = 'dcteknik-api-pwa-v2.0.0';
-const FONT_CACHE = 'dcteknik-fonts-pwa-v2.0.0';
-const OFFLINE_FORMS_CACHE = 'dcteknik-offline-forms-v2.0.0';
-const ANALYTICS_CACHE = 'dcteknik-analytics-v2.0.0';
+/**
+ * DC TEKNİK - Service Worker
+ * PWA ve offline functionality için
+ */
 
+const CACHE_NAME = 'dcteknik-v1.0.0';
 const urlsToCache = [
     '/',
     '/index.html',
-    '/blog.html',
-    '/bobin.html',
-    '/validation.html',
-    
-    '/anadolu-yakasi.html',
-    '/sultanbeyli.html',
-    '/search.html',
-    '/faq.html',
-    '/privacy-policy.html',
     '/style.css',
-    '/cinar.css',
-    '/blog-styles.css',
     '/script.js',
-    // Keep core JS minimal in precache; other JS via runtime cache
-    '/js/translations.js',
-    '/js/language-switcher.js',
-    '/js/lightbox.js',
-    '/js/appointment-modal.js',
-    '/js/responsive-images.js',
-    '/js/blog-filters.js',
-    '/js/hero-ab-test.js',
-    '/js/google-reviews.js',
-    '/manifest.webmanifest',
     '/logo-new.svg',
     '/favicon-new.svg',
-    '/favicon-192x192.png',
-    '/favicon-512x512.png',
-    '/apple-touch-icon.png',
-    '/sitemap.xml',
-    '/robots.txt',
-    '/feed.xml',
-    '/offline.html'
+    '/manifest.webmanifest',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];
-
-const CACHE_STRATEGIES = {
-    CACHE_FIRST: 'cache-first',
-    NETWORK_FIRST: 'network-first',
-    STALE_WHILE_REVALIDATE: 'stale-while-revalidate',
-    NETWORK_ONLY: 'network-only',
-    CACHE_ONLY: 'cache-only'
-};
-
-// Advanced Cache Strategies
-function getCacheStrategy(request) {
-    const url = new URL(request.url);
-    
-    // Static assets - Cache First
-    if (url.pathname.match(/\.(css|js|woff2?|ttf|eot)$/)) {
-        return CACHE_STRATEGIES.CACHE_FIRST;
-    }
-    
-    // Images - Cache First with fallback
-    if (url.pathname.match(/\.(jpg|jpeg|png|gif|webp|avif|svg)$/)) {
-        return CACHE_STRATEGIES.STALE_WHILE_REVALIDATE;
-    }
-    
-    // HTML pages - Network First
-    if (url.pathname.endsWith('.html') || url.pathname === '/') {
-        return CACHE_STRATEGIES.NETWORK_FIRST;
-    }
-    
-    // API calls - Network First
-    if (url.pathname.startsWith('/api/')) {
-        return CACHE_STRATEGIES.NETWORK_FIRST;
-    }
-    
-    // Default - Stale While Revalidate
-    return CACHE_STRATEGIES.STALE_WHILE_REVALIDATE;
-}
-
-// Cache First Strategy
-async function cacheFirst(request, cacheName) {
-    const cache = await caches.open(cacheName);
-    const cachedResponse = await cache.match(request);
-    
-    if (cachedResponse) {
-        return cachedResponse;
-    }
-    
-    const networkResponse = await fetch(request);
-    if (networkResponse.ok) {
-        cache.put(request, networkResponse.clone());
-    }
-    
-    return networkResponse;
-}
-
-// Network First Strategy
-async function networkFirst(request, cacheName) {
-    const cache = await caches.open(cacheName);
-    
-    try {
-        const networkResponse = await fetch(request);
-        if (networkResponse.ok) {
-            cache.put(request, networkResponse.clone());
-        }
-        return networkResponse;
-    } catch (error) {
-        const cachedResponse = await cache.match(request);
-        if (cachedResponse) return cachedResponse;
-        if (request.mode === 'navigate') {
-            const offline = await caches.match('/offline.html');
-            if (offline) return offline;
-        }
-        return new Response('Offline', { status: 503 });
-    }
-}
-
-// Stale While Revalidate Strategy
-async function staleWhileRevalidate(request, cacheName) {
-    const cache = await caches.open(cacheName);
-    const cachedResponse = await cache.match(request, { ignoreSearch: true });
-    const fetchPromise = fetch(request).then(networkResponse => {
-        if (networkResponse && networkResponse.ok) {
-            cache.put(request, networkResponse.clone());
-        }
-        return networkResponse;
-    }).catch(()=>cachedResponse);
-    return cachedResponse || fetchPromise;
-}
 
 // Install event
 self.addEventListener('install', function(event) {
+    console.log('🔧 DC TEKNİK - Service Worker installing...');
+    
     event.waitUntil(
-        (async () => {
-            // Offline first cache refresh
-            const cache = await caches.open(STATIC_CACHE);
-            await cache.addAll(urlsToCache.map(u => u + (u.includes('?') ? '&' : '?') + 'v=' + Date.now()));
-            await caches.open(DYNAMIC_CACHE);
-            await caches.open(IMAGE_CACHE);
-            console.log('Advanced Service Worker installed');
-            return self.skipWaiting();
-        })()
+        caches.open(CACHE_NAME)
+            .then(function(cache) {
+                console.log('📦 DC TEKNİK - Caching files...');
+                return cache.addAll(urlsToCache);
+            })
+            .then(function() {
+                console.log('✅ DC TEKNİK - Service Worker installed');
+                return self.skipWaiting();
+            })
     );
-});
-
-// Fetch event
-self.addEventListener('fetch', function(event) {
-    const request = event.request;
-    const strategy = getCacheStrategy(request);
-    
-    let responsePromise;
-    
-    switch (strategy) {
-        case CACHE_STRATEGIES.CACHE_FIRST:
-            if (request.url.match(/\.(jpg|jpeg|png|gif|webp|avif|svg)$/)) {
-                responsePromise = cacheFirst(request, IMAGE_CACHE);
-            } else {
-                responsePromise = cacheFirst(request, STATIC_CACHE);
-            }
-            break;
-            
-        case CACHE_STRATEGIES.NETWORK_FIRST:
-            responsePromise = networkFirst(request, DYNAMIC_CACHE);
-            break;
-            
-        case CACHE_STRATEGIES.STALE_WHILE_REVALIDATE:
-            responsePromise = staleWhileRevalidate(request, DYNAMIC_CACHE);
-            break;
-            
-        default:
-            responsePromise = fetch(request);
-    }
-    
-    event.respondWith(responsePromise);
 });
 
 // Activate event
 self.addEventListener('activate', function(event) {
+    console.log('🚀 DC TEKNİK - Service Worker activating...');
+    
     event.waitUntil(
         caches.keys().then(function(cacheNames) {
             return Promise.all(
                 cacheNames.map(function(cacheName) {
-                    if (![STATIC_CACHE, DYNAMIC_CACHE, IMAGE_CACHE].includes(cacheName)) {
-                        console.log('Deleting old cache:', cacheName);
+                    if (cacheName !== CACHE_NAME) {
+                        console.log('🗑️ DC TEKNİK - Deleting old cache:', cacheName);
                         return caches.delete(cacheName);
                     }
                 })
             );
-        }).then(async () => {
-            console.log('Advanced Service Worker activated');
-            const clientsArr = await self.clients.matchAll({ includeUncontrolled: true });
-            clientsArr.forEach(client => client.postMessage({ type: 'RELOAD_PAGE' }));
+        }).then(function() {
+            console.log('✅ DC TEKNİK - Service Worker activated');
             return self.clients.claim();
         })
     );
 });
 
-// Background Sync
+// Fetch event
+self.addEventListener('fetch', function(event) {
+    event.respondWith(
+        caches.match(event.request)
+            .then(function(response) {
+                // Return cached version or fetch from network
+                if (response) {
+                    console.log('📦 DC TEKNİK - Serving from cache:', event.request.url);
+                    return response;
+                }
+                
+                console.log('🌐 DC TEKNİK - Fetching from network:', event.request.url);
+                return fetch(event.request).then(function(response) {
+                    // Check if valid response
+                    if (!response || response.status !== 200 || response.type !== 'basic') {
+                        return response;
+                    }
+                    
+                    // Clone response for caching
+                    const responseToCache = response.clone();
+                    
+                    caches.open(CACHE_NAME)
+                        .then(function(cache) {
+                            cache.put(event.request, responseToCache);
+                        });
+                    
+                    return response;
+                });
+            })
+    );
+});
+
+// Background sync
 self.addEventListener('sync', function(event) {
     if (event.tag === 'background-sync') {
+        console.log('🔄 DC TEKNİK - Background sync triggered');
         event.waitUntil(doBackgroundSync());
     }
 });
 
-// Push Notifications
+function doBackgroundSync() {
+    // Background sync logic here
+    return Promise.resolve();
+}
+
+// Push notifications
 self.addEventListener('push', function(event) {
-    if (event.data) {
-        const data = event.data.json();
-        const options = {
-            body: data.body,
-            icon: '/favicon-new.svg',
-            badge: '/favicon-new.svg',
-            vibrate: [100, 50, 100],
-            data: data.data,
-            actions: [
-                {
-                    action: 'explore',
-                    title: 'Keşfet',
-                    icon: '/favicon-new.svg'
-                },
-                {
-                    action: 'close',
-                    title: 'Kapat',
-                    icon: '/favicon-new.svg'
-                }
-            ]
-        };
-        
-        event.waitUntil(
-            self.registration.showNotification(data.title, options)
-        );
-    }
+    console.log('📱 DC TEKNİK - Push notification received');
+    
+    const options = {
+        body: event.data ? event.data.text() : 'DC TEKNİK - Yeni bildirim',
+        icon: '/favicon-192x192.png',
+        badge: '/favicon-192x192.png',
+        vibrate: [200, 100, 200],
+        data: {
+            dateOfArrival: Date.now(),
+            primaryKey: 1
+        },
+        actions: [
+            {
+                action: 'explore',
+                title: 'Detayları Gör',
+                icon: '/favicon-192x192.png'
+            },
+            {
+                action: 'close',
+                title: 'Kapat',
+                icon: '/favicon-192x192.png'
+            }
+        ]
+    };
+    
+    event.waitUntil(
+        self.registration.showNotification('DC TEKNİK', options)
+    );
 });
 
-// Notification Click
+// Notification click
 self.addEventListener('notificationclick', function(event) {
+    console.log('🔔 DC TEKNİK - Notification clicked');
+    
     event.notification.close();
     
     if (event.action === 'explore') {
         event.waitUntil(
             clients.openWindow('/')
         );
+    } else if (event.action === 'close') {
+        // Just close the notification
+    } else {
+        // Default action - open the app
+        event.waitUntil(
+            clients.openWindow('/')
+        );
     }
 });
 
- calculateCLSScore(clsValue) {
-    if (clsValue <= 0.1) return 100;
-    if (clsValue <= 0.25) return 75;
-    return 50;
-}
-
-// Background Sync Implementation
-async function doBackgroundSync() {
-    console.log('Background sync triggered');
-    
-    try {
-        // Sync offline forms
-        await syncOfflineForms();
-        
-        // Sync analytics data
-        await syncAnalyticsData();
-        
-        // Sync any pending requests
-        await syncPendingRequests();
-        
-        console.log('Background sync completed successfully');
-    } catch (error) {
-        console.error('Background sync failed:', error);
-    }
-}
-
-// Sync offline forms
-async function syncOfflineForms() {
-    try {
-        const cache = await caches.open(OFFLINE_FORMS_CACHE);
-        const requests = await cache.keys();
-        
-        for (const request of requests) {
-            try {
-                const response = await fetch(request);
-                if (response.ok) {
-                    await cache.delete(request);
-                    console.log('Offline form synced:', request.url);
-                }
-            } catch (error) {
-                console.log('Failed to sync form:', request.url, error);
-            }
-        }
-    } catch (error) {
-        console.error('Failed to sync offline forms:', error);
-    }
-}
-
-// Sync analytics data
-async function syncAnalyticsData() {
-    try {
-        const cache = await caches.open(ANALYTICS_CACHE);
-        const requests = await cache.keys();
-        
-        for (const request of requests) {
-            try {
-                const response = await fetch(request);
-                if (response.ok) {
-                    await cache.delete(request);
-                    console.log('Analytics data synced:', request.url);
-                }
-            } catch (error) {
-                console.log('Failed to sync analytics:', request.url, error);
-            }
-        }
-    } catch (error) {
-        console.error('Failed to sync analytics data:', error);
-    }
-}
-
-// Sync pending requests
-async function syncPendingRequests() {
-    try {
-        const cache = await caches.open(DYNAMIC_CACHE);
-        const requests = await cache.keys();
-        
-        for (const request of requests) {
-            // Only sync API requests that might have failed
-            if (request.url.includes('/api/')) {
-                try {
-                    const response = await fetch(request);
-                    if (response.ok) {
-                        await cache.put(request, response.clone());
-                        console.log('Pending request synced:', request.url);
-                    }
-                } catch (error) {
-                    console.log('Failed to sync pending request:', request.url, error);
-                }
-            }
-        }
-    } catch (error) {
-        console.error('Failed to sync pending requests:', error);
-    }
-}
-
-// Message handling for communication with main thread
-self.addEventListener('message', event => {
-    console.log('Service Worker received message:', event.data);
-    
+// Message handling
+self.addEventListener('message', function(event) {
     if (event.data && event.data.type === 'SKIP_WAITING') {
         self.skipWaiting();
-    } else if (event.data && event.data.type === 'GET_VERSION') {
-        event.ports[0].postMessage({ version: CACHE_NAME });
-    } else if (event.data && event.data.type === 'CLEAR_CACHE') {
-        event.waitUntil(
-            caches.keys().then(cacheNames => {
-                return Promise.all(
-                    cacheNames.map(cacheName => caches.delete(cacheName))
-                );
-            }).then(() => {
-                event.ports[0].postMessage({ success: true });
-            })
-        );
-    } else if (event.data && event.data.type === 'CACHE_OFFLINE_DATA') {
-        event.waitUntil(
-            cacheOfflineData(event.data.data)
-        );
     }
 });
 
-// Cache offline data
-async function cacheOfflineData(data) {
-    try {
-        const cache = await caches.open(OFFLINE_FORMS_CACHE);
-        const request = new Request(data.url, {
-            method: data.method || 'POST',
-            headers: data.headers || {},
-            body: data.body
-        });
-        
-        await cache.put(request, new Response(JSON.stringify({ 
-            cached: true, 
-            timestamp: Date.now() 
-        })));
-        
-        console.log('Offline data cached:', data.url);
-    } catch (error) {
-        console.error('Failed to cache offline data:', error);
-    }
-}
+console.log('✅ DC TEKNİK - Service Worker loaded successfully');
