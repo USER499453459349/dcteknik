@@ -1,48 +1,64 @@
-// Mobile Navigation Toggle
-const navToggle = document.querySelector('.nav-toggle');
-const navMenu = document.querySelector('.nav-menu');
-
-navToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    navToggle.classList.toggle('active');
-});
-
-// Fix All Design Issues
+// Complete Site Initialization - All fixes in one place
 document.addEventListener('DOMContentLoaded', function() {
-    // Fix Logo Display
+    console.log('🚀 DC TEKNİK - Site Initializing...');
+    
+    // 1. Mobile Navigation Toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+    }
+    
+    // 2. Fix Logo Display
     const logoImage = document.querySelector('.logo-image');
     if (logoImage) {
         logoImage.style.display = 'block';
         logoImage.style.width = '160px';
         logoImage.style.height = '48px';
         logoImage.style.objectFit = 'contain';
+        console.log('✅ Logo fixed');
     }
     
-    // Remove duplicate navigation
+    // 3. Remove duplicate navigation
     const navMenus = document.querySelectorAll('.nav-menu');
     if (navMenus.length > 1) {
         for (let i = 1; i < navMenus.length; i++) {
             navMenus[i].style.display = 'none';
             navMenus[i].classList.add('duplicate');
         }
+        console.log('✅ Duplicate navigation removed');
     }
     
-    // Remove duplicate contact links
+    // 4. Remove duplicate contact links
     const contactLinks = document.querySelectorAll('a[href="#contact"]');
     if (contactLinks.length > 1) {
         for (let i = 1; i < contactLinks.length; i++) {
             contactLinks[i].style.display = 'none';
         }
+        console.log('✅ Duplicate contact links removed');
     }
     
-    // Fix floating buttons z-index
+    // 5. Fix floating buttons z-index
     const floatingButtons = document.querySelectorAll('.floating-buttons, .dc-floating-widget');
     floatingButtons.forEach(button => {
         button.style.zIndex = '9999';
         button.style.position = 'fixed';
     });
+    console.log('✅ Floating buttons fixed');
     
-    // Fix overlapping popups
+    // 6. Fix overlapping popups
     const sessionWarning = document.querySelector('.session-warning');
     if (sessionWarning) {
         sessionWarning.style.zIndex = '1100';
@@ -50,51 +66,51 @@ document.addEventListener('DOMContentLoaded', function() {
         sessionWarning.style.top = '50%';
         sessionWarning.style.left = '50%';
         sessionWarning.style.transform = 'translate(-50%, -50%)';
+        console.log('✅ Session warning fixed');
     }
     
-    // Fix language dropdown
+    // 7. Fix language dropdown
     const languageDropdown = document.querySelector('.language-dropdown');
     if (languageDropdown) {
         languageDropdown.style.zIndex = '1001';
+        console.log('✅ Language dropdown fixed');
     }
-});
+    
+    // 8. Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const headerOffset = 80;
+                const elementPosition = target.offsetTop;
+                const offsetPosition = elementPosition - headerOffset;
 
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
-});
-
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const headerOffset = 80;
-            const elementPosition = target.offsetTop;
-            const offsetPosition = elementPosition - headerOffset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
-    });
-});
-
-// Header background change on scroll
-const header = document.querySelector('.header');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-        header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
-    } else {
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
-        header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+    console.log('✅ Smooth scrolling enabled');
+    
+    // 9. Header background change on scroll
+    const header = document.querySelector('.header');
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            }
+        });
+        console.log('✅ Header scroll effect enabled');
     }
+    
+    console.log('🎉 DC TEKNİK - Site initialization complete!');
 });
 
 // Intersection Observer for fade-in animations
