@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initAnimations();
     initContactButtons();
     initPerformanceOptimizations();
+    initVideoControls();
+    initCounterAnimation();
+    initScrollIndicator();
     
     console.log('✅ DC TEKNİK - Site loaded successfully!');
 });
@@ -152,10 +155,56 @@ function initAnimations() {
     }, observerOptions);
     
     // Observe elements for animation
-    const animateElements = document.querySelectorAll('.service-card, .section-header, .contact-detail');
+    const animateElements = document.querySelectorAll('.service-card, .section-header, .contact-detail, .review-card');
     animateElements.forEach(el => {
         observer.observe(el);
     });
+    
+    // Track scroll depth
+    let maxScrollDepth = 0;
+    const trackScrollDepth = () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+        
+        if (scrollPercent > maxScrollDepth) {
+            maxScrollDepth = scrollPercent;
+            
+            // Track milestone scroll depths
+            if (scrollPercent >= 25 && scrollPercent < 50) {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'scroll_depth_25', {
+                        'event_category': 'engagement',
+                        'value': 25
+                    });
+                }
+            } else if (scrollPercent >= 50 && scrollPercent < 75) {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'scroll_depth_50', {
+                        'event_category': 'engagement',
+                        'value': 50
+                    });
+                }
+            } else if (scrollPercent >= 75 && scrollPercent < 90) {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'scroll_depth_75', {
+                        'event_category': 'engagement',
+                        'value': 75
+                    });
+                }
+            } else if (scrollPercent >= 90) {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'scroll_depth_90', {
+                        'event_category': 'engagement',
+                        'value': 90
+                    });
+                }
+            }
+        }
+    };
+    
+    // Throttled scroll tracking
+    window.addEventListener('scroll', DCUtils.throttle(trackScrollDepth, 1000));
 }
 
 /**
@@ -173,7 +222,9 @@ function initContactButtons() {
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'phone_call', {
                     'event_category': 'contact',
-                    'event_label': phoneNumber
+                    'event_label': phoneNumber,
+                    'value': 75,
+                    'currency': 'TRY'
                 });
             }
             
@@ -190,7 +241,9 @@ function initContactButtons() {
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'whatsapp_contact', {
                     'event_category': 'contact',
-                    'event_label': 'whatsapp'
+                    'event_label': 'whatsapp',
+                    'value': 50,
+                    'currency': 'TRY'
                 });
             }
         });
@@ -325,6 +378,114 @@ const DCUtils = {
 
 // Export for global access
 window.DCUtils = DCUtils;
+
+/**
+ * Video Controls
+ */
+function initVideoControls() {
+    const video = document.querySelector('.hero-video video');
+    const playPauseBtn = document.querySelector('.video-play-pause');
+    const muteBtn = document.querySelector('.video-mute');
+    
+    if (video && playPauseBtn && muteBtn) {
+        // Play/Pause functionality
+        playPauseBtn.addEventListener('click', function() {
+            if (video.paused) {
+                video.play();
+                this.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                video.pause();
+                this.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+        
+        // Mute/Unmute functionality
+        muteBtn.addEventListener('click', function() {
+            if (video.muted) {
+                video.muted = false;
+                this.innerHTML = '<i class="fas fa-volume-up"></i>';
+            } else {
+                video.muted = true;
+                this.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            }
+        });
+        
+        // Update play button when video ends
+        video.addEventListener('ended', function() {
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        });
+    }
+}
+
+/**
+ * Counter Animation
+ */
+function initCounterAnimation() {
+    const counters = document.querySelectorAll('.counter-number');
+    
+    const animateCounter = (counter) => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const duration = 2000; // 2 seconds
+        const increment = target / (duration / 16); // 60fps
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            counter.textContent = Math.floor(current);
+        }, 16);
+    };
+    
+    // Intersection Observer for counter animation
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(counter => {
+        counterObserver.observe(counter);
+    });
+}
+
+/**
+ * Scroll Indicator
+ */
+function initScrollIndicator() {
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    const scrollArrow = document.querySelector('.scroll-arrow');
+    
+    if (scrollArrow) {
+        scrollArrow.addEventListener('click', function() {
+            const servicesSection = document.querySelector('#services');
+            if (servicesSection) {
+                servicesSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    }
+    
+    // Hide scroll indicator when scrolling
+    if (scrollIndicator) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                scrollIndicator.style.opacity = '0';
+                scrollIndicator.style.transform = 'translateX(-50%) translateY(20px)';
+            } else {
+                scrollIndicator.style.opacity = '1';
+                scrollIndicator.style.transform = 'translateX(-50%) translateY(0)';
+            }
+        });
+    }
+}
 
 // Initialize smooth scrolling after DOM is ready
 document.addEventListener('DOMContentLoaded', initSmoothScrolling);
