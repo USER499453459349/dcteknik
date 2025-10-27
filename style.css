@@ -298,11 +298,17 @@ a:hover {
     transform: rotate(-45deg) translate(7px, -6px);
 }
 
-/* Industrial Hero Section */
+/* Ultra Modern Hero Section */
 .hero {
-    background: var(--gradient-dark);
+    background: linear-gradient(135deg, 
+        #0a0a0a 0%, 
+        #1a1a1a 25%, 
+        #2a2a2a 50%, 
+        #1a1a1a 75%, 
+        #0a0a0a 100%
+    );
     color: var(--text-color);
-    padding: 10rem 0 6rem;
+    padding: 12rem 0 8rem;
     text-align: center;
     min-height: 100vh;
     display: flex;
@@ -320,10 +326,19 @@ a:hover {
     right: 0;
     bottom: 0;
     background: 
-        radial-gradient(circle at 30% 20%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 70% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-        linear-gradient(45deg, transparent 30%, rgba(255, 107, 53, 0.05) 50%, transparent 70%);
+        radial-gradient(circle at 20% 20%, rgba(255, 107, 53, 0.2) 0%, transparent 60%),
+        radial-gradient(circle at 80% 30%, rgba(255, 215, 0, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 50% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 60%),
+        radial-gradient(circle at 10% 80%, rgba(37, 211, 102, 0.08) 0%, transparent 60%),
+        linear-gradient(45deg, transparent 20%, rgba(255, 107, 53, 0.03) 50%, transparent 80%),
+        linear-gradient(-45deg, transparent 30%, rgba(255, 215, 0, 0.02) 60%, transparent 90%);
     pointer-events: none;
+    animation: heroGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; }
 }
 
 .hero::after {
@@ -526,9 +541,16 @@ a:hover {
 .hero-content {
     position: relative;
     z-index: 10;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 3rem 0;
+    padding: 4rem 0;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 30px;
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .hero-content::before {
@@ -592,15 +614,19 @@ a:hover {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-/* Industrial Hero Title */
+/* Ultra Modern Hero Title */
 .hero-title {
-    font-size: clamp(3.5rem, 7vw, 6rem);
+    font-size: clamp(4rem, 8vw, 7rem);
     font-weight: 900;
-    margin-bottom: 2rem;
-    line-height: 1.1;
-    animation: fadeInUp 0.8s ease-out 0.2s both;
+    margin-bottom: 3rem;
+    line-height: 1.05;
+    animation: fadeInUp 1s ease-out 0.2s both;
     position: relative;
-    text-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+    text-shadow: 
+        0 0 30px rgba(255, 107, 53, 0.5),
+        0 0 60px rgba(255, 107, 53, 0.3),
+        0 0 90px rgba(255, 107, 53, 0.1);
+    filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.3));
 }
 
 .title-line-1 {
@@ -726,14 +752,15 @@ a:hover {
     font-weight: 500;
 }
 
-/* Hero Buttons */
+/* Ultra Modern Hero Buttons */
 .hero-buttons {
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 3rem 0;
-    animation: fadeInUp 0.8s ease-out 1s both;
+    margin: 4rem 0;
+    animation: fadeInUp 1s ease-out 1s both;
+    position: relative;
 }
 
 .btn-large {
@@ -741,27 +768,81 @@ a:hover {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    padding: 1.5rem 2rem;
-    min-width: 160px;
+    padding: 2rem 2.5rem;
+    min-width: 200px;
     text-align: center;
     position: relative;
     overflow: hidden;
+    background: linear-gradient(135deg, 
+        rgba(255, 107, 53, 0.9), 
+        rgba(255, 140, 66, 0.8)
+    );
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 
+        0 10px 30px rgba(255, 107, 53, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-large::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+}
+
+.btn-large:hover::before {
+    left: 100%;
+}
+
+.btn-large:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 
+        0 20px 50px rgba(255, 107, 53, 0.5),
+        0 10px 30px rgba(255, 107, 53, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 .btn-large i {
-    font-size: 1.5rem;
-    margin-bottom: 0.25rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    transition: all 0.3s ease;
+}
+
+.btn-large:hover i {
+    transform: scale(1.2) rotate(5deg);
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
 }
 
 .btn-large span {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-large:hover span {
+    transform: translateY(-2px);
 }
 
 .btn-large small {
-    font-size: 0.8rem;
-    opacity: 0.8;
-    font-weight: 400;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-large:hover small {
+    opacity: 1;
+    transform: translateY(-1px);
 }
 
 .btn-outline {
