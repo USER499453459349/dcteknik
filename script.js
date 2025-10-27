@@ -18,7 +18,376 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollIndicator();
     
     console.log('✅ DC TEKNİK - Site loaded successfully!');
+    
+    // Initialize new features
+    initAdvancedFeatures();
+    initPerformanceOptimizations();
+    initAdvancedAnalytics();
 });
+
+/**
+ * Advanced Features Initialization
+ */
+function initAdvancedFeatures() {
+    console.log('🚀 Initializing advanced features...');
+    
+    // Add micro-interactions to cards
+    const cards = document.querySelectorAll('.service-card, .review-card, .feature-card');
+    cards.forEach(card => {
+        card.classList.add('micro-interaction');
+    });
+    
+    // Add 3D effect to hero cards
+    const heroCards = document.querySelectorAll('.stat-item, .trust-item');
+    heroCards.forEach(card => {
+        card.classList.add('card-3d');
+    });
+    
+    // Initialize advanced form validation
+    initAdvancedFormValidation();
+    
+    // Initialize lazy loading
+    initLazyLoading();
+    
+    console.log('✅ Advanced features initialized!');
+}
+
+/**
+ * Advanced Form Validation
+ */
+function initAdvancedFormValidation() {
+    const forms = document.querySelectorAll('form');
+    
+    forms.forEach(form => {
+        const inputs = form.querySelectorAll('input, textarea, select');
+        
+        inputs.forEach(input => {
+            // Real-time validation
+            input.addEventListener('blur', validateField);
+            input.addEventListener('input', clearError);
+        });
+        
+        // Form submission validation
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateForm(form)) {
+                submitForm(form);
+            }
+        });
+    });
+}
+
+function validateField(e) {
+    const field = e.target;
+    const value = field.value.trim();
+    const fieldName = field.name || field.id;
+    const errorElement = field.parentNode.querySelector('.form-error');
+    
+    let isValid = true;
+    let errorMessage = '';
+    
+    // Required field validation
+    if (field.hasAttribute('required') && !value) {
+        isValid = false;
+        errorMessage = 'Bu alan zorunludur';
+    }
+    
+    // Email validation
+    if (field.type === 'email' && value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            isValid = false;
+            errorMessage = 'Geçerli bir email adresi giriniz';
+        }
+    }
+    
+    // Phone validation
+    if (field.type === 'tel' && value) {
+        const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+        if (!phoneRegex.test(value)) {
+            isValid = false;
+            errorMessage = 'Geçerli bir telefon numarası giriniz';
+        }
+    }
+    
+    // Show/hide error
+    if (errorElement) {
+        if (isValid) {
+            errorElement.classList.remove('show');
+            field.classList.remove('error');
+        } else {
+            errorElement.textContent = errorMessage;
+            errorElement.classList.add('show');
+            field.classList.add('error');
+        }
+    }
+    
+    return isValid;
+}
+
+function clearError(e) {
+    const field = e.target;
+    const errorElement = field.parentNode.querySelector('.form-error');
+    
+    if (errorElement) {
+        errorElement.classList.remove('show');
+        field.classList.remove('error');
+    }
+}
+
+function validateForm(form) {
+    const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+    let isValid = true;
+    
+    inputs.forEach(input => {
+        if (!validateField({ target: input })) {
+            isValid = false;
+        }
+    });
+    
+    return isValid;
+}
+
+function submitForm(form) {
+    // Show loading state
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Gönderiliyor...';
+    submitBtn.disabled = true;
+    
+    // Simulate form submission
+    setTimeout(() => {
+        // Show success message
+        showNotification('Form başarıyla gönderildi!', 'success');
+        
+        // Reset form
+        form.reset();
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        
+        // Analytics event
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'form_submit', {
+                event_category: 'Engagement',
+                event_label: form.id || 'contact_form',
+                value: 1
+            });
+        }
+    }, 2000);
+}
+
+/**
+ * Lazy Loading Implementation
+ */
+function initLazyLoading() {
+    const images = document.querySelectorAll('img[data-src]');
+    
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+        
+        images.forEach(img => imageObserver.observe(img));
+    } else {
+        // Fallback for older browsers
+        images.forEach(img => {
+            img.src = img.dataset.src;
+            img.classList.remove('lazy');
+        });
+    }
+}
+
+/**
+ * Performance Optimizations
+ */
+function initPerformanceOptimizations() {
+    // Debounce scroll events
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(handleScroll, 10);
+    });
+    
+    // Throttle resize events
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(handleResize, 100);
+    });
+    
+    // Preload critical resources
+    preloadCriticalResources();
+}
+
+function handleScroll() {
+    // Optimized scroll handling
+    const scrolled = window.pageYOffset;
+    const header = document.querySelector('.header');
+    
+    if (header) {
+        if (scrolled > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    }
+}
+
+function handleResize() {
+    // Optimized resize handling
+    const width = window.innerWidth;
+    
+    // Update mobile menu visibility
+    const navMenu = document.querySelector('.nav-menu');
+    if (width > 768 && navMenu) {
+        navMenu.classList.remove('active');
+    }
+}
+
+function preloadCriticalResources() {
+    const criticalResources = [
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+        'style.css',
+        'script.js'
+    ];
+    
+    criticalResources.forEach(href => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.href = href;
+        link.as = href.endsWith('.css') ? 'style' : 'script';
+        document.head.appendChild(link);
+    });
+}
+
+/**
+ * Advanced Analytics
+ */
+function initAdvancedAnalytics() {
+    // Track user interactions
+    trackUserInteractions();
+    
+    // Track performance metrics
+    trackPerformanceMetrics();
+    
+    // Track custom events
+    trackCustomEvents();
+}
+
+function trackUserInteractions() {
+    // Track button clicks
+    document.addEventListener('click', function(e) {
+        if (e.target.matches('button, .btn, a[href]')) {
+            const element = e.target;
+            const text = element.textContent.trim();
+            const href = element.href || '';
+            
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'click', {
+                    event_category: 'UI',
+                    event_label: text || href,
+                    value: 1
+                });
+            }
+        }
+    });
+    
+    // Track form interactions
+    document.addEventListener('focus', function(e) {
+        if (e.target.matches('input, textarea, select')) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'form_focus', {
+                    event_category: 'Engagement',
+                    event_label: e.target.name || e.target.id,
+                    value: 1
+                });
+            }
+        }
+    });
+}
+
+function trackPerformanceMetrics() {
+    // Track page load time
+    window.addEventListener('load', function() {
+        const loadTime = performance.now();
+        
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_load_time', {
+                event_category: 'Performance',
+                event_label: 'Page Load',
+                value: Math.round(loadTime)
+            });
+        }
+    });
+}
+
+function trackCustomEvents() {
+    // Track scroll depth
+    let maxScroll = 0;
+    window.addEventListener('scroll', function() {
+        const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        
+        if (scrollPercent > maxScroll) {
+            maxScroll = scrollPercent;
+            
+            if (typeof gtag !== 'undefined' && maxScroll % 25 === 0) {
+                gtag('event', 'scroll_depth', {
+                    event_category: 'Engagement',
+                    event_label: `${maxScroll}%`,
+                    value: maxScroll
+                });
+            }
+        }
+    });
+}
+
+/**
+ * Notification System
+ */
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
+            <button class="notification-close" onclick="this.parentElement.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+}
 
 /**
  * Navigation Management

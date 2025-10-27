@@ -16,6 +16,58 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Advanced Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            custom_map: {
+                'custom_parameter_1': 'service_type',
+                'custom_parameter_2': 'user_engagement'
+            }
+        });
+    </script>
+    
+    <!-- Performance Monitoring -->
+    <script>
+        // Core Web Vitals tracking
+        function sendToAnalytics(metric) {
+            gtag('event', metric.name, {
+                event_category: 'Web Vitals',
+                event_label: metric.id,
+                value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+                non_interaction: true,
+            });
+        }
+        
+        // LCP tracking
+        new PerformanceObserver((entryList) => {
+            for (const entry of entryList.getEntries()) {
+                sendToAnalytics({name: 'LCP', value: entry.startTime, id: entry.id});
+            }
+        }).observe({entryTypes: ['largest-contentful-paint']});
+        
+        // FID tracking
+        new PerformanceObserver((entryList) => {
+            for (const entry of entryList.getEntries()) {
+                sendToAnalytics({name: 'FID', value: entry.processingStart - entry.startTime, id: entry.id});
+            }
+        }).observe({entryTypes: ['first-input']});
+        
+        // CLS tracking
+        let clsValue = 0;
+        new PerformanceObserver((entryList) => {
+            for (const entry of entryList.getEntries()) {
+                if (!entry.hadRecentInput) {
+                    clsValue += entry.value;
+                    sendToAnalytics({name: 'CLS', value: clsValue, id: entry.id});
+                }
+            }
+        }).observe({entryTypes: ['layout-shift']});
+    </script>
+    
     <!-- Critical CSS -->
     <style>
         * {
@@ -754,13 +806,13 @@
         </div>
     </section>
 
-    <!-- Advanced Live Chat Widget -->
+    <!-- Advanced AI Chatbot Widget -->
     <div class="live-chat-widget">
         <div class="chat-toggle" onclick="toggleChat()">
             <div class="chat-icon">
-                <i class="fab fa-whatsapp"></i>
+                <i class="fas fa-robot"></i>
             </div>
-            <div class="chat-badge">3</div>
+            <div class="chat-badge">AI</div>
             <div class="chat-pulse"></div>
         </div>
         <div class="chat-window" id="chatWindow">
@@ -1299,6 +1351,119 @@
                 `;
                 document.head.appendChild(style);
             }
+    </script>
+    
+    <!-- Dark Mode Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </div>
+    
+    <!-- Dark Mode Styles -->
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1e293b;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --text-color: #f1f5f9;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .theme-toggle i {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        [data-theme="dark"] .theme-toggle i {
+            transform: rotate(180deg);
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        .header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .service-card, .review-card, .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+    </style>
+    
+    <!-- Dark Mode JavaScript -->
+    <script>
+        // Dark Mode Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const body = document.body;
+            
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+            
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+                
+                // Analytics event
+                gtag('event', 'theme_toggle', {
+                    event_category: 'UI',
+                    event_label: newTheme,
+                    value: 1
+                });
+            });
+            
+            function updateThemeIcon(theme) {
+                if (theme === 'dark') {
+                    themeIcon.className = 'fas fa-sun';
+                } else {
+                    themeIcon.className = 'fas fa-moon';
+                }
+            }
+        });
     </script>
 </body>
 </html>
