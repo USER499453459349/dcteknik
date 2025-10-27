@@ -792,8 +792,25 @@ function initVideoControls() {
 function initCounterAnimation() {
     const counters = document.querySelectorAll('.counter-number');
     
+    if (counters.length === 0) {
+        console.log('⚠️ No counter elements found');
+        return;
+    }
+    
+    console.log(`🎯 Found ${counters.length} counter elements`);
+    
     const animateCounter = (counter) => {
         const target = parseInt(counter.getAttribute('data-target'));
+        if (isNaN(target)) {
+            console.log('⚠️ Invalid target value for counter:', counter);
+            return;
+        }
+        
+        console.log(`🚀 Animating counter to ${target}`);
+        
+        // Add animating class
+        counter.classList.add('animating');
+        
         const duration = 2000; // 2 seconds
         const increment = target / (duration / 16); // 60fps
         let current = 0;
@@ -803,6 +820,8 @@ function initCounterAnimation() {
             if (current >= target) {
                 current = target;
                 clearInterval(timer);
+                counter.classList.remove('animating');
+                console.log(`✅ Counter animation completed: ${target}`);
             }
             counter.textContent = Math.floor(current);
         }, 16);
@@ -812,13 +831,18 @@ function initCounterAnimation() {
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                console.log('👁️ Counter element is visible, starting animation');
                 animateCounter(entry.target);
                 counterObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.5 });
+    }, { 
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px'
+    });
     
-    counters.forEach(counter => {
+    counters.forEach((counter, index) => {
+        console.log(`📊 Counter ${index + 1}:`, counter, 'Target:', counter.getAttribute('data-target'));
         counterObserver.observe(counter);
     });
 }
