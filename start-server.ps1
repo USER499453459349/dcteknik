@@ -39,3 +39,4 @@ try {
 }
 
 Write-Host "✅ Server başlatma işlemi tamamlandı!" -ForegroundColor Green
+
