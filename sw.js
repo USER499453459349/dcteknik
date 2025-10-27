@@ -65,7 +65,10 @@ self.addEventListener('fetch', function(event) {
                 }
                 
                 console.log('🌐 DC TEKNİK - Fetching from network:', event.request.url);
-                return fetch(event.request).then(function(response) {
+                return fetch(event.request).catch(function(error) {
+                    console.log('❌ DC TEKNİK - Fetch failed:', error);
+                    return new Response('Network error', { status: 404 });
+                }).then(function(response) {
                     // Check if valid response
                     if (!response || response.status !== 200 || response.type !== 'basic') {
                         return response;
