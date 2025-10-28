@@ -1,28 +1,263 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
-  <channel>
-    <title>DC TEKNİK Blog</title>
-    <link>https://dctenık.com/</link>
-    <description>Dinamo, alternatör ve marş motoru hakkında uzman içerikler</description>
-    <language>tr-tr</language>
-    <item>
-      <title>Araç Dinamosu Arızaları: Belirtiler ve Çözümler</title>
-      <link>https://dctenık.com/blog.html#dinamo-arizalari</link>
-      <guid>https://dctenık.com/blog.html#dinamo-arizalari</guid>
-      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Alternatör Bakımı: Uzun Ömürlü Kullanım İçin Tavsiyeler</title>
-      <link>https://dctenık.com/blog.html#alternator-bakimi</link>
-      <guid>https://dctenık.com/blog.html#alternator-bakimi</guid>
-      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Marş Motoru “Tık” Sesi: Akü mü Selenoid mi?</title>
-      <link>https://dctenık.com/blog.html#tik-sesi</link>
-      <guid>https://dctenık.com/blog.html#tik-sesi</guid>
-      <pubDate>Mon, 20 Jan 2025 00:00:00 +0000</pubDate>
-    </item>
-  </channel>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/">
+    <channel>
+        <title>DC TEKNİK Blog - Dinamo Tamiri ve Otomotiv Elektrik Rehberi</title>
+        <link>https://dctenık.com/blog.html</link>
+        <description>DC TEKNİK uzmanlarından dinamo tamiri, alternatör bakımı ve marş motoru onarımı hakkında detaylı rehberler ve ipuçları. 15+ yıllık deneyimimizle profesyonel tavsiyeler.</description>
+        <language>tr-TR</language>
+        <lastBuildDate>Mon, 20 Jan 2025 10:00:00 +0300</lastBuildDate>
+        <pubDate>Mon, 20 Jan 2025 10:00:00 +0300</pubDate>
+        <ttl>60</ttl>
+        <copyright>Copyright 2025 DC TEKNİK - Dinamocu Serdar</copyright>
+        <managingEditor>serdaraltan890@gmail.com (Dinamocu Serdar)</managingEditor>
+        <webMaster>serdaraltan890@gmail.com (DC TEKNİK)</webMaster>
+        <category>Otomotiv</category>
+        <category>Dinamo Tamiri</category>
+        <category>Alternatör Servisi</category>
+        <category>Marş Motoru</category>
+        <image>
+            <url>https://dctenık.com/logo-new.svg</url>
+            <title>DC TEKNİK Blog</title>
+            <link>https://dctenık.com/blog.html</link>
+            <width>144</width>
+            <height>144</height>
+        </image>
+        <atom:link href="https://dctenık.com/feed.xml" rel="self" type="application/rss+xml"/>
+        
+        <!-- Blog Post 1: Dinamo Arızaları -->
+        <item>
+            <title>Araç Dinamosu Arızaları: Belirtiler ve Çözüm Yöntemleri</title>
+            <link>https://dctenık.com/blog.html#dinamo-arizalari</link>
+            <guid isPermaLink="true">https://dctenık.com/blog.html#dinamo-arizalari</guid>
+            <description><![CDATA[Araç dinamosu arızaları, sürücülerin en sık karşılaştığı sorunlardan biridir. Dinamo arızası yaşandığında araç çalışmayabilir veya ani elektrik kesintileri yaşanabilir. Bu yazıda, dinamo arızası belirtileri, çözüm yöntemleri ve bakım ipuçlarını bulacaksınız.]]></description>
+            <content:encoded><![CDATA[
+                <p>Araç dinamosu arızaları, sürücülerin en sık karşılaştığı sorunlardan biridir. Dinamo arızası yaşandığında araç çalışmayabilir veya ani elektrik kesintileri yaşanabilir.</p>
+                
+                <h3>Dinamo Arızası Belirtileri</h3>
+                <ul>
+                    <li><strong>Marş alma sorunu:</strong> Anahtarı çevirdiğinizde motor çalışmıyorsa dinamo arızası olabilir</li>
+                    <li><strong>Yavaş çalışma:</strong> Motor çok yavaş dönüyorsa dinamo zayıflamış olabilir</li>
+                    <li><strong>Tekli ses:</strong> Marş verirken 'tek tek' ses geliyorsa selenoid arızası vardır</li>
+                    <li><strong>Hiç ses gelmemesi:</strong> Tamamen sessiz kalıyorsa elektrik bağlantısı kopmuş olabilir</li>
+                </ul>
+                
+                <h3>En Sık Karşılaşılan Dinamo Arızaları</h3>
+                <h4>1. Karbon Arızası</h4>
+                <p>Dinamo karbonları zamanla aşınır ve değiştirilmesi gerekir.</p>
+                
+                <h4>2. Selenoid Arızası</h4>
+                <p>Selenoid, dinamonun motor ile bağlantısını sağlayan elektromanyetik anahtardır.</p>
+                
+                <h4>3. Bendiks Arızası</h4>
+                <p>Bendiks sistemi dinamonun motor dişlisiyle kavramasını sağlar.</p>
+                
+                <p><em>DC TEKNİK olarak 15 yıllık deneyimimizle tüm marka ve model araçların dinamo tamirini garantili olarak yapıyoruz.</em></p>
+            ]]></content:encoded>
+            <pubDate>Wed, 01 Jan 2025 10:00:00 +0300</pubDate>
+            <dc:creator>Dinamocu Serdar Uzmanları</dc:creator>
+            <dc:date>2025-01-01T10:00:00+03:00</dc:date>
+            <category>Dinamo Tamiri</category>
+            <category>Arıza</category>
+            <category>Rehber</category>
+            <enclosure url="https://images.unsplash.com/photo-1517420704952-d9f39e95b43f?w=640&h=360&fit=crop" type="image/jpeg" length="0"/>
+        </item>
+        
+        <!-- Blog Post 2: Kışın Akü Bakımı -->
+        <item>
+            <title>Kışın Akü Bakımı: Soğukta Sorunsuz Çalıştırma İçin İpuçları</title>
+            <link>https://dctenık.com/blog.html#kisin-aku-bakimi</link>
+            <guid isPermaLink="true">https://dctenık.com/blog.html#kisin-aku-bakimi</guid>
+            <description><![CDATA[Kış aylarında akü bakımı çok önemlidir. Soğuk hava akünün performansını düşürür ve arızalara yol açabilir. Bu yazıda, kışın akü bakımı için uzman tavsiyeleri bulacaksınız.]]></description>
+            <content:encoded><![CDATA[
+                <p>Kış aylarında akü bakımı çok önemlidir. Soğuk hava akünün performansını düşürür ve arızalara yol açabilir.</p>
+                
+                <h3>Kışın Akü Sorunları</h3>
+                <p>Soğuk havalarda akü kapasitesi %50'ye kadar düşebilir. Bu nedenle düzenli bakım şarttır.</p>
+                
+                <h3>Akü Bakım İpuçları</h3>
+                <ul>
+                    <li>Akü bağlantılarını düzenli kontrol edin</li>
+                    <li>Akü su seviyesini kontrol edin</li>
+                    <li>Soğuk havalarda araçları kapalı alanda park edin</li>
+                </ul>
+            ]]></content:encoded>
+            <pubDate>Mon, 20 Jan 2025 10:00:00 +0300</pubDate>
+            <dc:creator>Dinamocu Serdar Uzmanları</dc:creator>
+            <dc:date>2025-01-20T10:00:00+03:00</dc:date>
+            <category>Bakım</category>
+            <category>Akü</category>
+            <category>Rehber</category>
+            <enclosure url="https://images.unsplash.com/photo-1517420704952-d9f39e95b43f?w=640&h=360&fit=crop" type="image/jpeg" length="0"/>
+        </item>
+        
+        <!-- Blog Post 3: Alternatör Kayışı -->
+        <item>
+            <title>Alternatör Kayışı Gıcırtısı: Nedenleri ve Çözümleri</title>
+            <link>https://dctenık.com/blog.html#alternator-kayisi</link>
+            <guid isPermaLink="true">https://dctenık.com/blog.html#alternator-kayisi</guid>
+            <description><![CDATA[Alternatör kayışı gıcırtısı, araçlarda sık karşılaşılan bir sorundur. Bu yazıda, alternatör kayışı gıcırtısının nedenleri ve çözüm yöntemlerini bulacaksınız.]]></description>
+            <content:encoded><![CDATA[
+                <p>Alternatör kayışı gıcırtısı, araçlarda sık karşılaşılan bir sorundur.</p>
+                
+                <h3>Gıcırtı Nedenleri</h3>
+                <ul>
+                    <li>Kayış gevşekliği</li>
+                    <li>Kayış aşınması</li>
+                    <li>Nem veya yağ birikimi</li>
+                </ul>
+                
+                <h3>Çözüm Yöntemleri</h3>
+                <p>Kayış gerginliğini kontrol edin ve gerektiğinde değiştirin.</p>
+            ]]></content:encoded>
+            <pubDate>Mon, 20 Jan 2025 10:00:00 +0300</pubDate>
+            <dc:creator>Dinamocu Serdar Uzmanları</dc:creator>
+            <dc:date>2025-01-20T10:00:00+03:00</dc:date>
+            <category>Alternatör</category>
+            <category>Arıza</category>
+            <category>Bakım</category>
+            <enclosure url="https://images.unsplash.com/photo-1589519160716-cf13a0b1a509?w=640&h=360&fit=crop" type="image/jpeg" length="0"/>
+        </item>
+        
+        <!-- Blog Post 4: Marş Motoru Tık Sesi -->
+        <item>
+            <title>Marş Motoru "Tık" Sesi: Akü mü Selenoid mi?</title>
+            <link>https://dctenık.com/blog.html#tik-sesi</link>
+            <guid isPermaLink="true">https://dctenık.com/blog.html#tik-sesi</guid>
+            <description><![CDATA[Marş motoru "tık" sesi, akü veya selenoid arızası belirtisi olabilir. Bu yazıda, tık sesinin nedenlerini ve çözüm yöntemlerini öğreneceksiniz.]]></description>
+            <content:encoded><![CDATA[
+                <p>Marş motoru "tık" sesi, akü veya selenoid arızası belirtisi olabilir.</p>
+                
+                <h3>Tık Sesi Nedenleri</h3>
+                <ul>
+                    <li>Akü zayıflığı</li>
+                    <li>Selenoid arızası</li>
+                    <li>Kötü bağlantılar</li>
+                </ul>
+                
+                <h3>Tanı ve Çözüm</h3>
+                <p>Önce aküyü kontrol edin, sonra selenoid sistemini test edin.</p>
+            ]]></content:encoded>
+            <pubDate>Mon, 20 Jan 2025 10:00:00 +0300</pubDate>
+            <dc:creator>Dinamocu Serdar Uzmanları</dc:creator>
+            <dc:date>2025-01-20T10:00:00+03:00</dc:date>
+            <category>Marş Motoru</category>
+            <category>Arıza</category>
+            <category>Tanı</category>
+            <enclosure url="https://images.unsplash.com/photo-1517940310602-960144c3ea38?w=640&h=360&fit=crop" type="image/jpeg" length="0"/>
+        </item>
+        
+        <!-- Blog Post 5: Alternatör Bakımı -->
+        <item>
+            <title>Alternatör Bakımı: Uzun Ömürlü Kullanım İçin Uzman Tavsiyeleri</title>
+            <link>https://dctenık.com/blog.html#alternator-bakimi</link>
+            <guid isPermaLink="true">https://dctenık.com/blog.html#alternator-bakimi</guid>
+            <description><![CDATA[Alternatör, aracınızın elektrik sistemi için hayati öneme sahiptir. Düzenli bakım ile alternatörünüzün ömrünü önemli ölçüde uzatabilirsiniz. Uzman tavsiyelerimizi keşfedin.]]></description>
+            <content:encoded><![CDATA[
+                <p>Alternatör, aracınızın elektrik sistemi için hayati öneme sahiptir.</p>
+                
+                <h3>Alternatör Bakım İpuçları</h3>
+                <ul>
+                    <li>Kayış gerginliğini düzenli kontrol edin</li>
+                    <li>Alternatör bağlantılarını kontrol edin</li>
+                    <li>Elektrik üretimini test edin</li>
+                </ul>
+                
+                <p>Düzenli bakım ile alternatörünüzün ömrünü uzatabilirsiniz.</p>
+            ]]></content:encoded>
+            <pubDate>Wed, 01 Jan 2025 10:00:00 +0300</pubDate>
+            <dc:creator>Dinamocu Serdar Uzmanları</dc:creator>
+            <dc:date>2025-01-01T10:00:00+03:00</dc:date>
+            <category>Alternatör</category>
+            <category>Bakım</category>
+            <category>Rehber</category>
+        </item>
+        
+        <!-- Blog Post 6: Marş Motoru Sorunları -->
+        <item>
+            <title>Marş Motoru Sorunları: Tanı ve Çözüm Rehberi</title>
+            <link>https://dctenık.com/blog.html#mars-motoru</link>
+            <guid isPermaLink="true">https://dctenık.com/blog.html#mars-motoru</guid>
+            <description><![CDATA[Marş motoru, aracınızın çalışması için kritik bir bileşendir. Doğru tanı ve zamanında müdahale ile büyük masraflardan kurtulabilirsiniz. Detaylı rehberimizi inceleyin.]]></description>
+            <content:encoded><![CDATA[
+                <p>Marş motoru, aracınızın çalışması için kritik bir bileşendir.</p>
+                
+                <h3>Marş Motoru Arıza Belirtileri</h3>
+                <ul>
+                    <li>Motor çalışmıyor</li>
+                    <li>Yavaş dönme</li>
+                    <li>Tekli ses</li>
+                </ul>
+                
+                <h3>Çözüm Yöntemleri</h3>
+                <p>Doğru tanı ve zamanında müdahale ile sorunları çözebilirsiniz.</p>
+            ]]></content:encoded>
+            <pubDate>Wed, 01 Jan 2025 10:00:00 +0300</pubDate>
+            <dc:creator>Dinamocu Serdar Uzmanları</dc:creator>
+            <dc:date>2025-01-01T10:00:00+03:00</dc:date>
+            <category>Marş Motoru</category>
+            <category>Arıza</category>
+            <category>Rehber</category>
+        </item>
+        
+        <!-- Blog Post 7: Elektrik Sistemi -->
+        <item>
+            <title>Araç Elektrik Sistemi Arızaları: Kapsamlı Tanı ve Çözüm Kılavuzu</title>
+            <link>https://dctenık.com/blog.html#elektrik-sistemi</link>
+            <guid isPermaLink="true">https://dctenık.com/blog.html#elektrik-sistemi</guid>
+            <description><![CDATA[Araç elektrik sistemi arızaları, birçok soruna yol açabilir. Bu kapsamlı rehberde, elektrik sistemi arızalarının tanısı ve çözüm yöntemlerini bulacaksınız.]]></description>
+            <content:encoded><![CDATA[
+                <p>Araç elektrik sistemi arızaları, birçok soruna yol açabilir.</p>
+                
+                <h3>Elektrik Sistemi Bileşenleri</h3>
+                <ul>
+                    <li>Dinamo</li>
+                    <li>Alternatör</li>
+                    <li>Marş Motoru</li>
+                    <li>Akü</li>
+                </ul>
+                
+                <h3>Tanı ve Çözüm</h3>
+                <p>Kapsamlı bir rehber ile sorunları çözebilirsiniz.</p>
+            ]]></content:encoded>
+            <pubDate>Wed, 01 Jan 2025 10:00:00 +0300</pubDate>
+            <dc:creator>Dinamocu Serdar Uzmanları</dc:creator>
+            <dc:date>2025-01-01T10:00:00+03:00</dc:date>
+            <category>Elektrik Sistemi</category>
+            <category>Arıza</category>
+            <category>Rehber</category>
+        </item>
+        
+        <!-- Blog Post 8: Dinamo vs Alternatör -->
+        <item>
+            <title>Dinamo vs Alternatör: Aradaki Farklar ve Hangi Araçlarda Kullanılır?</title>
+            <link>https://dctenık.com/blog.html#dinamo-alternator-farki</link>
+            <guid isPermaLink="true">https://dctenık.com/blog.html#dinamo-alternator-farki</guid>
+            <description><![CDATA[Dinamo ve alternatör arasındaki farkları öğrenin. Hangi araçlarda hangisi kullanılır? Bu detaylı karşılaştırma yazısında tüm bilgileri bulacaksınız.]]></description>
+            <content:encoded><![CDATA[
+                <p>Dinamo ve alternatör arasındaki farkları öğrenin.</p>
+                
+                <h3>Dinamo Nedir?</h3>
+                <p>Dinamo, DC (doğru akım) üreten bir üreteçtir.</p>
+                
+                <h3>Alternatör Nedir?</h3>
+                <p>Alternatör, AC (alternatif akım) üreten bir üreteçtir.</p>
+                
+                <h3>Farklar</h3>
+                <ul>
+                    <li>Dinamo: Eski araçlarda kullanılır</li>
+                    <li>Alternatör: Modern araçlarda kullanılır</li>
+                </ul>
+            ]]></content:encoded>
+            <pubDate>Wed, 01 Jan 2025 10:00:00 +0300</pubDate>
+            <dc:creator>Dinamocu Serdar Uzmanları</dc:creator>
+            <dc:date>2025-01-01T10:00:00+03:00</dc:date>
+            <category>Karşılaştırma</category>
+            <category>Dinamo</category>
+            <category>Alternatör</category>
+        </item>
+    </channel>
 </rss>
-

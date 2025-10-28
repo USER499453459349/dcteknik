@@ -1,0 +1,49 @@
+/**
+ * DC TEKNİK - Blog RSS Feed Styles
+ * RSS subscribe button stilleri
+ */
+
+/* ========================================
+   RSS SUBSCRIBE BUTTON
+   ======================================== */
+
+.sidebar-widget #rss-subscribe-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.sidebar-widget #rss-subscribe-btn:hover {
+    background: linear-gradient(135deg, #ff8c42 0%, #ffaa5e 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.sidebar-widget #rss-subscribe-btn i {
+    font-size: 1.125rem;
+}
+
+.dark-mode .sidebar-widget #rss-subscribe-btn {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+}
+
+.dark-mode .sidebar-widget #rss-subscribe-btn:hover {
+    background: linear-gradient(135deg, #ff8c42 0%, #ffaa5e 100%);
+}
+
+/* RSS Widget specific styles */
+.sidebar-widget h3:has(+ p + #rss-subscribe-btn) {
+    color: #ff6b35;
+}
+
