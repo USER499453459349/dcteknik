@@ -1,0 +1,243 @@
+/**
+ * DC TEKNİK - Performance Styles
+ * Image optimization ve performance için CSS
+ * Mevcut kodları bozmadan güvenli şekilde eklendi
+ */
+
+/* ========================================
+   IMAGE OPTIMIZATION
+   ======================================== */
+
+/* Image Loading Placeholder */
+.img-placeholder {
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    background-size: 200% 100%;
+    animation: placeholder-shimmer 1.5s ease-in-out infinite;
+    border-radius: 4px;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes placeholder-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Image Load States */
+img {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+img.img-loaded {
+    opacity: 1;
+}
+
+/* Lazy Loaded Images */
+img[loading="lazy"] {
+    content-visibility: auto;
+}
+
+/* Image Containment for Performance */
+img {
+    contain: layout style paint;
+}
+
+/* ========================================
+   CRITICAL RENDERING PATH
+   ======================================== */
+
+/* Above-the-fold content - no animation delay */
+.hero-section {
+    content-visibility: auto;
+}
+
+/* Content Visibility for Performance */
+.section {
+    content-visibility: auto;
+}
+
+/* ========================================
+   FONT LOADING OPTIMIZATION
+   ======================================== */
+
+/* Font Display Swap */
+@font-face {
+    font-family: 'Inter';
+    font-display: swap;
+}
+
+/* Fallback fonts for FOUT (Flash of Unstyled Text) */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Font loading states */
+.fonts-loaded body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ========================================
+   RESOURCE PRIORITIZATION
+   ======================================== */
+
+/* Critical CSS - Inline in production */
+/* Above-the-fold styles should be inline */
+
+/* ========================================
+   NETWORK AWARENESS
+   ======================================== */
+
+/* Slow connection - reduce animations */
+@media (prefers-reduced-data: reduce) {
+    * {
+        animation-duration: 0s !important;
+        transition-duration: 0s !important;
+    }
+    
+    img[data-critical="false"] {
+        display: none;
+    }
+}
+
+/* ========================================
+   IMAGE FORMAT SUPPORT
+   ======================================== */
+
+/* WebP Support */
+.webp img[data-webp] {
+    content: url(attr(data-webp));
+}
+
+/* AVIF Support (Future) */
+.avif img[data-avif] {
+    content: url(attr(data-avif));
+}
+
+/* ========================================
+   PERFORMANCE HINTS
+   ======================================== */
+
+/* Will-change for animated elements */
+.animated-element {
+    will-change: transform, opacity;
+}
+
+/* Transform optimization */
+.gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* ========================================
+   LAZY LOADING STYLES
+   ======================================== */
+
+/* Blur-up technique for images */
+.lazy-image {
+    filter: blur(5px);
+    transition: filter 0.3s;
+}
+
+.lazy-image.loaded {
+    filter: blur(0);
+}
+
+/* Fade-in on load */
+.fade-in-on-load {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ========================================
+   RESPONSIVE IMAGES
+   ======================================== */
+
+/* Responsive image container */
+.responsive-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Aspect ratio containers for layout stability */
+.aspect-ratio-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+}
+
+.aspect-ratio-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ========================================
+   PRELOAD INDICATORS
+   ======================================== */
+
+/* Show loading state */
+.loading-indicator {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 107, 53, 0.3);
+    border-top-color: #ff6b35;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   MEMORY OPTIMIZATION
+   ======================================== */
+
+/* Unload offscreen images */
+img:not(.keep-loaded) {
+    content-visibility: auto;
+}
+
+/* ========================================
+   PRINT OPTIMIZATION
+   ======================================== */
+
+@media print {
+    img {
+        max-width: 100%;
+        height: auto;
+        page-break-inside: avoid;
+    }
+    
+    /* Don't print non-critical images */
+    img[data-print="false"] {
+        display: none;
+    }
+}
+

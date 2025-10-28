@@ -14,6 +14,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="ux-enhancements.css">
+    <link rel="stylesheet" href="performance-styles.css">
     
     <title>DC TEKNİK - Dinamocu Serdar | Dinamo Tamiri | Alternatör Onarımı</title>
     <meta name="description" content="DC TEKNİK Sultanbeyli'de profesyonel dinamo tamiri, alternatör onarımı ve marş motoru servisi. %100 garantili, hızlı teşhis, şeffaf fiyat.">
@@ -141,12 +142,17 @@
     }
     </script>
     
+    <!-- Resource Hints - Performance Optimization -->
     <!-- Preconnect to external domains for faster loading -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://maps.googleapis.com">
+    <link rel="preconnect" href="https://api.emailjs.com" crossorigin>
+    <link rel="preconnect" href="https://wa.me">
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon-new.svg">
@@ -154,8 +160,11 @@
     
     <!-- Preload critical resources -->
     <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="ux-enhancements.css" as="style">
+    <link rel="preload" href="performance-styles.css" as="style">
+    <link rel="preload" href="js/ux-enhancements.js" as="script">
     <link rel="preload" href="script.js" as="script">
-    <link rel="preload" href="logo-new.svg" as="image">
+    <link rel="preload" href="logo-new.svg" as="image" type="image/svg+xml" fetchpriority="high">
     
     <!-- Font Awesome with preload -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -622,7 +631,7 @@
             <div class="nav-container">
                 <div class="nav-logo">
                     <a href="#home" aria-label="Ana sayfaya dön">
-                        <img src="logo-new.svg" alt="DC TEKNİK - Dinamo Tamiri ve Alternatör Onarımı Logo" class="logo-image">
+                        <img src="logo-new.svg" alt="DC TEKNİK - Dinamo Tamiri ve Alternatör Onarımı Logo" class="logo-image" loading="eager" fetchpriority="high" decoding="async" width="150" height="50">
                         <div class="logo-text">
                             <h2>DC TEKNİK</h2>
                             <span>Dinamocu Serdar</span>
@@ -1203,6 +1212,9 @@
         </div>
     </footer>
 
+    <!-- Performance Optimizer - Load early -->
+    <script src="js/performance-optimizer.js" onerror="console.error('Performance Optimizer failed to load')"></script>
+    
     <!-- UX Enhancements - Smooth transitions and animations -->
     <script src="js/ux-enhancements.js" onerror="console.error('UX Enhancements failed to load')"></script>
     
