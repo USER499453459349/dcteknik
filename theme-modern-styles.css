@@ -1,0 +1,572 @@
+/**
+ * DC TEKNİK - Modern Theme Styles
+ * Yeni modern ve canlı tema görünümü
+ */
+
+/* ========================================
+   YENİ MODERN THEME VARIABLES
+   ======================================== */
+
+:root {
+    /* Modern Color Palette */
+    --theme-primary: #ff6b35;
+    --theme-primary-dark: #e55a2b;
+    --theme-primary-light: #ff8c5a;
+    --theme-secondary: #4ecdc4;
+    --theme-accent: #ffe66d;
+    --theme-success: #10b981;
+    
+    /* Background Colors */
+    --theme-bg-dark: #0a0e27;
+    --theme-bg-gradient-start: #1a1f3a;
+    --theme-bg-gradient-end: #0f1628;
+    --theme-surface: rgba(255, 255, 255, 0.05);
+    --theme-surface-hover: rgba(255, 255, 255, 0.1);
+    
+    /* Text Colors */
+    --theme-text-primary: #ffffff;
+    --theme-text-secondary: #b8c5d6;
+    --theme-text-muted: #8b9db5;
+    
+    /* Border & Shadow */
+    --theme-border: rgba(255, 107, 53, 0.2);
+    --theme-border-hover: rgba(255, 107, 53, 0.5);
+    --theme-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    --theme-shadow-glow: 0 0 30px rgba(255, 107, 53, 0.4);
+    
+    /* Gradients */
+    --theme-gradient-primary: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ffd700 100%);
+    --theme-gradient-background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1628 100%);
+    --theme-gradient-card: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(78, 205, 196, 0.1) 100%);
+}
+
+/* ========================================
+   BODY & BACKGROUND
+   ======================================== */
+
+body {
+    background: var(--theme-gradient-background) !important;
+    background-attachment: fixed;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(78, 205, 196, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 230, 109, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 107, 53, 0.03) 2px,
+            rgba(255, 107, 53, 0.03) 4px
+        );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ========================================
+   HEADER - MODERN STYLE
+   ======================================== */
+
+.header {
+    background: rgba(10, 14, 39, 0.95) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 2px solid var(--theme-border) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 107, 53, 0.2) !important;
+    position: relative;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--theme-gradient-primary);
+    animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scaleX(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scaleX(1.05);
+    }
+}
+
+.nav-menu li a {
+    color: var(--theme-text-secondary) !important;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-menu li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%;
+    height: 2px;
+    background: var(--theme-gradient-primary);
+    transition: transform 0.3s ease;
+}
+
+.nav-menu li a:hover {
+    color: var(--theme-text-primary) !important;
+    transform: translateY(-2px);
+}
+
+.nav-menu li a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* ========================================
+   HERO SECTION - MODERN THEME
+   ======================================== */
+
+.hero {
+    background: var(--theme-gradient-background) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle, rgba(255, 107, 53, 0.2) 0%, transparent 70%),
+        radial-gradient(circle at 100% 0%, rgba(78, 205, 196, 0.15) 0%, transparent 70%),
+        radial-gradient(circle at 0% 100%, rgba(255, 230, 109, 0.1) 0%, transparent 70%);
+    animation: rotate-gradient 20s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes rotate-gradient {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Hero Badge - Modern Style */
+.hero-badge {
+    background: var(--theme-gradient-card) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--theme-border) !important;
+    border-radius: 50px;
+    padding: 0.75rem 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: float-badge 3s ease-in-out infinite;
+}
+
+@keyframes float-badge {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.hero-badge i {
+    color: var(--theme-accent) !important;
+    animation: spin-star 3s linear infinite;
+}
+
+@keyframes spin-star {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.hero-badge span {
+    color: var(--theme-text-primary) !important;
+    font-weight: 600;
+}
+
+/* Hero Title - Modern Gradient */
+.title-line-1 {
+    background: linear-gradient(135deg, #ffffff 0%, #4ecdc4 50%, #ffffff 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    background-size: 200% 200%;
+    animation: gradient-flow 4s ease infinite;
+}
+
+@keyframes gradient-flow {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.title-line-2 {
+    color: var(--theme-primary) !important;
+    text-shadow: 
+        0 0 30px rgba(255, 107, 53, 0.6),
+        0 0 60px rgba(255, 107, 53, 0.4),
+        0 0 90px rgba(255, 107, 53, 0.2);
+    animation: text-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes text-glow {
+    from {
+        text-shadow: 
+            0 0 30px rgba(255, 107, 53, 0.6),
+            0 0 60px rgba(255, 107, 53, 0.4),
+            0 0 90px rgba(255, 107, 53, 0.2);
+    }
+    to {
+        text-shadow: 
+            0 0 40px rgba(255, 107, 53, 0.8),
+            0 0 80px rgba(255, 107, 53, 0.6),
+            0 0 120px rgba(255, 107, 53, 0.4);
+    }
+}
+
+.hero-subtitle {
+    color: var(--theme-secondary) !important;
+    text-shadow: 0 2px 10px rgba(78, 205, 196, 0.5);
+}
+
+.hero-description {
+    color: var(--theme-text-secondary) !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   STATS COUNTER - MODERN CARDS
+   ======================================== */
+
+.stat-counter {
+    background: var(--theme-gradient-card) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--theme-border) !important;
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-counter::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 107, 53, 0.2),
+        transparent
+    );
+    transition: left 0.6s;
+}
+
+.stat-counter:hover::before {
+    left: 100%;
+}
+
+.stat-counter:hover {
+    transform: translateY(-10px) scale(1.05);
+    border-color: var(--theme-border-hover) !important;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(255, 107, 53, 0.3) !important;
+}
+
+.counter-number {
+    color: var(--theme-primary) !important;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    display: block;
+    text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+}
+
+.counter-label {
+    color: var(--theme-text-secondary) !important;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+/* ========================================
+   BUTTONS - MODERN STYLE
+   ======================================== */
+
+.btn-primary {
+    background: var(--theme-gradient-primary) !important;
+    border: 2px solid transparent !important;
+    color: white !important;
+    padding: 1.25rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 8px 30px rgba(255, 107, 53, 0.6),
+        0 0 40px rgba(255, 107, 53, 0.4);
+}
+
+.btn-whatsapp {
+    background: linear-gradient(135deg, #25D366, #128C7E) !important;
+    border: 2px solid transparent !important;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+}
+
+.btn-whatsapp:hover {
+    box-shadow: 
+        0 8px 30px rgba(37, 211, 102, 0.6),
+        0 0 40px rgba(37, 211, 102, 0.4);
+}
+
+.btn-outline {
+    background: transparent !important;
+    border: 2px solid var(--theme-border) !important;
+    color: var(--theme-text-primary) !important;
+}
+
+.btn-outline:hover {
+    background: var(--theme-gradient-card) !important;
+    border-color: var(--theme-primary) !important;
+    color: var(--theme-primary) !important;
+}
+
+/* ========================================
+   TRUST INDICATORS - MODERN PILLS
+   ======================================== */
+
+.trust-item {
+    background: var(--theme-gradient-card) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--theme-border) !important;
+    border-radius: 50px;
+    padding: 1rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.trust-item:hover {
+    background: rgba(255, 107, 53, 0.2) !important;
+    border-color: var(--theme-border-hover) !important;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+}
+
+.trust-item i {
+    color: var(--theme-accent) !important;
+}
+
+.trust-item span {
+    color: var(--theme-text-primary) !important;
+}
+
+/* ========================================
+   SERVICE CARDS - MODERN GLASS
+   ======================================== */
+
+.service-card {
+    background: var(--theme-gradient-card) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--theme-border) !important;
+    border-radius: 24px;
+    padding: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--theme-gradient-primary);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--theme-border-hover) !important;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(255, 107, 53, 0.3);
+    background: rgba(255, 107, 53, 0.1) !important;
+}
+
+.service-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.5));
+    animation: float-icon 3s ease-in-out infinite;
+}
+
+@keyframes float-icon {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(5deg);
+    }
+}
+
+.service-card h3 {
+    color: var(--theme-text-primary) !important;
+}
+
+.service-card p {
+    color: var(--theme-text-secondary) !important;
+}
+
+/* ========================================
+   SCROLL INDICATOR - MODERN STYLE
+   ======================================== */
+
+.scroll-indicator {
+    color: var(--theme-text-secondary) !important;
+}
+
+.scroll-arrow {
+    border-color: var(--theme-border) !important;
+}
+
+.scroll-indicator:hover {
+    color: var(--theme-primary) !important;
+}
+
+.scroll-indicator:hover .scroll-arrow {
+    border-color: var(--theme-primary) !important;
+}
+
+/* ========================================
+   FOOTER - MODERN STYLE
+   ======================================== */
+
+.footer {
+    background: rgba(10, 14, 39, 0.95) !important;
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--theme-border) !important;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .hero-badge {
+        font-size: 0.85rem;
+        padding: 0.6rem 1.2rem;
+    }
+    
+    .stat-counter {
+        padding: 1.5rem 1rem;
+    }
+    
+    .btn-primary,
+    .btn-whatsapp,
+    .btn-outline {
+        padding: 1rem 1.5rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* ========================================
+   ANIMATION PERFORMANCE
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
