@@ -6,7 +6,7 @@
 
 // Cache versioning - automatically update for new deployments
 // Cache version - auto-updated by build script (or use timestamp for auto-update)
-const CACHE_VERSION = 'v1.7.1';
+const CACHE_VERSION = 'v1.7.2';
 const CACHE_NAME = `dcteknik-${CACHE_VERSION}`;
 const STATIC_CACHE = `dcteknik-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `dcteknik-dynamic-${CACHE_VERSION}`;
