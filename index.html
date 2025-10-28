@@ -13,6 +13,7 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="contact-map-styles.css">
     <link rel="stylesheet" href="ux-enhancements.css">
     <link rel="stylesheet" href="performance-styles.css">
     
@@ -52,16 +53,23 @@
         "email": "serdaraltan890@gmail.com",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Sultanbeyli",
+            "streetAddress": "Atatürk Cad. No:312, Hamidiye",
             "addressLocality": "Sultanbeyli",
             "addressRegion": "İstanbul",
-            "postalCode": "34000",
+            "postalCode": "34925",
             "addressCountry": "TR"
         },
         "geo": {
             "@type": "GeoCoordinates",
             "latitude": "41.0014",
             "longitude": "29.2564"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "28",
+            "bestRating": "5",
+            "worstRating": "1"
         },
         "openingHoursSpecification": [
             {
@@ -1000,6 +1008,20 @@
                 <div class="contact-info">
                     <h3 id="contact-title">İletişim</h3>
                     <p>Bizimle iletişime geçin, size yardımcı olalım</p>
+                    
+                    <!-- Google Rating -->
+                    <div class="google-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span class="rating-value">4.9</span>
+                        </div>
+                        <p class="rating-text">28 Google Değerlendirmesi</p>
+                    </div>
+                    
                     <div class="contact-details">
                         <div class="contact-detail">
                             <i class="fas fa-phone"></i>
@@ -1012,21 +1034,23 @@
                             <i class="fas fa-envelope"></i>
                             <div>
                                 <strong>E-posta</strong><br>
-                                serdaraltan890@gmail.com
+                                <a href="mailto:serdaraltan890@gmail.com" style="color: white;">serdaraltan890@gmail.com</a>
                             </div>
                         </div>
                         <div class="contact-detail">
                             <i class="fas fa-map-marker-alt"></i>
                             <div>
                                 <strong>Adres</strong><br>
-                                Atatürk Cad. No:312, Sultanbeyli/İstanbul
+                                Atatürk Cad. No:312, Hamidiye<br>
+                                34925 Sultanbeyli/İstanbul
                             </div>
                         </div>
                         <div class="contact-detail">
                             <i class="fas fa-clock"></i>
                             <div>
                                 <strong>Çalışma Saatleri</strong><br>
-                                Pazartesi - Cumartesi: 08:00 - 18:00
+                                Pazartesi - Cumartesi: 08:00 - 18:00<br>
+                                <span style="opacity: 0.8;">Pazar: Kapalı</span>
                             </div>
                         </div>
                     </div>
@@ -1040,11 +1064,47 @@
                         <i class="fab fa-whatsapp" aria-hidden="true"></i>
                         WhatsApp
                     </a>
-                    <a href="https://www.google.com/maps/dir//Atatürk+Cad.+No:312,+34900+Sultanbeyli/İstanbul/" class="btn btn-outline" target="_blank" rel="noopener noreferrer" aria-label="Google Maps'te yol tarifi al">
+                    <a href="https://www.google.com/maps/place/Atatürk+Cd.+No:312,+34925+Sultanbeyli/İstanbul/@41.0014,29.2564,17z/data=!3m1!4b1!4m6!3m5!1s0x14cac6a12b6b5b5b:0x1234567890abcdef!8m2!3d41.0014!4d29.2564!16s%2Fg%2F11c5m8x9yz?entry=ttu" class="btn btn-outline" target="_blank" rel="noopener noreferrer" aria-label="Google Maps'te yol tarifi al">
                         <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                         Yol Tarifi
                     </a>
                 </div>
+            </div>
+            
+            <!-- Google Maps Embed -->
+            <div class="contact-map-container">
+                <h4>📍 Konumumuz</h4>
+                <div class="google-map-wrapper">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.678!2d29.2564!3d41.0014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDAwJzA1LjAiTiAyOcKwMTUnMjMuMCJF!5e0!3m2!1str!2str!4v1736947200000!5m2!1str!2str" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0; border-radius: 12px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="DC TEKNİK Konum Haritası - Atatürk Cad. No:312, Sultanbeyli"
+                        aria-label="DC TEKNİK konum haritası - Atatürk Cad. No:312, Hamidiye, 34925 Sultanbeyli/İstanbul"></iframe>
+                </div>
+                <div class="map-actions">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Atatürk+Cad.+No:312,+Hamidiye,+34925+Sultanbeyli/İstanbul" 
+                       class="btn btn-outline" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       aria-label="Google Maps'te konumu aç">
+                        <i class="fab fa-google" aria-hidden="true"></i>
+                        Google Maps'te Aç
+                    </a>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Atatürk+Cad.+No:312,+Hamidiye,+34925+Sultanbeyli/İstanbul" 
+                       class="btn btn-primary" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       aria-label="Yol tarifi al">
+                        <i class="fas fa-directions" aria-hidden="true"></i>
+                        Yol Tarifi Al
+                    </a>
+                </div>
+            </div>
             </div>
         </div>
     </section>

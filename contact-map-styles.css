@@ -1,0 +1,248 @@
+/**
+ * DC TEKNİK - Contact Map & Rating Styles
+ * Google Maps ve Rating görünümü için stiller
+ */
+
+/* ========================================
+   GOOGLE RATING
+   ======================================== */
+
+.google-rating {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 140, 66, 0.05) 100%);
+    border: 2px solid rgba(255, 107, 53, 0.2);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.dark-mode .google-rating {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(255, 140, 66, 0.08) 100%);
+    border-color: rgba(255, 107, 53, 0.3);
+}
+
+.rating-stars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.rating-stars i {
+    font-size: 1.25rem;
+    color: #fbbf24; /* Gold color for stars */
+}
+
+.rating-stars .fa-star-half-alt {
+    color: #fbbf24;
+}
+
+.rating-value {
+    margin-left: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary, #1a1a1a);
+}
+
+.dark-mode .rating-value {
+    color: var(--text-primary);
+}
+
+.rating-text {
+    font-size: 0.875rem;
+    color: var(--text-secondary, #64748b);
+    margin: 0;
+}
+
+.dark-mode .rating-text {
+    color: var(--text-secondary);
+}
+
+/* ========================================
+   CONTACT MAP CONTAINER
+   ======================================== */
+
+.contact-map-container {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--card-bg, #ffffff);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .contact-map-container {
+    background: var(--card-bg);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.contact-map-container h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary, #1a1a1a);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.dark-mode .contact-map-container h4 {
+    color: var(--text-primary);
+}
+
+.google-map-wrapper {
+    width: 100%;
+    height: 400px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.google-map-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+}
+
+/* Map Loading State */
+.google-map-wrapper::before {
+    content: 'Harita yükleniyor...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-secondary, #64748b);
+    font-size: 1rem;
+    z-index: 1;
+    opacity: 0.6;
+}
+
+.google-map-wrapper iframe[src]::before {
+    display: none;
+}
+
+/* ========================================
+   MAP ACTIONS
+   ======================================== */
+
+.map-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.map-actions .btn {
+    flex: 1;
+    min-width: 200px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.map-actions .btn-outline {
+    background: rgba(255, 107, 53, 0.1);
+    border: 2px solid #ff6b35;
+    color: #ff6b35;
+}
+
+.map-actions .btn-outline:hover {
+    background: #ff6b35;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.map-actions .btn-primary {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    color: #ffffff;
+    border: none;
+}
+
+.map-actions .btn-primary:hover {
+    background: linear-gradient(135deg, #ff8c42 0%, #ffaa5e 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.dark-mode .map-actions .btn-outline {
+    background: rgba(255, 107, 53, 0.15);
+    border-color: #ff6b35;
+    color: #ff6b35;
+}
+
+.dark-mode .map-actions .btn-outline:hover {
+    background: #ff6b35;
+    color: #ffffff;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .contact-map-container {
+        padding: 1.5rem;
+        margin-top: 2rem;
+    }
+    
+    .contact-map-container h4 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+    
+    .google-map-wrapper {
+        height: 300px;
+    }
+    
+    .map-actions {
+        flex-direction: column;
+    }
+    
+    .map-actions .btn {
+        min-width: 100%;
+        width: 100%;
+    }
+    
+    .google-rating {
+        padding: 0.75rem 1rem;
+    }
+    
+    .rating-stars i {
+        font-size: 1rem;
+    }
+    
+    .rating-value {
+        font-size: 1.25rem;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+.google-map-wrapper iframe:focus {
+    outline: 2px solid #ff6b35;
+    outline-offset: 4px;
+}
+
+.map-actions .btn:focus {
+    outline: 2px solid #ff6b35;
+    outline-offset: 4px;
+}
+
+/* Print styles */
+@media print {
+    .contact-map-container,
+    .google-rating {
+        display: none !important;
+    }
+}
+
