@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Değişiklikleri Görüntüleme - Kontrol</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: white;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #ff6b35, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .check-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .check-item h2 {
+            color: #ff6b35;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .status.success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid #10b981;
+        }
+        
+        .status.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+        
+        .status.warning {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            border: 1px solid #fbbf24;
+        }
+        
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #ffd700;
+        }
+        
+        .instruction {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid #ffd700;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: transform 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Değişiklik Kontrol Merkezi</h1>
+        
+        <div class="check-item">
+            <h2>1. Blog Navigasyon Linki</h2>
+            <p><strong>Kontrol:</strong> Ana sayfada üst menüde "Blog" linki olmalı</p>
+            <p><strong>Konum:</strong> "Hakkımızda" ve "İletişim" arasında</p>
+            <div id="blog-nav-check" class="status warning">Kontrol ediliyor...</div>
+            <div class="instruction">
+                <strong>Göremiyorsanız:</strong>
+                <ul>
+                    <li><strong>Windows/Linux:</strong> <code>Ctrl + Shift + R</code> (Hard Refresh)</li>
+                    <li><strong>Mac:</strong> <code>Cmd + Shift + R</code></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="check-item">
+            <h2>2. Modern Homepage CSS</h2>
+            <p><strong>Kontrol:</strong> Modern homepage stilleri yüklenmiş mi?</p>
+            <div id="css-check" class="status warning">Kontrol ediliyor...</div>
+            <div class="instruction">
+                <strong>CSS Dosyası:</strong> <code>modern-homepage-styles.css</code>
+                <br><strong>Görsel Özellikler:</strong>
+                <ul>
+                    <li>Gradient background (hero section)</li>
+                    <li>Glow effects (başlıklar)</li>
+                    <li>Modern butonlar (gradient)</li>
+                    <li>Stats counter animasyonları</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="check-item">
+            <h2>3. Netlify Deployment Durumu</h2>
+            <p><strong>Son Commit:</strong> <code>b126ac6</code> - Blog navigasyon eklendi</p>
+            <p><strong>Beklenen Süre:</strong> 1-3 dakika (push sonrası)</p>
+            <div class="status warning">
+                ⏳ Netlify deployment durumunu kontrol edin: 
+                <a href="https://app.netlify.com" target="_blank" style="color: #fbbf24;">Netlify Dashboard</a>
+            </div>
+        </div>
+        
+        <div class="check-item">
+            <h2>4. Cache Temizleme</h2>
+            <p><strong>En Hızlı Çözüm:</strong></p>
+            <div class="instruction">
+                <strong>Hard Refresh:</strong>
+                <ul>
+                    <li><strong>Windows/Linux:</strong> <code>Ctrl + Shift + R</code> veya <code>Ctrl + F5</code></li>
+                    <li><strong>Mac:</strong> <code>Cmd + Shift + R</code></li>
+                </ul>
+                
+                <strong>Tam Cache Temizleme:</strong>
+                <ul>
+                    <li><strong>Chrome:</strong> <code>Ctrl + Shift + Delete</code> → "Cached images and files"</li>
+                    <li><strong>Firefox:</strong> <code>Ctrl + Shift + Delete</code> → "Cache"</li>
+                    <li><strong>Safari:</strong> <code>Cmd + Option + E</code></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="check-item">
+            <h2>5. Developer Tools Kontrolü</h2>
+            <p><strong>Adımlar:</strong></p>
+            <div class="instruction">
+                <ol>
+                    <li><strong>F12</strong> tuşuna basın (Developer Tools aç)</li>
+                    <li><strong>Network</strong> sekmesine gidin</li>
+                    <li><strong>✅ "Disable cache"</strong> işaretleyin</li>
+                    <li><strong>Console</strong> sekmesinde hata var mı kontrol edin</li>
+                    <li>Sayfayı yenileyin (<code>F5</code>)</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="index.html" class="btn">Ana Sayfaya Git</a>
+            <a href="blog.html" class="btn" style="margin-left: 1rem;">Blog Sayfasına Git</a>
+        </div>
+    </div>
+    
+    <script>
+        // Blog navigasyon kontrolü
+        function checkBlogNav() {
+            fetch('index.html')
+                .then(response => response.text())
+                .then(html => {
+                    if (html.includes('blog.html') && html.includes('Blog')) {
+                        document.getElementById('blog-nav-check').className = 'status success';
+                        document.getElementById('blog-nav-check').textContent = '✅ Blog linki bulundu!';
+                    } else {
+                        document.getElementById('blog-nav-check').className = 'status error';
+                        document.getElementById('blog-nav-check').textContent = '❌ Blog linki bulunamadı - Hard refresh yapın!';
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('blog-nav-check').className = 'status error';
+                    document.getElementById('blog-nav-check').textContent = '❌ Kontrol edilemedi: ' + error;
+                });
+        }
+        
+        // CSS kontrolü
+        function checkCSS() {
+            fetch('modern-homepage-styles.css')
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById('css-check').className = 'status success';
+                        document.getElementById('css-check').textContent = '✅ CSS dosyası mevcut!';
+                    } else {
+                        document.getElementById('css-check').className = 'status error';
+                        document.getElementById('css-check').textContent = '❌ CSS dosyası bulunamadı!';
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('css-check').className = 'status error';
+                    document.getElementById('css-check').textContent = '❌ CSS kontrol edilemedi: ' + error;
+                });
+        }
+        
+        // Otomatik kontrol
+        checkBlogNav();
+        checkCSS();
+        
+        // Her 5 saniyede bir kontrol et
+        setInterval(() => {
+            checkBlogNav();
+            checkCSS();
+        }, 5000);
+    </script>
+</body>
+</html>
+
