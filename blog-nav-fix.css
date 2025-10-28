@@ -1,0 +1,52 @@
+/**
+ * Blog Navigation Fix
+ * BLOG linkindeki görsel sorunları düzeltir
+ */
+
+/* Active state için temiz stil */
+.nav-menu li a.active {
+    color: #ff6b35 !important;
+    background: rgba(255, 107, 53, 0.1);
+    position: relative;
+}
+
+.nav-menu li a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #ff6b35;
+    transition: all 0.3s ease;
+}
+
+.nav-menu li a.active::before {
+    opacity: 0 !important;
+}
+
+/* Hover state düzeltmesi */
+.nav-menu li a.active:hover {
+    color: #ff6b35 !important;
+    background: rgba(255, 107, 53, 0.15);
+}
+
+/* Active link için turuncu vurgu */
+.nav-menu li a.active {
+    font-weight: 700;
+}
+
+/* İstenmeyen görsel elementleri kaldır */
+.nav-menu li a.active::before {
+    display: none !important;
+}
+
+/* Blog linki için özel düzenleme */
+.nav-menu li a.active[href*="blog"] {
+    position: relative;
+}
+
+.nav-menu li a.active[href*="blog"]::after {
+    display: block;
+}
+
