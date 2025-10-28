@@ -33,21 +33,9 @@
       "purpose": "any"
     },
     {
-      "src": "/favicon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/favicon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png",
+      "src": "/favicon-new.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any"
     }
   ],
@@ -59,8 +47,9 @@
       "url": "/?action=whatsapp",
       "icons": [
         {
-          "src": "/favicon-192x192.png",
-          "sizes": "192x192"
+          "src": "/favicon-new.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     },
@@ -71,8 +60,9 @@
       "url": "/?action=call",
       "icons": [
         {
-          "src": "/favicon-192x192.png",
-          "sizes": "192x192"
+          "src": "/favicon-new.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     },
@@ -83,8 +73,9 @@
       "url": "/blog.html",
       "icons": [
         {
-          "src": "/favicon-192x192.png",
-          "sizes": "192x192"
+          "src": "/favicon-new.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     },
@@ -95,8 +86,9 @@
       "url": "/?action=appointment",
       "icons": [
         {
-          "src": "/favicon-192x192.png",
-          "sizes": "192x192"
+          "src": "/favicon-new.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     },
@@ -107,26 +99,11 @@
       "url": "/?action=pricing",
       "icons": [
         {
-          "src": "/favicon-192x192.png",
-          "sizes": "192x192"
+          "src": "/favicon-new.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/screenshot-mobile.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "DC TEKNİK Ana Sayfa"
-    },
-    {
-      "src": "/screenshot-desktop.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "DC TEKNİK Desktop Görünümü"
     }
   ],
   "share_target": {
