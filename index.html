@@ -600,34 +600,42 @@
     </style>
 </head>
 <body>
+    <!-- Skip Links will be inserted here by accessibility.js -->
+    
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+    
     <!-- Header -->
-    <header class="header">
-        <nav class="navbar">
+    <header class="header" role="banner">
+        <nav class="navbar" role="navigation" aria-label="Ana navigasyon">
             <div class="nav-container">
                 <div class="nav-logo">
-                    <img src="logo-new.svg" alt="DC TEKNİK Logo" class="logo-image">
-                    <div class="logo-text">
-                        <h2>DC TEKNİK</h2>
-                        <span>Dinamocu Serdar</span>
-                    </div>
+                    <a href="#home" aria-label="Ana sayfaya dön">
+                        <img src="logo-new.svg" alt="DC TEKNİK - Dinamo Tamiri ve Alternatör Onarımı Logo" class="logo-image">
+                        <div class="logo-text">
+                            <h2>DC TEKNİK</h2>
+                            <span>Dinamocu Serdar</span>
+                        </div>
+                    </a>
                 </div>
-                <ul class="nav-menu">
-                    <li><a href="#home">Ana Sayfa</a></li>
-                    <li><a href="#services">Hizmetlerimiz</a></li>
-                    <li><a href="#about">Hakkımızda</a></li>
-                    <li><a href="#contact">İletişim</a></li>
+                <ul class="nav-menu" role="menubar">
+                    <li role="none"><a href="#home" role="menuitem" aria-label="Ana sayfa bölümüne git">Ana Sayfa</a></li>
+                    <li role="none"><a href="#services" role="menuitem" aria-label="Hizmetlerimiz bölümüne git">Hizmetlerimiz</a></li>
+                    <li role="none"><a href="#about" role="menuitem" aria-label="Hakkımızda bölümüne git">Hakkımızda</a></li>
+                    <li role="none"><a href="#contact" role="menuitem" aria-label="İletişim bölümüne git">İletişim</a></li>
                 </ul>
-                <button class="nav-toggle" aria-label="Menüyü aç/kapat">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
+                <button class="nav-toggle" aria-label="Menüyü aç veya kapat" aria-expanded="false" aria-controls="nav-menu">
+                    <span class="bar" aria-hidden="true"></span>
+                    <span class="bar" aria-hidden="true"></span>
+                    <span class="bar" aria-hidden="true"></span>
+                    <span class="sr-only">Menü</span>
                 </button>
             </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <section id="home" class="hero" role="region" aria-labelledby="hero-title">
         <!-- Animated Background -->
         <div class="hero-background">
             <div class="hero-particles"></div>
@@ -654,7 +662,7 @@
                 </div>
                 
                 <!-- Main Title -->
-                <h1 class="hero-title">
+                <h1 class="hero-title" id="hero-title">
                     <span class="title-line-1">DC TEKNİK</span>
                     <span class="title-line-2">Dinamocu Serdar</span>
                 </h1>
@@ -691,12 +699,12 @@
                 
                 <!-- Action Buttons -->
                 <div class="hero-buttons">
-                    <a href="tel:+905353562469" class="btn btn-primary btn-large" rel="noopener">
-                        <i class="fas fa-phone"></i>
+                    <a href="tel:+905353562469" class="btn btn-primary btn-large" rel="noopener" aria-label="Telefon: 0535 356 24 69 numarasını ara">
+                        <i class="fas fa-phone" aria-hidden="true"></i>
                         <span>Hemen Ara</span>
                         <small>0535 356 24 69</small>
                     </a>
-                    <a href="https://wa.me/905353562469" class="btn btn-whatsapp btn-large" target="_blank" rel="noopener noreferrer">
+                    <a href="https://wa.me/905353562469" class="btn btn-whatsapp btn-large" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp ile iletişime geç">
                         <i class="fab fa-whatsapp"></i>
                         <span>WhatsApp</span>
                         <small>Hızlı İletişim</small>
@@ -740,10 +748,10 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="services">
+    <section id="services" class="services" role="region" aria-labelledby="services-title">
         <div class="container">
             <div class="section-header">
-                <h2>Hizmetlerimiz</h2>
+                <h2 id="services-title">Hizmetlerimiz</h2>
                 <p>15+ yıllık deneyimimizle dinamo, alternatör ve marş motoru konusunda profesyonel hizmetler sunuyoruz</p>
             </div>
             <div class="services-grid">
@@ -819,12 +827,12 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about">
+    <section id="about" class="about" role="region" aria-labelledby="about-title">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
                     <div class="section-header">
-                        <h2>Hakkımızda</h2>
+                        <h2 id="about-title">Hakkımızda</h2>
                         <p>15 yıldır Sultanbeyli'de güvenilir hizmet veriyoruz</p>
                     </div>
                     <div class="about-description">
@@ -965,11 +973,11 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact" role="region" aria-labelledby="contact-title">
         <div class="container">
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>İletişim</h3>
+                    <h3 id="contact-title">İletişim</h3>
                     <p>Bizimle iletişime geçin, size yardımcı olalım</p>
                     <div class="contact-details">
                         <div class="contact-detail">
@@ -1003,16 +1011,16 @@
                     </div>
                 </div>
                 <div class="contact-actions">
-                    <a href="tel:+905353562469" class="btn btn-primary" rel="noopener">
-                        <i class="fas fa-phone"></i>
+                    <a href="tel:+905353562469" class="btn btn-primary" rel="noopener" aria-label="Telefon: 0535 356 24 69 numarasını ara">
+                        <i class="fas fa-phone" aria-hidden="true"></i>
                         Hemen Ara
                     </a>
-                    <a href="https://wa.me/905353562469" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/905353562469" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp ile iletişime geç">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
                         WhatsApp
                     </a>
-                    <a href="https://www.google.com/maps/dir//Atatürk+Cad.+No:312,+34900+Sultanbeyli/İstanbul/" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://www.google.com/maps/dir//Atatürk+Cad.+No:312,+34900+Sultanbeyli/İstanbul/" class="btn btn-outline" target="_blank" rel="noopener noreferrer" aria-label="Google Maps'te yol tarifi al">
+                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                         Yol Tarifi
                     </a>
                 </div>
@@ -1022,30 +1030,31 @@
 
     <!-- Advanced AI Chatbot Widget -->
     <div class="live-chat-widget">
-        <div class="chat-toggle" id="chatToggle">
-            <div class="chat-icon">
+        <button class="chat-toggle" id="chatToggle" aria-label="Canlı destek sohbetini aç" aria-expanded="false" aria-controls="chatWindow">
+            <div class="chat-icon" aria-hidden="true">
                 <i class="fas fa-robot"></i>
             </div>
-            <div class="chat-badge">AI</div>
-            <div class="chat-pulse"></div>
-        </div>
-        <div class="chat-window" id="chatWindow">
+            <div class="chat-badge" aria-hidden="true">AI</div>
+            <div class="chat-pulse" aria-hidden="true"></div>
+            <span class="sr-only">Canlı Destek</span>
+        </button>
+        <div class="chat-window" id="chatWindow" role="dialog" aria-labelledby="chat-title" aria-modal="true">
             <div class="chat-header">
                 <div class="chat-title">
-                    <div class="chat-avatar">
+                    <div class="chat-avatar" aria-hidden="true">
                         <i class="fab fa-whatsapp"></i>
                     </div>
                     <div class="chat-info">
-                        <h4>DC TEKNİK Destek</h4>
-                        <span class="chat-status">Çevrimiçi</span>
+                        <h4 id="chat-title">DC TEKNİK Destek</h4>
+                        <span class="chat-status" aria-live="polite">Çevrimiçi</span>
                     </div>
                 </div>
                 <div class="chat-controls">
-                    <button class="chat-minimize" id="chatMinimize">
-                        <i class="fas fa-minus"></i>
+                    <button class="chat-minimize" id="chatMinimize" aria-label="Sohbet penceresini küçült">
+                        <i class="fas fa-minus" aria-hidden="true"></i>
                     </button>
-                    <button class="chat-close" id="chatClose">
-                        <i class="fas fa-times"></i>
+                    <button class="chat-close" id="chatClose" aria-label="Sohbet penceresini kapat">
+                        <i class="fas fa-times" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -1106,12 +1115,13 @@
             
             <div class="chat-input">
                 <div class="input-container">
-                    <input type="text" id="chatInput" placeholder="Mesajınızı yazın...">
-                    <button class="attach-btn" id="chatAttachFile">
-                        <i class="fas fa-paperclip"></i>
+                    <label for="chatInput" class="sr-only">Mesajınızı yazın</label>
+                    <input type="text" id="chatInput" placeholder="Mesajınızı yazın..." aria-label="Mesaj girişi">
+                    <button class="attach-btn" id="chatAttachFile" aria-label="Dosya ekle">
+                        <i class="fas fa-paperclip" aria-hidden="true"></i>
                     </button>
-                    <button class="send-btn" id="chatSendMessage">
-                        <i class="fas fa-paper-plane"></i>
+                    <button class="send-btn" id="chatSendMessage" aria-label="Mesajı gönder">
+                        <i class="fas fa-paper-plane" aria-hidden="true"></i>
                     </button>
                 </div>
                 <div class="typing-indicator" id="typingIndicator">
@@ -1125,22 +1135,23 @@
 
     <!-- Floating Action Buttons -->
     <div class="floating-actions">
-        <div class="fab-main" id="fabMain">
-            <i class="fas fa-plus"></i>
-        </div>
+        <button class="fab-main" id="fabMain" aria-label="Hızlı işlemler menüsünü aç" aria-expanded="false">
+            <i class="fas fa-plus" aria-hidden="true"></i>
+            <span class="sr-only">Hızlı İşlemler</span>
+        </button>
         <div class="fab-menu">
-            <div class="fab-item" id="fabCallNow" data-tooltip="Hemen Ara">
-                <i class="fas fa-phone"></i>
-            </div>
-            <div class="fab-item" id="fabOpenWhatsApp" data-tooltip="WhatsApp">
-                <i class="fab fa-whatsapp"></i>
-            </div>
-            <div class="fab-item" id="fabGetDirections" data-tooltip="Yol Tarifi">
-                <i class="fas fa-map-marker-alt"></i>
-            </div>
-            <div class="fab-item" id="fabScrollToTop" data-tooltip="Yukarı Çık">
-                <i class="fas fa-arrow-up"></i>
-            </div>
+            <button class="fab-item" id="fabCallNow" data-tooltip="Hemen Ara" aria-label="Hemen Ara: 0535 356 24 69">
+                <i class="fas fa-phone" aria-hidden="true"></i>
+            </button>
+            <button class="fab-item" id="fabOpenWhatsApp" data-tooltip="WhatsApp" aria-label="WhatsApp ile iletişime geç">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+            </button>
+            <button class="fab-item" id="fabGetDirections" data-tooltip="Yol Tarifi" aria-label="Google Maps'te yol tarifi al">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+            </button>
+            <button class="fab-item" id="fabScrollToTop" data-tooltip="Yukarı Çık" aria-label="Sayfanın başına dön">
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
+            </button>
         </div>
     </div>
 
@@ -1154,8 +1165,8 @@
                 <h4>Özel İndirim!</h4>
                 <p>İlk kez gelen müşterilere %20 indirim</p>
             </div>
-            <button class="notification-close" id="notificationClose">
-                <i class="fas fa-times"></i>
+            <button class="notification-close" id="notificationClose" aria-label="Bildirimi kapat">
+                <i class="fas fa-times" aria-hidden="true"></i>
             </button>
         </div>
     </div>
@@ -1166,12 +1177,15 @@
     </div>
 
     <!-- Back to Top Widget -->
-    <div class="back-to-top" id="backToTop">
-        <i class="fas fa-chevron-up"></i>
-    </div>
+    <button class="back-to-top" id="backToTop" aria-label="Sayfanın başına dön">
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+        <span class="sr-only">Yukarı Çık</span>
+    </button>
 
+    </main>
+    
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <p>&copy; 2025 DC TEKNİK - Dinamocu Serdar. Tüm hakları saklıdır.</p>
         </div>
@@ -1179,6 +1193,9 @@
 
     <!-- Error Handler - Load first to catch all errors -->
     <script src="js/error-handler.js"></script>
+    
+    <!-- Accessibility Module - WCAG 2.1 AA uyumluluğu -->
+    <script src="js/accessibility.js"></script>
     
     <!-- Production Configuration - Canlı site optimizasyonları -->
     <script src="js/production-config.js"></script>

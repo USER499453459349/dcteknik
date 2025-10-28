@@ -1,0 +1,420 @@
+/**
+ * DC TEKNİK - Accessibility Styles
+ * WCAG 2.1 AA uyumluluğu için CSS
+ */
+
+/* Screen Reader Only */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.sr-only-focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* Skip Links */
+.skip-links {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--primary-color, #ff6b35);
+    width: 100%;
+}
+
+.skip-links:focus-within,
+.skip-links.visible {
+    top: 0;
+}
+
+.skip-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color, #ff6b35);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.skip-link:hover,
+.skip-link:focus {
+    background: var(--accent-color, #ffd700);
+    color: var(--secondary-color, #1a1a1a);
+    outline: 3px solid white;
+    outline-offset: 2px;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Focus Indicators */
+*:focus {
+    outline: 2px solid var(--primary-color, #ff6b35);
+    outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Keyboard Navigation Focus */
+.keyboard-navigation *:focus-visible {
+    outline: 3px solid var(--accent-color, #ffd700);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3);
+}
+
+.keyboard-navigation a:focus-visible,
+.keyboard-navigation button:focus-visible {
+    outline: 3px solid var(--accent-color, #ffd700);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.keyboard-navigation input:focus-visible,
+.keyboard-navigation textarea:focus-visible,
+.keyboard-navigation select:focus-visible {
+    outline: 3px solid var(--primary-color, #ff6b35);
+    outline-offset: 2px;
+    border: 2px solid var(--primary-color, #ff6b35);
+}
+
+/* Focus Visible Class */
+.focus-visible {
+    outline: 3px solid var(--accent-color, #ffd700) !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3) !important;
+}
+
+/* High Contrast Mode */
+.high-contrast {
+    --text-color: #ffffff;
+    --background: #000000;
+    --primary-color: #ffff00;
+    --accent-color: #00ffff;
+}
+
+.high-contrast * {
+    border-color: currentColor !important;
+}
+
+.high-contrast a,
+.high-contrast button {
+    border: 2px solid currentColor !important;
+}
+
+.high-contrast *:focus {
+    outline: 4px solid var(--accent-color) !important;
+    outline-offset: 4px !important;
+}
+
+/* Form Error Messages */
+.error-message {
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid #ef4444;
+    border-radius: 4px;
+    color: #ef4444;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.error-message::before {
+    content: '⚠️ ';
+    margin-right: 0.25rem;
+}
+
+/* Input Error State */
+input[aria-invalid="true"],
+textarea[aria-invalid="true"],
+select[aria-invalid="true"] {
+    border-color: #ef4444 !important;
+    border-width: 2px !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
+
+input[aria-invalid="true"]:focus,
+textarea[aria-invalid="true"]:focus,
+select[aria-invalid="true"]:focus {
+    outline-color: #ef4444 !important;
+}
+
+/* Required Field Indicator */
+.required::after {
+    content: ' *';
+    color: #ef4444;
+    font-weight: bold;
+    margin-left: 0.25rem;
+}
+
+label .required {
+    color: #ef4444;
+}
+
+/* ARIA Live Regions */
+#a11y-live-region-polite,
+#a11y-live-region-assertive {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* Button Focus States */
+button:focus-visible,
+.btn:focus-visible,
+a.btn:focus-visible {
+    outline: 3px solid var(--accent-color, #ffd700);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3);
+}
+
+/* Link Focus States */
+a:focus-visible {
+    outline: 2px solid var(--primary-color, #ff6b35);
+    outline-offset: 2px;
+    text-decoration: underline;
+}
+
+/* Navigation Focus */
+.nav-menu a:focus-visible {
+    background: rgba(255, 107, 53, 0.2);
+    outline: 2px solid var(--primary-color, #ff6b35);
+    outline-offset: 2px;
+}
+
+.nav-toggle:focus-visible {
+    outline: 3px solid var(--accent-color, #ffd700);
+    outline-offset: 3px;
+}
+
+/* Modal Focus */
+.modal:focus,
+.chat-window:focus {
+    outline: none;
+}
+
+.modal *:focus-visible,
+.chat-window *:focus-visible {
+    outline: 3px solid var(--accent-color, #ffd700);
+    outline-offset: 2px;
+}
+
+/* Color Contrast Improvements */
+/* Ensure minimum 4.5:1 contrast for normal text, 3:1 for large text */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-color, #ffffff);
+}
+
+p, span, a {
+    color: var(--text-light, #b0b0b0);
+}
+
+a:hover {
+    color: var(--primary-color, #ff6b35);
+}
+
+/* Ensure buttons have sufficient contrast */
+.btn-primary {
+    background: var(--primary-color, #ff6b35);
+    color: white;
+    border: 2px solid var(--primary-color, #ff6b35);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background: var(--accent-color, #ffd700);
+    color: var(--secondary-color, #1a1a1a);
+    border-color: var(--accent-color, #ffd700);
+}
+
+/* Ensure focus is always visible */
+*:focus {
+    outline-style: solid;
+    outline-width: 2px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .skip-link {
+        transition: none !important;
+    }
+}
+
+/* Large Text Support */
+@media (min-width: 1200px) {
+    body {
+        font-size: clamp(1rem, 1.125vw, 1.25rem);
+    }
+}
+
+/* Touch Target Sizes (minimum 44x44px) */
+button,
+.btn,
+.nav-toggle,
+a:not([role]) {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Icon Only Buttons */
+button[aria-label],
+.btn[aria-label] {
+    min-width: 44px;
+    min-height: 44px;
+}
+
+/* Ensure sufficient spacing for touch targets */
+.nav-menu a {
+    padding: 0.75rem 1rem;
+}
+
+/* Form Accessibility */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color, #ffffff);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+    min-height: 44px;
+    padding: 0.75rem;
+    font-size: 1rem;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Placeholder text should have sufficient contrast */
+::placeholder {
+    color: var(--text-light, #b0b0b0);
+    opacity: 0.8;
+}
+
+/* Loading States */
+[aria-busy="true"] {
+    position: relative;
+}
+
+[aria-busy="true"]::after {
+    content: 'Yükleniyor...';
+    position: absolute;
+    left: -10000px;
+}
+
+/* Hidden but accessible */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Status Indicators */
+[role="status"],
+[role="alert"] {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* Table Accessibility */
+table {
+    border-collapse: collapse;
+}
+
+th {
+    font-weight: 700;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color, #404040);
+}
+
+/* Image with no alt should be decorative */
+img:not([alt]) {
+    border: 2px dashed #ef4444;
+}
+
+/* Ensure headings hierarchy */
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+/* Print Styles */
+@media print {
+    .skip-links,
+    .nav-menu,
+    .floating-actions,
+    .live-chat-widget {
+        display: none !important;
+    }
+    
+    a::after {
+        content: ' (' attr(href) ')';
+        font-size: 0.8em;
+        color: #666;
+    }
+}
+

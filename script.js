@@ -660,6 +660,11 @@ function submitForm(form) {
     emailPromise.then(function() {
         showNotification('Form başarıyla gönderildi! En kısa sürede size geri dönüş yapacağız.', 'success');
         
+        // Announce to screen readers
+        if (window.AccessibilityModule) {
+            window.AccessibilityModule.announce('Form başarıyla gönderildi. En kısa sürede size geri dönüş yapacağız.', 'polite');
+        }
+        
         // Reset form
         form.reset();
         
@@ -718,6 +723,11 @@ function submitForm(form) {
     }).catch(function(error) {
         // Even if email fails, show success to user (form was submitted)
         showNotification('Form gönderildi. İletişim için lütfen telefon veya WhatsApp kullanın.', 'info');
+        
+        // Announce to screen readers
+        if (window.AccessibilityModule) {
+            window.AccessibilityModule.announce('Form gönderildi. İletişim için telefon veya WhatsApp kullanabilirsiniz.', 'polite');
+        }
         
         if (submitBtn) {
             submitBtn.textContent = originalText;
