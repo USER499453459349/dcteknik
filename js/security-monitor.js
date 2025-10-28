@@ -74,42 +74,61 @@
             // Monitor for CSRF attempts
             const originalFetch = window.fetch;
             const originalXMLHttpRequest = window.XMLHttpRequest;
+            const self = this; // Store reference to SecurityMonitor instance
             
             window.fetch = function(url, options = {}) {
-                if (this.isCSRFAttempt(url, options)) {
-                    this.logSecurityEvent('csrf_attempt', {
-                        url: url,
-                        method: options.method || 'GET',
-                        headers: options.headers,
+                // Convert to string if URL object
+                const urlString = typeof url === 'string' ? url : url.url || url.toString();
+                if (self.isCSRFAttempt(urlString, options || {})) {
+                    self.logSecurityEvent('csrf_attempt', {
+                        url: urlString,
+                        method: (options && options.method) || 'GET',
+                        headers: options && options.headers,
                         referrer: document.referrer
                     });
                 }
-                return originalFetch.call(this, url, options);
-            }.bind(this);
+                return originalFetch.apply(this, arguments);
+            };
             
             window.XMLHttpRequest = function() {
                 const xhr = new originalXMLHttpRequest();
                 const originalOpen = xhr.open;
-                const originalSend = xhr.send;
                 
                 xhr.open = function(method, url, async, user, password) {
-                    if (this.isCSRFAttempt(url, { method: method })) {
-                        this.logSecurityEvent('csrf_attempt', {
+                    if (self.isCSRFAttempt(url, { method: method })) {
+                        self.logSecurityEvent('csrf_attempt', {
                             url: url,
                             method: method,
                             referrer: document.referrer
                         });
                     }
-                    return originalOpen.call(this, method, url, async, user, password);
-                }.bind(this);
+                    return originalOpen.apply(this, arguments);
+                };
                 
                 return xhr;
-            }.bind(this);
+            };
         }
         
         isCSRFAttempt(url, options) {
             // Check for suspicious cross-origin requests
+            // Whitelist trusted domains (Google Analytics, EmailJS, etc.)
+            const trustedDomains = [
+                'google-analytics.com',
+                'googletagmanager.com',
+                'googleapis.com',
+                'gstatic.com',
+                'emailjs.com',
+                'maps.googleapis.com',
+                'cdnjs.cloudflare.com',
+                'cdn.jsdelivr.net'
+            ];
+            
             if (url.startsWith('http') && !url.startsWith(window.location.origin)) {
+                // Skip trusted domains
+                if (trustedDomains.some(domain => url.includes(domain))) {
+                    return false;
+                }
+                
                 const method = options.method || 'GET';
                 if (['POST', 'PUT', 'DELETE', 'PATCH'].includes(method)) {
                     return true;
@@ -166,17 +185,19 @@
         monitorStorage() {
             const originalSetItem = Storage.prototype.setItem;
             const sensitiveKeys = ['password', 'secret', 'token', 'key', 'auth'];
+            const self = this; // Store reference to SecurityMonitor instance
             
             Storage.prototype.setItem = function(key, value) {
                 if (sensitiveKeys.some(sensitiveKey => key.toLowerCase().includes(sensitiveKey))) {
-                    this.logSecurityEvent('sensitive_data_storage', {
+                    self.logSecurityEvent('sensitive_data_storage', {
                         key: key,
                         valueLength: value.length,
                         storage: this === localStorage ? 'localStorage' : 'sessionStorage'
                     });
                 }
+                // Call original method with correct context (this = Storage instance)
                 return originalSetItem.call(this, key, value);
-            }.bind(this);
+            };
         }
         
         monitorInsecureConnections() {
@@ -308,20 +329,25 @@
         }
         
         sendSecurityReport(event) {
-            // Send security report to monitoring endpoint
-            if (navigator.sendBeacon) {
-                const reportData = JSON.stringify(event);
-                navigator.sendBeacon('/security-report', reportData);
-            } else {
-                // Fallback for older browsers
-                fetch('/security-report', {
-                    method: 'POST',
-                    body: JSON.stringify(event),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }).catch(err => console.warn('Failed to send security report:', err));
+            // Static sites don't have backend endpoints - only send to analytics
+            // Don't send to /security-report (causes 404 errors)
+            
+            // Send to Google Analytics if available
+            if (typeof gtag !== 'undefined') {
+                try {
+                    gtag('event', 'security_event', {
+                        event_category: 'security',
+                        event_label: event.type || 'unknown',
+                        value: 1,
+                        custom_map: event.data || {}
+                    });
+                } catch (err) {
+                    // Silently fail - analytics not critical
+                }
             }
+            
+            // Security events are logged locally only
+            // No backend endpoint for static sites
         }
         
         // Public methods
