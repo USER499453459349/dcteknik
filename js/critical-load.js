@@ -19,7 +19,7 @@
         }, 1);
     };
     
-    // Load non-critical CSS in idle time
+    // Load non-critical CSS in idle time - Skip if already loaded
     function loadNonCriticalCSS() {
         requestIdleCallback(function() {
             const nonCriticalCSS = [
@@ -28,6 +28,11 @@
             ];
             
             nonCriticalCSS.forEach(href => {
+                // Check if already loaded
+                if (document.querySelector(`link[href="${href}"]`)) {
+                    return;
+                }
+                
                 const link = document.createElement('link');
                 link.rel = 'stylesheet';
                 link.href = href;

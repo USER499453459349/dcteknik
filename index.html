@@ -46,7 +46,30 @@
     
     <!-- Fallback script for async CSS loading -->
     <script>
-        (function(){var raf=requestAnimationFrame||function(cb){setTimeout(cb,16)};var loadCSS=function(href,media){var link=document.createElement('link');link.rel='stylesheet';link.href=href;if(media)link.media=media;document.head.appendChild(link)};raf(function(){if(document.querySelector('link[rel="preload"][as="style"]')){var links=document.querySelectorAll('link[rel="preload"][as="style"]');links.forEach(function(link){loadCSS(link.href,link.media);link.remove()})}})})();
+        (function(){
+            var raf=requestAnimationFrame||function(cb){setTimeout(cb,16)};
+            var loadCSS=function(href,media){
+                // Check if already loaded
+                if(document.querySelector('link[href="'+href+'"]')){return;}
+                var link=document.createElement('link');
+                link.rel='stylesheet';
+                link.href=href;
+                if(media)link.media=media;
+                document.head.appendChild(link);
+            };
+            raf(function(){
+                var preloadLinks=document.querySelectorAll('link[rel="preload"][as="style"]');
+                preloadLinks.forEach(function(link){
+                    // Only convert if onload handler exists (async CSS)
+                    if(link.onload||link.hasAttribute('onload')){
+                        // onload will handle it, don't duplicate
+                        return;
+                    }
+                    loadCSS(link.href,link.media);
+                    link.remove();
+                });
+            });
+        })();
     </script>
     
     <title>DC TEKNİK - Dinamocu Serdar | Dinamo Tamiri | Alternatör Onarımı</title>
@@ -95,13 +118,6 @@
             "@type": "GeoCoordinates",
             "latitude": "41.0014",
             "longitude": "29.2564"
-        },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "reviewCount": "28",
-            "bestRating": "5",
-            "worstRating": "1"
         },
         "openingHoursSpecification": [
             {
@@ -168,8 +184,8 @@
         },
         "aggregateRating": {
             "@type": "AggregateRating",
-            "ratingValue": "5.0",
-            "reviewCount": "5000",
+            "ratingValue": "4.9",
+            "reviewCount": "28",
             "bestRating": "5",
             "worstRating": "1"
         },
