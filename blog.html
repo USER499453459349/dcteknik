@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="blog-nav-fix.css">
     <link rel="stylesheet" href="blog-enhancements-styles.css">
     <link rel="stylesheet" href="blog-readability-styles.css">
+    <link rel="stylesheet" href="blog-toc-bookmark-breadcrumb-styles.css">
     <link rel="stylesheet" href="ux-enhancements.css">
     <link rel="stylesheet" href="performance-styles.css">
     <link rel="manifest" href="manifest.webmanifest">
@@ -160,6 +161,8 @@
                         </div>
                         <p>Araç dinamosu arızaları, sürücülerin en sık karşılaştığı sorunlardan biridir. Dinamo arızası yaşandığında araç çalışmayabilir veya ani elektrik kesintileri yaşanabilir. Bu yazıda, dinamo arızası belirtileri, çözüm yöntemleri ve bakım ipuçlarını bulacaksınız.</p>
                         
+                        <!-- Table of Contents will be generated here automatically -->
+                        
                         <!-- Share Buttons -->
                         <div class="share-buttons">
                             <h4>📤 Paylaş:</h4>
@@ -179,7 +182,10 @@
                         
                         <div class="blog-post-footer">
                             <a href="#dinamo-arizalari" class="read-more">Devamını Oku <i class="fas fa-arrow-right"></i></a>
-                            <button class="print-btn"><i class="fas fa-print"></i> Yazdır</button>
+                            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                <button class="print-btn"><i class="fas fa-print"></i> Yazdır</button>
+                                <!-- Bookmark button will be added here automatically -->
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -1042,6 +1048,7 @@
     <script src="js/performance-optimizer.js" defer></script>
     <script src="js/ux-enhancements.js" defer></script>
     <script src="js/blog-dark-mode.js" defer></script>
+    <script src="js/blog-toc-bookmark-breadcrumb.js" defer></script>
     <script src="js/blog-enhancements.js" defer></script>
     <script src="script.js" defer></script>
     <script src="js/blog-animations.js" defer></script>

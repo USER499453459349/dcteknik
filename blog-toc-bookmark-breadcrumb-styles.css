@@ -1,0 +1,438 @@
+/**
+ * DC TEKNİK - Blog TOC, Bookmark & Breadcrumb Styles
+ * Table of Contents, Bookmark System ve Breadcrumb Navigation stilleri
+ */
+
+/* ========================================
+   TABLE OF CONTENTS
+   ======================================== */
+
+.table-of-contents {
+    background: var(--card-bg, #ffffff);
+    border: 2px solid var(--border-color, rgba(255, 107, 53, 0.2));
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.dark-mode .table-of-contents {
+    background: var(--card-bg);
+    border-color: rgba(255, 107, 53, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(255, 107, 53, 0.2);
+}
+
+.toc-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary, #1a1a1a);
+}
+
+.dark-mode .toc-header h3 {
+    color: var(--text-primary);
+}
+
+.toc-toggle {
+    background: transparent;
+    border: none;
+    color: #ff6b35;
+    font-size: 1.125rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.toc-toggle:hover {
+    background: rgba(255, 107, 53, 0.1);
+    transform: scale(1.1);
+}
+
+.table-of-contents.collapsed .toc-list {
+    display: none;
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-item {
+    margin-bottom: 0.5rem;
+}
+
+.toc-item.toc-h2 {
+    margin-left: 0;
+    font-weight: 600;
+}
+
+.toc-item.toc-h3 {
+    margin-left: 1rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.toc-item.toc-h4 {
+    margin-left: 2rem;
+    font-weight: 400;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.toc-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    color: var(--text-secondary, #4a5568);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.toc-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 0;
+    background: #ff6b35;
+    border-radius: 2px;
+    transition: height 0.3s ease;
+}
+
+.toc-link:hover {
+    background: rgba(255, 107, 53, 0.1);
+    color: #ff6b35;
+    padding-left: 1.75rem;
+}
+
+.toc-link:hover::before {
+    height: 100%;
+}
+
+.toc-link.active {
+    background: rgba(255, 107, 53, 0.15);
+    color: #ff6b35;
+    font-weight: 600;
+    padding-left: 1.75rem;
+}
+
+.toc-link.active::before {
+    height: 100%;
+}
+
+.dark-mode .toc-link {
+    color: var(--text-secondary);
+}
+
+.dark-mode .toc-link:hover,
+.dark-mode .toc-link.active {
+    background: rgba(255, 107, 53, 0.2);
+    color: #ff6b35;
+}
+
+/* ========================================
+   BOOKMARK SYSTEM
+   ======================================== */
+
+.bookmark-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(255, 107, 53, 0.1);
+    border: 2px solid #ff6b35;
+    border-radius: 12px;
+    color: #ff6b35;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bookmark-btn:hover {
+    background: #ff6b35;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.bookmark-btn.bookmarked {
+    background: #ff6b35;
+    color: #ffffff;
+}
+
+.bookmark-btn.bookmarked:hover {
+    background: #ff8c42;
+    border-color: #ff8c42;
+}
+
+.bookmark-btn i {
+    transition: transform 0.3s ease;
+}
+
+.bookmark-btn:hover i {
+    transform: scale(1.2);
+}
+
+.dark-mode .bookmark-btn {
+    background: rgba(255, 107, 53, 0.15);
+    border-color: #ff6b35;
+    color: #ff6b35;
+}
+
+.dark-mode .bookmark-btn:hover {
+    background: #ff6b35;
+    color: #ffffff;
+}
+
+/* Bookmarks Widget */
+#bookmarks-widget {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 140, 66, 0.05) 100%);
+    border: 2px solid rgba(255, 107, 53, 0.3);
+}
+
+.bookmarks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.bookmark-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.dark-mode .bookmark-item {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.bookmark-item:hover {
+    background: rgba(255, 107, 53, 0.1);
+    transform: translateX(4px);
+}
+
+.bookmark-link {
+    flex: 1;
+    color: var(--text-primary, #1a1a1a);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.bookmark-link:hover {
+    color: #ff6b35;
+}
+
+.dark-mode .bookmark-link {
+    color: var(--text-primary);
+}
+
+.bookmark-remove {
+    background: transparent;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+}
+
+.bookmark-remove:hover {
+    background: rgba(239, 68, 68, 0.1);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.bookmarks-view-all {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 107, 53, 0.1);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 8px;
+    color: #ff6b35;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bookmarks-view-all:hover {
+    background: rgba(255, 107, 53, 0.2);
+}
+
+/* ========================================
+   BREADCRUMB NAVIGATION
+   ======================================== */
+
+.breadcrumb {
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.breadcrumb ol {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.breadcrumb li {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-separator {
+    color: var(--text-tertiary, #94a3b8);
+    margin: 0 0.25rem;
+    user-select: none;
+}
+
+.breadcrumb a {
+    color: var(--text-secondary, #64748b);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+}
+
+.breadcrumb a:hover {
+    color: #ff6b35;
+    background: rgba(255, 107, 53, 0.1);
+}
+
+.breadcrumb li.current span {
+    color: var(--text-primary, #1a1a1a);
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+}
+
+.dark-mode .breadcrumb a {
+    color: var(--text-secondary);
+}
+
+.dark-mode .breadcrumb a:hover {
+    color: #ff6b35;
+    background: rgba(255, 107, 53, 0.2);
+}
+
+.dark-mode .breadcrumb li.current span {
+    color: var(--text-primary);
+}
+
+.breadcrumb-page {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+    margin-bottom: 2rem;
+}
+
+.dark-mode .breadcrumb-page {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Sticky TOC (desktop) */
+@media (min-width: 1024px) {
+    .table-of-contents {
+        position: sticky;
+        top: 120px;
+        max-height: calc(100vh - 140px);
+        overflow-y: auto;
+    }
+    
+    .table-of-contents::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .table-of-contents::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 3px;
+    }
+    
+    .table-of-contents::-webkit-scrollbar-thumb {
+        background: rgba(255, 107, 53, 0.3);
+        border-radius: 3px;
+    }
+    
+    .table-of-contents::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 107, 53, 0.5);
+    }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .table-of-contents {
+        padding: 1rem;
+        margin: 1.5rem 0;
+    }
+    
+    .toc-header h3 {
+        font-size: 1.125rem;
+    }
+    
+    .bookmark-btn {
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
+        width: 100%;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
+    .breadcrumb {
+        font-size: 0.85rem;
+    }
+    
+    .breadcrumb-separator {
+        margin: 0 0.125rem;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+.toc-link:focus,
+.bookmark-btn:focus,
+.breadcrumb a:focus {
+    outline: 2px solid #ff6b35;
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .table-of-contents,
+    .bookmark-btn,
+    .breadcrumb {
+        display: none !important;
+    }
+}
+
