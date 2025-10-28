@@ -132,14 +132,41 @@
     }
     
     /**
-     * Button Ripple Effects
+     * Enhanced Button Ripple Effects
      */
     function initRippleEffects() {
-        document.querySelectorAll('.btn, .btn-primary, .btn-whatsapp, button').forEach(button => {
-            // Ripple class'ı ekle
-            if (!button.classList.contains('ripple')) {
-                button.classList.add('ripple');
-            }
+        document.querySelectorAll('.btn, .btn-primary, .btn-whatsapp, .btn-outline, button, .action-btn, .send-btn, .attach-btn').forEach(button => {
+            // Click ripple effect
+            button.addEventListener('click', function(e) {
+                // Create ripple element
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple-effect');
+                
+                this.appendChild(ripple);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+            
+            // Hover sound effect (optional - can be disabled)
+            button.addEventListener('mouseenter', function() {
+                // Add hover class for CSS animations
+                this.classList.add('button-hovered');
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.classList.remove('button-hovered');
+            });
         });
     }
     
