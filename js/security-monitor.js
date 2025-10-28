@@ -60,7 +60,8 @@
                     });
                 });
                 
-                // Delay observation to avoid false positives from initial page load
+                // Delay observation significantly to avoid false positives from initial page load
+                // Most legitimate content is added in first 2-3 seconds
                 setTimeout(() => {
                     if (document.body || document.documentElement) {
                         observer.observe(document.body || document.documentElement, {
@@ -68,45 +69,64 @@
                             subtree: true,
                             attributes: true
                         });
+                        console.log('🔒 XSS monitoring started (delayed to avoid false positives)');
                     }
-                }, 1000); // Wait 1 second after page load
+                }, 3000); // Wait 3 seconds - only monitor for real-time DOM changes after page is stable
             }
         }
         
         isXSSAttempt(content) {
+            // Skip empty or very short content (likely not XSS)
+            if (!content || content.length < 10) {
+                return false;
+            }
+            
             // More specific XSS patterns - exclude legitimate HTML
             const xssPatterns = [
-                // Script injection attempts
-                /<script[^>]*>.*?<\/script>/is,
-                /javascript\s*:/i,
-                // Event handler injection (onclick, onerror, etc.)
-                /on\w+\s*=\s*["'][^"']*["']/i,
+                // Script injection attempts (must have closing tag)
+                /<script[^>]*>[\s\S]*?<\/script>/is,
+                // javascript: protocol (not in safe attributes)
+                /javascript\s*:\s*[^"']*\w/i,
+                // Event handler injection with suspicious content
+                /on\w+\s*=\s*["'](?!\s*['"])\s*(?:javascript\s*:|eval\s*\(|alert\s*\()/i,
                 // Iframe injection (except from trusted sources)
                 /<iframe[^>]*src\s*=\s*["'](?!https?:\/\/(www\.)?(google|youtube|maps\.google))\w/i,
-                // Object/Embed injection
-                /<object[^>]*data\s*=/i,
-                /<embed[^>]*src\s*=/i,
-                // Dangerous form injection
-                /<form[^>]*action\s*=\s*["'](?!\/|#)\w/i,
+                // Object/Embed injection with data
+                /<object[^>]*data\s*=\s*["'](?!https?:\/\/)/i,
+                /<embed[^>]*src\s*=\s*["'](?!https?:\/\/)/i,
+                // Dangerous form injection to external domains
+                /<form[^>]*action\s*=\s*["'](?!\/|#|https?:\/\/dcteknik)/i,
                 // Eval/Function injection
-                /eval\s*\(/i,
-                /Function\s*\(/i,
+                /<[^>]*>\s*eval\s*\(/i,
+                /<[^>]*>\s*Function\s*\(/i,
                 // Data URI script injection
-                /data\s*:\s*text\/html/i,
-                /data\s*:\s*text\/javascript/i
+                /data\s*:\s*text\/(html|javascript)/i,
+                // SVG with script
+                /<svg[^>]*>[\s\S]*?<script/is
             ];
             
-            // Exclude legitimate content patterns
+            // Exclude legitimate content patterns (expanded)
             const safePatterns = [
-                /<link[^>]*rel\s*=\s*["'](stylesheet|icon|manifest|canonical)/i, // CSS, favicon, manifest
-                /<meta[^>]*(charset|name|property|http-equiv)/i, // Meta tags
-                /<style[^>]*>[\s\S]*?<\/style>/i, // Style blocks
-                /<noscript>/i, // Noscript tags
-                /<!--[\s\S]*?-->/i // HTML comments
+                /<link[^>]*rel\s*=\s*["'](stylesheet|icon|manifest|canonical|preload)/i,
+                /<meta[^>]*(charset|name|property|http-equiv|content)/i,
+                /<style[^>]*>[\s\S]*?<\/style>/i,
+                /<noscript[\s\S]*?<\/noscript>/i,
+                /<!--[\s\S]*?-->/i,
+                /^[\s\w\.,!?\-:;()]+$/i, // Plain text only
+                /<div[^>]*>[\s\w\.,!?\-:;()]+<\/div>/i, // Simple divs with text
+                /<span[^>]*>[\s\w\.,!?\-:;()]+<\/span>/i, // Simple spans with text
+                /<p[^>]*>[\s\w\.,!?\-:;()]+<\/p>/i, // Simple paragraphs
+                /<h[1-6][^>]*>[\s\w\.,!?\-:;()]+<\/h[1-6]>/i // Simple headings
             ];
             
             // Check if content matches safe patterns first
             if (safePatterns.some(pattern => pattern.test(content))) {
+                return false;
+            }
+            
+            // Additional check: if content is mostly plain text, ignore
+            const textContent = content.replace(/<[^>]+>/g, '').trim();
+            if (textContent.length > content.length * 0.8 && /^[\s\w\.,!?\-:;()]+$/i.test(textContent)) {
                 return false;
             }
             

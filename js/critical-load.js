@@ -51,13 +51,28 @@
             let prefetched = false;
             
             link.addEventListener('mouseenter', function() {
-                if (!prefetched && this.href && !this.href.startsWith('#') && !this.href.startsWith('javascript:')) {
-                    const prefetch = document.createElement('link');
-                    prefetch.rel = 'prefetch';
-                    prefetch.href = this.href;
-                    prefetch.as = 'document';
-                    document.head.appendChild(prefetch);
-                    prefetched = true;
+                if (!prefetched && this.href) {
+                    // Skip non-http(s) schemes (tel:, mailto:, javascript:, etc.)
+                    const href = this.href;
+                    if (href.startsWith('#') || 
+                        href.startsWith('javascript:') || 
+                        href.startsWith('tel:') || 
+                        href.startsWith('mailto:') ||
+                        href.startsWith('sms:') ||
+                        !href.startsWith('http')) {
+                        return;
+                    }
+                    
+                    try {
+                        const prefetch = document.createElement('link');
+                        prefetch.rel = 'prefetch';
+                        prefetch.href = href;
+                        prefetch.as = 'document';
+                        document.head.appendChild(prefetch);
+                        prefetched = true;
+                    } catch (err) {
+                        // Silently fail for invalid URLs
+                    }
                 }
             }, { once: true, passive: true });
         });
