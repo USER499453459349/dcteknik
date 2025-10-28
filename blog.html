@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="style.css?v=20250120v1">
     <link rel="alternate" type="application/rss+xml" title="DC TEKNİK Blog" href="feed.xml">
     <link rel="stylesheet" href="blog-styles.css?v=20250101v1">
+    <link rel="stylesheet" href="blog-modern-styles.css">
+    <link rel="stylesheet" href="ux-enhancements.css">
+    <link rel="stylesheet" href="performance-styles.css">
     <link rel="manifest" href="manifest.webmanifest">
     <meta name="theme-color" content="#0b5cff">
     <meta name="ga-measurement-id" content="G-N1Z05DJ9B4">
@@ -79,27 +82,111 @@
 
     
 
+    <!-- Blog Hero Section -->
+    <section class="blog-hero">
+        <div class="container">
+            <h1>🚗 DC TEKNİK Blog</h1>
+            <p>15+ yıllık deneyimimizle dinamo tamiri, alternatör servisi ve marş motoru hakkında uzman tavsiyeleri, bakım ipuçları ve çözüm rehberleri.</p>
+            
+            <!-- Trust Signals -->
+            <div class="trust-signals">
+                <div class="trust-signal">
+                    <i class="fas fa-award"></i>
+                    <div class="trust-signal-content">
+                        <h3>15+</h3>
+                        <p>Yıl Deneyim</p>
+                    </div>
+                </div>
+                <div class="trust-signal">
+                    <i class="fas fa-users"></i>
+                    <div class="trust-signal-content">
+                        <h3>5000+</h3>
+                        <p>Mutlu Müşteri</p>
+                    </div>
+                </div>
+                <div class="trust-signal">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="trust-signal-content">
+                        <h3>%100</h3>
+                        <p>Garanti</p>
+                    </div>
+                </div>
+                <div class="trust-signal">
+                    <i class="fas fa-clock"></i>
+                    <div class="trust-signal-content">
+                        <h3>24/7</h3>
+                        <p>Hizmet</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Search & Filter -->
+            <div class="blog-tools">
+                <div class="blog-search">
+                    <i class="fas fa-search"></i>
+                    <input type="search" placeholder="Yazılarda ara..." id="blogSearch">
+                </div>
+                <div class="blog-chips">
+                    <button class="blog-chip active" data-category="all">Tümü</button>
+                    <button class="blog-chip" data-category="dinamo">Dinamo</button>
+                    <button class="blog-chip" data-category="alternator">Alternatör</button>
+                    <button class="blog-chip" data-category="mars">Marş Motoru</button>
+                    <button class="blog-chip" data-category="bakim">Bakım</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Blog Content -->
     <section class="blog-content" id="latest">
         <div class="container">
-            <nav class="pagination" aria-label="Sayfalama">
-                <button class="page-btn" id="prevPage" disabled>Önceki</button>
-                <span class="page-status" id="pageStatus">Sayfa 1</span>
-                <button class="page-btn" id="nextPage">Sonraki</button>
-            </nav>
             <div class="blog-grid" id="blogGrid">
-                <!-- Ana sayfadan taşınan öne çıkan kartlar -->
-                <article class="blog-post">
-                    <div class="blog-post-image"><div class="blog-placeholder"><i class="fas fa-cog"></i></div><div class="blog-category">Dinamo Tamiri</div></div>
-                    <div class="blog-post-content"><h2><a href="#dinamo-arizalari">Araç Dinamosu Arızaları: Belirtiler ve Çözüm Yöntemleri</a></h2><div class="blog-meta"><time>1 Ocak 2025</time><span class="read-time">5 dk okuma</span></div><p>Araç dinamosu arızaları, sürücülerin en sık karşılaştığı sorunlardan biridir...</p></div>
+                <!-- Featured Post - Dinamo Arızaları -->
+                <article class="blog-post featured" id="dinamo-arizalari-short">
+                    <div class="blog-post-image">
+                        <div class="blog-placeholder"><i class="fas fa-cog"></i></div>
+                        <div class="blog-category">Dinamo Tamiri</div>
+                    </div>
+                    <div class="blog-post-content">
+                        <h2><a href="#dinamo-arizalari">Araç Dinamosu Arızaları: Belirtiler ve Çözüm Yöntemleri</a></h2>
+                        <div class="blog-meta">
+                            <time datetime="2025-01-01"><i class="fas fa-calendar"></i> 1 Ocak 2025</time>
+                            <span class="author"><i class="fas fa-user"></i> Dinamocu Serdar</span>
+                            <span class="read-time"><i class="fas fa-clock"></i> 5 dk okuma</span>
+                        </div>
+                        <p>Araç dinamosu arızaları, sürücülerin en sık karşılaştığı sorunlardan biridir. Dinamo arızası yaşandığında araç çalışmayabilir veya ani elektrik kesintileri yaşanabilir. Bu yazıda, dinamo arızası belirtileri, çözüm yöntemleri ve bakım ipuçlarını bulacaksınız.</p>
+                        <div class="blog-post-footer">
+                            <a href="#dinamo-arizalari" class="read-more">Devamını Oku <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
                 </article>
                 <article class="blog-post">
                     <div class="blog-post-image"><div class="blog-placeholder"><i class="fas fa-battery-full"></i></div><div class="blog-category">Alternatör</div></div>
-                    <div class="blog-post-content"><h2><a href="#alternator-bakimi">Alternatör Bakımı: Uzun Ömürlü Kullanım İçin Uzman Tavsiyeleri</a></h2><div class="blog-meta"><time>1 Ocak 2025</time><span class="read-time">6 dk okuma</span></div><p>Alternatör, aracınızın elektrik sistemi için hayati öneme sahiptir...</p></div>
+                    <div class="blog-post-content">
+                        <h2><a href="#alternator-bakimi">Alternatör Bakımı: Uzun Ömürlü Kullanım İçin Uzman Tavsiyeleri</a></h2>
+                        <div class="blog-meta">
+                            <time datetime="2025-01-01"><i class="fas fa-calendar"></i> 1 Ocak 2025</time>
+                            <span class="read-time"><i class="fas fa-clock"></i> 6 dk okuma</span>
+                        </div>
+                        <p>Alternatör, aracınızın elektrik sistemi için hayati öneme sahiptir. Düzenli bakım ile alternatörünüzün ömrünü önemli ölçüde uzatabilirsiniz. Uzman tavsiyelerimizi keşfedin.</p>
+                        <div class="blog-post-footer">
+                            <a href="#alternator-bakimi" class="read-more">Devamını Oku <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
                 </article>
                 <article class="blog-post">
                     <div class="blog-post-image"><div class="blog-placeholder"><i class="fas fa-play"></i></div><div class="blog-category">Marş Motoru</div></div>
-                    <div class="blog-post-content"><h2><a href="#mars-motoru">Marş Motoru Sorunları: Tanı ve Çözüm Rehberi</a></h2><div class="blog-meta"><time>1 Ocak 2025</time><span class="read-time">4 dk okuma</span></div><p>Marş motoru, aracınızın çalışması için kritik bir bileşendir...</p></div>
+                    <div class="blog-post-content">
+                        <h2><a href="#mars-motoru">Marş Motoru Sorunları: Tanı ve Çözüm Rehberi</a></h2>
+                        <div class="blog-meta">
+                            <time datetime="2025-01-01"><i class="fas fa-calendar"></i> 1 Ocak 2025</time>
+                            <span class="read-time"><i class="fas fa-clock"></i> 4 dk okuma</span>
+                        </div>
+                        <p>Marş motoru, aracınızın çalışması için kritik bir bileşendir. Doğru tanı ve zamanında müdahale ile büyük masraflardan kurtulabilirsiniz. Detaylı rehberimizi inceleyin.</p>
+                        <div class="blog-post-footer">
+                            <a href="#mars-motoru" class="read-more">Devamını Oku <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
                 </article>
                 
                 <!-- Blog Post 1 -->
@@ -803,16 +890,24 @@
                 </article>
 
             </div>
+            
+            <!-- Pagination -->
+            <nav class="pagination" aria-label="Sayfalama">
+                <button class="page-btn" id="prevPage" disabled>Önceki</button>
+                <span class="page-status" id="pageStatus">Sayfa 1</span>
+                <button class="page-btn" id="nextPage">Sonraki</button>
+            </nav>
 
             <!-- Sidebar -->
             <aside class="blog-sidebar">
                 <div class="sidebar-widget">
-                    <h3>Hızlı İletişim</h3>
+                    <h3>🚀 Hızlı İletişim</h3>
                     <div class="contact-widget">
-                        <p><i class="fas fa-phone"></i> 0535 356 24 69</p>
-                        <p><i class="fab fa-whatsapp"></i> 0535 356 24 69</p>
+                        <p><i class="fas fa-phone"></i> <a href="tel:+905353562469" style="color: inherit; text-decoration: none;">0535 356 24 69</a></p>
+                        <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/905353562469" target="_blank" style="color: inherit; text-decoration: none;">WhatsApp: 0535 356 24 69</a></p>
                         <p><i class="fas fa-envelope"></i> serdaraltan890@gmail.com</p>
-                        <a href="index.html#contact" class="btn btn-primary">İletişime Geç</a>
+                        <a href="tel:+905353562469" class="btn btn-primary">📞 Hemen Ara</a>
+                        <a href="https://wa.me/905353562469" target="_blank" class="btn btn-whatsapp" style="margin-top: 0.5rem; width: 100%; justify-content: center;">💬 WhatsApp</a>
                     </div>
                 </div>
 
@@ -896,11 +991,15 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
+    <script src="js/performance-optimizer.js" defer></script>
+    <script src="js/ux-enhancements.js" defer></script>
     <script src="script.js" defer></script>
     <script src="js/blog-animations.js" defer></script>
     <script>
     document.addEventListener('DOMContentLoaded', function(){
-        const postsPerPage = 3;
+        // Pagination
+        const postsPerPage = 6;
         const grid = document.getElementById('blogGrid');
         if(!grid) return;
         const posts = Array.from(grid.querySelectorAll('.blog-post'));
@@ -926,7 +1025,7 @@
             if(currentPage>1){ 
                 currentPage--; 
                 renderPage(currentPage); 
-                window.scrollTo({top:0, behavior:'smooth'}); 
+                window.scrollTo({top: 0, behavior:'smooth'}); 
             } 
         });
         
@@ -934,11 +1033,54 @@
             if(currentPage<totalPages){ 
                 currentPage++; 
                 renderPage(currentPage); 
-                window.scrollTo({top:0, behavior:'smooth'}); 
+                window.scrollTo({top: 0, behavior:'smooth'}); 
             } 
         });
 
         renderPage(currentPage);
+        
+        // Search functionality
+        const searchInput = document.getElementById('blogSearch');
+        if(searchInput) {
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                posts.forEach(post => {
+                    const text = post.textContent.toLowerCase();
+                    const title = post.querySelector('h2')?.textContent.toLowerCase() || '';
+                    const content = post.querySelector('p')?.textContent.toLowerCase() || '';
+                    
+                    if(title.includes(searchTerm) || content.includes(searchTerm) || text.includes(searchTerm)) {
+                        post.style.display = '';
+                    } else {
+                        post.style.display = 'none';
+                    }
+                });
+            });
+        }
+        
+        // Category filter
+        const categoryChips = document.querySelectorAll('.blog-chip');
+        categoryChips.forEach(chip => {
+            chip.addEventListener('click', function() {
+                categoryChips.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                if(category === 'all') {
+                    posts.forEach(post => post.style.display = '');
+                    return;
+                }
+                
+                posts.forEach(post => {
+                    const postCategory = post.querySelector('.blog-category')?.textContent.toLowerCase() || '';
+                    if(postCategory.includes(category)) {
+                        post.style.display = '';
+                    } else {
+                        post.style.display = 'none';
+                    }
+                });
+            });
+        });
     });
     </script>
     <script src="js/language-switcher.js"></script>
