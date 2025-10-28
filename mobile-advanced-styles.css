@@ -1,0 +1,489 @@
+/**
+ * DC TEKNİK - Advanced Mobile Styles
+ * Gelişmiş mobil optimizasyonlar ve sorunsuz deneyim
+ */
+
+/* ========================================
+   OFFLINE MODE
+   ======================================== */
+
+.offline-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #f59e0b;
+    color: white;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    z-index: 10000;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.offline-banner.visible {
+    transform: translateY(0);
+}
+
+/* ========================================
+   SLOW CONNECTION MODE
+   ======================================== */
+
+.slow-connection .hero-background,
+.slow-connection .hero-particles,
+.slow-connection .floating-elements {
+    opacity: 0.5;
+    animation-duration: 3s;
+}
+
+.slow-connection img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* ========================================
+   REDUCED MOTION / ANIMATIONS
+   ======================================== */
+
+.reduced-motion *,
+.reduced-animations * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+}
+
+.reduced-motion .hero-shapes,
+.reduced-motion .hero-particles,
+.reduced-animations .hero-shapes,
+.reduced-animations .hero-particles {
+    display: none;
+}
+
+/* ========================================
+   LOW END DEVICE OPTIMIZATIONS
+   ======================================== */
+
+.low-end-device,
+.low-performance {
+    --animation-duration: 0.01ms;
+    --transition-duration: 0.01ms;
+}
+
+.low-end-device *,
+.low-performance * {
+    animation-duration: var(--animation-duration) !important;
+    transition-duration: var(--transition-duration) !important;
+    will-change: auto !important;
+}
+
+.low-end-device .hero-background,
+.low-end-device .hero-particles,
+.low-end-device .floating-elements,
+.low-performance .hero-background,
+.low-performance .hero-particles,
+.low-performance .floating-elements {
+    display: none;
+}
+
+/* ========================================
+   BATTERY SAVER MODE
+   ======================================== */
+
+.battery-saver-mode {
+    --reduce-animations: 1;
+}
+
+.battery-saver-mode * {
+    animation-duration: calc(var(--animation-duration, 0.3s) * 2) !important;
+}
+
+.battery-saver-mode .hero-background,
+.battery-saver-mode .hero-particles {
+    opacity: 0.3;
+    animation-play-state: paused;
+}
+
+/* ========================================
+   IMAGE LOADING STATES
+   ======================================== */
+
+img.loading {
+    opacity: 0.5;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s infinite;
+}
+
+img.loaded {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+img.error {
+    opacity: 0.7;
+    filter: grayscale(100%);
+}
+
+@keyframes loading-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ========================================
+   FORM LOADING OVERLAY
+   ======================================== */
+
+.form-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: white;
+    z-index: 10;
+    border-radius: inherit;
+}
+
+.form-loading-overlay .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* ========================================
+   MOBILE SPECIFIC UTILITIES
+   ======================================== */
+
+.mobile-only {
+    display: block;
+}
+
+.desktop-only {
+    display: none;
+}
+
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none;
+    }
+    
+    .desktop-only {
+        display: block;
+    }
+}
+
+/* ========================================
+   ENHANCED TOUCH FEEDBACK
+   ======================================== */
+
+button:active,
+.btn:active,
+.touch-active {
+    transform: scale(0.96);
+    opacity: 0.9;
+    transition: transform 0.1s, opacity 0.1s;
+}
+
+/* ========================================
+   MOBILE OPTIMIZED TRANSITIONS
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Use transform instead of position for better performance */
+    .slide-in {
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .slide-in.active {
+        transform: translateX(0);
+    }
+    
+    /* Fade transitions */
+    .fade-in {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .fade-in.active {
+        opacity: 1;
+    }
+}
+
+/* ========================================
+   MOBILE SCROLL OPTIMIZATIONS
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Smooth scroll with momentum */
+    * {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Optimize scroll performance */
+    .scrollable {
+        will-change: scroll-position;
+        contain: layout style paint;
+    }
+}
+
+/* ========================================
+   NETWORK STATUS INDICATOR
+   ======================================== */
+
+.network-status {
+    position: fixed;
+    top: 70px;
+    right: 1rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.network-status.visible {
+    display: flex;
+}
+
+.network-status.offline::before {
+    content: '📴';
+}
+
+.network-status.slow::before {
+    content: '🐌';
+}
+
+.network-status.online::before {
+    content: '📶';
+}
+
+/* ========================================
+   MOBILE MENU ENHANCEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .nav-menu {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background: rgba(26, 26, 26, 0.98);
+    }
+    
+    .nav-menu li {
+        transition: background-color 0.2s ease;
+    }
+    
+    .nav-menu li:active {
+        background-color: rgba(255, 107, 53, 0.1);
+    }
+    
+    /* Menu item animations */
+    .nav-menu.active li {
+        animation: slideInFromLeft 0.3s ease forwards;
+    }
+    
+    @keyframes slideInFromLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+/* ========================================
+   MOBILE BUTTON ENHANCEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .btn.loading {
+        position: relative;
+        color: transparent;
+        pointer-events: none;
+    }
+    
+    .btn.loading::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 50%;
+        left: 50%;
+        margin-left: -10px;
+        margin-top: -10px;
+        border: 2px solid currentColor;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+    }
+    
+    /* Better touch targets */
+    .btn,
+    button,
+    a.btn {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* ========================================
+   MOBILE FORM ENHANCEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    input.invalid,
+    textarea.invalid,
+    select.invalid {
+        border-color: #ef4444;
+        animation: shake 0.5s ease-in-out;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+    }
+    
+    .error-message {
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid #ef4444;
+        border-radius: 4px;
+        color: #ef4444;
+        font-size: 0.875rem;
+        animation: slideDown 0.3s ease;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* ========================================
+   WEBP SUPPORT
+   ======================================== */
+
+.webp-supported img[data-webp] {
+    content: url(attr(data-webp));
+}
+
+/* ========================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* GPU acceleration for better performance */
+    .mobile-animated,
+    .nav-menu,
+    .chat-window,
+    .floating-actions {
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        will-change: transform;
+    }
+    
+    /* Reduce repaints */
+    .service-card,
+    .review-card,
+    .feature-card {
+        contain: layout style paint;
+    }
+}
+
+/* ========================================
+   MOBILE SAFE AREA ENHANCEMENTS
+   ======================================== */
+
+@supports (padding: max(0px)) {
+    .offline-banner {
+        padding-top: max(0.75rem, env(safe-area-inset-top));
+    }
+    
+    .nav-menu {
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+}
+
+/* ========================================
+   MOBILE ACCESSIBILITY IMPROVEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Larger focus indicators on mobile */
+    *:focus-visible {
+        outline-width: 3px;
+        outline-offset: 3px;
+    }
+    
+    /* Better contrast for mobile screens */
+    .btn-primary {
+        background: var(--primary-color, #ff6b35);
+        color: white;
+        border: 2px solid var(--primary-color, #ff6b35);
+    }
+}
+
+/* ========================================
+   MOBILE LOADING STATES
+   ======================================== */
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+.skeleton-text {
+    height: 1em;
+    margin: 0.5rem 0;
+}
+
+.skeleton-title {
+    height: 1.5em;
+    width: 60%;
+    margin-bottom: 1rem;
+}
+
+/* ========================================
+   MOBILE RESPONSIVE TYPOGRAPHY
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Better line heights for mobile reading */
+    p {
+        line-height: 1.7;
+    }
+    
+    /* Larger touch targets for text links */
+    a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0;
+    }
+}
+
