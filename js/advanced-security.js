@@ -695,17 +695,6 @@ class AdvancedSecurity {
             });
         }
         
-        // Try to send via sendBeacon (silent, no console errors)
-        if (navigator.sendBeacon) {
-            try {
-                const data = JSON.stringify(event);
-                // Don't send to non-existent endpoint - just log locally
-                // navigator.sendBeacon('/api/security/events', data);
-            } catch (e) {
-                // Silently ignore
-            }
-        }
-        
         // Don't use fetch for non-existent endpoints - it causes 404 errors
         // Only log security events locally and to analytics
     }

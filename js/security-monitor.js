@@ -309,19 +309,19 @@
         
         sendSecurityReport(event) {
             // Send security report to monitoring endpoint
-            // Note: Static sites don't have backend endpoints - only use analytics
-            
-            // Send to Google Analytics if available
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'security_report', {
-                    event_category: 'security',
-                    event_label: event.type,
-                    value: 1
-                });
+            if (navigator.sendBeacon) {
+                const reportData = JSON.stringify(event);
+                navigator.sendBeacon('/security-report', reportData);
+            } else {
+                // Fallback for older browsers
+                fetch('/security-report', {
+                    method: 'POST',
+                    body: JSON.stringify(event),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).catch(err => console.warn('Failed to send security report:', err));
             }
-            
-            // Don't send to non-existent endpoints (causes 404 errors)
-            // Security events are logged locally and sent to analytics only
         }
         
         // Public methods
