@@ -11,11 +11,43 @@
     <meta name="msapplication-TileColor" content="#ff6b35">
     <meta name="msapplication-navbutton-color" content="#ff6b35">
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="contact-map-styles.css">
-    <link rel="stylesheet" href="ux-enhancements.css">
-    <link rel="stylesheet" href="performance-styles.css">
+    <!-- Critical CSS - Inline for above-the-fold content -->
+    <style>
+        /* Critical above-the-fold styles - Render blocking minimized */
+        :root{--primary-color:#ff6b35;--secondary-color:#1a1a1a;--text-color:#fff;--background:#0f0f0f}
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;color:var(--text-color);overflow-x:hidden;background:var(--background);position:relative}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px}
+        header{background:rgba(26,26,26,0.95);backdrop-filter:blur(10px);padding:1rem 0;position:sticky;top:0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.3)}
+        .logo-image{height:50px;width:auto}
+        nav ul{display:flex;list-style:none;gap:2rem;align-items:center}
+        nav a{color:var(--text-color);text-decoration:none;transition:color 0.3s}
+        nav a:hover{color:var(--primary-color)}
+        .hero{min-height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;position:relative}
+        h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:700;line-height:1.2;margin-bottom:1rem}
+        .btn-primary{display:inline-block;padding:1rem 2rem;background:var(--primary-color);color:#fff;border-radius:4px;text-decoration:none;transition:all 0.3s;font-weight:600}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,107,53,0.4)}
+        @media(max-width:768px){nav ul{flex-direction:column;gap:1rem}}
+    </style>
+    
+    <!-- Non-critical stylesheets - Load asynchronously -->
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="style.css"></noscript>
+    
+    <link rel="preload" href="contact-map-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="contact-map-styles.css"></noscript>
+    
+    <link rel="preload" href="ux-enhancements.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="ux-enhancements.css"></noscript>
+    
+    <link rel="preload" href="performance-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="performance-styles.css"></noscript>
+    
+    <!-- Fallback script for async CSS loading -->
+    <script>
+        (function(){var raf=requestAnimationFrame||function(cb){setTimeout(cb,16)};var loadCSS=function(href,media){var link=document.createElement('link');link.rel='stylesheet';link.href=href;if(media)link.media=media;document.head.appendChild(link)};raf(function(){if(document.querySelector('link[rel="preload"][as="style"]')){var links=document.querySelectorAll('link[rel="preload"][as="style"]');links.forEach(function(link){loadCSS(link.href,link.media);link.remove()})}})})();
+    </script>
     
     <title>DC TEKNİK - Dinamocu Serdar | Dinamo Tamiri | Alternatör Onarımı</title>
     <meta name="description" content="DC TEKNİK Sultanbeyli'de profesyonel dinamo tamiri, alternatör onarımı ve marş motoru servisi. %100 garantili, hızlı teşhis, şeffaf fiyat.">
@@ -166,17 +198,16 @@
     <link rel="icon" type="image/svg+xml" href="favicon-new.svg">
     <link rel="manifest" href="manifest.webmanifest">
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="ux-enhancements.css" as="style">
-    <link rel="preload" href="performance-styles.css" as="style">
-    <link rel="preload" href="js/ux-enhancements.js" as="script">
-    <link rel="preload" href="script.js" as="script">
+    <!-- Preload critical resources - Optimized priority -->
     <link rel="preload" href="logo-new.svg" as="image" type="image/svg+xml" fetchpriority="high">
+    <link rel="preload" href="js/font-optimizer.js" as="script">
     
-    <!-- Font Awesome with preload -->
+    <!-- Font Awesome with async load -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
+    <!-- Font Optimizer - Load early -->
+    <script src="js/font-optimizer.js" defer></script>
     
     <!-- Image Loading Error Handler -->
     <script>
@@ -1271,22 +1302,21 @@
         </div>
     </footer>
 
-    <!-- Performance Optimizer - Load early -->
-    <script src="js/performance-optimizer.js" onerror="console.error('Performance Optimizer failed to load')"></script>
+    <!-- Critical Loader - Load early -->
+    <script src="js/critical-load.js"></script>
     
-    <!-- UX Enhancements - Smooth transitions and animations -->
-    <script src="js/ux-enhancements.js" onerror="console.error('UX Enhancements failed to load')"></script>
+    <!-- Performance Optimizer - Load early with defer -->
+    <script defer src="js/performance-optimizer.js" onerror="console.error('Performance Optimizer failed to load')"></script>
     
-    <!-- Security Systems -->
-    <link rel="preload" href="js/advanced-security.js" as="script">
-    <link rel="preload" href="js/security-monitor.js" as="script">
-    <link rel="preload" href="script.js" as="script">
+    <!-- UX Enhancements - Defer for non-blocking load -->
+    <script defer src="js/ux-enhancements.js" onerror="console.error('UX Enhancements failed to load')"></script>
     
-    <script src="js/advanced-security.js" onerror="console.error('Advanced Security failed to load')"></script>
-    <script src="js/security-monitor.js" onerror="console.error('Security Monitor failed to load')"></script>
+    <!-- Security Systems - Defer for non-blocking load -->
+    <script defer src="js/advanced-security.js" onerror="console.error('Advanced Security failed to load')"></script>
+    <script defer src="js/security-monitor.js" onerror="console.error('Security Monitor failed to load')"></script>
     
-    <!-- Main JavaScript -->
-    <script src="script.js" onerror="console.error('Main script failed to load')"></script>
+    <!-- Main JavaScript - Defer for non-blocking load -->
+    <script defer src="script.js" onerror="console.error('Main script failed to load')"></script>
     
     <!-- Service Worker Update Handler -->
     <script>

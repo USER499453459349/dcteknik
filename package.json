@@ -1,29 +1,13 @@
 {
   "name": "dcteknik-website",
-  "version": "1.7.2",
+  "version": "1.5.0",
   "description": "DC TEKNİK - Sultanbeyli Dinamocu Servisi Profesyonel Web Sitesi",
   "main": "index.html",
   "scripts": {
-    "build": "node build-cache-bust.js && echo 'Static site build complete'",
-    "deploy": "npm run build && echo 'Deploying to Netlify...'",
+    "build": "echo 'Static site build complete'",
+    "deploy": "echo 'Deploying to Netlify...'",
     "dev": "python -m http.server 8000",
-    "start": "python -m http.server 8000",
-    "cache-bust": "node build-cache-bust.js",
-    "update": "npm run cache-bust && echo 'Cache updated - ready to deploy'",
-    "pre-deploy": "node pre-deploy-check.js",
-    "deploy-safe": "node deploy-safe.js",
-    "validate": "node pre-deploy-check.js",
-    "commit": "node git-commit.js",
-    "commit:push": "node git-commit.js --push",
-    "version": "node version-manager.js",
-    "version:patch": "node version-manager.js patch",
-    "version:minor": "node version-manager.js minor",
-    "version:major": "node version-manager.js major",
-    "release": "node release.js patch",
-    "release:patch": "node release.js patch",
-    "release:minor": "node release.js minor",
-    "release:major": "node release.js major",
-    "release:commit": "node release.js patch --commit"
+    "start": "python -m http.server 8000"
   },
   "keywords": [
     "dcteknik",

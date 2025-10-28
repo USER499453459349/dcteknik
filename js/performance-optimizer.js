@@ -11,19 +11,24 @@
     window.PerformanceOptimizer = window.PerformanceOptimizer || {};
     
     /**
-     * Image Optimization
+     * Image Optimization - Enhanced
      */
     function optimizeImages() {
         const images = document.querySelectorAll('img');
         
         images.forEach(img => {
+            // Skip if already optimized
+            if (img.dataset.optimized === 'true') return;
+            
             // Lazy loading için (native veya Intersection Observer)
             if (!img.hasAttribute('loading')) {
                 // Above the fold images hariç lazy loading
                 if (!isAboveFold(img)) {
                     img.loading = 'lazy';
+                    img.decoding = 'async';
                 } else {
                     img.loading = 'eager';
+                    img.fetchPriority = 'high';
                 }
             }
             
@@ -33,8 +38,17 @@
             }
             
             // Decoding (async for performance)
-            if (!img.hasAttribute('decoding')) {
+            if (!img.hasAttribute('decoding') && !isAboveFold(img)) {
                 img.decoding = 'async';
+            }
+            
+            // Width/Height attributes for CLS prevention
+            if (!img.hasAttribute('width') || !img.hasAttribute('height')) {
+                // Set aspect ratio if natural dimensions available
+                if (img.complete && img.naturalWidth && img.naturalHeight) {
+                    const aspectRatio = (img.naturalHeight / img.naturalWidth) * 100;
+                    img.style.aspectRatio = `${img.naturalWidth} / ${img.naturalHeight}`;
+                }
             }
             
             // Image error handling
@@ -45,17 +59,18 @@
                 } else {
                     this.src = this.getAttribute('data-fallback');
                 }
-            });
+            }, { once: true });
             
             // Image load optimization
             img.addEventListener('load', function() {
                 this.classList.add('img-loaded');
+                this.dataset.optimized = 'true';
                 // Remove loading placeholder if exists
                 const placeholder = this.parentElement.querySelector('.img-placeholder');
                 if (placeholder) {
                     placeholder.remove();
                 }
-            });
+            }, { once: true });
         });
         
         console.log('✅ Images optimized:', images.length);
