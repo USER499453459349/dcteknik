@@ -20,33 +20,37 @@
         }
         
         monitorXSS() {
-            // Monitor for XSS attempts
-            const originalInnerHTML = Element.prototype.innerHTML;
-            const originalOuterHTML = Element.prototype.outerHTML;
+            // Monitor for XSS attempts using MutationObserver instead of prototype override
+            // Prototype override causes "Illegal invocation" error with getter/setter properties
             
-            Element.prototype.innerHTML = function(value) {
-                if (value && this.isXSSAttempt(value)) {
-                    this.logSecurityEvent('xss_attempt', {
-                        element: this.tagName,
-                        content: value.substring(0, 100),
-                        url: window.location.href,
-                        userAgent: navigator.userAgent
+            // Use MutationObserver to detect DOM changes that might be XSS attempts
+            if (typeof MutationObserver !== 'undefined') {
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        if (mutation.type === 'childList' || mutation.type === 'attributes') {
+                            mutation.addedNodes.forEach((node) => {
+                                if (node.nodeType === 1) { // Element node
+                                    const nodeContent = node.innerHTML || node.outerHTML || '';
+                                    if (nodeContent && this.isXSSAttempt(nodeContent)) {
+                                        this.logSecurityEvent('xss_attempt', {
+                                            element: node.tagName || 'Unknown',
+                                            content: nodeContent.substring(0, 100),
+                                            url: window.location.href,
+                                            userAgent: navigator.userAgent
+                                        });
+                                    }
+                                }
+                            });
+                        }
                     });
-                }
-                return originalInnerHTML.call(this, value);
-            }.bind(this);
-            
-            Element.prototype.outerHTML = function(value) {
-                if (value && this.isXSSAttempt(value)) {
-                    this.logSecurityEvent('xss_attempt', {
-                        element: this.tagName,
-                        content: value.substring(0, 100),
-                        url: window.location.href,
-                        userAgent: navigator.userAgent
-                    });
-                }
-                return originalOuterHTML.call(this, value);
-            }.bind(this);
+                });
+                
+                observer.observe(document.body || document.documentElement, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true
+                });
+            }
         }
         
         isXSSAttempt(content) {
@@ -305,19 +309,19 @@
         
         sendSecurityReport(event) {
             // Send security report to monitoring endpoint
-            if (navigator.sendBeacon) {
-                const reportData = JSON.stringify(event);
-                navigator.sendBeacon('/security-report', reportData);
-            } else {
-                // Fallback for older browsers
-                fetch('/security-report', {
-                    method: 'POST',
-                    body: JSON.stringify(event),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }).catch(err => console.warn('Failed to send security report:', err));
+            // Note: Static sites don't have backend endpoints - only use analytics
+            
+            // Send to Google Analytics if available
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'security_report', {
+                    event_category: 'security',
+                    event_label: event.type,
+                    value: 1
+                });
             }
+            
+            // Don't send to non-existent endpoints (causes 404 errors)
+            // Security events are logged locally and sent to analytics only
         }
         
         // Public methods
