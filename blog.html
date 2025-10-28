@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="blog-styles.css?v=20250101v1">
     <link rel="stylesheet" href="blog-modern-styles.css">
     <link rel="stylesheet" href="blog-nav-fix.css">
+    <link rel="stylesheet" href="blog-enhancements-styles.css">
     <link rel="stylesheet" href="ux-enhancements.css">
     <link rel="stylesheet" href="performance-styles.css">
     <link rel="manifest" href="manifest.webmanifest">
@@ -128,11 +129,12 @@
                     <input type="search" placeholder="Yazılarda ara..." id="blogSearch">
                 </div>
                 <div class="blog-chips">
-                    <button class="blog-chip active" data-category="all">Tümü</button>
-                    <button class="blog-chip" data-category="dinamo">Dinamo</button>
-                    <button class="blog-chip" data-category="alternator">Alternatör</button>
-                    <button class="blog-chip" data-category="mars">Marş Motoru</button>
-                    <button class="blog-chip" data-category="bakim">Bakım</button>
+                    <button class="blog-chip active" data-category="all">📝 Tümü</button>
+                    <button class="blog-chip" data-category="dinamo">🔧 Dinamo</button>
+                    <button class="blog-chip" data-category="alternator">⚡ Alternatör</button>
+                    <button class="blog-chip" data-category="mars">🚗 Marş Motoru</button>
+                    <button class="blog-chip" data-category="bakim">🛠️ Bakım</button>
+                    <button class="blog-chip" data-category="rehber">📚 Rehber</button>
                 </div>
             </div>
         </div>
@@ -156,8 +158,27 @@
                             <span class="read-time"><i class="fas fa-clock"></i> 5 dk okuma</span>
                         </div>
                         <p>Araç dinamosu arızaları, sürücülerin en sık karşılaştığı sorunlardan biridir. Dinamo arızası yaşandığında araç çalışmayabilir veya ani elektrik kesintileri yaşanabilir. Bu yazıda, dinamo arızası belirtileri, çözüm yöntemleri ve bakım ipuçlarını bulacaksınız.</p>
+                        
+                        <!-- Share Buttons -->
+                        <div class="share-buttons">
+                            <h4>📤 Paylaş:</h4>
+                            <button class="share-btn facebook" data-platform="facebook">
+                                <i class="fab fa-facebook-f"></i> Facebook
+                            </button>
+                            <button class="share-btn twitter" data-platform="twitter">
+                                <i class="fab fa-twitter"></i> Twitter
+                            </button>
+                            <button class="share-btn whatsapp" data-platform="whatsapp">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </button>
+                            <button class="share-btn copy" data-platform="copy">
+                                <i class="fas fa-link"></i> Link Kopyala
+                            </button>
+                        </div>
+                        
                         <div class="blog-post-footer">
                             <a href="#dinamo-arizalari" class="read-more">Devamını Oku <i class="fas fa-arrow-right"></i></a>
+                            <button class="print-btn"><i class="fas fa-print"></i> Yazdır</button>
                         </div>
                     </div>
                 </article>
@@ -940,6 +961,30 @@
                         </article>
                     </div>
                 </div>
+                
+                <!-- Newsletter Widget -->
+                <div class="sidebar-widget newsletter-widget">
+                    <h3>📧 Newsletter</h3>
+                    <p>Yeni yazılar ve özel kampanyalardan haberdar olmak için newsletter'a abone olun!</p>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <input type="email" placeholder="E-posta adresiniz" required>
+                        <button type="submit">Abone Ol</button>
+                    </form>
+                </div>
+                
+                <!-- Tags Widget -->
+                <div class="sidebar-widget">
+                    <h3>🏷️ Etiketler</h3>
+                    <div class="blog-tags">
+                        <button class="tag-btn active">Tümü</button>
+                        <button class="tag-btn">Dinamo</button>
+                        <button class="tag-btn">Alternatör</button>
+                        <button class="tag-btn">Marş Motoru</button>
+                        <button class="tag-btn">Bakım</button>
+                        <button class="tag-btn">Arıza</button>
+                        <button class="tag-btn">Rehber</button>
+                    </div>
+                </div>
             </aside>
 
         </div>
@@ -995,6 +1040,7 @@
     <!-- Scripts -->
     <script src="js/performance-optimizer.js" defer></script>
     <script src="js/ux-enhancements.js" defer></script>
+    <script src="js/blog-enhancements.js" defer></script>
     <script src="script.js" defer></script>
     <script src="js/blog-animations.js" defer></script>
     <script>
