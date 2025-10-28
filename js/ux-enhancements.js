@@ -1,440 +1,250 @@
-// UX Enhancements - DC TEKNİK
+/**
+ * DC TEKNİK - UX Enhancements
+ * Smooth transitions, scroll animations, toast notifications
+ * Mevcut script.js'i bozmadan güvenli şekilde eklendi
+ */
+
 (function() {
     'use strict';
     
-    class UXEnhancements {
-        constructor() {
-            this.scrollPosition = 0;
-            this.isScrolling = false;
-            this.init();
+    // Mevcut kodları bozmamak için namespace kullan
+    window.UXEnhancements = window.UXEnhancements || {};
+    
+    /**
+     * Scroll Animations - Intersection Observer ile
+     */
+    function initScrollAnimations() {
+        if (typeof IntersectionObserver === 'undefined') {
+            return; // Browser desteklemiyor
         }
         
-        init() {
-            this.addSmoothScrolling();
-            this.addLoadingStates();
-            this.addErrorHandling();
-            this.addSuccessFeedback();
-            this.addKeyboardNavigation();
-            this.addTouchOptimizations();
-            this.addAccessibilityFeatures();
-            this.addPerformanceOptimizations();
-        }
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
         
-        addSmoothScrolling() {
-            // Smooth scroll for anchor links
-            const anchorLinks = document.querySelectorAll('a[href^="#"]');
-            anchorLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-            
-            // Add scroll-to-top functionality
-            this.addScrollToTop();
-        }
-        
-        addScrollToTop() {
-            const scrollToTopBtn = document.createElement('button');
-            scrollToTopBtn.className = 'scroll-to-top';
-            scrollToTopBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
-            scrollToTopBtn.setAttribute('aria-label', 'Sayfanın başına dön');
-            scrollToTopBtn.style.display = 'none';
-            
-            document.body.appendChild(scrollToTopBtn);
-            
-            // Show/hide button based on scroll position
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    scrollToTopBtn.style.display = 'block';
-                    scrollToTopBtn.style.animation = 'fadeIn 0.3s ease';
-                } else {
-                    scrollToTopBtn.style.display = 'none';
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Performance için bir kez görüldükten sonra observe etmeyi bırak
+                    observer.unobserve(entry.target);
                 }
             });
-            
-            // Scroll to top on click
-            scrollToTopBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
+        }, observerOptions);
+        
+        // Scroll animasyonu için elementleri bul
+        const animatedElements = document.querySelectorAll(
+            '.scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale'
+        );
+        
+        animatedElements.forEach(element => {
+            observer.observe(element);
+        });
+        
+        console.log('✅ Scroll animations initialized:', animatedElements.length, 'elements');
+    }
+    
+    /**
+     * Toast Notification System
+     */
+    function createToastContainer() {
+        if (document.querySelector('.toast-container')) {
+            return; // Zaten var
         }
         
-        addLoadingStates() {
-            // Add loading states for dynamic content
-            this.addPageLoading();
-            this.addImageLoading();
-            this.addFormLoading();
-        }
+        const container = document.createElement('div');
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
+    
+    function showToast(message, type = 'info', title = '') {
+        createToastContainer();
+        const container = document.querySelector('.toast-container');
         
-        addPageLoading() {
-            // Show loading spinner on page load
-            const loadingOverlay = document.createElement('div');
-            loadingOverlay.className = 'page-loading-overlay';
-            loadingOverlay.innerHTML = `
-                <div class="loading-spinner">
-                    <div class="spinner"></div>
-                    <p>Yükleniyor...</p>
-                </div>
-            `;
-            
-            document.body.appendChild(loadingOverlay);
-            
-            // Hide loading overlay when page is fully loaded
-            window.addEventListener('load', () => {
-                setTimeout(() => {
-                    loadingOverlay.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingOverlay.remove();
-                    }, 300);
-                }, 500);
-            });
-        }
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
         
-        addImageLoading() {
-            // Add loading states for images
-            const images = document.querySelectorAll('img');
-            images.forEach(img => {
-                if (!img.complete) {
-                    img.style.opacity = '0';
-                    img.addEventListener('load', () => {
-                        img.style.transition = 'opacity 0.3s ease';
-                        img.style.opacity = '1';
+        const icons = {
+            success: '✓',
+            error: '✕',
+            warning: '⚠',
+            info: 'ℹ'
+        };
+        
+        toast.innerHTML = `
+            <div class="toast-icon">${icons[type] || icons.info}</div>
+            <div class="toast-content">
+                ${title ? `<div class="toast-title">${title}</div>` : ''}
+                <div class="toast-message">${message}</div>
+            </div>
+            <button class="toast-close" aria-label="Kapat">×</button>
+        `;
+        
+        container.appendChild(toast);
+        
+        // Close button
+        const closeBtn = toast.querySelector('.toast-close');
+        closeBtn.addEventListener('click', () => {
+            removeToast(toast);
+        });
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            removeToast(toast);
+        }, 5000);
+        
+        return toast;
+    }
+    
+    function removeToast(toast) {
+        toast.classList.add('fade-out');
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 300);
+    }
+    
+    /**
+     * Smooth Page Transitions
+     */
+    function initPageTransitions() {
+        // Sayfa yüklendiğinde fade-in
+        document.body.classList.add('page-transition');
+        
+        // Link'lere smooth transition ekle
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
-        }
+        });
+    }
+    
+    /**
+     * Button Ripple Effects
+     */
+    function initRippleEffects() {
+        document.querySelectorAll('.btn, .btn-primary, .btn-whatsapp, button').forEach(button => {
+            // Ripple class'ı ekle
+            if (!button.classList.contains('ripple')) {
+                button.classList.add('ripple');
+            }
+        });
+    }
+    
+    /**
+     * Form Enhancements
+     */
+    function initFormEnhancements() {
+        const forms = document.querySelectorAll('form');
         
-        addFormLoading() {
-            // Add loading states for forms
-            const forms = document.querySelectorAll('form');
-            forms.forEach(form => {
-                form.addEventListener('submit', () => {
-                    const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
-                    if (submitBtn) {
-                        submitBtn.disabled = true;
-                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gönderiliyor...';
+        forms.forEach(form => {
+            // Form submit'te toast göster
+            form.addEventListener('submit', function(e) {
+                // Validation kontrolü (basit)
+                let isValid = true;
+                const requiredFields = form.querySelectorAll('[required]');
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.classList.add('shake');
+                        setTimeout(() => field.classList.remove('shake'), 500);
                     }
                 });
-            });
-        }
-        
-        addErrorHandling() {
-            // Global error handling
-            window.addEventListener('error', (e) => {
-                console.error('Global error:', e.error);
-                this.showErrorNotification('Bir hata oluştu. Lütfen sayfayı yenileyin.');
-            });
-            
-            // Network error handling
-            window.addEventListener('online', () => {
-                this.showSuccessNotification('İnternet bağlantısı yeniden kuruldu.');
-            });
-            
-            window.addEventListener('offline', () => {
-                this.showErrorNotification('İnternet bağlantısı kesildi.');
-            });
-        }
-        
-        addSuccessFeedback() {
-            // Success feedback for user actions
-            this.addSuccessNotifications();
-            this.addConfirmationDialogs();
-        }
-        
-        addSuccessNotifications() {
-            // Add success notification system
-            this.notificationContainer = document.createElement('div');
-            this.notificationContainer.className = 'notification-container';
-            document.body.appendChild(this.notificationContainer);
-        }
-        
-        showSuccessNotification(message) {
-            this.showNotification(message, 'success');
-        }
-        
-        showErrorNotification(message) {
-            this.showNotification(message, 'error');
-        }
-        
-        showNotification(message, type) {
-            const notification = document.createElement('div');
-            notification.className = `notification notification-${type}`;
-            notification.innerHTML = `
-                <div class="notification-content">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-                    <span>${message}</span>
-                </div>
-                <button class="notification-close" aria-label="Kapat">
-                    <i class="fas fa-times"></i>
-                </button>
-            `;
-            
-            this.notificationContainer.appendChild(notification);
-            
-            // Auto remove after 5 seconds
-            setTimeout(() => {
-                notification.remove();
-            }, 5000);
-            
-            // Close on click
-            notification.querySelector('.notification-close').addEventListener('click', () => {
-                notification.remove();
-            });
-        }
-        
-        addConfirmationDialogs() {
-            // Add confirmation for important actions
-            const importantButtons = document.querySelectorAll('.btn-danger, .delete-btn, .cancel-btn');
-            importantButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    if (!confirm('Bu işlemi gerçekleştirmek istediğinizden emin misiniz?')) {
-                        e.preventDefault();
-                    }
-                });
-            });
-        }
-        
-        addKeyboardNavigation() {
-            // Enhanced keyboard navigation
-            document.addEventListener('keydown', (e) => {
-                // Escape key to close modals
-                if (e.key === 'Escape') {
-                    this.closeModals();
-                }
                 
-                // Tab navigation enhancement
-                if (e.key === 'Tab') {
-                    this.enhanceTabNavigation();
+                if (!isValid) {
+                    e.preventDefault();
+                    showToast('Lütfen tüm zorunlu alanları doldurun', 'warning', 'Form Hatası');
                 }
             });
-        }
-        
-        closeModals() {
-            const modals = document.querySelectorAll('.modal, .popup, .overlay');
-            modals.forEach(modal => {
-                modal.style.display = 'none';
-            });
-        }
-        
-        enhanceTabNavigation() {
-            // Add visual focus indicators
-            const focusableElements = document.querySelectorAll('a, button, input, select, textarea, [tabindex]');
-            focusableElements.forEach(element => {
-                element.addEventListener('focus', () => {
-                    element.classList.add('keyboard-focus');
+            
+            // Input focus effects
+            const inputs = form.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement?.classList.add('focused');
                 });
                 
-                element.addEventListener('blur', () => {
-                    element.classList.remove('keyboard-focus');
+                input.addEventListener('blur', function() {
+                    this.parentElement?.classList.remove('focused');
                 });
             });
-        }
-        
-        addTouchOptimizations() {
-            // Touch gesture support
-            this.addSwipeGestures();
-            this.addTouchFeedback();
-        }
-        
-        addSwipeGestures() {
-            // Add swipe gestures for mobile
-            let startX, startY, endX, endY;
-            
-            document.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-                startY = e.touches[0].clientY;
-            });
-            
-            document.addEventListener('touchend', (e) => {
-                endX = e.changedTouches[0].clientX;
-                endY = e.changedTouches[0].clientY;
-                
-                const diffX = startX - endX;
-                const diffY = startY - endY;
-                
-                // Horizontal swipe
-                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-                    if (diffX > 0) {
-                        // Swipe left
-                        this.handleSwipeLeft();
-                    } else {
-                        // Swipe right
-                        this.handleSwipeRight();
-                    }
-                }
-            });
-        }
-        
-        handleSwipeLeft() {
-            // Handle swipe left gesture
-            console.log('Swipe left detected');
-        }
-        
-        handleSwipeRight() {
-            // Handle swipe right gesture
-            console.log('Swipe right detected');
-        }
-        
-        addTouchFeedback() {
-            // Add haptic feedback for touch interactions
-            const touchElements = document.querySelectorAll('button, .btn, a');
-            touchElements.forEach(element => {
-                element.addEventListener('touchstart', () => {
-                    element.style.transform = 'scale(0.95)';
-                });
-                
-                element.addEventListener('touchend', () => {
-                    element.style.transform = 'scale(1)';
-                });
-            });
-        }
-        
-        addAccessibilityFeatures() {
-            // Enhanced accessibility
-            this.addSkipLinks();
-            this.addARIALabels();
-            this.addFocusManagement();
-        }
-        
-        addSkipLinks() {
-            // Add skip navigation links
-            const skipLink = document.createElement('a');
-            skipLink.href = '#main-content';
-            skipLink.textContent = 'Ana içeriğe geç';
-            skipLink.className = 'skip-link';
-            skipLink.setAttribute('aria-label', 'Ana içeriğe geç');
-            
-            document.body.insertBefore(skipLink, document.body.firstChild);
-        }
-        
-        addARIALabels() {
-            // Add ARIA labels to interactive elements
-            const interactiveElements = document.querySelectorAll('button, a, input, select, textarea');
-            interactiveElements.forEach(element => {
-                if (!element.getAttribute('aria-label') && !element.textContent.trim()) {
-                    element.setAttribute('aria-label', 'Etkileşimli öğe');
-                }
-            });
-        }
-        
-        addFocusManagement() {
-            // Manage focus for better accessibility
-            const modals = document.querySelectorAll('.modal, .popup');
-            modals.forEach(modal => {
-                modal.addEventListener('shown', () => {
-                    const firstFocusable = modal.querySelector('button, input, select, textarea, a');
-                    if (firstFocusable) {
-                        firstFocusable.focus();
-                    }
-                });
-            });
-        }
-        
-        addPerformanceOptimizations() {
-            // Performance optimizations
-            this.addLazyLoading();
-            this.addDebouncedEvents();
-            this.addThrottledScroll();
-        }
-        
-        addLazyLoading() {
-            // Lazy load images and content
-            const lazyImages = document.querySelectorAll('img[data-src]');
-            const imageObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src;
-                        img.removeAttribute('data-src');
-                        imageObserver.unobserve(img);
-                    }
-                });
-            });
-            
-            lazyImages.forEach(img => imageObserver.observe(img));
-        }
-        
-        addDebouncedEvents() {
-            // Debounce resize events
-            let resizeTimeout;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    this.handleResize();
-                }, 250);
-            });
-        }
-        
-        handleResize() {
-            // Handle window resize
-            this.viewportHeight = window.innerHeight;
-            this.viewportWidth = window.innerWidth;
-        }
-        
-        addThrottledScroll() {
-            // Throttle scroll events
-            let scrollTimeout;
-            window.addEventListener('scroll', () => {
-                if (!scrollTimeout) {
-                    scrollTimeout = setTimeout(() => {
-                        this.handleScroll();
-                        scrollTimeout = null;
-                    }, 16); // ~60fps
-                }
-            });
-        }
-        
-        handleScroll() {
-            this.scrollPosition = window.scrollY;
-            this.isScrolling = true;
-            
-            // Update scroll-dependent elements
-            this.updateScrollElements();
-        }
-        
-        updateScrollElements() {
-            // Update elements based on scroll position
-            const parallaxElements = document.querySelectorAll('.parallax');
-            parallaxElements.forEach(element => {
-                const speed = element.dataset.speed || 0.5;
-                const yPos = -(this.scrollPosition * speed);
-                element.style.transform = `translateY(${yPos}px)`;
-            });
-        }
-        
-        // Public methods
-        showNotification(message, type = 'info') {
-            this.showNotification(message, type);
-        }
-        
-        getScrollPosition() {
-            return this.scrollPosition;
-        }
-        
-        isScrolling() {
-            return this.isScrolling;
+        });
+    }
+    
+    /**
+     * Loading States
+     */
+    function showLoading(element) {
+        const loading = document.createElement('div');
+        loading.className = 'loading-spinner';
+        loading.setAttribute('aria-label', 'Yükleniyor...');
+        element.appendChild(loading);
+        return loading;
+    }
+    
+    function hideLoading(element) {
+        const loading = element.querySelector('.loading-spinner');
+        if (loading) {
+            loading.remove();
         }
     }
     
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-            window.uxEnhancements = new UXEnhancements();
+    /**
+     * Card Hover Enhancements
+     */
+    function initCardEnhancements() {
+        const cards = document.querySelectorAll('.service-card, .review-card, .feature-card, .stat-counter');
+        
+        cards.forEach((card, index) => {
+            // Staggered animation için delay ekle
+            card.style.transitionDelay = `${index * 0.05}s`;
+            
+            // Scroll animation class'ı ekle
+            card.classList.add('scroll-fade-in');
         });
-    } else {
-        window.uxEnhancements = new UXEnhancements();
     }
+    
+    /**
+     * Initialize all UX enhancements
+     */
+    function init() {
+        // DOM hazır olduğunda başlat
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+            return;
+        }
+        
+        console.log('🎨 UX Enhancements initializing...');
+        
+        // Özellikleri başlat
+        initScrollAnimations();
+        initPageTransitions();
+        initRippleEffects();
+        initFormEnhancements();
+        initCardEnhancements();
+        
+        // Global fonksiyonlar (window'a ekle)
+        window.showToast = showToast;
+        window.showLoading = showLoading;
+        window.hideLoading = hideLoading;
+        
+        console.log('✅ UX Enhancements initialized!');
+    }
+    
+    // Hemen başlat
+    init();
+    
 })();
-
-
