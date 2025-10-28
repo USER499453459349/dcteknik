@@ -1,6 +1,62 @@
 /*
-  X-Frame-Options: DENY
+  # Security Headers
+  
+  # Content Security Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://maps.googleapis.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; img-src 'self' data: https: blob:; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://maps.googleapis.com; frame-src 'self' https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;
+  
+  # XSS Protection
   X-XSS-Protection: 1; mode=block
+  
+  # Clickjacking Protection
+  X-Frame-Options: DENY
+  
+  # MIME Type Sniffing Protection
   X-Content-Type-Options: nosniff
-  Cache-Control: public, max-age=3600
+  
+  # Referrer Policy
+  Referrer-Policy: strict-origin-when-cross-origin
+  
+  # Permissions Policy (formerly Feature Policy)
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), fullscreen=(self), picture-in-picture=()
+  
+  # Strict Transport Security (HSTS)
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  
+  # DNS Prefetch Control
+  X-DNS-Prefetch-Control: on
+  
+  # Download Options
+  X-Download-Options: noopen
+  
+  # Cross-Domain Policies
+  X-Permitted-Cross-Domain-Policies: none
+  
+  # Cache Control - Optimized for fast updates
+  Cache-Control: public, max-age=3600, must-revalidate
 
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable

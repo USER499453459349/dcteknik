@@ -1,0 +1,14 @@
+Contact: mailto:serdaraltan890@gmail.com
+Expires: 2026-12-31T23:59:59.000Z
+Encryption: https://dctenık.com/.well-known/pgp-key.txt
+Preferred-Languages: tr, en
+Canonical: https://dctenık.com/.well-known/security.txt
+Policy: https://dctenık.com/security-policy
+
+# DC TEKNİK Security Policy
+# Güvenlik açığı bildirimleri için: serdaraltan890@gmail.com
+# Sadece güvenlik açığı raporları için bu adresi kullanın.
+
+Acknowledgments: https://dctenık.com/security-acknowledgments
+Hiring: https://dctenık.com/careers
+
