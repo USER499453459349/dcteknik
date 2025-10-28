@@ -368,81 +368,10 @@ class AdvancedSecurity {
             sameSite: 'strict'
         };
         
-        // Monitor session activity
-        this.monitorSessionActivity();
+        // Session monitoring removed - no auto-logout for static site
+        // Monitor session activity is disabled to prevent auto-logout popups
         
-        // Auto-logout on inactivity
-        this.setupAutoLogout();
-        
-        console.log('🛡️ Session Security enabled');
-    }
-    
-    monitorSessionActivity() {
-        let lastActivity = Date.now();
-        
-        // Track user activity
-        const activityEvents = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
-        
-        activityEvents.forEach(event => {
-            document.addEventListener(event, () => {
-                lastActivity = Date.now();
-            }, true);
-        });
-        
-        // Check session timeout
-        setInterval(() => {
-            const now = Date.now();
-            if (now - lastActivity > this.sessionConfig.timeout) {
-                this.logoutUser();
-            }
-        }, 60000); // Check every minute
-    }
-    
-    setupAutoLogout() {
-        // Show warning before logout
-        const warningTime = 5 * 60 * 1000; // 5 minutes before logout
-        
-        setInterval(() => {
-            const now = Date.now();
-            const timeSinceActivity = now - this.getLastActivity();
-            
-            if (timeSinceActivity > (this.sessionConfig.timeout - warningTime)) {
-                this.showLogoutWarning();
-            }
-        }, 30000); // Check every 30 seconds
-    }
-    
-    getLastActivity() {
-        return parseInt(sessionStorage.getItem('lastActivity') || '0');
-    }
-    
-    showLogoutWarning() {
-        // Show warning modal
-        const warning = document.createElement('div');
-        warning.id = 'logout-warning';
-        warning.innerHTML = `
-            <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-                        background: white; padding: 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-                        z-index: 10000; text-align: center;">
-                <h3>Oturum Süresi Doluyor</h3>
-                <p>Güvenlik nedeniyle 5 dakika içinde otomatik olarak çıkış yapılacaksınız.</p>
-                <button onclick="this.parentElement.parentElement.remove()">Devam Et</button>
-            </div>
-        `;
-        document.body.appendChild(warning);
-    }
-    
-    logoutUser() {
-        this.logSecurityEvent('auto_logout', {
-            timestamp: new Date().toISOString()
-        });
-        
-        // Clear session data
-        sessionStorage.clear();
-        localStorage.removeItem('user_session');
-        
-        // Redirect to login page
-        window.location.href = '/login.html';
+        console.log('🛡️ Session Security enabled (auto-logout disabled)');
     }
     
     // Content Security Policy
