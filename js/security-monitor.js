@@ -30,14 +30,29 @@
                         if (mutation.type === 'childList' || mutation.type === 'attributes') {
                             mutation.addedNodes.forEach((node) => {
                                 if (node.nodeType === 1) { // Element node
-                                    const nodeContent = node.innerHTML || node.outerHTML || '';
-                                    if (nodeContent && this.isXSSAttempt(nodeContent)) {
-                                        this.logSecurityEvent('xss_attempt', {
-                                            element: node.tagName || 'Unknown',
-                                            content: nodeContent.substring(0, 100),
-                                            url: window.location.href,
-                                            userAgent: navigator.userAgent
-                                        });
+                                    // Skip legitimate HTML elements that are safe
+                                    const safeTags = ['LINK', 'META', 'STYLE', 'NOSCRIPT', 'TITLE'];
+                                    const tagName = node.tagName || '';
+                                    
+                                    // Only check innerHTML/outerHTML if it's not a safe tag
+                                    if (!safeTags.includes(tagName)) {
+                                        const nodeContent = node.innerHTML || node.outerHTML || '';
+                                        if (nodeContent && this.isXSSAttempt(nodeContent)) {
+                                            // Additional check: ignore if it's from our own scripts
+                                            const isFromOwnScript = node.getAttribute && (
+                                                node.getAttribute('data-safe') === 'true' ||
+                                                node.closest('[data-safe="true"]') !== null
+                                            );
+                                            
+                                            if (!isFromOwnScript) {
+                                                this.logSecurityEvent('xss_attempt', {
+                                                    element: tagName || 'Unknown',
+                                                    content: nodeContent.substring(0, 100),
+                                                    url: window.location.href,
+                                                    userAgent: navigator.userAgent
+                                                });
+                                            }
+                                        }
                                     }
                                 }
                             });
@@ -45,28 +60,57 @@
                     });
                 });
                 
-                observer.observe(document.body || document.documentElement, {
-                    childList: true,
-                    subtree: true,
-                    attributes: true
-                });
+                // Delay observation to avoid false positives from initial page load
+                setTimeout(() => {
+                    if (document.body || document.documentElement) {
+                        observer.observe(document.body || document.documentElement, {
+                            childList: true,
+                            subtree: true,
+                            attributes: true
+                        });
+                    }
+                }, 1000); // Wait 1 second after page load
             }
         }
         
         isXSSAttempt(content) {
+            // More specific XSS patterns - exclude legitimate HTML
             const xssPatterns = [
-                /<script[^>]*>/i,
-                /javascript:/i,
-                /on\w+\s*=/i,
-                /<iframe[^>]*>/i,
-                /<object[^>]*>/i,
-                /<embed[^>]*>/i,
-                /<link[^>]*>/i,
-                /<meta[^>]*>/i,
-                /<style[^>]*>/i,
-                /<form[^>]*>/i
+                // Script injection attempts
+                /<script[^>]*>.*?<\/script>/is,
+                /javascript\s*:/i,
+                // Event handler injection (onclick, onerror, etc.)
+                /on\w+\s*=\s*["'][^"']*["']/i,
+                // Iframe injection (except from trusted sources)
+                /<iframe[^>]*src\s*=\s*["'](?!https?:\/\/(www\.)?(google|youtube|maps\.google))\w/i,
+                // Object/Embed injection
+                /<object[^>]*data\s*=/i,
+                /<embed[^>]*src\s*=/i,
+                // Dangerous form injection
+                /<form[^>]*action\s*=\s*["'](?!\/|#)\w/i,
+                // Eval/Function injection
+                /eval\s*\(/i,
+                /Function\s*\(/i,
+                // Data URI script injection
+                /data\s*:\s*text\/html/i,
+                /data\s*:\s*text\/javascript/i
             ];
             
+            // Exclude legitimate content patterns
+            const safePatterns = [
+                /<link[^>]*rel\s*=\s*["'](stylesheet|icon|manifest|canonical)/i, // CSS, favicon, manifest
+                /<meta[^>]*(charset|name|property|http-equiv)/i, // Meta tags
+                /<style[^>]*>[\s\S]*?<\/style>/i, // Style blocks
+                /<noscript>/i, // Noscript tags
+                /<!--[\s\S]*?-->/i // HTML comments
+            ];
+            
+            // Check if content matches safe patterns first
+            if (safePatterns.some(pattern => pattern.test(content))) {
+                return false;
+            }
+            
+            // Then check for XSS patterns
             return xssPatterns.some(pattern => pattern.test(content));
         }
         
