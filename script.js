@@ -36,6 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Initialize production systems
+    safeExecute(function() {
+        // Zero-downtime deploy - restore pending data
+        if (window.ZeroDowntimeDeploy && typeof window.ZeroDowntimeDeploy.restorePendingData === 'function') {
+            window.ZeroDowntimeDeploy.restorePendingData();
+        }
+    });
+    
     // Initialize all components with error handling
     const initFunctions = [
         initNavigation,
@@ -618,17 +626,37 @@ function submitForm(form) {
                 if (formDataObj.email) {
                     window.EmailService.sendAutoReply(formDataObj.email, formDataObj.name || formDataObj.from_name);
                 }
+                
+                // Record success in deployment monitor
+                if (window.DeploymentMonitor) {
+                    // Success - no action needed
+                }
+                
                 return response;
             })
             .catch(function(error) {
                 const safeError = window.safeError || console.error;
                 safeError('Email sending failed:', error);
+                
+                // Record failure in deployment monitor
+                if (window.DeploymentMonitor) {
+                    window.DeploymentMonitor.recordError({
+                        type: 'email_service_failed',
+                        error: error.message || String(error)
+                    }, false); // Non-critical
+                }
+                
+                // Attempt auto-recovery
+                if (window.AutoRecovery) {
+                    window.AutoRecovery.recordFailure('EmailService', error);
+                }
+                
                 // Continue even if email fails
                 return null;
             })
         : Promise.resolve(null);
     
-    // Show success message
+        // Show success message
     emailPromise.then(function() {
         showNotification('Form başarıyla gönderildi! En kısa sürede size geri dönüş yapacağız.', 'success');
         
@@ -639,8 +667,8 @@ function submitForm(form) {
         initCSRFTokens();
         
         if (submitBtn) {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
         }
         
         // Analytics event (no sensitive data)
@@ -682,6 +710,11 @@ function submitForm(form) {
         // Log success (no sensitive data)
         const safeLog = window.safeLog || console.log;
         safeLog('✅ Form submitted successfully:', form.id || 'contact_form');
+        
+        // Record successful submission
+        if (window.DeploymentMonitor) {
+            // Success tracked via analytics, no additional action needed
+        }
     }).catch(function(error) {
         // Even if email fails, show success to user (form was submitted)
         showNotification('Form gönderildi. İletişim için lütfen telefon veya WhatsApp kullanın.', 'info');
@@ -693,6 +726,15 @@ function submitForm(form) {
         
         const safeError = window.safeError || console.error;
         safeError('Form submission error:', error);
+        
+        // Record error in deployment monitor
+        if (window.DeploymentMonitor) {
+            window.DeploymentMonitor.recordError({
+                type: 'form_submission_error',
+                error: error.message || String(error),
+                formId: form.id || 'contact_form'
+            }, false); // Non-critical - form data was collected
+        }
     });
 }
 

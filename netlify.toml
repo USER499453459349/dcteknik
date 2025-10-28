@@ -1,6 +1,18 @@
 [build]
   publish = "."
   command = "node build-cache-bust.js && echo 'Cache updated - Build complete'"
+  environment = { NODE_VERSION = "18" }
+
+# Zero-downtime deployment için
+[[redirects]]
+  from = "/health"
+  to = "/health-check.html"
+  status = 200
+
+[[redirects]]
+  from = "/status"
+  to = "/health-check.html"
+  status = 200
 
 [build.environment]
   NODE_VERSION = "18"
