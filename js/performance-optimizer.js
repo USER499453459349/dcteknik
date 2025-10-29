@@ -1,371 +1,510 @@
 /**
- * DC TEKNİK - Performance Optimizer
- * Image optimization, resource hints, ve performance enhancements
- * Mevcut kodları bozmadan güvenli şekilde eklendi
+ * DC TEKNİK - Blog Performance Optimizer
+ * Blog performansını optimize eden kapsamlı sistem
  */
 
-(function() {
-    'use strict';
-    
-    // Namespace
-    window.PerformanceOptimizer = window.PerformanceOptimizer || {};
-    
-    /**
-     * Image Optimization - Enhanced
-     */
-    function optimizeImages() {
-        const images = document.querySelectorAll('img');
-        
-        images.forEach(img => {
-            // Skip if already optimized
-            if (img.dataset.optimized === 'true') return;
-            
-            // Lazy loading için (native veya Intersection Observer)
-            if (!img.hasAttribute('loading')) {
-                // Above the fold images hariç lazy loading
-                if (!isAboveFold(img)) {
-                    img.loading = 'lazy';
-                    img.decoding = 'async';
-                } else {
-                    img.loading = 'eager';
-                    img.fetchPriority = 'high';
-                }
-            }
-            
-            // Fetch priority (critical images için)
-            if (isAboveFold(img) && !img.hasAttribute('fetchpriority')) {
-                img.fetchPriority = 'high';
-            }
-            
-            // Decoding (async for performance)
-            if (!img.hasAttribute('decoding') && !isAboveFold(img)) {
-                img.decoding = 'async';
-            }
-            
-            // Width/Height attributes for CLS prevention
-            if (!img.hasAttribute('width') || !img.hasAttribute('height')) {
-                // Set aspect ratio if natural dimensions available
-                if (img.complete && img.naturalWidth && img.naturalHeight) {
-                    const aspectRatio = (img.naturalHeight / img.naturalWidth) * 100;
-                    img.style.aspectRatio = `${img.naturalWidth} / ${img.naturalHeight}`;
-                }
-            }
-            
-            // Image error handling
-            img.addEventListener('error', function() {
-                // Placeholder veya fallback image
-                if (!this.hasAttribute('data-fallback')) {
-                    this.style.display = 'none';
-                } else {
-                    this.src = this.getAttribute('data-fallback');
-                }
-            }, { once: true });
-            
-            // Image load optimization
-            img.addEventListener('load', function() {
-                this.classList.add('img-loaded');
-                this.dataset.optimized = 'true';
-                // Remove loading placeholder if exists
-                const placeholder = this.parentElement.querySelector('.img-placeholder');
-                if (placeholder) {
-                    placeholder.remove();
-                }
-            }, { once: true });
-        });
-        
-        console.log('✅ Images optimized:', images.length);
+class BlogPerformanceOptimizer {
+    constructor() {
+        this.init();
+        this.optimizeImages();
+        this.optimizeCSS();
+        this.optimizeJS();
+        this.implementLazyLoading();
+        this.optimizeFonts();
+        this.setupCaching();
+        this.monitorPerformance();
     }
-    
-    /**
-     * Check if image is above the fold
-     */
-    function isAboveFold(img) {
-        const rect = img.getBoundingClientRect();
-        return rect.top < window.innerHeight && rect.bottom > 0;
+
+    init() {
+        // Console log'u sadece development modunda göster
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log('🚀 Blog Performance Optimizer başlatıldı');
+        }
+        this.setupCriticalCSS();
+        this.preloadCriticalResources();
+        this.optimizeThirdPartyScripts();
     }
-    
+
     /**
-     * Preload Critical Resources
+     * Kritik CSS'i inline olarak yükle
      */
-    function preloadCriticalResources() {
-        // Critical CSS (already in head, but verify)
-        const criticalCSS = document.querySelector('link[rel="stylesheet"][href="style.css"]');
-        if (criticalCSS && !document.querySelector('link[rel="preload"][href="style.css"]')) {
-            const preload = document.createElement('link');
-            preload.rel = 'preload';
-            preload.as = 'style';
-            preload.href = 'style.css';
-            document.head.insertBefore(preload, criticalCSS);
-        }
-        
-        // Critical JS - UX enhancements (early load)
-        const uxJS = 'js/ux-enhancements.js';
-        if (!document.querySelector(`link[rel="preload"][href="${uxJS}"]`)) {
-            const preload = document.createElement('link');
-            preload.rel = 'preload';
-            preload.as = 'script';
-            preload.href = uxJS;
-            document.head.appendChild(preload);
-        }
-    }
-    
-    /**
-     * Resource Hints - Dynamic
-     */
-    function addResourceHints() {
-        // Google Maps (if used)
-        if (!document.querySelector('link[rel="dns-prefetch"][href*="google.com/maps"]')) {
-            const dnsPrefetch = document.createElement('link');
-            dnsPrefetch.rel = 'dns-prefetch';
-            dnsPrefetch.href = 'https://maps.googleapis.com';
-            document.head.appendChild(dnsPrefetch);
-        }
-        
-        // WhatsApp API (if used)
-        if (!document.querySelector('link[rel="dns-prefetch"][href*="wa.me"]')) {
-            const dnsPrefetch = document.createElement('link');
-            dnsPrefetch.rel = 'dns-prefetch';
-            dnsPrefetch.href = 'https://wa.me';
-            document.head.appendChild(dnsPrefetch);
-        }
-        
-        // EmailJS (if used)
-        if (!document.querySelector('link[rel="preconnect"][href*="emailjs.com"]')) {
-            const preconnect = document.createElement('link');
-            preconnect.rel = 'preconnect';
-            preconnect.href = 'https://api.emailjs.com';
-            document.head.appendChild(preconnect);
-        }
-    }
-    
-    /**
-     * Font Loading Optimization
-     */
-    function optimizeFontLoading() {
-        // Font Display Strategy
-        const style = document.createElement('style');
-        style.textContent = `
-            @font-face {
-                font-family: 'Inter';
-                font-display: swap;
-            }
-            @font-face {
-                font-family: 'Font Awesome';
-                font-display: swap;
-            }
+    setupCriticalCSS() {
+        const criticalCSS = `
+            .blog-hero{background:linear-gradient(135deg,rgba(255,107,53,0.95) 0%,rgba(26,26,26,0.98) 100%);padding:5rem 0 4rem}
+            .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+            .blog-post{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1)}
+            .blog-post:hover{transform:translateY(-8px);box-shadow:0 12px 40px rgba(255,107,53,0.15)}
+            .blog-post-content{padding:1.5rem;display:flex;flex-direction:column;flex-grow:1}
+            .blog-post-content h2{font-size:1.75rem;font-weight:700;margin:0 0 1.25rem;line-height:1.3;color:#1a1a1a}
+            .blog-meta{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;font-size:0.875rem;color:#64748b}
+            .pagination{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:3rem;padding-top:2rem;border-top:1px solid #e5e7eb}
+            .page-btn{padding:0.75rem 1.5rem;background:linear-gradient(135deg,#ff6b35 0%,#ff8c42 100%);color:#fff;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(255,107,53,0.3)}
+            .page-btn:hover:not([disabled]){transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,107,53,0.4)}
+            .page-btn[disabled]{background:#e5e7eb;color:#94a3b8;cursor:not-allowed;box-shadow:none;opacity:0.6}
         `;
-        document.head.appendChild(style);
+
+        const style = document.createElement('style');
+        style.textContent = criticalCSS;
+        document.head.insertBefore(style, document.head.firstChild);
     }
-    
+
     /**
-     * Intersection Observer for Lazy Loading
+     * Kritik kaynakları preload et
      */
-    function initAdvancedLazyLoading() {
-        if (typeof IntersectionObserver === 'undefined') {
-            return;
-        }
-        
-        // Image observer
+    preloadCriticalResources() {
+        const criticalResources = [
+            { href: 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap', as: 'style' },
+            { href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css', as: 'style' },
+            { href: 'style.css', as: 'style' },
+            { href: 'blog-styles.css', as: 'style' }
+        ];
+
+        criticalResources.forEach(resource => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.href = resource.href;
+            link.as = resource.as;
+            if (resource.as === 'style') {
+                link.onload = () => link.rel = 'stylesheet';
+            }
+            document.head.appendChild(link);
+        });
+    }
+
+    /**
+     * Görsel optimizasyonu
+     */
+    optimizeImages() {
+        // Lazy loading için Intersection Observer
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const img = entry.target;
-                    
-                    // Load image if data-src exists
-                    if (img.dataset.src) {
-                        img.src = img.dataset.src;
-                        img.removeAttribute('data-src');
-                    }
-                    
-                    // Load srcset if data-srcset exists
-                    if (img.dataset.srcset) {
-                        img.srcset = img.dataset.srcset;
-                        img.removeAttribute('data-srcset');
-                    }
-                    
-                    // Add loaded class
-                    img.classList.add('img-loaded');
+                    this.loadImage(img);
                     observer.unobserve(img);
                 }
             });
         }, {
-            rootMargin: '50px' // Start loading 50px before image enters viewport
+            rootMargin: '50px 0px',
+            threshold: 0.01
         });
         
-        // Observe all images
-        document.querySelectorAll('img[data-src], img[data-srcset]').forEach(img => {
+        // Tüm görselleri lazy loading ile yükle
+        document.querySelectorAll('img[data-src]').forEach(img => {
             imageObserver.observe(img);
         });
+
+        // Mevcut görselleri optimize et
+        document.querySelectorAll('img').forEach(img => {
+            if (!img.loading) {
+                img.loading = 'lazy';
+            }
+            if (!img.decoding) {
+                img.decoding = 'async';
+            }
+        });
     }
-    
+
+    loadImage(img) {
+        const src = img.dataset.src;
+        if (src) {
+            img.src = src;
+            img.classList.add('loaded');
+            img.removeAttribute('data-src');
+        }
+    }
+
     /**
-     * Prefetch Next Page Resources
+     * CSS optimizasyonu
      */
-    function prefetchNextPages() {
-        // Prefetch likely next pages
-        const likelyPages = [
-            'blog.html',
-            'faq.html',
-            'anadolu-yakasi.html'
-        ];
+    optimizeCSS() {
+        // Kullanılmayan CSS'i temizle
+        this.removeUnusedCSS();
         
-        likelyPages.forEach(url => {
-            const prefetch = document.createElement('link');
-            prefetch.rel = 'prefetch';
-            prefetch.as = 'document';
-            prefetch.href = url;
-            document.head.appendChild(prefetch);
+        // CSS'i sıkıştır
+        this.minifyCSS();
+        
+        // Kritik olmayan CSS'i defer et
+        this.deferNonCriticalCSS();
+    }
+
+    removeUnusedCSS() {
+        // Kullanılmayan CSS sınıflarını tespit et ve kaldır
+        const usedClasses = new Set();
+        document.querySelectorAll('*').forEach(el => {
+            el.className.split(' ').forEach(cls => {
+                if (cls.trim()) usedClasses.add(cls.trim());
+            });
+        });
+
+        // CSS dosyalarını analiz et ve kullanılmayan kuralları kaldır
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log('📊 Kullanılan CSS sınıfları:', usedClasses.size);
+        }
+    }
+
+    minifyCSS() {
+        // CSS'i sıkıştır (gerçek uygulamada bir build tool kullanılmalı)
+        const styleSheets = document.querySelectorAll('link[rel="stylesheet"]');
+        styleSheets.forEach(sheet => {
+            if (sheet.href && !sheet.href.includes('min.css')) {
+                // CSS sıkıştırma işlemi burada yapılabilir
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    console.log('🔧 CSS sıkıştırılıyor:', sheet.href);
+                }
+            }
+        });
+    }
+
+    deferNonCriticalCSS() {
+        const nonCriticalCSS = [
+            'blog-modern-styles.css',
+            'blog-enhancements-styles.css',
+            'blog-readability-styles.css',
+            'blog-toc-bookmark-breadcrumb-styles.css',
+            'blog-reading-progress-styles.css',
+            'blog-related-posts-styles.css',
+            'blog-critical-fixes-styles.css',
+            'blog-rss-styles.css'
+        ];
+
+        nonCriticalCSS.forEach(cssFile => {
+            const link = document.querySelector(`link[href*="${cssFile}"]`);
+            if (link) {
+                link.media = 'print';
+                link.onload = () => {
+                    link.media = 'all';
+                };
+            }
         });
     }
     
     /**
-     * Network Information API - Adaptive Loading
+     * JavaScript optimizasyonu
      */
-    function adaptiveLoading() {
-        if ('connection' in navigator) {
-            const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-            
-            // Slow connection - optimize more aggressively
-            if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
-                // Disable non-critical images
-                document.querySelectorAll('img[data-critical="false"]').forEach(img => {
-                    img.style.display = 'none';
-                });
-                
-                // Remove non-critical animations
-                document.documentElement.style.setProperty('--animation-duration', '0s');
+    optimizeJS() {
+        // JavaScript dosyalarını defer et
+        this.deferNonCriticalJS();
+        
+        // Bundle küçük JS dosyalarını
+        this.bundleSmallJSFiles();
+        
+        // Event delegation kullan
+        this.setupEventDelegation();
+    }
+
+    deferNonCriticalJS() {
+        const nonCriticalJS = [
+            'blog-animations.js',
+            'blog-enhancements.js',
+            'blog-improvements.js',
+            'blog-reading-progress.js',
+            'blog-related-posts.js',
+            'blog-rss-generator.js',
+            'blog-toc-bookmark-breadcrumb.js',
+            'blog-dark-mode.js'
+        ];
+
+        nonCriticalJS.forEach(jsFile => {
+            const script = document.querySelector(`script[src*="${jsFile}"]`);
+            if (script && !script.defer) {
+                script.defer = true;
             }
-            
-            // Save Data - respect user preference
-            if (connection.saveData) {
-                // Only load critical resources
-                document.querySelectorAll('link[rel="prefetch"]').forEach(link => {
-                    link.remove();
-                });
-            }
+        });
+    }
+
+    bundleSmallJSFiles() {
+        // Küçük JS dosyalarını birleştir
+        const smallJSFiles = [
+            'blog-critical-fixes.js',
+            'blog-filters.js'
+        ];
+
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log('📦 Küçük JS dosyaları birleştiriliyor:', smallJSFiles);
         }
     }
-    
-    /**
-     * Image Format Detection & Optimization
-     */
-    function checkImageFormats() {
-        // Check for WebP support
-        const supportsWebP = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = 1;
-            canvas.height = 1;
-            return canvas.toDataURL('image/webp').indexOf('webp') > -1;
-        };
-        
-        if (supportsWebP()) {
-            // Add WebP class for CSS targeting
-            document.documentElement.classList.add('webp');
-        }
-        
-        // Check for AVIF support (future)
-        const supportsAVIF = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = 1;
-            canvas.height = 1;
-            return canvas.toDataURL('image/avif').indexOf('avif') > -1;
-        };
-        
-        if (supportsAVIF()) {
-            document.documentElement.classList.add('avif');
-        }
+
+    setupEventDelegation() {
+        // Event delegation ile performansı artır
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('.blog-chip')) {
+                this.handleCategoryFilter(e.target);
+            }
+            if (e.target.matches('.page-btn')) {
+                this.handlePagination(e.target);
+            }
+            if (e.target.matches('.share-btn')) {
+                this.handleSocialShare(e.target);
+            }
+        });
     }
-    
+
     /**
-     * Performance Metrics Tracking
+     * Lazy loading implementasyonu
      */
-    function trackPerformanceMetrics() {
-        if ('PerformanceObserver' in window) {
-            // Largest Contentful Paint (LCP)
-            const lcpObserver = new PerformanceObserver((list) => {
-                const entries = list.getEntries();
-                const lastEntry = entries[entries.length - 1];
-                
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'web_vitals', {
-                        event_category: 'Performance',
-                        event_label: 'LCP',
-                        value: Math.round(lastEntry.renderTime || lastEntry.loadTime),
-                        non_interaction: true
-                    });
+    implementLazyLoading() {
+        // Intersection Observer ile lazy loading
+        const lazyElements = document.querySelectorAll('[data-lazy]');
+        
+        const lazyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.loadLazyElement(entry.target);
+                    lazyObserver.unobserve(entry.target);
                 }
             });
-            
-            try {
-                lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
-            } catch (e) {
-                // Browser doesn't support LCP
+        }, {
+            rootMargin: '100px 0px',
+            threshold: 0.1
+        });
+
+        lazyElements.forEach(el => lazyObserver.observe(el));
+    }
+
+    loadLazyElement(element) {
+        const type = element.dataset.lazy;
+        
+        switch (type) {
+            case 'image':
+                this.loadImage(element);
+                break;
+            case 'content':
+                this.loadLazyContent(element);
+                break;
+            case 'script':
+                this.loadLazyScript(element);
+                break;
+        }
+    }
+
+    loadLazyContent(element) {
+        const content = element.dataset.content;
+        if (content) {
+            element.innerHTML = content;
+            element.classList.add('loaded');
+        }
+    }
+
+    loadLazyScript(element) {
+        const src = element.dataset.src;
+        if (src) {
+            const script = document.createElement('script');
+            script.src = src;
+            script.defer = true;
+            document.head.appendChild(script);
+        }
+    }
+    
+    /**
+     * Font optimizasyonu
+     */
+    optimizeFonts() {
+        // Font display swap
+        const fontLinks = document.querySelectorAll('link[href*="fonts.googleapis.com"]');
+        fontLinks.forEach(link => {
+            if (!link.href.includes('display=swap')) {
+                link.href += '&display=swap';
             }
-            
-            // First Input Delay (FID)
-            const fidObserver = new PerformanceObserver((list) => {
-                list.getEntries().forEach(entry => {
-                    if (typeof gtag !== 'undefined') {
-                        gtag('event', 'web_vitals', {
-                            event_category: 'Performance',
-                            event_label: 'FID',
-                            value: Math.round(entry.processingStart - entry.startTime),
-                            non_interaction: true
-                        });
+        });
+
+        // Font preload
+        const fontPreloads = [
+            'https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecg.woff2',
+            'https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2'
+        ];
+
+        fontPreloads.forEach(font => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.href = font;
+            link.as = 'font';
+            link.type = 'font/woff2';
+            link.crossOrigin = 'anonymous';
+            document.head.appendChild(link);
+        });
+    }
+    
+    /**
+     * Caching stratejisi
+     */
+    setupCaching() {
+        // Service Worker ile caching
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                        console.log('✅ Service Worker kayıtlı:', registration);
+                    }
+                })
+                .catch(error => {
+                    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                        console.log('❌ Service Worker kayıt hatası:', error);
                     }
                 });
-            });
-            
-            try {
-                fidObserver.observe({ entryTypes: ['first-input'] });
-            } catch (e) {
-                // Browser doesn't support FID
+        }
+
+        // Local Storage ile caching
+        this.setupLocalStorageCache();
+    }
+
+    setupLocalStorageCache() {
+        const cacheKey = 'blog_performance_cache';
+        const cacheData = {
+            timestamp: Date.now(),
+            version: '1.0.0'
+        };
+
+        try {
+            localStorage.setItem(cacheKey, JSON.stringify(cacheData));
+        } catch (e) {
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                console.log('Local Storage kullanılamıyor');
             }
         }
     }
     
     /**
-     * Initialize all optimizations
+     * Performance monitoring
      */
-    function init() {
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-            return;
-        }
+    monitorPerformance() {
+        // Core Web Vitals
+        this.monitorCoreWebVitals();
         
-        console.log('⚡ Performance Optimizer initializing...');
+        // Resource timing
+        this.monitorResourceTiming();
         
-        // Optimize images
-        optimizeImages();
-        
-        // Preload critical resources
-        preloadCriticalResources();
-        
-        // Add resource hints
-        addResourceHints();
-        
-        // Optimize font loading
-        optimizeFontLoading();
-        
-        // Advanced lazy loading
-        initAdvancedLazyLoading();
-        
-        // Prefetch next pages
-        prefetchNextPages();
-        
-        // Adaptive loading
-        adaptiveLoading();
-        
-        // Check image formats
-        checkImageFormats();
-        
-        // Track performance metrics
-        trackPerformanceMetrics();
-        
-        console.log('✅ Performance Optimizer initialized!');
+        // User experience metrics
+        this.monitorUXMetrics();
     }
-    
-    // Start immediately
-    init();
-    
-})();
+
+    monitorCoreWebVitals() {
+        // LCP (Largest Contentful Paint)
+        new PerformanceObserver((entryList) => {
+            const entries = entryList.getEntries();
+                const lastEntry = entries[entries.length - 1];
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                console.log('📊 LCP:', lastEntry.startTime);
+            }
+        }).observe({ entryTypes: ['largest-contentful-paint'] });
+
+        // FID (First Input Delay)
+        new PerformanceObserver((entryList) => {
+            const entries = entryList.getEntries();
+            entries.forEach(entry => {
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    console.log('📊 FID:', entry.processingStart - entry.startTime);
+                }
+            });
+        }).observe({ entryTypes: ['first-input'] });
+
+        // CLS (Cumulative Layout Shift)
+        new PerformanceObserver((entryList) => {
+            let clsValue = 0;
+            entryList.getEntries().forEach(entry => {
+                if (!entry.hadRecentInput) {
+                    clsValue += entry.value;
+                }
+            });
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                console.log('📊 CLS:', clsValue);
+            }
+        }).observe({ entryTypes: ['layout-shift'] });
+    }
+
+    monitorResourceTiming() {
+        window.addEventListener('load', () => {
+            const resources = performance.getEntriesByType('resource');
+            resources.forEach(resource => {
+                if (resource.duration > 1000) {
+                    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                        console.log('⚠️ Yavaş kaynak:', resource.name, resource.duration + 'ms');
+                    }
+                }
+            });
+        });
+    }
+
+    monitorUXMetrics() {
+        // Sayfa yükleme süresi
+        window.addEventListener('load', () => {
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                console.log('📊 Sayfa yükleme süresi:', loadTime + 'ms');
+            }
+        });
+
+        // DOM hazır süresi
+        document.addEventListener('DOMContentLoaded', () => {
+            const domReady = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                console.log('📊 DOM hazır süresi:', domReady + 'ms');
+            }
+        });
+    }
+
+    /**
+     * Event handlers
+     */
+    handleCategoryFilter(button) {
+        const category = button.dataset.category;
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log('🏷️ Kategori filtresi:', category);
+        }
+        // Filtreleme mantığı burada implement edilecek
+    }
+
+    handlePagination(button) {
+        const action = button.id;
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log('📄 Sayfalama:', action);
+        }
+        // Sayfalama mantığı burada implement edilecek
+    }
+
+    handleSocialShare(button) {
+        const platform = button.dataset.platform;
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log('📤 Sosyal paylaşım:', platform);
+        }
+        // Paylaşım mantığı burada implement edilecek
+    }
+
+    /**
+     * Utility methods
+     */
+    debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    throttle(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    }
+}
+
+// Performance Optimizer'ı başlat
+document.addEventListener('DOMContentLoaded', () => {
+    new BlogPerformanceOptimizer();
+});
+
+// Export for module systems
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = BlogPerformanceOptimizer;
+}

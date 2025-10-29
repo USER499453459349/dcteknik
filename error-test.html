@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Handler Test - DC TEKNİK</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .test-button:hover {
+            background: #ff8c42;
+            transform: translateY(-2px);
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        .test-section h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Error Handler Test Sayfası</h1>
+        <p>Bu sayfa, error handler sisteminin düzgün çalışıp çalışmadığını test etmek için oluşturulmuştur.</p>
+
+        <div class="test-section">
+            <h3>1. JavaScript Error Testi</h3>
+            <p>Bu buton, kasıtlı olarak bir JavaScript hatası oluşturacak:</p>
+            <button class="test-button" onclick="testJavaScriptError()">
+                JavaScript Hatası Oluştur
+            </button>
+            <div id="js-error-status" class="status info">
+                Henüz test edilmedi
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>2. Promise Rejection Testi</h3>
+            <p>Bu buton, bir Promise rejection hatası oluşturacak:</p>
+            <button class="test-button" onclick="testPromiseRejection()">
+                Promise Rejection Oluştur
+            </button>
+            <div id="promise-error-status" class="status info">
+                Henüz test edilmedi
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. Console Error Testi</h3>
+            <p>Bu buton, console.error() çağrısı yapacak:</p>
+            <button class="test-button" onclick="testConsoleError()">
+                Console Error Oluştur
+            </button>
+            <div id="console-error-status" class="status info">
+                Henüz test edilmedi
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. Undefined Variable Testi</h3>
+            <p>Bu buton, tanımlanmamış bir değişken kullanmaya çalışacak:</p>
+            <button class="test-button" onclick="testUndefinedVariable()">
+                Undefined Variable Testi
+            </button>
+            <div id="undefined-error-status" class="status info">
+                Henüz test edilmedi
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>5. Error Handler Durumu</h3>
+            <div id="handler-status" class="status info">
+                Error Handler yükleniyor...
+            </div>
+            <button class="test-button" onclick="checkErrorHandlerStatus()">
+                Durumu Kontrol Et
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h3>6. Console Log Testi</h3>
+            <p>Bu buton, console.log() çağrısı yapacak (sadece localhost'ta görünür):</p>
+            <button class="test-button" onclick="testConsoleLog()">
+                Console Log Testi
+            </button>
+            <div id="console-log-status" class="status info">
+                Henüz test edilmedi
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Handler -->
+    <script src="js/error-handler.js"></script>
+
+    <script>
+        // Test functions
+        function testJavaScriptError() {
+            try {
+                // Kasıtlı hata oluştur
+                nonExistentFunction();
+            } catch (error) {
+                document.getElementById('js-error-status').innerHTML = 
+                    '<strong>✅ Hata yakalandı:</strong> ' + error.message;
+                document.getElementById('js-error-status').className = 'status success';
+            }
+        }
+
+        function testPromiseRejection() {
+            Promise.reject(new Error('Test Promise Rejection'))
+                .catch(error => {
+                    document.getElementById('promise-error-status').innerHTML = 
+                        '<strong>✅ Promise rejection yakalandı:</strong> ' + error.message;
+                    document.getElementById('promise-error-status').className = 'status success';
+                });
+        }
+
+        function testConsoleError() {
+            console.error('Test console.error() çağrısı');
+            document.getElementById('console-error-status').innerHTML = 
+                '<strong>✅ Console error çağrısı yapıldı</strong> (sadece localhost\'ta görünür)';
+            document.getElementById('console-error-status').className = 'status success';
+        }
+
+        function testUndefinedVariable() {
+            try {
+                // Tanımlanmamış değişken kullan
+                const result = undefinedVariable.someProperty;
+            } catch (error) {
+                document.getElementById('undefined-error-status').innerHTML = 
+                    '<strong>✅ Undefined variable hatası yakalandı:</strong> ' + error.message;
+                document.getElementById('undefined-error-status').className = 'status success';
+            }
+        }
+
+        function testConsoleLog() {
+            console.log('Test console.log() çağrısı');
+            document.getElementById('console-log-status').innerHTML = 
+                '<strong>✅ Console log çağrısı yapıldı</strong> (sadece localhost\'ta görünür)';
+            document.getElementById('console-log-status').className = 'status success';
+        }
+
+        function checkErrorHandlerStatus() {
+            const status = document.getElementById('handler-status');
+            if (typeof ErrorHandler !== 'undefined') {
+                status.innerHTML = '<strong>✅ Error Handler yüklendi ve çalışıyor</strong>';
+                status.className = 'status success';
+            } else {
+                status.innerHTML = '<strong>❌ Error Handler yüklenemedi</strong>';
+                status.className = 'status error';
+            }
+        }
+
+        // Sayfa yüklendiğinde durumu kontrol et
+        window.addEventListener('load', () => {
+            setTimeout(checkErrorHandlerStatus, 1000);
+        });
+    </script>
+</body>
+</html>

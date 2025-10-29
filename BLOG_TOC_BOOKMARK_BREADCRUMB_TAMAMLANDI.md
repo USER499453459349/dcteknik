@@ -156,3 +156,6 @@ Deploy tamamlandıktan sonra:
 
 **Not**: Blog artık çok daha navigasyon dostu, kullanıcılar yazıları kaydedebilir ve kolayca gezinir! Tüm özellikler dark mode'a uyumlu ve responsive!
 
+
+
+

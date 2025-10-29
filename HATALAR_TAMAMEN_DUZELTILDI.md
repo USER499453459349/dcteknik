@@ -133,3 +133,4 @@ Deploy tamamlandıktan sonra:
 
 **Not**: Deploy tamamlandıktan sonra (1-2 dakika) site hatasız çalışacak.
 
+

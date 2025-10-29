@@ -183,3 +183,6 @@ Deploy tamamlandıktan sonra:
 
 **Not**: Blog sayfası artık çok daha profesyonel, çekici ve müşteriyi çeken bir tasarıma sahip! Trust signals ve kolay iletişim seçenekleri ile conversion rate artacak.
 
+
+
+

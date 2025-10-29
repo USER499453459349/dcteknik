@@ -1,0 +1,547 @@
+/**
+ * DC TEKNİK - Blog UX Enhancement Styles
+ * Kullanıcı deneyimi iyileştirmeleri için CSS
+ */
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+.dark-mode {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: #404040;
+    --shadow: rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.dark-mode .blog-hero {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.95) 0%, rgba(26, 26, 26, 0.98) 100%);
+}
+
+.dark-mode .blog-post {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.dark-mode .blog-post-content h2,
+.dark-mode .blog-post-content h3,
+.dark-mode .blog-post-content h4 {
+    color: var(--text-primary);
+}
+
+.dark-mode .blog-post-content p {
+    color: var(--text-secondary);
+}
+
+.dark-mode .blog-sidebar {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+.dark-mode .sidebar-widget {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+.dark-mode .sidebar-widget h3 {
+    color: var(--text-primary);
+}
+
+.dark-mode .pagination {
+    border-top-color: var(--border-color);
+}
+
+.dark-mode .page-status {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* ========================================
+   UX CONTROL BUTTONS
+   ======================================== */
+
+.ux-control-btn {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ux-control-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 25px rgba(255, 107, 53, 0.6);
+}
+
+.ux-control-btn:active {
+    transform: translateY(-2px);
+}
+
+/* Dark Mode Toggle */
+#dark-mode-toggle {
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+}
+
+/* Font Size Controls */
+#font-size-controls {
+    position: fixed;
+    top: 20px;
+    right: 80px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px 15px;
+    border-radius: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dark-mode #font-size-controls {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+#font-size-controls .ux-control-btn {
+    position: static;
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+#font-size-display {
+    font-weight: 600;
+    min-width: 40px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    bottom: 20px;
+    right: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Bookmark Button */
+.bookmark-btn {
+    bottom: 80px;
+    right: 20px;
+    font-size: 1.3rem;
+}
+
+.bookmark-btn.bookmarked {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #1a1a1a;
+}
+
+/* Print Button */
+.print-btn {
+    bottom: 140px;
+    right: 20px;
+    font-size: 1.1rem;
+}
+
+/* ========================================
+   TABLE OF CONTENTS
+   ======================================== */
+
+.toc-widget {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.dark-mode .toc-widget {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+.toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    color: white;
+}
+
+.toc-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.toc-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toc-content {
+    padding: 1rem 0;
+}
+
+.toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.toc-item {
+    padding: 0.5rem 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.toc-item:last-child {
+    border-bottom: none;
+}
+
+.toc-item a {
+    color: #4a5568;
+    text-decoration: none;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    transition: color 0.3s ease;
+    display: block;
+}
+
+.toc-item a:hover {
+    color: #ff6b35;
+}
+
+.dark-mode .toc-item a {
+    color: var(--text-secondary);
+}
+
+.dark-mode .toc-item a:hover {
+    color: #ff6b35;
+}
+
+.toc-h2 { padding-left: 0; }
+.toc-h3 { padding-left: 1rem; }
+.toc-h4 { padding-left: 2rem; }
+
+/* ========================================
+   SOCIAL SHARING ENHANCEMENTS
+   ======================================== */
+
+.share-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: rgba(255, 107, 53, 0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 107, 53, 0.1);
+}
+
+.share-buttons h4 {
+    width: 100%;
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    color: #2d3748;
+    font-weight: 600;
+}
+
+.dark-mode .share-buttons h4 {
+    color: var(--text-primary);
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    color: #4a5568;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.share-btn.facebook:hover {
+    background: #1877f2;
+    border-color: #1877f2;
+    color: white;
+}
+
+.share-btn.twitter:hover {
+    background: #1da1f2;
+    border-color: #1da1f2;
+    color: white;
+}
+
+.share-btn.whatsapp:hover {
+    background: #25d366;
+    border-color: #25d366;
+    color: white;
+}
+
+.share-btn.linkedin:hover {
+    background: #0077b5;
+    border-color: #0077b5;
+    color: white;
+}
+
+.share-btn.copy:hover {
+    background: #6b7280;
+    border-color: #6b7280;
+    color: white;
+}
+
+.dark-mode .share-btn {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+/* ========================================
+   NOTIFICATIONS
+   ======================================== */
+
+.ux-notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: #2d3748;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    transition: transform 0.3s ease;
+    font-weight: 600;
+}
+
+.ux-notification.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ========================================
+   READING EXPERIENCE
+   ======================================== */
+
+/* Typography improvements */
+.blog-post-content {
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.blog-post-content h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #ff6b35;
+}
+
+.blog-post-content h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #2d3748;
+}
+
+.blog-post-content h4 {
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+}
+
+.blog-post-content ul,
+.blog-post-content ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+.blog-post-content li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.blog-post-content blockquote {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: rgba(255, 107, 53, 0.05);
+    border-left: 4px solid #ff6b35;
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+}
+
+.dark-mode .blog-post-content blockquote {
+    background: rgba(255, 107, 53, 0.1);
+}
+
+/* ========================================
+   MOBILE OPTIMIZATIONS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .ux-control-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+    
+    #dark-mode-toggle {
+        top: 15px;
+        right: 15px;
+    }
+    
+    #font-size-controls {
+        top: 15px;
+        right: 70px;
+        padding: 8px 12px;
+    }
+    
+    #font-size-controls .ux-control-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    
+    .back-to-top {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .bookmark-btn {
+        bottom: 70px;
+        right: 15px;
+    }
+    
+    .print-btn {
+        bottom: 125px;
+        right: 15px;
+    }
+    
+    .toc-widget {
+        position: static !important;
+        width: 100% !important;
+        margin: 1rem 0;
+    }
+    
+    .share-buttons {
+        flex-direction: column;
+    }
+    
+    .share-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Focus indicators */
+.ux-control-btn:focus,
+.share-btn:focus,
+.toc-toggle:focus {
+    outline: 3px solid #ff6b35;
+    outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .ux-control-btn,
+    .share-btn,
+    .toc-item a,
+    .ux-notification {
+        transition: none;
+    }
+    
+    .blog-post {
+        animation: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .ux-control-btn {
+        border: 2px solid currentColor;
+    }
+    
+    .toc-widget {
+        border: 2px solid currentColor;
+    }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+    .ux-control-btn,
+    .toc-widget,
+    .share-buttons,
+    .ux-notification {
+        display: none !important;
+    }
+    
+    .blog-post-content {
+        font-size: 12pt;
+        line-height: 1.6;
+    }
+    
+    .blog-post-content h2 {
+        page-break-before: always;
+    }
+    
+    .blog-post-content h2:first-child {
+        page-break-before: avoid;
+    }
+}
+

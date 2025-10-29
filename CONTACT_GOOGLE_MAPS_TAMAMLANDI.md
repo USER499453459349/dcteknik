@@ -143,3 +143,6 @@ Deploy tamamlandıktan sonra:
 
 **Not**: İletişim sayfası artık Google Maps haritası ve rating gösterimi ile güçlendirildi! Kullanıcılar konumu kolayca bulabilir ve yol tarifi alabilir. 🎉
 
+
+
+

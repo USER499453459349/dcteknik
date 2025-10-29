@@ -277,3 +277,6 @@ gtag('event', 'web_vitals', {
 
 **Not**: Site artık daha hızlı yüklenecek ve daha iyi performans skorları alacak! Core Web Vitals iyileştirildi.
 
+
+
+

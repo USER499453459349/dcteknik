@@ -156,3 +156,6 @@ Deploy tamamlandıktan sonra:
 
 **Not**: Blog artık çok daha engaging! Kullanıcılar okuma ilerlemelerini görebilir, daha fazla içerik keşfedebilir ve daha uzun süre sitede kalabilir!
 
+
+
+

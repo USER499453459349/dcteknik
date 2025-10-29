@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobil Test - DC TEKNİK</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+            min-height: 200vh; /* Scroll test için */
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        .test-button {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            min-width: 44px;
+            min-height: 44px;
+        }
+        .test-button:hover {
+            background: #ff8c42;
+            transform: translateY(-2px);
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .widget-test {
+            position: relative;
+            height: 200px;
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .scroll-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+        .device-info {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator" id="scrollIndicator">Scroll: 0px</div>
+    
+    <div class="test-container">
+        <h1>📱 Mobil Widget Test Sayfası</h1>
+        <p>Bu sayfa, mobil cihazlarda widget görünürlük ve performans testleri için oluşturulmuştur.</p>
+
+        <div class="device-info" id="deviceInfo">
+            <strong>📱 Cihaz Bilgileri:</strong><br>
+            <span id="deviceDetails">Yükleniyor...</span>
+        </div>
+
+        <div class="test-section">
+            <h3>1. Floating Widget Testi</h3>
+            <p>Sağ alt köşedeki floating widget'ları test edin:</p>
+            <div class="widget-test">
+                <p>Floating widget'lar sağ alt köşede görünmeli</p>
+            </div>
+            <div id="widgetStatus" class="status info">
+                Widget durumu kontrol ediliyor...
+            </div>
+            <button class="test-button" onclick="testFloatingWidgets()">
+                Widget'ları Test Et
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h3>2. Touch Gesture Testi</h3>
+            <p>Widget'lar üzerinde touch gesture'ları test edin:</p>
+            <ul>
+                <li><strong>Yukarı Swipe:</strong> Widget'ları gizle</li>
+                <li><strong>Aşağı Swipe:</strong> Widget'ları göster</li>
+                <li><strong>Long Press:</strong> Widget'ı büyüt</li>
+                <li><strong>Sağa Swipe:</strong> Tüm widget'ları göster</li>
+                <li><strong>Sola Swipe:</strong> Tüm widget'ları gizle</li>
+            </ul>
+            <div id="gestureStatus" class="status info">
+                Gesture testi başlatıldı
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. Scroll Davranışı Testi</h3>
+            <p>Sayfayı aşağı kaydırın - widget'lar otomatik gizlenmeli:</p>
+            <div class="widget-test">
+                <p>Scroll yapın ve widget davranışını gözlemleyin</p>
+            </div>
+            <div id="scrollStatus" class="status info">
+                Scroll testi aktif
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. Responsive Test</h3>
+            <p>Farklı ekran boyutlarında widget boyutlarını test edin:</p>
+            <div class="widget-test">
+                <p>Ekran boyutunu değiştirin ve widget boyutlarını kontrol edin</p>
+            </div>
+            <div id="responsiveStatus" class="status info">
+                Responsive test aktif
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>5. Performance Testi</h3>
+            <p>Mobil performans metriklerini kontrol edin:</p>
+            <div id="performanceStatus" class="status info">
+                Performance metrikleri yükleniyor...
+            </div>
+            <button class="test-button" onclick="runPerformanceTest()">
+                Performance Testi Çalıştır
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h3>6. Network Testi</h3>
+            <p>Farklı bağlantı hızlarında widget davranışını test edin:</p>
+            <div id="networkStatus" class="status info">
+                Network durumu kontrol ediliyor...
+            </div>
+            <button class="test-button" onclick="testNetworkOptimization()">
+                Network Testi
+            </button>
+        </div>
+    </div>
+
+    <!-- Test için ek içerik (scroll test için) -->
+    <div class="test-container">
+        <h2>📜 Scroll Test İçeriği</h2>
+        <p>Bu bölüm, scroll davranışını test etmek için eklenmiştir.</p>
+        <div style="height: 500px; background: linear-gradient(45deg, #f0f0f0, #e0e0e0); display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+            <p>Scroll test alanı</p>
+        </div>
+        <div style="height: 500px; background: linear-gradient(45deg, #e0e0e0, #d0d0d0); display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+            <p>Daha fazla scroll test alanı</p>
+        </div>
+    </div>
+
+    <!-- JavaScript dosyaları -->
+    <script src="js/error-handler.js"></script>
+    <script src="js/mobile-widget-optimizer.js"></script>
+    <script src="js/floating-contact.js"></script>
+
+    <script>
+        // Test fonksiyonları
+        function testFloatingWidgets() {
+            const widgets = document.querySelectorAll('.dc-floating');
+            const status = document.getElementById('widgetStatus');
+            
+            if (widgets.length > 0) {
+                status.innerHTML = '<strong>✅ Floating widget\'lar bulundu:</strong> ' + widgets.length + ' adet';
+                status.className = 'status success';
+                
+                // Widget pozisyonlarını kontrol et
+                widgets.forEach((widget, index) => {
+                    const rect = widget.getBoundingClientRect();
+                    console.log(`Widget ${index + 1}:`, {
+                        position: {
+                            right: window.innerWidth - rect.right,
+                            bottom: window.innerHeight - rect.bottom
+                        },
+                        size: {
+                            width: rect.width,
+                            height: rect.height
+                        },
+                        visible: rect.width > 0 && rect.height > 0
+                    });
+                });
+            } else {
+                status.innerHTML = '<strong>❌ Floating widget\'lar bulunamadı</strong>';
+                status.className = 'status error';
+            }
+        }
+
+        function runPerformanceTest() {
+            const status = document.getElementById('performanceStatus');
+            
+            // Memory kullanımı
+            let memoryInfo = 'Memory bilgisi mevcut değil';
+            if ('memory' in performance) {
+                const memory = performance.memory;
+                memoryInfo = `Used: ${Math.round(memory.usedJSHeapSize / 1024 / 1024)}MB / Total: ${Math.round(memory.totalJSHeapSize / 1024 / 1024)}MB`;
+            }
+            
+            // Connection bilgisi
+            let connectionInfo = 'Connection bilgisi mevcut değil';
+            if ('connection' in navigator) {
+                const conn = navigator.connection;
+                connectionInfo = `Type: ${conn.effectiveType}, Downlink: ${conn.downlink}Mbps`;
+            }
+            
+            // Screen bilgisi
+            const screenInfo = `Width: ${window.innerWidth}px, Height: ${window.innerHeight}px, Ratio: ${window.devicePixelRatio}`;
+            
+            status.innerHTML = `
+                <strong>📊 Performance Metrikleri:</strong><br>
+                Memory: ${memoryInfo}<br>
+                Connection: ${connectionInfo}<br>
+                Screen: ${screenInfo}
+            `;
+            status.className = 'status success';
+        }
+
+        function testNetworkOptimization() {
+            const status = document.getElementById('networkStatus');
+            
+            if ('connection' in navigator) {
+                const conn = navigator.connection;
+                const effectiveType = conn.effectiveType;
+                
+                if (effectiveType === 'slow-2g' || effectiveType === '2g') {
+                    status.innerHTML = '<strong>🐌 Yavaş bağlantı tespit edildi - optimizasyonlar aktif</strong>';
+                    status.className = 'status info';
+                } else if (effectiveType === '3g') {
+                    status.innerHTML = '<strong>📶 Orta hızda bağlantı - normal optimizasyonlar</strong>';
+                    status.className = 'status success';
+                } else {
+                    status.innerHTML = '<strong>🚀 Hızlı bağlantı - tüm özellikler aktif</strong>';
+                    status.className = 'status success';
+                }
+            } else {
+                status.innerHTML = '<strong>❓ Bağlantı bilgisi mevcut değil</strong>';
+                status.className = 'status error';
+            }
+        }
+
+        // Cihaz bilgilerini göster
+        function updateDeviceInfo() {
+            const deviceDetails = document.getElementById('deviceDetails');
+            const userAgent = navigator.userAgent;
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+            const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            
+            deviceDetails.innerHTML = `
+                Mobile: ${isMobile ? '✅' : '❌'}<br>
+                Touch: ${isTouch ? '✅' : '❌'}<br>
+                Screen: ${window.innerWidth}x${window.innerHeight}<br>
+                Ratio: ${window.devicePixelRatio}<br>
+                User Agent: ${userAgent.substring(0, 50)}...
+            `;
+        }
+
+        // Scroll indicator
+        function updateScrollIndicator() {
+            const indicator = document.getElementById('scrollIndicator');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            indicator.textContent = `Scroll: ${Math.round(scrollTop)}px`;
+        }
+
+        // Sayfa yüklendiğinde
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDeviceInfo();
+            updateScrollIndicator();
+            
+            // Scroll event
+            window.addEventListener('scroll', updateScrollIndicator, { passive: true });
+            
+            // Resize event
+            window.addEventListener('resize', function() {
+                updateDeviceInfo();
+                updateScrollIndicator();
+            });
+            
+            // Otomatik testler
+            setTimeout(() => {
+                testFloatingWidgets();
+                runPerformanceTest();
+                testNetworkOptimization();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

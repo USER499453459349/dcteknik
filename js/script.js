@@ -88,11 +88,15 @@ function initializeContactButtons() {
     if (phoneBtn) {
         phoneBtn.addEventListener('click', function() {
             // Track Google Analytics event
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', 'phone_clicked', {
                     'event_category': 'engagement',
                     'event_label': 'contact_phone'
                 });
+                } catch (error) {
+                    console.warn('Phone click analytics gönderilemedi:', error);
+                }
             }
         });
     }
@@ -102,7 +106,8 @@ function initializeContactButtons() {
     if (whatsappBtn) {
         whatsappBtn.addEventListener('click', function() {
             // Track Google Analytics event
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', 'whatsapp_clicked', {
                     'event_category': 'engagement',
                     'event_label': 'contact_whatsapp'
@@ -116,7 +121,8 @@ function initializeContactButtons() {
     if (appointmentBtn) {
         appointmentBtn.addEventListener('click', function() {
             // Track Google Analytics event
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', 'appointment_clicked', {
                     'event_category': 'engagement',
                     'event_label': 'contact_appointment'
@@ -133,7 +139,8 @@ function initializeContactButtons() {
             showNotification('Servis takip sistemi yakında aktif olacak!', 'info');
             
             // Track Google Analytics event
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', 'tracking_clicked', {
                     'event_category': 'engagement',
                     'event_label': 'contact_tracking'
@@ -1508,7 +1515,8 @@ document.addEventListener('DOMContentLoaded', function() {
             showNotification('Teşekkürler! Yorumunuzu beğendiğinizi belirttiniz.', 'success');
             
             // Track event
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', 'review_helpful', {
                     'event_category': 'engagement',
                     'event_label': 'customer_review',
@@ -1710,7 +1718,8 @@ function initializeLocationSection() {
             const action = this.textContent.trim();
             
             // Track location interaction
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', 'location_action', {
                     'event_category': 'Location',
                     'event_label': action,
@@ -1741,7 +1750,8 @@ function initializeFinalMapSolution() {
             const action = this.textContent.trim();
             
             // Track map interaction
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', 'map_action', {
                     'event_category': 'Location',
                     'event_label': action,
@@ -1780,7 +1790,8 @@ function initializeSmartMapSystem() {
     mapBtns.forEach(btn => {
         btn.addEventListener('click', function(e) {
             // Track map interaction
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', 'map_interaction', {
                     'event_category': 'Location',
                     'event_label': this.textContent.trim(),
@@ -1879,7 +1890,8 @@ function getCurrentLocation() {
                 showNotification(`📍 Konumunuz bulundu! DC TEKNİK'e ${distance.toFixed(1)} km uzaklıktasınız.`, 'success');
                 
                 // Track location success
-                if (typeof gtag !== 'undefined') {
+                if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                     gtag('event', 'location_found', {
                         'event_category': 'Location',
                         'event_label': 'Geolocation',
@@ -2396,7 +2408,8 @@ function initialize2FA() {
             showNotification('✅ 2FA doğrulama başarılı!', 'success');
             
             // Track successful 2FA
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', '2fa_verification_success', {
                     'event_category': 'authentication',
                     'event_label': type,
@@ -2409,7 +2422,8 @@ function initialize2FA() {
             showNotification('❌ Geçersiz doğrulama kodu!', 'error');
             
             // Track failed 2FA
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', '2fa_verification_failed', {
                     'event_category': 'authentication',
                     'event_label': type,
@@ -2799,7 +2813,8 @@ function initializePerformanceMonitoring() {
             const lastEntry = entries[entries.length - 1];
             console.log('LCP:', lastEntry.startTime);
             
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', 'web_vitals', {
                     'event_category': 'Performance',
                     'event_label': 'LCP',
@@ -2814,7 +2829,8 @@ function initializePerformanceMonitoring() {
             entries.forEach(entry => {
                 console.log('FID:', entry.processingStart - entry.startTime);
                 
-                if (typeof gtag !== 'undefined') {
+                if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                     gtag('event', 'web_vitals', {
                         'event_category': 'Performance',
                         'event_label': 'FID',
@@ -2835,7 +2851,8 @@ function initializePerformanceMonitoring() {
             });
             console.log('CLS:', clsValue);
             
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', 'web_vitals', {
                     'event_category': 'Performance',
                     'event_label': 'CLS',
@@ -2852,7 +2869,8 @@ function initializePerformanceMonitoring() {
             const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
             console.log('Page Load Time:', loadTime);
             
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', 'page_load_time', {
                     'event_category': 'Performance',
                     'event_label': 'Load Time',
@@ -3063,7 +3081,8 @@ function initializeCustomerReviews() {
             showNotification('Teşekkürler! Yorumunuzu beğendiğinizi belirttiniz.', 'success');
             
             // Track Google Analytics event
-            if (typeof gtag !== 'undefined') {
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
                 gtag('event', 'review_helpful', {
                     'event_category': 'engagement',
                     'event_label': 'customer_review'

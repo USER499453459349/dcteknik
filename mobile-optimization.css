@@ -1,0 +1,875 @@
+/**
+ * DC TEKNİK - Mobil Optimizasyon CSS
+ * Mobil kullanıcı deneyimi ve performans iyileştirmeleri
+ */
+
+/* ========================================
+   MOBİL TEMEL AYARLAR
+   ======================================== */
+
+/* Viewport ve temel mobil ayarlar */
+@media (max-width: 768px) {
+    /* Smooth scrolling için */
+    html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        /* Mobil için performans optimizasyonu */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Mobil için body optimizasyonu */
+    body {
+        -webkit-tap-highlight-color: rgba(255, 107, 53, 0.3);
+        -webkit-touch-callout: none;
+        -webkit-text-size-adjust: 100%;
+        touch-action: manipulation;
+        overflow-x: hidden;
+        /* Mobil yükleme performansı */
+        will-change: auto;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+    }
+    
+    /* Tüm elementler için box-sizing */
+    *, *::before, *::after {
+        -webkit-tap-highlight-color: transparent;
+        /* Mobil performans için */
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+    
+    /* Mobil widget'lar için z-index düzenlemesi */
+    .dc-floating {
+        z-index: 10000 !important;
+        position: fixed !important;
+        right: 16px !important;
+        bottom: 16px !important;
+    }
+    
+    /* Mobil için görsel optimizasyon */
+    img {
+        max-width: 100%;
+        height: auto;
+        /* Mobil için lazy loading */
+        loading: lazy;
+        decoding: async;
+    }
+    
+    /* Mobil için font optimizasyonu */
+    body, input, textarea, select {
+        font-size: 16px; /* iOS zoom önleme */
+        -webkit-text-size-adjust: 100%;
+    }
+}
+
+/* ========================================
+   TOUCH TARGET OPTİMİZASYONU
+   ======================================== */
+
+/* Minimum touch target: 44x44px (Apple/Google guidelines) */
+@media (max-width: 768px) {
+    /* Butonlar için minimum boyut */
+    button,
+    .btn,
+    .btn-primary,
+    .btn-whatsapp,
+    .btn-outline,
+    a.btn,
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"] {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px 20px;
+        font-size: 16px !important; /* iOS zoom önleme */
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(255, 107, 53, 0.3);
+    }
+    
+    /* Linkler için minimum boyut */
+    a:not(.logo-image) {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 12px;
+        touch-action: manipulation;
+    }
+    
+    /* Navigation linkler için özel ayar */
+    .nav-menu li a {
+        min-height: 48px;
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Floating action buttons */
+    .fab-main,
+    .fab-item,
+    .chat-toggle,
+    .back-to-top {
+        min-width: 56px;
+        min-height: 56px;
+        width: 56px;
+        height: 56px;
+    }
+    
+    /* Form inputları için minimum boyut */
+    input,
+    textarea,
+    select {
+        min-height: 44px;
+        font-size: 16px !important; /* iOS zoom önleme */
+        padding: 12px 16px;
+        touch-action: manipulation;
+    }
+    
+    /* Checkbox ve radio için özel boyut */
+    input[type="checkbox"],
+    input[type="radio"] {
+        min-width: 24px;
+        min-height: 24px;
+        width: 24px;
+        height: 24px;
+        margin-right: 12px;
+    }
+}
+
+/* ========================================
+   MOBİL NAVİGASYON İYİLEŞTİRMELERİ
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Header için sabit pozisyon */
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background: rgba(26, 26, 26, 0.98);
+        padding: 0;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Navbar padding */
+    .navbar {
+        padding: 12px 0;
+    }
+    
+    /* Logo boyutu mobil için */
+    .nav-logo .logo-image {
+        width: 140px;
+        height: 42px;
+    }
+    
+    /* Mobil menü toggle butonu */
+    .nav-toggle {
+        min-width: 48px;
+        min-height: 48px;
+        width: 48px;
+        height: 48px;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+        z-index: 1001;
+    }
+    
+    .nav-toggle .bar {
+        width: 24px;
+        height: 3px;
+        background: var(--text-color);
+        margin: 3px 0;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+    }
+    
+    .nav-toggle.active .bar:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+    
+    .nav-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .nav-toggle.active .bar:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+    
+    /* Mobil menü */
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(26, 26, 26, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        z-index: 999;
+    }
+    
+    .nav-menu.active {
+        max-height: 100vh;
+        padding: 20px 0;
+    }
+    
+    .nav-menu li {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-menu li a {
+        width: 100%;
+        padding: 16px 24px;
+        text-align: left;
+        font-size: 16px;
+        color: var(--text-color);
+        border-radius: 0;
+    }
+    
+    .nav-menu li a:hover,
+    .nav-menu li a:active {
+        background: rgba(255, 107, 53, 0.1);
+        color: var(--primary-color);
+    }
+}
+
+/* ========================================
+   MOBİL HERO BÖLÜMÜ İYİLEŞTİRMELERİ
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Hero padding mobil için */
+    .hero {
+        padding: 100px 0 60px;
+        min-height: auto;
+        min-height: calc(100vh - 70px);
+    }
+    
+    .hero-content {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+    }
+    
+    /* Hero title mobil */
+    .hero-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 1.5rem;
+        line-height: 1.1;
+    }
+    
+    /* Hero subtitle mobil */
+    .hero-subtitle {
+        font-size: clamp(1rem, 4vw, 1.3rem);
+        margin-bottom: 1rem;
+    }
+    
+    /* Hero description mobil */
+    .hero-description {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+    
+    /* Hero buttons mobil */
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+        margin: 2rem 0;
+    }
+    
+    .btn-large {
+        width: 100%;
+        max-width: 100%;
+        min-height: 56px;
+        padding: 16px 24px;
+        font-size: 16px;
+    }
+    
+    /* Hero stats counter mobil */
+    .hero-stats-counter {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin: 2rem 0;
+        padding: 1.5rem 1rem;
+    }
+    
+    .stat-counter {
+        padding: 1rem;
+        min-height: 80px;
+    }
+    
+    .counter-number {
+        font-size: 2rem;
+    }
+    
+    .counter-label {
+        font-size: 0.8rem;
+    }
+    
+    /* Trust indicators mobil */
+    .trust-indicators {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin: 1.5rem 0;
+    }
+    
+    .trust-item {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+}
+
+/* ========================================
+   MOBİL SERVİS KARTLARI İYİLEŞTİRMELERİ
+   ======================================== */
+
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .service-card {
+        padding: 1.5rem;
+        min-height: auto;
+    }
+    
+    .service-card h3 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .service-card p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    /* Service card butonları */
+    .service-card .btn {
+        width: 100%;
+        min-height: 48px;
+        margin-top: 1.5rem;
+    }
+}
+
+/* ========================================
+   MOBİL İLETİŞİM BÖLÜMÜ İYİLEŞTİRMELERİ
+   ======================================== */
+
+@media (max-width: 768px) {
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .contact-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .contact-actions .btn {
+        width: 100%;
+        min-height: 52px;
+        justify-content: center;
+    }
+    
+    /* Google Maps iframe mobil */
+    .google-map-wrapper iframe {
+        height: 300px;
+        border-radius: 12px;
+    }
+    
+    .map-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .map-actions .btn {
+        width: 100%;
+        min-height: 48px;
+    }
+}
+
+/* ========================================
+   MOBİL FORM İYİLEŞTİRMELERİ
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Form container */
+    .diagnostic-container,
+    .appointment-form {
+        margin: 0 1rem;
+        border-radius: 16px;
+    }
+    
+    .diagnostic-step,
+    .appointment-form {
+        padding: 1.5rem;
+    }
+    
+    /* Form row mobil */
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    /* Form inputlar */
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        min-height: 48px;
+        font-size: 16px !important;
+        padding: 14px 16px;
+        border-radius: 8px;
+    }
+    
+    /* Form label mobil */
+    .form-group label {
+        font-size: 14px;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+    
+    /* Form butonları mobil */
+    .diagnostic-navigation {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .diagnostic-navigation .btn {
+        width: 100%;
+        min-height: 48px;
+    }
+}
+
+/* ========================================
+   MOBİL WIDGET İYİLEŞTİRMELERİ
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Chat widget mobil */
+    .chat-window {
+        width: calc(100vw - 32px);
+        max-width: 400px;
+        height: calc(100vh - 120px);
+        max-height: 600px;
+        bottom: 90px;
+        right: 16px;
+        left: auto;
+        border-radius: 20px;
+    }
+    
+    .chat-toggle {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    /* Floating action buttons mobil */
+    .floating-actions {
+        bottom: 90px;
+        right: 20px;
+    }
+    
+    .fab-menu {
+        gap: 12px;
+    }
+    
+    /* Notification widget mobil */
+    .notification-widget {
+        left: 16px;
+        right: 16px;
+        max-width: none;
+        transform: translateY(-100px);
+    }
+    
+    .notification-widget.show {
+        transform: translateY(0);
+    }
+    
+    /* Back to top mobil */
+    .back-to-top {
+        bottom: 20px;
+        left: 20px;
+        width: 52px;
+        height: 52px;
+    }
+}
+
+/* ========================================
+   MOBİL PERFORMANS İYİLEŞTİRMELERİ
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Görseller için lazy loading */
+    img {
+        loading: lazy;
+        decoding: async;
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Video için mobil optimizasyon */
+    video {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Animasyonları azalt mobil için */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+    
+    /* GPU hızlandırma */
+    .hero,
+    .service-card,
+    .review-card {
+        transform: translateZ(0);
+        will-change: transform;
+    }
+    
+    /* Smooth scrolling mobil */
+    html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ========================================
+   MOBİL TOUCH FEEDBACK
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Touch feedback için active state */
+    button:active,
+    .btn:active,
+    a:active,
+    .service-card:active {
+        transform: scale(0.97);
+        opacity: 0.8;
+        transition: transform 0.1s ease, opacity 0.1s ease;
+    }
+    
+    /* Touch için hover state kaldır */
+    @media (hover: none) and (pointer: coarse) {
+        button:hover,
+        .btn:hover,
+        a:hover {
+            transform: none;
+        }
+    }
+    
+    /* Long press feedback */
+    button:active,
+    .btn:active {
+        background: rgba(255, 107, 53, 0.2);
+    }
+}
+
+/* ========================================
+   MOBİL TYPOGRAPHY İYİLEŞTİRMELERİ
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Okunabilirlik için font boyutları */
+    body {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    
+    h1 {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+        line-height: 1.2;
+    }
+    
+    h2 {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        line-height: 1.3;
+    }
+    
+    h3 {
+        font-size: clamp(1.2rem, 4vw, 1.5rem);
+        line-height: 1.4;
+    }
+    
+    p {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+        line-height: 1.6;
+    }
+    
+    /* Link spacing */
+    a {
+        word-break: break-word;
+    }
+}
+
+/* ========================================
+   MOBİL SCROLL İYİLEŞTİRMELERİ
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Smooth scroll mobil */
+    * {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Scroll indicator */
+    .scroll-indicator {
+        bottom: 30px;
+    }
+    
+    .scroll-arrow {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        min-height: 42px;
+    }
+}
+
+/* ========================================
+   MOBİL SAFE AREA (iPhone X ve üzeri)
+   ======================================== */
+
+@supports (padding: max(0px)) {
+    @media (max-width: 768px) {
+        .header {
+            padding-left: max(16px, env(safe-area-inset-left));
+            padding-right: max(16px, env(safe-area-inset-right));
+        }
+        
+        .hero {
+            padding-top: max(100px, calc(env(safe-area-inset-top) + 70px));
+        }
+        
+        .floating-actions,
+        .chat-toggle,
+        .back-to-top {
+            bottom: max(20px, env(safe-area-inset-bottom));
+        }
+        
+        .fab-menu {
+            bottom: max(90px, calc(env(safe-area-inset-bottom) + 70px));
+        }
+    }
+}
+
+/* ========================================
+   MOBİL LOADING STATES
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Loading skeleton */
+    .skeleton {
+        background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.05) 25%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(255, 255, 255, 0.05) 75%
+        );
+        background-size: 200% 100%;
+        animation: skeleton-loading 1.5s ease-in-out infinite;
+        border-radius: 8px;
+    }
+    
+    @keyframes skeleton-loading {
+        0% {
+            background-position: 200% 0;
+        }
+        100% {
+            background-position: -200% 0;
+        }
+    }
+    
+    /* Image placeholder */
+    img[data-src] {
+        background: rgba(255, 255, 255, 0.05);
+        min-height: 200px;
+    }
+}
+
+/* ========================================
+   MOBİL ACCESSIBILITY
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Focus indicators mobil */
+    *:focus-visible {
+        outline: 3px solid var(--primary-color);
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
+    
+    /* Skip link */
+    .skip-link {
+        position: absolute;
+        top: -100px;
+        left: 0;
+        background: var(--primary-color);
+        color: white;
+        padding: 12px 20px;
+        text-decoration: none;
+        z-index: 10000;
+        border-radius: 0 0 8px 0;
+    }
+    
+    .skip-link:focus {
+        top: 0;
+    }
+}
+
+/* ========================================
+   MOBİL ÖZEL İYİLEŞTİRMELER
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Container padding mobil */
+    .container {
+        padding: 0 1rem;
+    }
+    
+    /* Section padding mobil */
+    .services,
+    .about,
+    .contact,
+    .reviews-section {
+        padding: 3rem 0;
+    }
+    
+    /* Card spacing mobil */
+    .service-card,
+    .review-card,
+    .feature-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Footer mobil */
+    .footer {
+        padding: 2rem 1rem;
+        font-size: 0.9rem;
+        text-align: center;
+    }
+    
+    /* Additional services grid mobil */
+    .additional-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .additional-item {
+        padding: 1rem;
+        min-height: 100px;
+    }
+}
+
+/* ========================================
+   MOBİL LANDSCAPE MODE
+   ======================================== */
+
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        min-height: auto;
+        padding: 80px 0 40px;
+    }
+    
+    .hero-content {
+        padding: 1.5rem;
+    }
+    
+    .hero-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+    
+    .hero-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .btn-large {
+        flex: 1;
+        min-width: 150px;
+        max-width: 200px;
+    }
+}
+
+/* ========================================
+   MOBİL PERFORMANS OPTİMİZASYONU
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Reduce motion için */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation: none !important;
+            transition: none !important;
+        }
+    }
+    
+    /* Contain paint için */
+    .service-card,
+    .review-card,
+    .feature-card {
+        contain: layout style paint;
+    }
+    
+    /* Will-change sadece gerektiğinde */
+    .animated-element {
+        will-change: transform, opacity;
+    }
+}
+
+/* ========================================
+   MOBİL UTILITIES
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Hidden on mobile */
+    .hide-mobile {
+        display: none !important;
+    }
+    
+    /* Show only on mobile */
+    .show-mobile {
+        display: block !important;
+    }
+    
+    /* Full width on mobile */
+    .mobile-full-width {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+
+

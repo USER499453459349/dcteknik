@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover, shrink-to-fit=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,19 +16,34 @@
         /* Critical above-the-fold styles - Render blocking minimized */
         :root{--primary-color:#ff6b35;--secondary-color:#1a1a1a;--text-color:#fff;--background:#0f0f0f}
         *{margin:0;padding:0;box-sizing:border-box}
-        html{scroll-behavior:smooth}
+        html{scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
         body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;color:var(--text-color);overflow-x:hidden;background:var(--background);position:relative}
         .container{max-width:1200px;margin:0 auto;padding:0 20px}
-        header{background:rgba(26,26,26,0.95);backdrop-filter:blur(10px);padding:1rem 0;position:sticky;top:0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.3)}
-        .logo-image{height:50px;width:auto}
-        nav ul{display:flex;list-style:none;gap:2rem;align-items:center}
-        nav a{color:var(--text-color);text-decoration:none;transition:color 0.3s}
+        header{background:rgba(26,26,26,0.95);backdrop-filter:blur(10px);padding:1rem 0;position:fixed;top:0;left:0;right:0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.3)}
+        .navbar{padding:1.5rem 0;position:relative;z-index:2}
+        .nav-container{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;padding:0 1rem}
+        .logo-image{height:50px;width:auto;display:block}
+        nav ul{display:flex;list-style:none;gap:2rem;align-items:center;margin:0;padding:0}
+        nav a{color:var(--text-color);text-decoration:none;transition:color 0.3s;padding:0.75rem 1.5rem;border-radius:4px}
         nav a:hover{color:var(--primary-color)}
-        .hero{min-height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;position:relative}
+        .nav-toggle{display:none;flex-direction:column;cursor:pointer;padding:8px;background:none;border:none}
+        .nav-toggle .bar{width:25px;height:3px;background:var(--text-color);margin:3px 0;transition:0.3s}
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 2rem 4rem;position:relative;margin-top:70px}
+        .hero-content{position:relative;z-index:10;max-width:1600px;margin:0 auto;padding:2rem}
         h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:700;line-height:1.2;margin-bottom:1rem}
-        .btn-primary{display:inline-block;padding:1rem 2rem;background:var(--primary-color);color:#fff;border-radius:4px;text-decoration:none;transition:all 0.3s;font-weight:600}
+        .hero-title{font-size:clamp(2.5rem,8vw,4rem);font-weight:900;margin-bottom:2rem}
+        .hero-buttons{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin:2rem 0}
+        .btn-primary,.btn-whatsapp,.btn-outline{display:inline-flex;align-items:center;gap:0.5rem;padding:1rem 2rem;text-decoration:none;border-radius:8px;font-weight:600;transition:all 0.3s;min-height:44px;font-size:16px}
+        .btn-primary{background:var(--primary-color);color:#fff}
         .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,107,53,0.4)}
-        @media(max-width:768px){nav ul{flex-direction:column;gap:1rem}}
+        @media(max-width:768px){
+            nav ul{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(26,26,26,0.98);flex-direction:column;padding:0}
+            nav ul.active{display:flex}
+            .nav-toggle{display:flex}
+            .hero{padding:100px 1rem 2rem;margin-top:70px}
+            .hero-buttons{flex-direction:column;align-items:stretch;gap:1rem}
+            .btn-primary,.btn-whatsapp,.btn-outline{width:100%;justify-content:center}
+        }
     </style>
     
     <!-- Non-critical stylesheets - Load asynchronously -->
@@ -43,6 +58,12 @@
     
     <link rel="preload" href="performance-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="performance-styles.css"></noscript>
+    
+    <link rel="preload" href="mobile-optimization.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="mobile-optimization.css"></noscript>
+    
+    <link rel="preload" href="web-optimization.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="web-optimization.css"></noscript>
     
     <!-- Fallback script for async CSS loading -->
     <script>
@@ -225,6 +246,9 @@
     <!-- Font Optimizer - Load early -->
     <script src="js/font-optimizer.js" defer></script>
     
+    <!-- Mobile Enhancement - Load early for mobile -->
+    <script src="js/mobile-enhancement.js" defer></script>
+    
     <!-- Image Loading Error Handler -->
     <script>
         // Handle image loading errors
@@ -301,13 +325,21 @@
     <script>
         // Core Web Vitals tracking
         function sendToAnalytics(metric) {
-            if (typeof gtag !== 'undefined') {
-                gtag('event', metric.name, {
-                    event_category: 'Web Vitals',
-                    event_label: metric.id,
-                    value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
-                    non_interaction: true,
-                });
+            // gtag fonksiyonunun yüklenmesini bekle
+            if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                try {
+                    gtag('event', metric.name, {
+                        event_category: 'Web Vitals',
+                        event_label: metric.id,
+                        value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+                        non_interaction: true,
+                    });
+                } catch (error) {
+                    console.warn('Analytics event gönderilemedi:', error);
+                }
+            } else {
+                // gtag henüz yüklenmediyse bekle
+                setTimeout(() => sendToAnalytics(metric), 1000);
             }
         }
         
@@ -686,7 +718,7 @@
             <div class="nav-container">
                 <div class="nav-logo">
                     <a href="#home" aria-label="Ana sayfaya dön">
-                        <img src="logo-new.svg" alt="DC TEKNİK - Dinamo Tamiri ve Alternatör Onarımı Logo" class="logo-image" loading="eager" fetchpriority="high" decoding="async" width="150" height="50">
+                        <img src="logo-new.svg" alt="DC TEKNİK - Dinamo Tamiri ve Alternatör Onarımı Logo" class="logo-image" loading="eager" fetchpriority="high" decoding="async" width="150" height="50" style="width:150px;height:50px">
                         <div class="logo-text">
                             <h2>DC TEKNİK</h2>
                             <span>Dinamocu Serdar</span>
@@ -1321,8 +1353,23 @@
     <!-- Critical Loader - Load early -->
     <script src="js/critical-load.js"></script>
     
+    <!-- Global Error Handler - Load first -->
+    <script src="js/global-error-handler.js"></script>
+    
+    <!-- Error Handler - Load first -->
+    <script defer src="js/error-handler.js" onerror="console.error('Error Handler failed to load')"></script>
+    
+    <!-- Mobile Widget Optimizer -->
+    <script defer src="js/mobile-widget-optimizer.js" onerror="console.error('Mobile Widget Optimizer failed to load')"></script>
+    
     <!-- Performance Optimizer - Load early with defer -->
     <script defer src="js/performance-optimizer.js" onerror="console.error('Performance Optimizer failed to load')"></script>
+    
+    <!-- Web Performance Optimizer - Core Web Vitals & Advanced Optimizations -->
+    <script defer src="js/web-performance.js" onerror="console.error('Web Performance Optimizer failed to load')"></script>
+    
+    <!-- Optimization Checker - Performance audit tool -->
+    <script defer src="js/optimization-checker.js" onerror="console.error('Optimization Checker failed to load')"></script>
     
     <!-- UX Enhancements - Defer for non-blocking load -->
     <script defer src="js/ux-enhancements.js" onerror="console.error('UX Enhancements failed to load')"></script>
@@ -2010,10 +2057,17 @@
                 updateThemeIcon(newTheme);
                 
                 // Analytics event
-                gtag('event', 'theme_toggle', {
-                    event_category: 'UI',
-                    event_label: newTheme,
-                    value: 1
+                if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
+                    try {
+                        gtag('event', 'theme_toggle', {
+                            event_category: 'UI',
+                            event_label: newTheme,
+                            value: 1
+                        });
+                    } catch (error) {
+                        console.warn('Theme toggle analytics gönderilemedi:', error);
+                    }
+                }
                 });
             });
             

@@ -1,0 +1,384 @@
+/**
+ * DC TEKNİK - Web Optimization CSS
+ * Web performance optimizations and improvements
+ */
+
+/* ========================================
+   PERFORMANCE OPTIMIZATIONS
+   ======================================== */
+
+/* Containment for better performance */
+.hero,
+.services-grid,
+.reviews-grid {
+    contain: layout style paint;
+}
+
+/* Will-change for animated elements */
+.animated-element,
+.service-card:hover,
+.review-card:hover {
+    will-change: transform, opacity;
+}
+
+/* GPU Acceleration */
+.hero-content,
+.service-card,
+.review-card,
+.btn {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* ========================================
+   LAYOUT SHIFT PREVENTION (CLS)
+   ======================================== */
+
+/* Image aspect ratios */
+img {
+    aspect-ratio: attr(width) / attr(height);
+    max-width: 100%;
+    height: auto;
+}
+
+/* Reserve space for images */
+.img-placeholder {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ========================================
+   LOADING STATES
+   ======================================== */
+
+/* Skeleton loading */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.05) 25%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.05) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    border-radius: 8px;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Image loading state */
+img:not(.img-loaded) {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+img.img-loaded {
+    opacity: 1;
+}
+
+/* ========================================
+   CRITICAL ABOVE-THE-FOLD
+   ======================================== */
+
+/* Hero section - highest priority */
+.hero {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 100vh;
+}
+
+/* Header - critical */
+.header {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 70px;
+}
+
+/* ========================================
+   OPTIMIZED ANIMATIONS
+   ======================================== */
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Optimize animation performance */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 30px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Use transform for animations (GPU accelerated) */
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+    will-change: transform, opacity;
+}
+
+/* ========================================
+   FONT LOADING OPTIMIZATION
+   ======================================== */
+
+/* Font display swap for faster rendering */
+@font-face {
+    font-family: 'Inter';
+    font-display: swap;
+}
+
+/* Fallback fonts */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.fonts-loaded body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ========================================
+   DATA SAVING MODE
+   ======================================== */
+
+.data-saving-mode img:not([data-critical="true"]) {
+    filter: blur(2px);
+    opacity: 0.8;
+}
+
+.data-saving-mode * {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.1s !important;
+}
+
+.data-saving-mode video,
+.data-saving-mode iframe {
+    display: none;
+}
+
+/* ========================================
+   CONTENT VISIBILITY
+   ======================================== */
+
+/* Below-the-fold sections */
+.services,
+.about,
+.reviews-section,
+.contact {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+}
+
+/* Service cards */
+.service-card,
+.review-card,
+.feature-card {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 300px;
+}
+
+/* ========================================
+   OPTIMIZED SCROLLING
+   ======================================== */
+
+html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Smooth scroll for sections */
+section {
+    scroll-margin-top: 80px;
+}
+
+/* ========================================
+   IMAGE OPTIMIZATION
+   ======================================== */
+
+/* Responsive images */
+.responsive-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Lazy loaded images */
+img[loading="lazy"] {
+    content-visibility: auto;
+}
+
+/* Image containment */
+img {
+    contain: layout style paint;
+}
+
+/* ========================================
+   PRINT OPTIMIZATION
+   ======================================== */
+
+@media print {
+    * {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    .header,
+    .footer,
+    .btn,
+    .chat-window,
+    .floating-actions {
+        display: none !important;
+    }
+    
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+}
+
+/* ========================================
+   NETWORK AWARENESS
+   ======================================== */
+
+/* Slow connection */
+@media (prefers-reduced-data: reduce) {
+    * {
+        animation-duration: 0s !important;
+        transition-duration: 0s !important;
+    }
+    
+    img[data-critical="false"],
+    video,
+    iframe {
+        display: none;
+    }
+    
+    .hero-background,
+    .hero-shapes,
+    .floating-elements {
+        display: none;
+    }
+}
+
+/* ========================================
+   PRIORITY HINTS
+   ======================================== */
+
+/* Critical images */
+img[fetchpriority="high"] {
+    image-rendering: -webkit-optimize-contrast;
+}
+
+/* Non-critical images */
+img[fetchpriority="low"],
+img[loading="lazy"] {
+    image-rendering: auto;
+}
+
+/* ========================================
+   MEMORY OPTIMIZATION
+   ======================================== */
+
+/* Unload offscreen images */
+img:not(.keep-loaded) {
+    content-visibility: auto;
+}
+
+/* Limit repaints */
+* {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* ========================================
+   CRITICAL CSS INLINE (minified)
+   ======================================== */
+
+/* These styles should be inlined in <head> for faster rendering */
+/* Currently in index.html <style> tag */
+
+/* ========================================
+   PERFORMANCE BUDGET HELPERS
+   ======================================== */
+
+/* Hide non-critical decorative elements on slow devices */
+@media (max-width: 480px) {
+    .hero-shapes .shape:nth-child(n+3),
+    .floating-icon:nth-child(n+3) {
+        display: none;
+    }
+}
+
+/* Reduce visual complexity on slow connections */
+.data-saving-mode .hero-shapes,
+.data-saving-mode .floating-elements,
+.data-saving-mode .hero-particles {
+    display: none;
+}
+
+/* ========================================
+   WEBP/AVIF SUPPORT
+   ======================================== */
+
+/* WebP support */
+.webp img[data-webp] {
+    content: url(attr(data-webp));
+}
+
+/* AVIF support */
+.avif img[data-avif] {
+    content: url(attr(data-avif));
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Hide during load */
+.loading-hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* Show after load */
+.loaded-visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Critical element */
+.critical-element {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 200px;
+}
+
+/* Non-critical element */
+.non-critical-element {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 100px;
+}
+
+
+

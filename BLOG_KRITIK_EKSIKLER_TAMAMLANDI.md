@@ -209,3 +209,6 @@
 
 **Not**: Blog artık SEO-friendly, accessible ve kullanıcı dostu! Tüm kritik eksikler giderildi. 🎉
 
+
+
+

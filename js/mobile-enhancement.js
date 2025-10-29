@@ -26,6 +26,11 @@ class MobileEnhancer {
     }
 
     init() {
+        // Mobil cihaz kontrolü
+        if (!this.isMobile) {
+            return; // Mobil değilse çalıştırma
+        }
+        
         this.enhanceMobileUX();
         this.optimizeTouchInteractions();
         this.improveMobilePerformance();
@@ -34,8 +39,12 @@ class MobileEnhancer {
         this.enhanceMobileForms();
         this.addMobileGestures();
         this.setupMobileNotifications();
+        this.optimizeMobileWidgets();
+        this.setupMobileErrorHandling();
         
-        console.log('📱 Mobile Enhancer initialized');
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log('📱 Mobile Enhancer initialized');
+        }
     }
 
     // Detect mobile device
@@ -118,17 +127,35 @@ class MobileEnhancer {
 
     // Enhance touch targets
     enhanceTouchTargets() {
-        const touchTargets = document.querySelectorAll('a, button, input, select, textarea');
+        if (!this.isMobile) return;
+        
+        const touchTargets = document.querySelectorAll('a:not(.logo-image), button:not(.nav-toggle), .btn, input[type="button"], input[type="submit"]');
         
         touchTargets.forEach(target => {
             const rect = target.getBoundingClientRect();
             const minSize = 44; // Minimum touch target size in pixels
             
-            if (rect.width < minSize || rect.height < minSize) {
-                target.style.minWidth = minSize + 'px';
-                target.style.minHeight = minSize + 'px';
-                target.style.padding = '12px';
+            // Skip if already large enough
+            if (rect.width >= minSize && rect.height >= minSize) return;
+            
+            // Add minimum size
+            if (!target.style.minWidth) {
+                target.style.minWidth = Math.max(minSize, rect.width) + 'px';
             }
+            if (!target.style.minHeight) {
+                target.style.minHeight = Math.max(minSize, rect.height) + 'px';
+            }
+            
+            // Add padding if needed
+            const computedStyle = window.getComputedStyle(target);
+            const padding = parseFloat(computedStyle.paddingTop) || 0;
+            if (padding < 12) {
+                target.style.padding = '12px 20px';
+            }
+            
+            // Add touch-action for better performance
+            target.style.touchAction = 'manipulation';
+            target.style.webkitTapHighlightColor = 'rgba(255, 107, 53, 0.3)';
         });
     }
 
@@ -312,18 +339,34 @@ class MobileEnhancer {
 
     // Optimize mobile images
     optimizeMobileImages() {
-        const images = document.querySelectorAll('img');
+        if (!this.isMobile) return;
+        
+        const images = document.querySelectorAll('img:not([loading])');
         images.forEach(img => {
-            // Add loading="lazy" for mobile
-            if (this.isMobile && !img.loading) {
-                img.loading = 'lazy';
+            // Skip logo and critical images
+            if (img.classList.contains('logo-image') || img.hasAttribute('fetchpriority')) {
+                return;
             }
             
+            // Add loading="lazy" for mobile
+            img.loading = 'lazy';
+            img.decoding = 'async';
+            
             // Optimize image sizes for mobile
-            if (this.isMobile && img.width > 400) {
-                img.style.maxWidth = '100%';
-                img.style.height = 'auto';
-            }
+            img.style.maxWidth = '100%';
+            img.style.height = 'auto';
+            
+            // Add error handler
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+            });
+        });
+        
+        // Optimize background images if any
+        const elementsWithBg = document.querySelectorAll('[style*="background-image"]');
+        elementsWithBg.forEach(el => {
+            el.style.backgroundSize = 'cover';
+            el.style.backgroundPosition = 'center';
         });
     }
 
@@ -512,10 +555,59 @@ class MobileEnhancer {
 
     // Improve mobile performance
     improveMobilePerformance() {
+        if (!this.isMobile) return;
+        
         this.optimizeMobileLoading();
         this.improveMobileRendering();
         this.optimizeMobileMemory();
         this.addMobileCaching();
+        this.optimizeAnimations();
+        this.prefetchCriticalResources();
+    }
+    
+    // Optimize animations for mobile
+    optimizeAnimations() {
+        // Reduce animation duration on slow connections
+        if (this.connectionType && (this.connectionType === 'slow-2g' || this.connectionType === '2g')) {
+            const style = document.createElement('style');
+            style.textContent = `
+                * {
+                    animation-duration: 0.3s !important;
+                    transition-duration: 0.2s !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Respect prefers-reduced-motion
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const style = document.createElement('style');
+            style.textContent = `
+                *,
+                *::before,
+                *::after {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+    
+    // Prefetch critical resources
+    prefetchCriticalResources() {
+        // Prefetch next likely pages
+        const links = document.querySelectorAll('a[href^="/"]:not([href*="#"])');
+        links.forEach(link => {
+            if (link.getAttribute('href') && !link.hasAttribute('prefetch')) {
+                const prefetchLink = document.createElement('link');
+                prefetchLink.rel = 'prefetch';
+                prefetchLink.href = link.getAttribute('href');
+                prefetchLink.as = 'document';
+                document.head.appendChild(prefetchLink);
+            }
+        });
     }
 
     // Optimize mobile loading
@@ -761,7 +853,7 @@ class MobileEnhancer {
 
     // Send mobile analytics
     sendMobileAnalytics(eventName, data) {
-        if (typeof gtag !== 'undefined') {
+        if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
             gtag('event', eventName, {
                 event_category: 'Mobile',
                 event_label: 'Mobile Enhancement',

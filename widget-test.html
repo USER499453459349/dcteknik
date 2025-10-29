@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget Test - DC TEKNİK</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+            min-height: 200vh; /* Scroll test için */
+        }
+        .test-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        .test-button {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            min-width: 44px;
+            min-height: 44px;
+        }
+        .test-button:hover {
+            background: #ff8c42;
+            transform: translateY(-2px);
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .widget-demo {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .newsletter-form button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .newsletter-message {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .tag-btn {
+            padding: 8px 16px;
+            background: #e9ecef;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tag-btn.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .tag-btn:hover {
+            background: #0056b3;
+            color: white;
+        }
+        .blog-post {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .blog-category {
+            background: #ff6b35;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Widget Test Sayfası</h1>
+        <p>Bu sayfa, web sitesindeki tüm widget'ları test etmek için oluşturulmuştur.</p>
+
+        <div class="test-section">
+            <h3>1. Floating Contact Widget Testi</h3>
+            <p>Sağ alt köşedeki floating widget'ları kontrol edin:</p>
+            <div class="widget-demo">
+                <p>Floating widget'lar sağ alt köşede görünmeli</p>
+            </div>
+            <div id="floatingStatus" class="status info">
+                Floating widget durumu kontrol ediliyor...
+            </div>
+            <button class="test-button" onclick="testFloatingWidget()">
+                Floating Widget Testi
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h3>2. Newsletter Widget Testi</h3>
+            <p>Newsletter abonelik formunu test edin:</p>
+            <div class="newsletter-form">
+                <input type="email" id="test-newsletter-email" placeholder="E-posta adresiniz" required>
+                <button onclick="testNewsletter()">Abone Ol</button>
+            </div>
+            <div id="newsletterStatus" class="status info">
+                Newsletter widget testi hazır
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. Tag Filter Widget Testi</h3>
+            <p>Blog etiket filtreleme widget'ını test edin:</p>
+            <div class="blog-tags">
+                <button class="tag-btn active" data-tag="all">Tümü</button>
+                <button class="tag-btn" data-tag="dinamo">Dinamo</button>
+                <button class="tag-btn" data-tag="alternator">Alternatör</button>
+                <button class="tag-btn" data-tag="mars">Marş Motoru</button>
+                <button class="tag-btn" data-tag="bakim">Bakım</button>
+            </div>
+            <div id="tagStatus" class="status info">
+                Tag widget testi hazır
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. Blog Post Filtreleme Testi</h3>
+            <p>Tag widget'ı ile blog postlarını filtreleyin:</p>
+            <div class="blog-post" data-category="dinamo">
+                <div class="blog-category">Dinamo</div>
+                <h4>Dinamo Tamiri Rehberi</h4>
+                <p>Dinamo arızaları ve çözüm yöntemleri hakkında detaylı bilgi.</p>
+            </div>
+            <div class="blog-post" data-category="alternator">
+                <div class="blog-category">Alternatör</div>
+                <h4>Alternatör Bakım Rehberi</h4>
+                <p>Alternatör bakımı ve arıza teşhisi için profesyonel ipuçları.</p>
+            </div>
+            <div class="blog-post" data-category="mars">
+                <div class="blog-category">Marş Motoru</div>
+                <h4>Marş Motoru Sorunları</h4>
+                <p>Marş motoru arızaları ve çözüm yöntemleri.</p>
+            </div>
+            <div class="blog-post" data-category="bakim">
+                <div class="blog-category">Bakım</div>
+                <h4>Kış Bakımı Rehberi</h4>
+                <p>Kış aylarında araç bakımı için önemli ipuçları.</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>5. Widget Hata Kontrolü</h3>
+            <p>Tüm widget'lardaki hataları kontrol edin:</p>
+            <div id="errorStatus" class="status info">
+                Hata kontrolü başlatılıyor...
+            </div>
+            <button class="test-button" onclick="checkWidgetErrors()">
+                Hata Kontrolü
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h3>6. Widget Performans Testi</h3>
+            <p>Widget'ların performansını test edin:</p>
+            <div id="performanceStatus" class="status info">
+                Performans testi hazır
+            </div>
+            <button class="test-button" onclick="testWidgetPerformance()">
+                Performans Testi
+            </button>
+        </div>
+    </div>
+
+    <!-- Test için ek içerik (scroll test için) -->
+    <div class="test-container">
+        <h2>📜 Scroll Test İçeriği</h2>
+        <p>Bu bölüm, scroll davranışını test etmek için eklenmiştir.</p>
+        <div style="height: 500px; background: linear-gradient(45deg, #f0f0f0, #e0e0e0); display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+            <p>Scroll test alanı - Widget'ların scroll davranışını test edin</p>
+        </div>
+    </div>
+
+    <!-- JavaScript dosyaları -->
+    <script src="js/error-handler.js"></script>
+    <script src="js/floating-contact.js"></script>
+
+    <script>
+        // Test fonksiyonları
+        function testFloatingWidget() {
+            const status = document.getElementById('floatingStatus');
+            const floatingWidget = document.querySelector('.dc-floating');
+            
+            if (floatingWidget) {
+                const rect = floatingWidget.getBoundingClientRect();
+                const isVisible = rect.width > 0 && rect.height > 0;
+                
+                if (isVisible) {
+                    status.innerHTML = '<strong>✅ Floating widget bulundu ve görünür</strong><br>Pozisyon: ' + 
+                        Math.round(window.innerWidth - rect.right) + 'px sağdan, ' + 
+                        Math.round(window.innerHeight - rect.bottom) + 'px alttan';
+                    status.className = 'status success';
+                } else {
+                    status.innerHTML = '<strong>❌ Floating widget bulundu ama görünmez</strong>';
+                    status.className = 'status error';
+                }
+            } else {
+                status.innerHTML = '<strong>❌ Floating widget bulunamadı</strong>';
+                status.className = 'status error';
+            }
+        }
+
+        function testNewsletter() {
+            const email = document.getElementById('test-newsletter-email').value.trim();
+            const status = document.getElementById('newsletterStatus');
+            
+            if (!email) {
+                status.innerHTML = '<strong>❌ Lütfen e-posta adresi girin</strong>';
+                status.className = 'status error';
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                status.innerHTML = '<strong>❌ Geçerli bir e-posta formatı girin</strong>';
+                status.className = 'status error';
+                return;
+            }
+            
+            // Newsletter aboneliği simülasyonu
+            try {
+                const subscriptions = JSON.parse(localStorage.getItem('newsletter_subscriptions') || '[]');
+                if (!subscriptions.includes(email)) {
+                    subscriptions.push(email);
+                    localStorage.setItem('newsletter_subscriptions', JSON.stringify(subscriptions));
+                    status.innerHTML = '<strong>✅ Başarıyla abone oldunuz!</strong><br>E-posta: ' + email;
+                    status.className = 'status success';
+                } else {
+                    status.innerHTML = '<strong>ℹ️ Bu e-posta adresi zaten abone</strong>';
+                    status.className = 'status info';
+                }
+            } catch (error) {
+                status.innerHTML = '<strong>❌ Hata: ' + error.message + '</strong>';
+                status.className = 'status error';
+            }
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function checkWidgetErrors() {
+            const status = document.getElementById('errorStatus');
+            let errorCount = 0;
+            let errors = [];
+            
+            // Floating widget kontrolü
+            const floatingWidget = document.querySelector('.dc-floating');
+            if (!floatingWidget) {
+                errorCount++;
+                errors.push('Floating widget bulunamadı');
+            }
+            
+            // Newsletter form kontrolü
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (!newsletterForm) {
+                errorCount++;
+                errors.push('Newsletter form bulunamadı');
+            }
+            
+            // Tag buttons kontrolü
+            const tagButtons = document.querySelectorAll('.tag-btn');
+            if (tagButtons.length === 0) {
+                errorCount++;
+                errors.push('Tag buttons bulunamadı');
+            }
+            
+            // Console hatalarını kontrol et
+            const originalError = console.error;
+            let consoleErrors = [];
+            console.error = function(...args) {
+                consoleErrors.push(args.join(' '));
+                originalError.apply(console, args);
+            };
+            
+            // Test sonuçları
+            if (errorCount === 0 && consoleErrors.length === 0) {
+                status.innerHTML = '<strong>✅ Tüm widget\'lar hatasız çalışıyor</strong>';
+                status.className = 'status success';
+            } else {
+                status.innerHTML = '<strong>❌ ' + errorCount + ' widget hatası bulundu</strong><br>' + 
+                    errors.join('<br>') + 
+                    (consoleErrors.length > 0 ? '<br>Console hataları: ' + consoleErrors.length : '');
+                status.className = 'status error';
+            }
+        }
+
+        function testWidgetPerformance() {
+            const status = document.getElementById('performanceStatus');
+            const startTime = performance.now();
+            
+            // Widget'ları test et
+            const floatingWidget = document.querySelector('.dc-floating');
+            const newsletterForm = document.querySelector('.newsletter-form');
+            const tagButtons = document.querySelectorAll('.tag-btn');
+            
+            const endTime = performance.now();
+            const loadTime = endTime - startTime;
+            
+            let performanceScore = 100;
+            let issues = [];
+            
+            if (loadTime > 100) {
+                performanceScore -= 20;
+                issues.push('Yavaş yükleme: ' + Math.round(loadTime) + 'ms');
+            }
+            
+            if (!floatingWidget) {
+                performanceScore -= 30;
+                issues.push('Floating widget eksik');
+            }
+            
+            if (tagButtons.length < 3) {
+                performanceScore -= 20;
+                issues.push('Yetersiz tag button');
+            }
+            
+            if (performanceScore >= 90) {
+                status.innerHTML = '<strong>✅ Mükemmel performans: ' + performanceScore + '/100</strong><br>Yükleme süresi: ' + Math.round(loadTime) + 'ms';
+                status.className = 'status success';
+            } else if (performanceScore >= 70) {
+                status.innerHTML = '<strong>⚠️ İyi performans: ' + performanceScore + '/100</strong><br>Yükleme süresi: ' + Math.round(loadTime) + 'ms<br>Sorunlar: ' + issues.join(', ');
+                status.className = 'status info';
+            } else {
+                status.innerHTML = '<strong>❌ Düşük performans: ' + performanceScore + '/100</strong><br>Yükleme süresi: ' + Math.round(loadTime) + 'ms<br>Sorunlar: ' + issues.join(', ');
+                status.className = 'status error';
+            }
+        }
+
+        // Tag widget fonksiyonalitesi
+        document.addEventListener('DOMContentLoaded', function() {
+            const tagButtons = document.querySelectorAll('.tag-btn');
+            const blogPosts = document.querySelectorAll('.blog-post');
+            
+            tagButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Aktif tag'ı güncelle
+                    tagButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const selectedTag = this.getAttribute('data-tag');
+                    
+                    // Blog postlarını filtrele
+                    blogPosts.forEach(post => {
+                        if (selectedTag === 'all') {
+                            post.style.display = '';
+                        } else {
+                            const postCategory = post.getAttribute('data-category') || '';
+                            if (postCategory === selectedTag) {
+                                post.style.display = '';
+                            } else {
+                                post.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // Otomatik testler
+            setTimeout(() => {
+                testFloatingWidget();
+                checkWidgetErrors();
+                testWidgetPerformance();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

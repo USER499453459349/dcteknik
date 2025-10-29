@@ -261,3 +261,6 @@ Eğer ekleme yapılacaksa, önerilerim:
 
 **Soru:** Eklemek istediğiniz bir özellik var mı, yoksa blog bu şekilde kalabilir mi?
 
+
+
+

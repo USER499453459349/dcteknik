@@ -109,3 +109,6 @@
 
 Sadece manifest'te referans edilen opsiyonel icon dosyaları eksik. Bu dosyalar PWA için opsiyonel ve site normal şekilde çalışmaya devam ediyor.
 
+
+
+

@@ -19,7 +19,13 @@
     ctaWrap.appendChild(btnPrimary); ctaWrap.appendChild(btnSecondary); hero.appendChild(ctaWrap);
     // tracking
     [btnPrimary, btnSecondary].forEach((b)=> b.addEventListener('click', ()=>{
-      if (typeof gtag!=='undefined'){ gtag('event','hero_cta_click',{event_category:'ab',event_label:variant}); }
+      if (typeof gtag!=='undefined' && typeof gtag === 'function'){ 
+        try {
+          gtag('event','hero_cta_click',{event_category:'ab',event_label:variant}); 
+        } catch (error) {
+          console.warn('Hero CTA analytics gönderilemedi:', error);
+        }
+      }
     }));
   });
 })();

@@ -207,3 +207,6 @@ Deploy tamamlandıktan sonra:
 
 **Not**: Blog artık hem gece modu hem de okunabilirlik açısından mükemmel! Yazılar çok daha okunabilir, kontrast yüksek ve kullanıcı dostu!
 
+
+
+

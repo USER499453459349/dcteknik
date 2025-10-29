@@ -223,3 +223,4 @@ Deploy tamamlandıktan sonra:
 
 **Not**: Tüm özellikler mevcut kodları bozmadan eklendi. Site daha smooth ve modern görünecek!
 
+

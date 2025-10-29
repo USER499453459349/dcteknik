@@ -170,3 +170,6 @@ Deploy tamamlandıktan sonra:
 
 **Not**: RSS feed artık tam içerik, görsel desteği ve kategori bilgisi ile optimize edildi! RSS okuyucular için mükemmel bir deneyim sunuyor. 🎉
 
+
+
+
