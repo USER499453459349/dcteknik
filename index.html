@@ -2068,17 +2068,16 @@
                         console.warn('Theme toggle analytics gönderilemedi:', error);
                     }
                 }
-                });
             });
-            
-            function updateThemeIcon(theme) {
-                if (theme === 'dark') {
-                    themeIcon.className = 'fas fa-sun';
-                } else {
-                    themeIcon.className = 'fas fa-moon';
-                }
-            }
         });
+            
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+            }
+        }
     </script>
 </body>
 </html>
