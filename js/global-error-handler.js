@@ -46,6 +46,18 @@
     
     // Error handling function
     function handleError(errorInfo) {
+        // ErrorInfo kontrolü
+        if (!errorInfo || typeof errorInfo !== 'object') {
+            console.warn('Invalid error info received:', errorInfo);
+            return;
+        }
+        
+        // Message kontrolü
+        if (!errorInfo.message || errorInfo.message === 'undefined') {
+            console.warn('Undefined error message, skipping display');
+            return;
+        }
+        
         // Sadece production'da hata logla
         if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
             // Hata detaylarını topla
@@ -87,6 +99,10 @@
     
     // Kritik hata kontrolü
     function isCriticalError(errorInfo) {
+        if (!errorInfo || !errorInfo.message) {
+            return false;
+        }
+        
         const criticalPatterns = [
             'Cannot read property',
             'Cannot read properties',
@@ -94,11 +110,12 @@
             'is not defined',
             'Unexpected token',
             'SyntaxError',
-            'ReferenceError'
+            'ReferenceError',
+            'TypeError'
         ];
         
         return criticalPatterns.some(pattern => 
-            errorInfo.message && errorInfo.message.includes(pattern)
+            errorInfo.message.includes(pattern)
         );
     }
     

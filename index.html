@@ -2043,6 +2043,12 @@
             const themeIcon = document.getElementById('themeIcon');
             const body = document.body;
             
+            // Element kontrolü
+            if (!themeToggle || !themeIcon || !body) {
+                console.warn('Theme toggle elements not found');
+                return;
+            }
+            
             // Load saved theme
             const savedTheme = localStorage.getItem('theme') || 'light';
             body.setAttribute('data-theme', savedTheme);

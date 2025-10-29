@@ -52,6 +52,12 @@
   // Widget yükleme fonksiyonu - hata kontrolü ile
   function loadFloatingWidget() {
     try {
+      // Document kontrolü
+      if (!document || !document.head || !document.body) {
+        console.warn('Document not ready for floating widget');
+        return;
+      }
+      
       // Style'ı güvenli şekilde ekle
       if (document.head && !document.querySelector('style[data-dc-floating]')) {
         style.setAttribute('data-dc-floating', 'true');

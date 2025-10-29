@@ -2105,7 +2105,10 @@
         // Pagination
         const postsPerPage = 6;
         const grid = document.getElementById('blogGrid');
-        if(!grid) return;
+        if(!grid) {
+            console.warn('Blog grid not found');
+            return;
+        }
         const posts = Array.from(grid.querySelectorAll('.blog-post'));
         const totalPages = Math.max(1, Math.ceil(posts.length / postsPerPage));
         let currentPage = 1;
@@ -2113,6 +2116,12 @@
         const prevBtn = document.getElementById('prevPage');
         const nextBtn = document.getElementById('nextPage');
         const status = document.getElementById('pageStatus');
+        
+        // Element kontrolü
+        if (!prevBtn || !nextBtn || !status) {
+            console.warn('Pagination elements not found');
+            return;
+        }
 
         function renderPage(page){
             const start = (page - 1) * postsPerPage;
@@ -2198,6 +2207,12 @@
             const newsletterEmail = document.getElementById('newsletter-email');
             const newsletterSubmit = document.getElementById('newsletter-submit');
             const newsletterMessage = document.getElementById('newsletter-message');
+            
+            // Element kontrolü
+            if (!newsletterForm || !newsletterEmail || !newsletterSubmit || !newsletterMessage) {
+                console.warn('Newsletter elements not found');
+                return;
+            }
             
             if (newsletterForm) {
                 newsletterForm.addEventListener('submit', function(e) {
@@ -2292,6 +2307,12 @@
             // Tag Widget fonksiyonalitesi
             const tagButtons = document.querySelectorAll('.tag-btn');
             const blogPosts = document.querySelectorAll('.blog-post');
+            
+            // Element kontrolü
+            if (tagButtons.length === 0 || blogPosts.length === 0) {
+                console.warn('Tag or blog post elements not found');
+                return;
+            }
             
             tagButtons.forEach(button => {
                 button.addEventListener('click', function() {
