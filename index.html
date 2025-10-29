@@ -65,6 +65,10 @@
     <link rel="preload" href="web-optimization.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="web-optimization.css"></noscript>
     
+    <!-- Modern Hero Animations -->
+    <link rel="preload" href="hero-modern-animations.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="hero-modern-animations.css"></noscript>
+    
     <!-- Fallback script for async CSS loading -->
     <script>
         (function(){
@@ -744,7 +748,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero" role="region" aria-labelledby="hero-title">
-        <!-- Animated Background -->
+        <!-- Modern Animated Background -->
         <div class="hero-background">
             <div class="hero-particles"></div>
             <div class="hero-shapes">
@@ -754,8 +758,8 @@
                 <div class="shape shape-4"></div>
             </div>
             <div class="floating-elements">
-                <div class="floating-icon floating-1">🔧</div>
-                <div class="floating-icon floating-2">⚡</div>
+                <div class="floating-icon floating-1">⚡</div>
+                <div class="floating-icon floating-2">🔧</div>
                 <div class="floating-icon floating-3">🚗</div>
                 <div class="floating-icon floating-4">🛠️</div>
             </div>
@@ -1364,6 +1368,9 @@
     
     <!-- Performance Optimizer - Load early with defer -->
     <script defer src="js/performance-optimizer.js" onerror="console.error('Performance Optimizer failed to load')"></script>
+    
+    <!-- Modern Hero Animations -->
+    <script defer src="js/hero-modern-animations.js" onerror="console.error('Hero Modern Animations failed to load')"></script>
     
     <!-- Web Performance Optimizer - Core Web Vitals & Advanced Optimizations -->
     <script defer src="js/web-performance.js" onerror="console.error('Web Performance Optimizer failed to load')"></script>

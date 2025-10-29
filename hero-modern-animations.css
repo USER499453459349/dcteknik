@@ -1,0 +1,698 @@
+/**
+ * DC TEKNİK - Modern Hero Animations & Electric Blue Theme
+ * Modern animasyonlar ve elektrik mavisi-siyah tonlarda hero tasarımı
+ */
+
+/* CSS Variables - Electric Blue Theme */
+:root {
+    --electric-blue: #00bfff;
+    --electric-blue-dark: #0099cc;
+    --electric-blue-light: #33ccff;
+    --electric-blue-glow: #00bfff;
+    --dark-bg: #0a0a0a;
+    --darker-bg: #050505;
+    --surface-dark: #1a1a1a;
+    --text-electric: #e6f3ff;
+    --accent-electric: #00ffff;
+    --shadow-electric: 0 0 30px rgba(0, 191, 255, 0.3);
+    --shadow-electric-lg: 0 0 50px rgba(0, 191, 255, 0.5);
+}
+
+/* Modern Hero Section */
+.hero {
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(0, 191, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 2rem 4rem;
+    margin-top: 70px;
+}
+
+/* Animated Background */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 30%, rgba(0, 191, 255, 0.05) 50%, transparent 70%),
+        linear-gradient(-45deg, transparent 30%, rgba(0, 255, 255, 0.03) 50%, transparent 70%);
+    animation: backgroundShift 20s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes backgroundShift {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(10px) translateY(-10px); }
+    50% { transform: translateX(-5px) translateY(5px); }
+    75% { transform: translateX(5px) translateY(-5px); }
+}
+
+/* Electric Particles */
+.hero-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--electric-blue);
+    border-radius: 50%;
+    animation: particleFloat 15s linear infinite;
+    box-shadow: 0 0 10px var(--electric-blue);
+}
+
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 12s; }
+.particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 15s; }
+.particle:nth-child(3) { left: 30%; animation-delay: 4s; animation-duration: 18s; }
+.particle:nth-child(4) { left: 40%; animation-delay: 6s; animation-duration: 14s; }
+.particle:nth-child(5) { left: 50%; animation-delay: 8s; animation-duration: 16s; }
+.particle:nth-child(6) { left: 60%; animation-delay: 10s; animation-duration: 13s; }
+.particle:nth-child(7) { left: 70%; animation-delay: 12s; animation-duration: 17s; }
+.particle:nth-child(8) { left: 80%; animation-delay: 14s; animation-duration: 11s; }
+.particle:nth-child(9) { left: 90%; animation-delay: 16s; animation-duration: 19s; }
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(90vh) translateX(10px) scale(1);
+    }
+    90% {
+        opacity: 1;
+        transform: translateY(10vh) translateX(-10px) scale(1);
+    }
+    100% {
+        transform: translateY(0) translateX(0) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Electric Shapes */
+.hero-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.shape {
+    position: absolute;
+    border: 2px solid var(--electric-blue);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: shapePulse 8s ease-in-out infinite;
+}
+
+.shape-1 {
+    width: 100px;
+    height: 100px;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+    border-color: var(--electric-blue);
+    box-shadow: 0 0 20px var(--electric-blue);
+}
+
+.shape-2 {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 15%;
+    animation-delay: 2s;
+    border-color: var(--accent-electric);
+    box-shadow: 0 0 25px var(--accent-electric);
+}
+
+.shape-3 {
+    width: 80px;
+    height: 80px;
+    top: 40%;
+    left: 70%;
+    animation-delay: 4s;
+    border-color: var(--electric-blue-light);
+    box-shadow: 0 0 15px var(--electric-blue-light);
+}
+
+.shape-4 {
+    width: 120px;
+    height: 120px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 6s;
+    border-color: var(--electric-blue-dark);
+    box-shadow: 0 0 30px var(--electric-blue-dark);
+}
+
+@keyframes shapePulse {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.2) rotate(180deg);
+        opacity: 0.6;
+    }
+}
+
+/* Floating Icons with Electric Effect */
+.floating-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.floating-icon {
+    position: absolute;
+    font-size: 2rem;
+    color: var(--electric-blue);
+    text-shadow: 0 0 20px var(--electric-blue);
+    animation: floatIcon 10s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px var(--electric-blue));
+}
+
+.floating-1 {
+    top: 15%;
+    left: 15%;
+    animation-delay: 0s;
+    animation-duration: 8s;
+}
+
+.floating-2 {
+    top: 25%;
+    right: 20%;
+    animation-delay: 2s;
+    animation-duration: 10s;
+}
+
+.floating-3 {
+    top: 60%;
+    left: 25%;
+    animation-delay: 4s;
+    animation-duration: 12s;
+}
+
+.floating-4 {
+    bottom: 30%;
+    right: 30%;
+    animation-delay: 6s;
+    animation-duration: 9s;
+}
+
+@keyframes floatIcon {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 0.7;
+    }
+    25% {
+        transform: translateY(-20px) rotate(90deg) scale(1.1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-10px) rotate(180deg) scale(0.9);
+        opacity: 0.8;
+    }
+    75% {
+        transform: translateY(-30px) rotate(270deg) scale(1.05);
+        opacity: 0.9;
+    }
+}
+
+/* Hero Content */
+.hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2rem;
+    animation: contentFadeIn 2s ease-out;
+}
+
+@keyframes contentFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hero Badge with Electric Glow */
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 191, 255, 0.1);
+    border: 1px solid var(--electric-blue);
+    border-radius: 50px;
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-electric);
+    font-size: 0.9rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-electric);
+    animation: badgeGlow 3s ease-in-out infinite;
+}
+
+@keyframes badgeGlow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 191, 255, 0.6);
+    }
+}
+
+.hero-badge i {
+    color: var(--electric-blue);
+    animation: starTwinkle 2s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Hero Title with Electric Effect */
+.hero-title {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 900;
+    margin-bottom: 2rem;
+    color: var(--text-electric);
+    text-shadow: 0 0 30px var(--electric-blue);
+    animation: titleElectric 4s ease-in-out infinite;
+}
+
+.title-line-1 {
+    display: block;
+    background: linear-gradient(45deg, var(--electric-blue), var(--accent-electric), var(--electric-blue-light));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+}
+
+.title-line-2 {
+    display: block;
+    color: var(--text-electric);
+    font-size: 0.7em;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+}
+
+@keyframes titleElectric {
+    0%, 100% {
+        text-shadow: 0 0 30px var(--electric-blue);
+    }
+    50% {
+        text-shadow: 0 0 50px var(--electric-blue), 0 0 70px var(--accent-electric);
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Hero Subtitle with Typewriter */
+.hero-subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--text-electric);
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+    animation: subtitleFadeIn 2.5s ease-out 1s both;
+}
+
+.typewriter-text {
+    display: inline-block;
+    border-right: 2px solid var(--electric-blue);
+    animation: typewriter 3s steps(40) 1s 1 normal both, blink 1s infinite;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@keyframes typewriter {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+@keyframes blink {
+    0%, 50% { border-color: var(--electric-blue); }
+    51%, 100% { border-color: transparent; }
+}
+
+@keyframes subtitleFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+}
+
+/* Hero Description */
+.hero-description {
+    font-size: 1.1rem;
+    color: var(--text-electric);
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+    animation: descriptionSlideIn 2s ease-out 1.5s both;
+}
+
+@keyframes descriptionSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 0.8;
+        transform: translateX(0);
+    }
+}
+
+/* Stats Counter with Electric Animation */
+.hero-stats-counter {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+    animation: statsFadeIn 2s ease-out 2s both;
+}
+
+.stat-counter {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(0, 191, 255, 0.05);
+    border: 1px solid rgba(0, 191, 255, 0.2);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-counter::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.1), transparent);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.stat-counter:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-electric);
+    border-color: var(--electric-blue);
+}
+
+.counter-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--electric-blue);
+    text-shadow: 0 0 20px var(--electric-blue);
+    margin-bottom: 0.5rem;
+    animation: counterGlow 2s ease-in-out infinite;
+}
+
+@keyframes counterGlow {
+    0%, 100% {
+        text-shadow: 0 0 20px var(--electric-blue);
+    }
+    50% {
+        text-shadow: 0 0 30px var(--electric-blue), 0 0 40px var(--accent-electric);
+    }
+}
+
+.counter-label {
+    font-size: 0.9rem;
+    color: var(--text-electric);
+    opacity: 0.8;
+    font-weight: 600;
+}
+
+@keyframes statsFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hero Buttons with Electric Effects */
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+    animation: buttonsSlideUp 2s ease-out 2.5s both;
+}
+
+@keyframes buttonsSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-height: 44px;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--electric-blue), var(--electric-blue-dark));
+    color: white;
+    box-shadow: var(--shadow-electric);
+    border-color: var(--electric-blue);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-electric-lg);
+    background: linear-gradient(45deg, var(--electric-blue-light), var(--electric-blue));
+}
+
+.btn-whatsapp {
+    background: linear-gradient(45deg, #25D366, #128C7E);
+    color: white;
+    box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(37, 211, 102, 0.5);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--text-electric);
+    border-color: var(--electric-blue);
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.2);
+}
+
+.btn-outline:hover {
+    background: rgba(0, 191, 255, 0.1);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-electric);
+}
+
+/* Trust Indicators */
+.trust-indicators {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 3rem 0;
+    animation: trustFadeIn 2s ease-out 3s both;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(0, 191, 255, 0.05);
+    border: 1px solid rgba(0, 191, 255, 0.2);
+    border-radius: 10px;
+    color: var(--text-electric);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.trust-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-electric);
+    border-color: var(--electric-blue);
+}
+
+.trust-item i {
+    color: var(--electric-blue);
+    font-size: 1.2rem;
+    animation: trustIconPulse 2s ease-in-out infinite;
+}
+
+@keyframes trustIconPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes trustFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .hero {
+        padding: 100px 1rem 2rem;
+        margin-top: 70px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .hero-stats-counter {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .trust-indicators {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .floating-icon {
+        font-size: 1.5rem;
+    }
+    
+    .shape {
+        width: 60px !important;
+        height: 60px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-stats-counter {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-counter {
+        padding: 1rem;
+    }
+    
+    .counter-number {
+        font-size: 2rem;
+    }
+}
+
+/* Performance Optimizations */
+.hero * {
+    will-change: auto;
+}
+
+.hero:hover * {
+    will-change: transform, opacity;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .hero *,
+    .hero::before,
+    .particle,
+    .shape,
+    .floating-icon {
+        animation: none !important;
+        transition: none !important;
+    }
+}
