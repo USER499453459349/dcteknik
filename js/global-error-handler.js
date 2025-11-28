@@ -48,21 +48,41 @@
     function handleError(errorInfo) {
         // ErrorInfo kontrolü
         if (!errorInfo || typeof errorInfo !== 'object') {
-            console.warn('Invalid error info received:', errorInfo);
-            return;
+            return; // Sessizce geç
         }
         
         // Message kontrolü
-        if (!errorInfo.message || errorInfo.message === 'undefined') {
-            console.warn('Undefined error message, skipping display');
-            return;
+        const errorMessage = errorInfo.message || '';
+        if (!errorMessage || errorMessage === 'undefined' || errorMessage === 'null') {
+            return; // Sessizce geç
+        }
+        
+        // Gereksiz hataları filtrele
+        const ignoredErrors = [
+            'Script error',
+            'NetworkError',
+            'ResizeObserver loop',
+            'Non-Error promise rejection',
+            'favicon.ico',
+            'Failed to load resource',
+            'net::ERR_',
+            'Loading chunk',
+            'ChunkLoadError',
+            'ERR_BLOCKED_BY_CLIENT',
+            'ERR_ABORTED',
+            'ERR_NETWORK_CHANGED'
+        ];
+        
+        // İgnore edilecek hataları kontrol et
+        if (ignoredErrors.some(pattern => errorMessage.includes(pattern))) {
+            return; // Bu hatayı görmezden gel
         }
         
         // Sadece production'da hata logla
         if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
             // Hata detaylarını topla
             const errorData = {
-                message: errorInfo.message,
+                message: errorMessage,
                 filename: errorInfo.filename,
                 lineno: errorInfo.lineno,
                 colno: errorInfo.colno,
@@ -73,7 +93,7 @@
                 type: errorInfo.type
             };
             
-            // Analytics'e gönder
+            // Analytics'e gönder (sessizce)
             if (typeof gtag !== 'undefined' && typeof gtag === 'function') {
                 try {
                     gtag('event', 'javascript_error', {
@@ -86,11 +106,11 @@
                         }
                     });
                 } catch (analyticsError) {
-                    console.warn('Error analytics gönderilemedi:', analyticsError);
+                    // Analytics hatası sessizce geç
                 }
             }
             
-            // Kullanıcıya sessizce bildir (kritik hatalar için)
+            // Sadece gerçekten kritik hatalar için kullanıcıya bildir
             if (isCriticalError(errorInfo)) {
                 showUserFriendlyError();
             }
@@ -103,6 +123,25 @@
             return false;
         }
         
+        const errorMessage = String(errorInfo.message);
+        
+        // Önce ignore edilecek hataları kontrol et
+        const ignoredPatterns = [
+            'favicon',
+            'net::ERR_',
+            'ResizeObserver',
+            'Script error',
+            'NetworkError',
+            'ChunkLoadError',
+            'ERR_BLOCKED_BY_CLIENT',
+            'ERR_ABORTED'
+        ];
+        
+        if (ignoredPatterns.some(pattern => errorMessage.includes(pattern))) {
+            return false; // Bu hatalar kritik değil
+        }
+        
+        // Kritik hata pattern'leri
         const criticalPatterns = [
             'Cannot read property',
             'Cannot read properties',
@@ -111,17 +150,38 @@
             'Unexpected token',
             'SyntaxError',
             'ReferenceError',
-            'TypeError'
+            'TypeError',
+            'Failed to initialize',
+            'Uncaught TypeError',
+            'Uncaught ReferenceError'
         ];
         
-        return criticalPatterns.some(pattern => 
-            errorInfo.message.includes(pattern)
+        const isCritical = criticalPatterns.some(pattern => 
+            errorMessage.includes(pattern)
         );
+        
+        // Sadece gerçekten kritik ve kullanıcıyı etkileyen hatalar için true döndür
+        return isCritical && errorInfo.type !== 'resource_error';
     }
+    
+    // Hata mesajı throttle mekanizması
+    let lastErrorShown = 0;
+    const ERROR_SHOW_INTERVAL = 10000; // 10 saniyede bir maksimum
     
     // Kullanıcı dostu hata mesajı
     function showUserFriendlyError() {
-        if (document.querySelector('.error-notification')) return;
+        // Zaten bir hata mesajı varsa veya çok yakın zamanda gösterildiyse gösterme
+        if (document.querySelector('.error-notification')) {
+            return;
+        }
+        
+        // Throttle kontrolü - çok sık hata mesajı gösterme
+        const now = Date.now();
+        if (now - lastErrorShown < ERROR_SHOW_INTERVAL) {
+            return;
+        }
+        
+        lastErrorShown = now;
         
         const notification = document.createElement('div');
         notification.className = 'error-notification';
@@ -157,6 +217,7 @@
                     padding: 0;
                     width: 20px;
                     height: 20px;
+                    line-height: 1;
                 ">×</button>
             </div>
             <style>
@@ -167,14 +228,17 @@
             </style>
         `;
         
-        document.body.appendChild(notification);
-        
-        // 5 saniye sonra otomatik kaldır
-        setTimeout(() => {
-            if (notification.parentElement) {
-                notification.remove();
-            }
-        }, 5000);
+        // Body hazırsa ekle
+        if (document.body) {
+            document.body.appendChild(notification);
+            
+            // 5 saniye sonra otomatik kaldır
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
     }
     
     // Console error override

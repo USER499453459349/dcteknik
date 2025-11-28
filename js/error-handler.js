@@ -5,6 +5,8 @@
 
 class ErrorHandler {
     constructor() {
+        this.lastErrorShown = 0;
+        this.ERROR_SHOW_INTERVAL = 10000; // 10 saniyede bir maksimum
         this.init();
     }
 
@@ -24,11 +26,32 @@ class ErrorHandler {
     }
 
     handleError(error, filename = 'Unknown', lineno = 0) {
+        // Hata mesajını al
+        const errorMessage = error?.message || String(error) || '';
+        
+        // Gereksiz hataları filtrele
+        const ignoredErrors = [
+            'Script error',
+            'NetworkError',
+            'ResizeObserver loop',
+            'Non-Error promise rejection',
+            'favicon.ico',
+            'Failed to load resource',
+            'net::ERR_',
+            'Loading chunk',
+            'ChunkLoadError'
+        ];
+        
+        // İgnore edilecek hataları kontrol et
+        if (ignoredErrors.some(pattern => errorMessage.includes(pattern))) {
+            return; // Bu hatayı görmezden gel
+        }
+        
         // Sadece production'da hata logla
         if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
             // Hata detaylarını topla
             const errorInfo = {
-                message: error?.message || error,
+                message: errorMessage,
                 filename: filename,
                 lineno: lineno,
                 stack: error?.stack,
@@ -42,20 +65,51 @@ class ErrorHandler {
                 try {
                     gtag('event', 'javascript_error', {
                         event_category: 'Error',
-                    event_label: errorInfo.message,
-                    custom_map: {
-                        error_filename: errorInfo.filename,
-                        error_line: errorInfo.lineno
-                    }
-                });
+                        event_label: errorInfo.message,
+                        custom_map: {
+                            error_filename: errorInfo.filename,
+                            error_line: errorInfo.lineno
+                        }
+                    });
                 } catch (analyticsError) {
-                    console.warn('Error analytics gönderilemedi:', analyticsError);
+                    // Analytics hatası sessizce geç
                 }
             }
 
-            // Kullanıcıya sessizce bildir (opsiyonel)
-            this.showUserFriendlyError();
+            // Sadece kritik hatalar için kullanıcıya bildir
+            if (this.isCriticalError(errorInfo)) {
+                this.showUserFriendlyError();
+            }
         }
+    }
+    
+    // Kritik hata kontrolü
+    isCriticalError(errorInfo) {
+        if (!errorInfo || !errorInfo.message) {
+            return false;
+        }
+        
+        const criticalPatterns = [
+            'Cannot read property',
+            'Cannot read properties',
+            'is not a function',
+            'is not defined',
+            'Unexpected token',
+            'SyntaxError',
+            'ReferenceError',
+            'TypeError',
+            'Failed to initialize'
+        ];
+        
+        // Kritik hata değilse false döndür
+        const isCritical = criticalPatterns.some(pattern => 
+            errorInfo.message.includes(pattern)
+        );
+        
+        // Sadece gerçekten kritik hatalar için true döndür
+        return isCritical && !errorInfo.message.includes('favicon') && 
+               !errorInfo.message.includes('net::ERR_') &&
+               !errorInfo.message.includes('ResizeObserver');
     }
 
     overrideConsoleError() {
@@ -69,9 +123,18 @@ class ErrorHandler {
     }
 
     showUserFriendlyError() {
-        // Kullanıcıya görünür hata mesajı gösterme
-        // Sadece kritik hatalar için
-        if (document.querySelector('.error-notification')) return;
+        // Zaten bir hata mesajı varsa veya çok yakın zamanda gösterildiyse gösterme
+        if (document.querySelector('.error-notification')) {
+            return;
+        }
+        
+        // Throttle kontrolü - çok sık hata mesajı gösterme
+        const now = Date.now();
+        if (now - this.lastErrorShown < this.ERROR_SHOW_INTERVAL) {
+            return;
+        }
+        
+        this.lastErrorShown = now;
 
         const notification = document.createElement('div');
         notification.className = 'error-notification';
@@ -107,6 +170,7 @@ class ErrorHandler {
                     padding: 0;
                     width: 20px;
                     height: 20px;
+                    line-height: 1;
                 ">×</button>
             </div>
             <style>
@@ -117,14 +181,17 @@ class ErrorHandler {
             </style>
         `;
 
-        document.body.appendChild(notification);
+        // Body hazırsa ekle
+        if (document.body) {
+            document.body.appendChild(notification);
 
-        // 5 saniye sonra otomatik kaldır
-        setTimeout(() => {
-            if (notification.parentElement) {
-                notification.remove();
-            }
-        }, 5000);
+            // 5 saniye sonra otomatik kaldır
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
     }
 
     // Utility method for manual error reporting
